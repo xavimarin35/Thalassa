@@ -30,8 +30,10 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
-	//App->map->Load("hello2.tmx");
-	App->map->Load("iso.tmx");
+	App->map->Load("Map1.tmx");
+
+	App->tex->Load("maps/bg_big.png");
+	
 	
 	return true;
 }
@@ -63,6 +65,7 @@ bool j1Scene1::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
+	App->render->Blit(bg, 0, 0, NULL, 1.0f);
 	App->map->Draw();
 
 	int x, y;
