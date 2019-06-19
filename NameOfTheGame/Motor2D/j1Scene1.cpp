@@ -7,28 +7,28 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "j1Scene.h"
+#include "j1Scene1.h"
 
-j1Scene::j1Scene() : j1Module()
+j1Scene1::j1Scene1() : j1Module()
 {
-	name.create("scene");
+	name.create("scene1");
 }
 
 // Destructor
-j1Scene::~j1Scene()
+j1Scene1::~j1Scene1()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene1::Awake()
 {
-	LOG("Loading Scene");
+	LOG("Loading Scene1");
 	bool ret = true;
 
 	return ret;
 }
 
 // Called before the first frame
-bool j1Scene::Start()
+bool j1Scene1::Start()
 {
 	//App->map->Load("hello2.tmx");
 	App->map->Load("iso.tmx");
@@ -37,13 +37,13 @@ bool j1Scene::Start()
 }
 
 // Called each loop iteration
-bool j1Scene::PreUpdate()
+bool j1Scene1::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool j1Scene::Update(float dt)
+bool j1Scene1::Update(float dt)
 {
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -79,7 +79,7 @@ bool j1Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1Scene::PostUpdate()
+bool j1Scene1::PostUpdate()
 {
 	bool ret = true;
 
@@ -90,9 +90,9 @@ bool j1Scene::PostUpdate()
 }
 
 // Called before quitting
-bool j1Scene::CleanUp()
+bool j1Scene1::CleanUp()
 {
-	LOG("Freeing scene");
+	LOG("Freeing scene1");
 
 	return true;
 }

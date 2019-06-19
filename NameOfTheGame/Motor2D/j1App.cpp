@@ -9,7 +9,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
-#include "j1Scene.h"
+#include "j1Scene1.h"
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1App.h"
@@ -25,7 +25,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
-	scene = new j1Scene();
+	scene1 = new j1Scene1();
 	map = new j1Map();
 	player = new j1Player();
 
@@ -36,7 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(scene);
+	AddModule(scene1);
 	AddModule(player);
 
 	// render last to swap buffer
