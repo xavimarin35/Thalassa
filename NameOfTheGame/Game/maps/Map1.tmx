@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="3">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
  </tileset>
@@ -5014,4 +5014,8 @@
    <tile/>
   </data>
  </layer>
+ <objectgroup color="#ffff00" id="4" name="wall_collider">
+  <object id="1" x="16" y="288" width="103" height="23.25"/>
+  <object id="2" x="118.5" y="304.25" width="153.5" height="8"/>
+ </objectgroup>
 </map>

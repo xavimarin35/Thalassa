@@ -414,39 +414,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
-//bool j1Map::PutColliders(const char * file_name)
-//{
-//	bool ret = true;
-//
-//	p2SString tmp("%s%s", folder.GetString(), file_name);
-//
-//	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
-//
-//	if (result == NULL)
-//	{
-//		LOG("Could not load tiled xml file %s. pugi error: %s", file_name, result.description());
-//		ret = false;
-//	}
-//	pugi::xml_node obj;
-//	pugi::xml_node group;
-//	const char* object_name;
-//	for (group = map_file.child("map").child("objectgroup"); group && ret; group = group.next_sibling("objectgroup"))
-//	{
-//		object_name = group.attribute("name").as_string();
-//
-//		for (obj = group.child("object"); obj && ret; obj = obj.next_sibling("object"))
-//		{
-//			if (strcmp(object_name, "map_collisions") == 0)
-//				App->collisions->AddCollider({ obj.attribute("x").as_int(), obj.attribute("y").as_int(), obj.attribute("width").as_int(), obj.attribute("height").as_int() }, COLLIDER_WALL);
-//			if (strcmp(object_name, "death_collisions") == 0)
-//				App->collisions->AddCollider({ obj.attribute("x").as_int(), obj.attribute("y").as_int(), obj.attribute("width").as_int(), obj.attribute("height").as_int() }, COLLIDER_DEATH);
-//			else if (strcmp(object_name, "win_collider") == 0)
-//				App->collisions->AddCollider({ obj.attribute("x").as_int(), obj.attribute("y").as_int(), obj.attribute("width").as_int(), obj.attribute("height").as_int() }, COLLIDER_WIN);
-//		}
-//	}
-//
-//	return ret;
-//}
 
 uint MapLayer::Get(int x, int y) const
 {
