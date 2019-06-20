@@ -26,13 +26,9 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
-	//bgBlitSpeed = config.child("blitSpeed").attribute("backgrounds").as_float();
-	//fogBlitSpeed = config.child("blitSpeed").attribute("fog").as_float();
-
 	return ret;
 }
 
-// All layers are drawn
 void j1Map::Draw()
 {
 	if (map_loaded == false)
@@ -94,7 +90,6 @@ iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret(0, 0);
 
-	// Translates x,y coordinates from map positions to world positions
 	if (data.type == MapTypes::MAPTYPE_ORTHOGONAL) {
 		ret.x = x * data.tile_width;
 		ret.y = y * data.tile_height;
@@ -110,12 +105,12 @@ iPoint j1Map::MapToWorld(int x, int y) const
 iPoint j1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0, 0);
-	// Orthographic world to map coordinates
+
 	if (data.type == MapTypes::MAPTYPE_ORTHOGONAL) {
 		ret.x = x / data.tile_width;
 		ret.y = y / data.tile_height;
 	}
-	// Isometric world to map coordinates
+
 	else if (data.type == MapTypes::MAPTYPE_ISOMETRIC) {
 		ret.x = (x / (data.tile_width / 2) + y / (data.tile_height / 2)) / 2;
 		ret.y = (y / (data.tile_height / 2) - x / (data.tile_width / 2)) / 2;
@@ -137,7 +132,6 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
-// Called before quitting
 bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
@@ -249,7 +243,7 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-	/*PutColliders(file_name);*/
+	LoadColliders();
 
 	map_loaded = ret;
 
@@ -390,7 +384,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	LoadProperties(node, layer->properties);
 	pugi::xml_node layer_data = node.child("data");
 
 	if (layer_data == NULL)
@@ -420,13 +413,25 @@ uint MapLayer::Get(int x, int y) const
 	return (y * width) + x;
 }
 
-// Load a group of properties from a node and fill a list with it
-bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+
+bool j1Map::LoadColliders()
 {
-	bool ret = false;
+	bool ret = true;
 
-	// TODO 6: Fill in the method to fill the custom properties from 
-	// an xml_node
+	pugi::xml_node objectgroup;
+	pugi::xml_node object;
+	const char* name;
 
-	return ret;
+	for (objectgroup = map_file.child("map").child("objectgroup"); objectgroup && ret; objectgroup = objectgroup.next_sibling("objectgroup")) 
+	{
+		
+		name = objectgroup.attribute("name").as_string();
+
+		for (object = objectgroup.child("object"); object && ret; object = object.next_sibling("object")) 
+		{
+		
+		}
+	}
+
+	return true;
 }
