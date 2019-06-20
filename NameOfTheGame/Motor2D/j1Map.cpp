@@ -57,7 +57,7 @@ void j1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 						if (layer->data->name == "big_background")
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.5F);
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
 						else
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r);  //playable layer
 					}
