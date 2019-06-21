@@ -11,22 +11,15 @@ class j1Player : public j1Module
 public:
 
 	j1Player();
-
-	// Destructor
 	virtual ~j1Player();
 
-	// Called before render is available
 	//bool Awake(pugi::xml_node& conf);
 
-	// Called before the first frame
 	bool Start();
 
-	// Called each loop iteration
 	bool PreUpdate();
 	bool Update();
 	bool PostUpdate();
-
-	// Called before quitting
 	bool CleanUp();
 
 	// Load / Save
@@ -35,10 +28,6 @@ public:
 
 private:
 
-	/*bool LoadMap();
-	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);*/
 
 public:
 	iPoint position;	

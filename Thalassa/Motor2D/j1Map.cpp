@@ -424,12 +424,12 @@ bool j1Map::LoadColliders()
 
 	for (objectgroup = map_file.child("map").child("objectgroup"); objectgroup && ret; objectgroup = objectgroup.next_sibling("objectgroup")) 
 	{
-		
 		name = objectgroup.attribute("name").as_string();
 
 		for (object = objectgroup.child("object"); object && ret; object = object.next_sibling("object")) 
 		{
-		
+			if (strcmp(name, "wall_collider") == 0)
+				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_WALL);
 		}
 	}
 
