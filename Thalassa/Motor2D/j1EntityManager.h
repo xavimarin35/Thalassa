@@ -6,7 +6,6 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Entity.h"
-#include "j1Player.h"
 
 #define MAX_ENTITIES 50
 
@@ -17,12 +16,12 @@ struct SDL_Texture;
 enum ENTITY_TYPE
 {
 	PLAYER,
-	UNKNOWN
+	NONE
 };
 
 struct EntityInfo
 {
-	ENTITY_TYPE type = ENTITY_TYPE::UNKNOWN;
+	ENTITY_TYPE type = ENTITY_TYPE::NONE;
 	iPoint position;
 };
 
