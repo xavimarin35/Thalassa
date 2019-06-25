@@ -18,12 +18,10 @@ public:
 	j1Player(int x, int y, ENTITY_TYPE type);
 	virtual ~j1Player();
 
-	//bool Awake(pugi::xml_node& conf);
-
 	bool Start();
 
 	bool PreUpdate();
-	bool Update();
+	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 
@@ -31,12 +29,19 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-private:
+public:
+
+	Animation idle;
+	Animation run;
+	Animation jetpack;
+	Animation jump;
 
 
 public:
 	iPoint position;	
 	bool dead = false;
+	bool playerCreated = false;
+	float speed;
 };
 
-#endif // __jPLAYER_H__
+#endif // __j1PLAYER_H__

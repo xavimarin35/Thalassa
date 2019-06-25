@@ -16,6 +16,11 @@ bool j1EntityManager::Awake(pugi::xml_node &)
 
 bool j1EntityManager::Start()
 {
+	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
+	{
+		it->data->Start();
+	}
+
 	return true;
 }
 
@@ -26,20 +31,36 @@ bool j1EntityManager::PreUpdate()
 
 bool j1EntityManager::Update(float dt)
 {
+	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
+	{
+		it->data->Update(dt);
+	}
 	return true;
 }
 
 bool j1EntityManager::PostUpdate()
 {
+	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
+	{
+		it->data->PostUpdate();
+	}
+
 	return true;
 }
 
 bool j1EntityManager::CleanUp()
 {
+	bool ret = true;
+
+	for (p2List_item<j1Entity*>* it = entityList.end; it != NULL; it = it->prev)
+	{
+		ret = it->data->CleanUp();
+	}
+
 	entityList.clear();
 	player = nullptr;
 
-	return true;
+	return ret;
 }
 
 void j1EntityManager::OnCollision(Collider * c1, Collider * c2)

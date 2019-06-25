@@ -8,6 +8,8 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene1.h"
+#include "j1EntityManager.h"
+#include "j1Player.h"
 
 j1Scene1::j1Scene1() : j1Module()
 {
@@ -32,6 +34,8 @@ bool j1Scene1::Start()
 {
 	App->map->Load("Map1.tmx");
 	/*App->tex->Load("maps/bg_big.png");*/
+
+	App->entity_manager->CreateEntity(PLAYER);
 	
 	
 	return true;

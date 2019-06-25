@@ -41,7 +41,7 @@ bool j1Entity::Save(pugi::xml_node &)
 	return true;
 }
 
-void j1Entity::BlitEntity(int x, int y, SDL_Rect r, bool flip)
+void j1Entity::BlitEntity(SDL_Rect r, bool flip, int x, int y)
 {
 	if (flip == false)
 		App->render->Blit(sprites, (int)position.x + x, (int)position.y + y, &r, SDL_FLIP_NONE);
