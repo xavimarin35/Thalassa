@@ -43,14 +43,13 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	j1Entity* EntityFactory(ENTITY_TYPE type, int x = 0, int y = 0);
-	void CreatePlayer();
-	void DestroyEntities();
+	void CreateEntity(ENTITY_TYPE type);
 
 	void OnCollision(Collider* c1, Collider* c2);
 
 public:
 
-	p2List<j1Entity*>	entities;
+	p2List<j1Entity*>	entityList;
 	j1Player*			player = nullptr;
 
 private:
