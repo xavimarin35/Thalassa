@@ -16,34 +16,34 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 	idle.LoadAnimations("idle");
 	jetpack.LoadAnimations("jetpack");
 
-	idle.loop = true;
-	idle.speed = 0.008f;
-	idle.PushBack({ 4,36,13,21 });
-	idle.PushBack({ 24,36,13,21 });
+	//idle.loop = true;
+	//idle.speed = 0.008f;
+	//idle.PushBack({ 4,36,13,21 });
+	//idle.PushBack({ 24,36,13,21 });
 
-	run.loop = true;
-	run.speed = 0.025f;
-	run.PushBack({ 64,37,13,21 });
-	run.PushBack({ 3,60,14,21 });
-	run.PushBack({ 44,60,13,21 });
-	run.PushBack({ 24,60,13,21 });
-	run.PushBack({ 24,60,13,21 });
-	run.PushBack({ 44,60,13,21 });
-	run.PushBack({ 3,60,14,21 });
+	//run.loop = true;
+	//run.speed = 0.025f;
+	//run.PushBack({ 64,37,13,21 });
+	//run.PushBack({ 3,60,14,21 });
+	//run.PushBack({ 44,60,13,21 });
+	//run.PushBack({ 24,60,13,21 });
+	//run.PushBack({ 24,60,13,21 });
+	//run.PushBack({ 44,60,13,21 });
+	//run.PushBack({ 3,60,14,21 });
 
-	jetpack.loop = true;
-	jetpack.speed = 0.01f;
-	jetpack.PushBack({ 4,8,14,23 });
-	jetpack.PushBack({ 24,8,14,23 });
+	//jetpack.loop = true;
+	//jetpack.speed = 0.01f;
+	//jetpack.PushBack({ 4,8,14,23 });
+	//jetpack.PushBack({ 24,8,14,23 });
 
-	jump.loop = false;
-	jump.speed = 0.001f;
-	//jump.PushBack({ 3,112,15,17 });
-	//jump.PushBack({ 23,112,15,17 });
-	//jump.PushBack({ 43,112,15,17 });
-	//jump.PushBack({ 23,112,15,17 });
-	//jump.PushBack({ 3,112,15,17 });
-	jump.PushBack({ 24,87,13,18 });
+	//jump.loop = false;
+	//jump.speed = 0.001f;
+	////jump.PushBack({ 3,112,15,17 });
+	////jump.PushBack({ 23,112,15,17 });
+	////jump.PushBack({ 43,112,15,17 });
+	////jump.PushBack({ 23,112,15,17 });
+	////jump.PushBack({ 3,112,15,17 });
+	//jump.PushBack({ 24,87,13,18 });
 }
 
 j1Player::~j1Player() {}
@@ -57,7 +57,7 @@ bool j1Player::Start() {
 	animation = &idle;
 	playerCreated = true;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 10, 10 }, COLLIDER_PLAYER, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x + 3, (int)position.y, 12, 20 }, COLLIDER_PLAYER, App->entity_manager);
 
 	return true;
 }
