@@ -51,8 +51,8 @@ public:
 	void LoadAnimations(p2SString name)
 	{
 		pugi::xml_parse_result result = anim_file.load_file("config_animations.xml");
-		/*if (result != NULL)
-		{*/
+		if (result != NULL)
+		{
 			pugi::xml_node animation_name = anim_file.child("animations").child("player").child(name.GetString());
 			loop = animation_name.attribute("loop").as_bool();
 			speed = animation_name.attribute("speed").as_float();
@@ -60,7 +60,7 @@ public:
 			{
 				PushBack({ animation.attribute("x").as_int(), animation.attribute("y").as_int(), animation.attribute("w").as_int(), animation.attribute("h").as_int() });
 			}
-		/*}*/
+		}
 	}
 
 	float Getframe_pos() {
