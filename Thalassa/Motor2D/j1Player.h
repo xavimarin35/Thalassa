@@ -38,7 +38,7 @@ public:
 
 
 public:
-	iPoint position;	
+	fPoint position;	
 	bool dead = false;
 	bool playerCreated = false;
 	float speed;

@@ -27,7 +27,7 @@ public:
 	virtual bool Save(pugi::xml_node&);
 
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
-	virtual void BlitEntity(SDL_Rect r, bool flip = false, int x = 0, int y = 0);
+	virtual void BlitEntity(SDL_Rect r, bool flip = false, float x = 0, float y = 0);
 
 public:
 

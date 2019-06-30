@@ -23,9 +23,8 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position.x = 3000;
-	position.y = 3000;
-	speed = 100.0f;
+	position = { 0,0 };
+	speed = 0.4f;
 	animation = &idle;
 	playerCreated = true;
 
@@ -61,15 +60,12 @@ bool j1Player::Update(float dt) {
 		}
 	}
 
-
-
-
 	// update collider 
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
 	SDL_Rect r = animation->GetCurrentFrame();
-	BlitEntity({4, 37, 13, 20});
+	BlitEntity({ 4, 37, 13, 20 }, false, position.x, position.y);
 	LOG("player blitted");
 
 	return true;
