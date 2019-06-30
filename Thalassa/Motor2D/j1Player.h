@@ -42,6 +42,9 @@ public:
 	bool dead = false;
 	bool playerCreated = false;
 	float speed;
+
+private:
+	bool flip = true;
 };
 
 #endif // __j1PLAYER_H__
