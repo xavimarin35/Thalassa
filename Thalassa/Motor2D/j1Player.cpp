@@ -73,32 +73,49 @@ bool j1Player::Update(float dt) {
 	{
 		animation = &idle;
 
-		if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-			position.x += speed;
-			animation = &run;
-			flip = true;
-		}
+		/*if (godMode) 
+		{
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-			position.x -= speed;
-			animation = &run;
-			flip = false;
 		}
+		else (NO GODMODE PART)
+		{*/
+			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+				position.x += speed;
+				animation = &run;
+				flip = true;
+			}
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
-			position.y -= speed;
-			animation = &idle;
-		}
+			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
+				position.x -= speed;
+				animation = &run;
+				flip = false;
+			}
 
-		if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-			position.y += speed;
-			animation = &idle;
-		}
+			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
+				position.y -= speed;
+				animation = &idle;
+			}
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_REPEAT) {
-			//position.y += speed;
-			animation = &jump;
-		}
+			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
+				position.y += speed;
+				animation = &idle;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_REPEAT) {
+				//position.y += speed;
+				animation = &jump;
+			}
+
+			// applying gravity
+			if (isJumping == false && onFloor == false) 
+			{
+				isFalling = true;
+				position.y += speed;
+
+				// animation = &falling;
+
+			}
+		/*}*/
 	}
 
 	// update collider 
@@ -138,4 +155,8 @@ bool j1Player::CleanUp() {
 	LOG("Freeing the player");
 
 	return true;
+}
+
+void j1Player::OnCollision(Collider * c1, Collider * c2)
+{
 }

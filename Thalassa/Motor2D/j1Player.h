@@ -25,6 +25,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	void OnCollision(Collider* c1, Collider* c2);
+
 	// Load / Save
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -39,9 +41,13 @@ public:
 
 public:
 	fPoint position;	
-	bool dead = false;
-	bool playerCreated = false;
 	float speed;
+
+	bool isDead = false;
+	bool playerCreated = false;
+	bool onFloor = false;
+	bool isJumping = false;
+	bool isFalling = false;
 
 private:
 	bool flip = true;
