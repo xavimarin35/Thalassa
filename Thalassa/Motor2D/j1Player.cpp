@@ -106,6 +106,7 @@ bool j1Player::Update(float dt) {
 				animation = &jump;
 			}
 
+
 			// applying gravity
 			if (isJumping == false && onFloor == false) 
 			{
@@ -159,4 +160,28 @@ bool j1Player::CleanUp() {
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
+	if (c1->type == COLLIDER_PLAYER)
+	{
+		if (c2->type == COLLIDER_WALL)
+		{
+			// Right & Left Collisions
+			if (collider->rect.y <= c2->rect.y + c2->rect.h && collider->rect.y + collider->rect.h >= c2->rect.y)
+			{
+				if(collider->rect.x + collider->rect.w >= c2->rect.x && collider->rect.x <= c2->rect.x)
+				{
+					ColRight = true;
+				}
+				else if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
+				{
+					ColLeft = true;
+				}
+			}
+			
+			// Up & Down Collisions
+			if (collider->rect.x + collider->rect.w >= c2->rect.x && collider->rect.x < c2->rect.x + c2->rect.w)
+			{
+
+			}
+		}
+	}
 }

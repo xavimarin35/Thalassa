@@ -49,6 +49,11 @@ public:
 	bool isJumping = false;
 	bool isFalling = false;
 
+	bool ColRight = false;
+	bool ColLeft = false;
+	bool ColUp = false;
+	bool ColDown = false;
+
 private:
 	bool flip = true;
 };
