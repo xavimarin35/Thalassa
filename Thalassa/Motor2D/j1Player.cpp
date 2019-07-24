@@ -80,15 +80,21 @@ bool j1Player::Update(float dt) {
 		else (NO GODMODE PART)
 		{*/
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-				position.x += speed;
-				animation = &run;
-				flip = true;
+				if (!ColRight)
+				{
+					position.x += speed;
+					animation = &run;
+					flip = true;
+				}
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-				position.x -= speed;
-				animation = &run;
-				flip = false;
+				if (!ColLeft)
+				{
+					position.x -= speed;
+					animation = &run;
+					flip = false;
+				}
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
@@ -112,14 +118,11 @@ bool j1Player::Update(float dt) {
 			{
 				isFalling = true;
 				position.y += speed;
-
 				// animation = &falling;
-
 			}
 		/*}*/
 	}
 
-	// update collider 
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
@@ -170,10 +173,14 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 				if(collider->rect.x + collider->rect.w >= c2->rect.x && collider->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
+					LOG("TOUCHES RIGHT");
 				}
-				else if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
+				else 
+				
+				if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
 				{
 					ColLeft = true;
+					LOG("TOUCHES LEFT");
 				}
 			}
 			
