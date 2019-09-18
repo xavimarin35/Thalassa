@@ -65,7 +65,14 @@ bool j1EntityManager::CleanUp()
 
 void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
 {
-
+	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next) 
+	{
+		if (it->data->collider == c1)
+		{
+			it->data->OnCollision(c1, c2);
+			break;
+		}
+	}
 }
 
 j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
