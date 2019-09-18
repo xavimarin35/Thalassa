@@ -13,7 +13,6 @@ class j1Textures;
 class j1Audio;
 class j1Scene1;
 class j1Map;
-class j1Player;
 class j1Collisions;
 class j1EntityManager;
 
@@ -86,7 +85,6 @@ public:
 	j1Audio*			audio;
 	j1Scene1*			scene1;
 	j1Map*				map;
-	j1Player*			player;
 	j1Collisions*		collisions;
 	j1EntityManager*	entity_manager;
 

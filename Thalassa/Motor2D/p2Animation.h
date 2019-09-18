@@ -18,7 +18,7 @@ private:
 	int last_frame = 0;
 	int loops = 0;
 
-	//pugi::xml_document	animations_file;
+	pugi::xml_document	anim_file;
 
 public:
 
@@ -34,17 +34,32 @@ public:
 		frames[last_frame++] = rect;
 	}
 
-	SDL_Rect& GetCurrentFrame(float dt)
+	SDL_Rect& GetCurrentFrame()
 	{
 		if (this)
 		{
-			current_frame += speed * dt;
+			current_frame += speed;
 			if (current_frame >= last_frame)
 			{
 				current_frame = (loop) ? 0.0f : last_frame - 1;
 				loops++;
 			}
 			return frames[(int)current_frame];
+		}
+	}
+
+	void LoadAnimations(p2SString name)
+	{
+		pugi::xml_parse_result result = anim_file.load_file("config_animations.xml");
+		if (result != NULL)
+		{
+			pugi::xml_node animation_name = anim_file.child("animations").child("player").child(name.GetString());
+			loop = animation_name.attribute("loop").as_bool();
+			speed = animation_name.attribute("speed").as_float();
+			for (pugi::xml_node animation = animation_name.child("animation"); animation; animation = animation.next_sibling("animation"))
+			{
+				PushBack({ animation.attribute("x").as_int(), animation.attribute("y").as_int(), animation.attribute("w").as_int(), animation.attribute("h").as_int() });
+			}
 		}
 	}
 

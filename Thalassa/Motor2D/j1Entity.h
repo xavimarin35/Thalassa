@@ -8,7 +8,7 @@
 
 struct SDL_Texture;
 struct Collider;
-struct Animation;
+class Animation;
 
 enum ENTITY_TYPE;
 
@@ -16,7 +16,6 @@ class j1Entity
 {
 public:
 	j1Entity(int x, int y, ENTITY_TYPE type);
-	j1Entity() {}
 
 	virtual bool Start();
 	virtual bool PreUpdate();
@@ -24,19 +23,22 @@ public:
 	virtual bool PostUpdate();
 	virtual bool CleanUp();
 
-public:
-
 	virtual bool Load(pugi::xml_node&);
 	virtual bool Save(pugi::xml_node&);
 
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
+	virtual void BlitEntity(SDL_Rect r, bool flip = false, float x = 0, float y = 0);
+
+public:
 
 	ENTITY_TYPE type;
 
-	Animation* animation = nullptr;
-	Collider* collider = nullptr;
-	SDL_Texture* sprites = nullptr;
+	
+	iPoint position;
 
+	Collider* collider = nullptr;
+	Animation* animation = nullptr;
+	SDL_Texture* sprites = nullptr;
 };
 
 #endif // __ENTITY_H__

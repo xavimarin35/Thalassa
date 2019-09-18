@@ -3,6 +3,9 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Entity.h"
+#include "j1EntityManager.h"
+#include "j1Player.h"
 
 #define VSYNC true
 
@@ -44,8 +47,11 @@ bool j1Render::Awake(pugi::xml_node& config)
 	{
 		camera.w = App->win->screen_surface->w;
 		camera.h = App->win->screen_surface->h;
-		camera.x = 0;
-		camera.y = 0;
+		
+		if (App->entity_manager->player != nullptr) {
+			camera.x = -App->entity_manager->player->position.x;
+			camera.y = -App->entity_manager->player->position.y;
+		}
 	}
 
 	return ret;

@@ -4,34 +4,58 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
-#include "j1Module.h"
+#include "j1Entity.h"
 
-class j1Player : public j1Module
+struct Collider;
+struct SDL_Texture;
+
+enum ENTITY_TYPE;
+
+class j1Player : public j1Entity
 {
 public:
 
-	j1Player();
+	j1Player(int x, int y, ENTITY_TYPE type);
 	virtual ~j1Player();
-
-	//bool Awake(pugi::xml_node& conf);
 
 	bool Start();
 
 	bool PreUpdate();
-	bool Update();
+	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+
+	void OnCollision(Collider* c1, Collider* c2);
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-private:
+public:
+
+	Animation idle;
+	Animation run;
+	Animation jetpack;
+	Animation jump;
 
 
 public:
-	iPoint position;	
-	bool dead = false;
+	fPoint position;	
+	float speed;
+
+	bool isDead = false;
+	bool playerCreated = false;
+	bool onFloor = false;
+	bool isJumping = false;
+	bool isFalling = false;
+
+	bool ColRight = false;
+	bool ColLeft = false;
+	bool ColUp = false;
+	bool ColDown = false;
+
+private:
+	bool flip = true;
 };
 
-#endif // __jPLAYER_H__
+#endif // __j1PLAYER_H__

@@ -6,7 +6,6 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Entity.h"
-#include "j1Player.h"
 
 #define MAX_ENTITIES 50
 
@@ -17,12 +16,12 @@ struct SDL_Texture;
 enum ENTITY_TYPE
 {
 	PLAYER,
-	UNKNOWN
+	NONE
 };
 
 struct EntityInfo
 {
-	ENTITY_TYPE type = ENTITY_TYPE::UNKNOWN;
+	ENTITY_TYPE type = ENTITY_TYPE::NONE;
 	iPoint position;
 };
 
@@ -44,14 +43,13 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	j1Entity* EntityFactory(ENTITY_TYPE type, int x = 0, int y = 0);
-	void CreatePlayer();
-	void DestroyEntities();
+	void CreateEntity(ENTITY_TYPE type);
 
 	void OnCollision(Collider* c1, Collider* c2);
 
 public:
 
-	p2List<j1Entity*>	entities;
+	p2List<j1Entity*>	entityList;
 	j1Player*			player = nullptr;
 
 private:

@@ -1,0 +1,26 @@
+<animations>
+  <player>
+    <idle loop="true" speed="15.0f">
+      <animation x="4" y="37" w="13" h="20"/>
+      <animation x="24" y="37" w="13" h="20"/>
+    </idle>
+
+    <run>
+    </run>
+
+    <jump>
+    </jump>
+	
+	<jetpack loop="true" speed="12.0f">
+	  <animation x="4" y="8" w="14" h="23"/>
+      <animation x="24" y=8" w="14" h="23"/>
+	</jetpack>
+	
+	<death>
+	</death>
+	
+	<godmode>
+	</godmode>
+
+</player>
+</animations>
