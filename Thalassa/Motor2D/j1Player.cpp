@@ -147,6 +147,22 @@ bool j1Player::Update(float dt) {
 				// animation = &falling;
 			}
 		}
+
+		
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT)
+		{
+			godMode = !godMode;
+			
+			if (godMode) 
+			{
+				collider->type = COLLIDER_GOD;
+			}
+			else if(!godMode)
+			{
+				//animation = &god
+				collider->type = COLLIDER_PLAYER;
+			}
+		}
 	}
 
 	if (collider != nullptr)
@@ -158,6 +174,11 @@ bool j1Player::Update(float dt) {
 }
 
 bool j1Player::PostUpdate() {
+
+	ColRight = false;
+	ColLeft = false;
+	ColDown = false;
+	isFalling = true;
 
 	return true;
 }
@@ -225,6 +246,10 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					LOG("down");
 				}
 			}
+		}
+		if (c2->type == COLLIDER_DEATH)
+		{
+			//
 		}
 	}
 }

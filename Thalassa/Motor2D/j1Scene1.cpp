@@ -68,13 +68,6 @@ bool j1Scene1::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT) 
-	{
-		App->entity_manager->player->godMode != App->entity_manager->player->godMode;
-		LOG("GODMODE");
-	}
-		
-
 	App->map->Draw();
 
 	int x, y;
