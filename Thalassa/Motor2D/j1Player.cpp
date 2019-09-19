@@ -73,12 +73,38 @@ bool j1Player::Update(float dt) {
 	{
 		animation = &idle;
 
-		/*if (godMode) 
+		if (godMode) 
 		{
+			/*if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+				if (!ColRight)
+				{
+					position.x += speed;
+					animation = &run;
+					flip = true;
+				}
+			}
 
+			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
+				if (!ColLeft)
+				{
+					position.x -= speed;
+					animation = &run;
+					flip = false;
+				}
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
+				position.y -= speed;
+				animation = &idle;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
+				position.y += speed;
+				animation = &idle;
+			}*/
 		}
-		else (NO GODMODE PART)
-		{*/
+		else
+		{
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 				if (!ColRight)
 				{
@@ -109,18 +135,18 @@ bool j1Player::Update(float dt) {
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_REPEAT) {
 				//position.y += speed;
-				animation = &jump;
+				animation = &jetpack;
 			}
 
 
 			/* applying gravity*/
-			if (isJumping == false && onFloor == false) 
+			if (isJumping == false && onFloor == false & godMode == false) 
 			{
 				isFalling = true;
 				position.y += speed;
 				// animation = &falling;
 			}
-		/*}*/
+		}
 	}
 
 	if (collider != nullptr)

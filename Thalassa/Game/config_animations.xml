@@ -13,7 +13,7 @@
 	
 	<jetpack loop="true" speed="12.0f">
 	  <animation x="4" y="8" w="14" h="23"/>
-      <animation x="24" y=8" w="14" h="23"/>
+    <animation x="24" y="8" w="14" h="23"/>
 	</jetpack>
 	
 	<death>

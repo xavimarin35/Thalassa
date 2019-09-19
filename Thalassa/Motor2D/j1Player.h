@@ -43,6 +43,7 @@ public:
 	fPoint position;	
 	float speed;
 
+	bool godMode = false;
 	bool isDead = false;
 	bool playerCreated = false;
 	bool onFloor = false;
