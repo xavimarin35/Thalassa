@@ -70,7 +70,10 @@ bool j1Scene1::Update(float dt)
 
 	if (App->entity_manager->player != nullptr) {
 		App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
+		
 		App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
+		if (App->render->camera.y > 0) App->render->camera.y = 0;
+		else if (App->render->camera.y < -350) App->render->camera.y = -350;
 	}
 
 	App->map->Draw();

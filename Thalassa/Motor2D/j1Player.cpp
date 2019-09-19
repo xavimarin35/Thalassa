@@ -55,7 +55,7 @@ bool j1Player::Start() {
 	position = { 55,75 };
 	speed.y = 0.15f;
 	speed.x = 0.15f;
-	gravity = 0.007f;
+	gravity = 0.006f;
 	animation = &idle;
 	playerCreated = true;
 
