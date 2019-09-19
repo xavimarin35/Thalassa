@@ -53,8 +53,9 @@ bool j1Player::Start() {
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
 	position = { 0,0 };
-	speed = 0.3f;
-	gravity = 0.02f;
+	speed.y = 0.3f;
+	speed.x = 0.3f;
+	gravity = 0.01f;
 	animation = &idle;
 	playerCreated = true;
 
@@ -109,7 +110,7 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 				if (!ColRight)
 				{
-					position.x += speed;
+					position.x += speed.x;
 					animation = &run;
 					flip = true;
 				}
@@ -118,37 +119,48 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
 				if (!ColLeft)
 				{
-					position.x -= speed;
+					position.x -= speed.x;
 					animation = &run;
 					flip = false;
 				}
 			}
 
-			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
-				position.y -= speed;
-				animation = &idle;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-				position.y += speed;
-				animation = &idle;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN && doubleJump != 0) {
-				//position.y += speed;
+			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
 				isJumping = true;
 				onFloor = false;
-				jumpForce = 1.5f;
+				jumpForce = 1.0f;
 				doubleJump -= 1;
 			}
 
+			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
+				position.y += speed.y;
+				animation = &idle;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
+				jetpackActive = true;
+				onFloor = false;
+				jetForce = 0.7f;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
+				jetpackActive = false;
+				isFalling = true;
+			}
+
 			if (isJumping) Jumping();
+
+			if (jetpackActive) JetPack();
 
 			/* applying gravity*/
 			if (isJumping == false && onFloor == false & godMode == false) 
 			{
 				isFalling = true;
-				position.y += speed;
+
+				if (!onFloor) {
+					position.y += speed.y;
+					speed.y += gravity;
+				}
 				// animation = &falling;
 			}
 		}
@@ -249,6 +261,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					doubleJump = 2;
 					isJumping = false;
 					isFalling = false;
+					jetpackActive = false;
 					LOG("down");
 				}
 			}
@@ -264,8 +277,17 @@ void j1Player::Jumping() {
 
 	animation = &jump;
 
-	if (!onFloor) {
+	if (!onFloor && !jetpackActive) {
 		position.y -= jumpForce;
 		jumpForce -= gravity;
+	}
+}
+
+void j1Player::JetPack() {
+
+	animation = &jetpack;
+
+	if (!onFloor) {
+		position.y -= jetForce;
 	}
 }

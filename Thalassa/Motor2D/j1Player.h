@@ -27,6 +27,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 	void Jumping();
+	void JetPack();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -42,8 +43,9 @@ public:
 
 public:
 	fPoint position;	
-	float speed;
+	fPoint speed;
 	float jumpForce;
+	float jetForce;
 
 	int doubleJump = 2;
 	float gravity;
@@ -54,6 +56,7 @@ public:
 	bool onFloor = false;
 	bool isJumping = false;
 	bool isFalling = false;
+	bool jetpackActive = false;
 
 	bool ColRight = false;
 	bool ColLeft = false;
