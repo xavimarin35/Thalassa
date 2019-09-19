@@ -32,7 +32,7 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
-	App->map->Load("Map1.tmx");
+	App->map->Load("Map1_Tutorial.tmx");
 	/*App->tex->Load("maps/bg_big.png");*/
 
 	App->entity_manager->CreateEntity(PLAYER);
@@ -56,7 +56,7 @@ bool j1Scene1::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	/*if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 1;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -66,7 +66,12 @@ bool j1Scene1::Update(float dt)
 		App->render->camera.x += 1;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+		App->render->camera.x -= 1;*/
+
+	if (App->entity_manager->player != nullptr) {
+		App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
+		App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
+	}
 
 	App->map->Draw();
 

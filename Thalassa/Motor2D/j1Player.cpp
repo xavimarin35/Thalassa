@@ -52,10 +52,10 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position = { 0,0 };
-	speed.y = 0.3f;
-	speed.x = 0.3f;
-	gravity = 0.01f;
+	position = { 55,75 };
+	speed.y = 0.15f;
+	speed.x = 0.15f;
+	gravity = 0.007f;
 	animation = &idle;
 	playerCreated = true;
 
@@ -128,7 +128,7 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
 				isJumping = true;
 				onFloor = false;
-				jumpForce = 1.0f;
+				jumpForce = 0.85f;
 				doubleJump -= 1;
 			}
 
@@ -140,7 +140,7 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
 				jetpackActive = true;
 				onFloor = false;
-				jetForce = 0.7f;
+				jetForce = 0.2f;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {

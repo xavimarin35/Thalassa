@@ -2510,7 +2510,7 @@
    <tile gid="17157"/>
   </data>
  </layer>
- <layer id="1" name="playable " width="50" height="50" locked="1">
+ <layer id="1" name="playable " width="50" height="50">
   <data>
    <tile/>
    <tile/>
