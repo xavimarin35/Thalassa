@@ -26,6 +26,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c1, Collider* c2);
+	void Jumping();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -42,6 +43,10 @@ public:
 public:
 	fPoint position;	
 	float speed;
+	float jumpForce;
+
+	int doubleJump = 2;
+	float gravity;
 
 	bool godMode = false;
 	bool isDead = false;

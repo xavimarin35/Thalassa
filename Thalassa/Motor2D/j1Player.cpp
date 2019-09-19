@@ -54,6 +54,7 @@ bool j1Player::Start() {
 
 	position = { 0,0 };
 	speed = 0.3f;
+	gravity = 0.02f;
 	animation = &idle;
 	playerCreated = true;
 
@@ -133,11 +134,15 @@ bool j1Player::Update(float dt) {
 				animation = &idle;
 			}
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_REPEAT) {
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN && doubleJump != 0) {
 				//position.y += speed;
-				animation = &jetpack;
+				isJumping = true;
+				onFloor = false;
+				jumpForce = 1.5f;
+				doubleJump -= 1;
 			}
 
+			if (isJumping) Jumping();
 
 			/* applying gravity*/
 			if (isJumping == false && onFloor == false & godMode == false) 
@@ -241,6 +246,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 					ColDown = true;
 					onFloor = true;
+					doubleJump = 2;
 					isJumping = false;
 					isFalling = false;
 					LOG("down");
@@ -251,5 +257,15 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		{
 			//
 		}
+	}
+}
+
+void j1Player::Jumping() {
+
+	animation = &jump;
+
+	if (!onFloor) {
+		position.y -= jumpForce;
+		jumpForce -= gravity;
 	}
 }
