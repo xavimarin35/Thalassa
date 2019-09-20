@@ -16,6 +16,11 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 	idle.LoadAnimations("idle");
 	jetpack.LoadAnimations("jetpack");
 
+	godAnim.loop = true;
+	godAnim.speed = 0.01f;
+	godAnim.PushBack({ 43,8,14,23 });
+	godAnim.PushBack({ 63,8,14,23 });
+
 	idle.loop = true;
 	idle.speed = 0.008f;
 	idle.PushBack({ 4,36,13,21 });
@@ -50,6 +55,7 @@ bool j1Player::Start() {
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
 	position = { 55,75 };
+	godSpeed = 0.15f;
 	speed.y = 0.15f;
 	speed.x = 0.15f;
 	gravity = 0.006f;
@@ -74,11 +80,11 @@ bool j1Player::Update(float dt) {
 
 		if (godMode) 
 		{
-			/*if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+			animation = &godAnim;
+			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 				if (!ColRight)
 				{
-					position.x += speed;
-					animation = &run;
+					position.x += godSpeed;
 					flip = true;
 				}
 			}
@@ -86,21 +92,18 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
 				if (!ColLeft)
 				{
-					position.x -= speed;
-					animation = &run;
+					position.x -= godSpeed;
 					flip = false;
 				}
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
-				position.y -= speed;
-				animation = &idle;
+				position.y -= godSpeed;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-				position.y += speed;
-				animation = &idle;
-			}*/
+				position.y += godSpeed;
+			}
 		}
 		else
 		{

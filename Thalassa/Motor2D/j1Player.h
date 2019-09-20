@@ -39,6 +39,7 @@ public:
 	Animation run;
 	Animation jetpack;
 	Animation jump;
+	Animation godAnim;
 
 
 public:
@@ -46,6 +47,7 @@ public:
 	fPoint speed;
 	float jumpForce;
 	float jetForce;
+	float godSpeed;
 
 	int doubleJump = 2;
 	float gravity;
