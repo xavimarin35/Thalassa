@@ -141,11 +141,13 @@ bool j1Player::Update(float dt) {
 				jetpackActive = true;
 				onFloor = false;
 				jetForce = 0.2f;
+				speed.y = 0.15f;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 				jetpackActive = false;
 				isFalling = true;
+				speed.y = 0.15f;
 			}
 
 			if (isJumping) Jumping();
@@ -153,7 +155,7 @@ bool j1Player::Update(float dt) {
 			if (jetpackActive) JetPack();
 
 			/* applying gravity*/
-			if (isJumping == false && onFloor == false & godMode == false) 
+			if (!isJumping && !onFloor && !godMode && !ColDown) 
 			{
 				isFalling = true;
 
@@ -161,7 +163,6 @@ bool j1Player::Update(float dt) {
 					position.y += speed.y;
 					speed.y += gravity;
 				}
-				// animation = &falling;
 			}
 		}
 
@@ -238,9 +239,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					ColRight = true;
 					LOG("TOUCHES RIGHT");
 				}
-				else
-
-					if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
+				else if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
 					{
 						ColLeft = true;
 						LOG("TOUCHES LEFT");
@@ -249,7 +248,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 			// Up & Down Collisions
 			if (collider->rect.x + collider->rect.w >= c2->rect.x + 4
-				&& collider->rect.x + 4 < c2->rect.x + c2->rect.w)
+				&& collider->rect.x + 4 <= c2->rect.x + c2->rect.w)
 			{
 				if (collider->rect.y + collider->rect.h >= c2->rect.y
 					&& collider->rect.y < c2->rect.y) {
@@ -257,20 +256,32 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					position.y = c2->rect.y - collider->rect.h;
 
 					ColDown = true;
+					ColUp = false;
 					onFloor = true;
 					doubleJump = 2;
 					isJumping = false;
 					isFalling = false;
 					jetpackActive = false;
-					LOG("down");
+					LOG("TOUCHING DOWN");
+				}
+				else if (collider->rect.y <= c2->rect.y + c2->rect.h
+					&& collider->rect.y > c2->rect.y) {
+
+					position.y = c2->rect.y + c2->rect.h;
+
+					ColDown = false;
+					ColUp = true;
+					onFloor = false;
+					LOG("TOUCHING UP");
 				}
 			}
 		}
-		if (c2->type == COLLIDER_DEATH)
-		{
-			//
-		}
 	}
+	if (c2->type == COLLIDER_DEATH)
+	{
+		//
+	}
+
 }
 
 void j1Player::Jumping() {
