@@ -22,14 +22,11 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 	idle.PushBack({ 24,36,13,21 });
 
 	run.loop = true;
-	run.speed = 0.025f;
-	run.PushBack({ 64,37,13,21 });
-	run.PushBack({ 3,60,14,21 });
-	run.PushBack({ 44,60,13,21 });
-	run.PushBack({ 24,60,13,21 });
-	run.PushBack({ 24,60,13,21 });
-	run.PushBack({ 44,60,13,21 });
-	run.PushBack({ 3,60,14,21 });
+	run.speed = 0.01f;
+	run.PushBack({ 1,298,13,21 });
+	run.PushBack({ 17,298,13,21 });
+	run.PushBack({ 33,298,13,21 });
+	run.PushBack({ 49,298,13,21 });
 
 	jetpack.loop = true;
 	jetpack.speed = 0.01f;
