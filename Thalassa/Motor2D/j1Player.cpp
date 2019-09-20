@@ -167,7 +167,7 @@ bool j1Player::Update(float dt) {
 		}
 
 		
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
 			godMode = !godMode;
 			
