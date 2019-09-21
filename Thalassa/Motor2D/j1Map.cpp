@@ -430,6 +430,13 @@ bool j1Map::LoadColliders()
 		{
 			if (strcmp(name, "wall_collider") == 0)
 				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_WALL);
+
+			if (strcmp(name, "death_collider") == 0)
+				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_DEATH);
+
+			if (strcmp(name, "chest_collider") == 0)
+				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_OPENCHEST);
+
 		}
 	}
 

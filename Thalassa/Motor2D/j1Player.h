@@ -52,6 +52,9 @@ public:
 	int doubleJump = 2;
 	float gravity;
 
+	
+	bool openingChest = false;
+	bool itemPicked = false;
 	bool godMode = false;
 	bool isDead = false;
 	bool playerCreated = false;

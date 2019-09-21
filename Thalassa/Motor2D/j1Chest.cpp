@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Collisions.h"
 #include "j1Window.h"
+#include "j1Player.h"
 
 j1Chest::j1Chest(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::CHEST)
 {
@@ -40,19 +41,18 @@ bool j1Chest::Start() {
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)position.x+100, (int)position.y+65, 15 ,35 }, COLLIDER_CHEST, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)(position.x + 285), (int)position.y + 10, 15 ,35 }, COLLIDER_CHEST, App->entity_manager);
 
 	return true;
 }
 
 bool j1Chest::Update(float dt) {
 
-	if (App->input->GetKey(SDL_SCANCODE_C) == j1KeyState::KEY_REPEAT)
-		opened = true;
+	if (App->entity_manager->player->itemPicked)
+		animation = &openedAnim;
 
-	if (opened) {
+	else if (App->entity_manager->player->openingChest)
 		animation = &openingAnim;
-	}
 
 	else animation = &idle;
 

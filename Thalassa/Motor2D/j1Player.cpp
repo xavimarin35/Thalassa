@@ -266,13 +266,16 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 				}
 			}
 		}
-	}
-	
-	if (c2->type == COLLIDER_DEATH)
-	{
-		isDead = true;
-	}
 
+		if (c2->type == COLLIDER_DEATH)
+			isDead = true;
+
+		if (c2->type == COLLIDER_OPENCHEST)
+			openingChest = true;
+
+		if (c2->type == COLLIDER_CHEST)
+			itemPicked = true;
+	}
 }
 
 void j1Player::Jumping() {
