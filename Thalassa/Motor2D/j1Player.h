@@ -57,7 +57,6 @@ public:
 	bool playerCreated = false;
 	bool onFloor = false;
 	bool isJumping = false;
-	bool isFalling = false;
 	bool jetpackActive = false;
 
 	bool ColRight = false;

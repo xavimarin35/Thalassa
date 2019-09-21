@@ -82,19 +82,13 @@ bool j1Player::Update(float dt) {
 		{
 			animation = &godAnim;
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-				if (!ColRight)
-				{
-					position.x += godSpeed;
-					flip = true;
-				}
+				position.x += godSpeed;
+				flip = true;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-				if (!ColLeft)
-				{
-					position.x -= godSpeed;
-					flip = false;
-				}
+				position.x -= godSpeed;
+				flip = false;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
@@ -146,7 +140,6 @@ bool j1Player::Update(float dt) {
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 				jetpackActive = false;
-				isFalling = true;
 				speed.y = 0.15f;
 			}
 
@@ -154,11 +147,8 @@ bool j1Player::Update(float dt) {
 
 			if (jetpackActive) JetPack();
 
-			/* applying gravity*/
-			if (!isJumping && !onFloor && !godMode && !ColDown) 
+			if (!isJumping && !godMode && !ColDown) 
 			{
-				isFalling = true;
-
 				if (!onFloor) {
 					position.y += speed.y;
 					speed.y += gravity;
@@ -177,7 +167,6 @@ bool j1Player::Update(float dt) {
 			}
 			else if(!godMode)
 			{
-				//animation = &god
 				collider->type = COLLIDER_PLAYER;
 			}
 		}
@@ -196,7 +185,6 @@ bool j1Player::PostUpdate() {
 	ColRight = false;
 	ColLeft = false;
 	ColDown = false;
-	isFalling = true;
 
 	return true;
 }
@@ -240,10 +228,10 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					LOG("TOUCHES RIGHT");
 				}
 				else if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
-					{
-						ColLeft = true;
-						LOG("TOUCHES LEFT");
-					}
+				{
+					ColLeft = true;
+					LOG("TOUCHES LEFT");
+				}
 			}
 
 			// Up & Down Collisions
@@ -253,30 +241,35 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 				if (collider->rect.y + collider->rect.h >= c2->rect.y
 					&& collider->rect.y < c2->rect.y) {
 
+					onFloor = true;
+					isJumping = false;
+					jetpackActive = false;
+
 					position.y = c2->rect.y - collider->rect.h;
+					doubleJump = 2;
 
 					ColDown = true;
 					ColUp = false;
-					onFloor = true;
-					doubleJump = 2;
-					isJumping = false;
-					isFalling = false;
-					jetpackActive = false;
+					
 					LOG("TOUCHING DOWN");
 				}
+				
 				else if (collider->rect.y <= c2->rect.y + c2->rect.h
 					&& collider->rect.y > c2->rect.y) {
+					
+					onFloor = false;
 
 					position.y = c2->rect.y + c2->rect.h;
 
 					ColDown = false;
 					ColUp = true;
-					onFloor = false;
+
 					LOG("TOUCHING UP");
 				}
 			}
 		}
 	}
+	
 	if (c2->type == COLLIDER_DEATH)
 	{
 		//
