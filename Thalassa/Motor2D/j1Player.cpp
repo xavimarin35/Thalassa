@@ -49,7 +49,7 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position = { 400,75 };
+	position = { 100,75 };
 	godSpeed = 0.15f;
 	speed.y = 0.15f;
 	speed.x = 0.15f;
@@ -142,6 +142,9 @@ bool j1Player::Update(float dt) {
 
 			if (jetpackActive) JetPack();
 
+			if (onFloor)
+				speed.y = 0;
+
 			if (!isJumping && !godMode && !ColDown) 
 			{
 				if (!onFloor) {
@@ -182,6 +185,8 @@ bool j1Player::PostUpdate() {
 	ColRight = false;
 	ColLeft = false;
 	ColDown = false;
+	ColUp = false;
+	onFloor = false;
 
 	return true;
 }
@@ -217,14 +222,14 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		if (c2->type == COLLIDER_WALL)
 		{
 			// Right & Left Collisions
-			if (collider->rect.y <= c2->rect.y + c2->rect.h && collider->rect.y + collider->rect.h >= c2->rect.y)
+			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h >= c2->rect.y)
 			{
-				if (collider->rect.x + collider->rect.w >= c2->rect.x && collider->rect.x <= c2->rect.x)
+				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
 					LOG("TOUCHES RIGHT");
 				}
-				else if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
+				else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x + c1->rect.w >= c2->rect.x + c2->rect.w)
 				{
 					ColLeft = true;
 					LOG("TOUCHES LEFT");
@@ -232,27 +237,23 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			}
 
 			// Up & Down Collisions
-			if (collider->rect.x + collider->rect.w >= c2->rect.x + 4
-				&& collider->rect.x + 4 <= c2->rect.x + c2->rect.w)
+			if (c1->rect.x + c1->rect.w >= c2->rect.x + 4 && c1->rect.x + 4 <= c2->rect.x + c2->rect.w)
 			{
-				if (collider->rect.y + collider->rect.h >= c2->rect.y
-					&& collider->rect.y < c2->rect.y) {
+				if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y) {
 
 					onFloor = true;
 					isJumping = false;
 					jetpackActive = false;
 
-					position.y = c2->rect.y - collider->rect.h;
+					position.y = c2->rect.y - c1->rect.h;
 					doubleJump = 2;
 
 					ColDown = true;
 					ColUp = false;
-					
+
 					LOG("TOUCHING DOWN");
 				}
-				
-				else if (collider->rect.y <= c2->rect.y + c2->rect.h
-					&& collider->rect.y > c2->rect.y) {
+				else if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y > c2->rect.y) {
 					
 					onFloor = false;
 
