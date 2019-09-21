@@ -33,11 +33,9 @@ bool j1Scene1::Awake()
 bool j1Scene1::Start()
 {
 	App->map->Load("Map1_Tutorial.tmx");
-	/*App->tex->Load("maps/bg_big.png");*/
 
 	App->entity_manager->CreateEntity(PLAYER);
-	
-	
+		
 	return true;
 }
 

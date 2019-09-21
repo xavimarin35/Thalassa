@@ -40,11 +40,6 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 
 	jump.loop = false;
 	jump.speed = 0.001f;
-	//jump.PushBack({ 3,112,15,17 });
-	//jump.PushBack({ 23,112,15,17 });
-	//jump.PushBack({ 43,112,15,17 });
-	//jump.PushBack({ 23,112,15,17 });
-	//jump.PushBack({ 3,112,15,17 });
 	jump.PushBack({ 24,87,13,18 });
 }
 
@@ -99,7 +94,7 @@ bool j1Player::Update(float dt) {
 				position.y += godSpeed;
 			}
 		}
-		else
+		else if (!isDead)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 				if (!ColRight)
@@ -135,11 +130,11 @@ bool j1Player::Update(float dt) {
 				jetpackActive = true;
 				onFloor = false;
 				jetForce = 0.2f;
-				speed.y = 0.15f;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 				jetpackActive = false;
+				jumpForce = 0.0f;
 				speed.y = 0.15f;
 			}
 
@@ -155,8 +150,10 @@ bool j1Player::Update(float dt) {
 				}
 			}
 		}
+		else {
+			// Die
+		}
 
-		
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
 			godMode = !godMode;
@@ -272,7 +269,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 	
 	if (c2->type == COLLIDER_DEATH)
 	{
-		//
+		isDead = true;
 	}
 
 }
