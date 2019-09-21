@@ -54079,8 +54079,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1012"/>
-   <tile gid="1013"/>
    <tile/>
    <tile/>
    <tile/>
@@ -55079,8 +55077,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1094"/>
-   <tile gid="1095"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

@@ -49,7 +49,7 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position = { 55,75 };
+	position = { 400,75 };
 	godSpeed = 0.15f;
 	speed.y = 0.15f;
 	speed.x = 0.15f;

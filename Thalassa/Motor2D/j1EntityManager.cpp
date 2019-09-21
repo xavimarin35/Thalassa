@@ -1,5 +1,6 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
+#include "j1Chest.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -87,6 +88,13 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
+
+	case CHEST:
+		ret = new j1Chest(x, y, type);
+
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
 	}
 
 	return ret;
@@ -97,7 +105,11 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type)
 	switch (type) {
 		case PLAYER:
 			player = (j1Player*)EntityFactory(PLAYER);
-		break;
+			break;
+
+		case CHEST:
+			chest = (j1Chest*)EntityFactory(CHEST);
+			break;
 	}
 }
 

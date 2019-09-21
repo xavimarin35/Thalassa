@@ -48,6 +48,13 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_GOD][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_GOD][COLLIDER_WIN] = true;
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
+
+	matrix[COLLIDER_CHEST][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_CHEST][COLLIDER_WALL] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_WIN] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_GOD] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_CHEST] = false;
 }
 
 j1Collisions::~j1Collisions() {}
@@ -155,6 +162,10 @@ void j1Collisions::DebugColliders()
 			break;
 		case COLLIDER_GOD:
 			App->render->DrawQuad(colliders[i]->rect, 125, 125, 0, alpha);
+			break;
+		case COLLIDER_CHEST:
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
 		}
 	}
 }

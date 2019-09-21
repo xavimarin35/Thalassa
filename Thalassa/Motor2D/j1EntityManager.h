@@ -11,11 +11,13 @@
 
 class j1Entity;
 class j1Player;
+class j1Chest;
 struct SDL_Texture;
 
 enum ENTITY_TYPE
 {
 	PLAYER,
+	CHEST,
 	NONE
 };
 
@@ -51,6 +53,7 @@ public:
 
 	p2List<j1Entity*>	entityList;
 	j1Player*			player = nullptr;
+	j1Chest*			chest = nullptr;
 
 private:
 
