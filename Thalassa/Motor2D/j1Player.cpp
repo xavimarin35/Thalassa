@@ -154,7 +154,8 @@ bool j1Player::Update(float dt) {
 			}
 		}
 		else {
-			// Die
+			if (lifes > 0)
+				Die();
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -211,6 +212,13 @@ bool j1Player::Save(pugi::xml_node& data) const {
 
 bool j1Player::CleanUp() {
 	LOG("Freeing the player");
+
+	App->tex->UnLoad(sprites);
+
+	if (collider != nullptr) {
+		collider->to_delete;
+		collider = nullptr;
+	}
 
 	return true;
 }
@@ -297,4 +305,17 @@ void j1Player::JetPack() {
 	if (!onFloor) {
 		position.y -= jetForce;
 	}
+}
+
+void j1Player::Die() {
+
+	isDead = false;
+
+	fPoint death_position = { position.x,position.y };
+
+	position.y += speed.y;
+	speed.y += gravity;
+
+	CleanUp();
+	Start();
 }

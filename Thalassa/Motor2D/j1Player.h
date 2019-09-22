@@ -28,6 +28,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	void Jumping();
 	void JetPack();
+	void Die();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -50,6 +51,7 @@ public:
 	float godSpeed;
 
 	int doubleJump = 2;
+	int lifes = 3;
 	float gravity;
 
 	
