@@ -23,8 +23,8 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 
 	idle.loop = true;
 	idle.speed = 0.008f;
-	idle.PushBack({ 4,36,13,21 });
-	idle.PushBack({ 24,36,13,21 });
+	idle.PushBack({ 4,37,13,20 });
+	idle.PushBack({ 24,37,13,20 });
 
 	run.loop = true;
 	run.speed = 0.01f;
@@ -57,7 +57,7 @@ bool j1Player::Start() {
 	animation = &idle;
 	playerCreated = true;
 
-	collider = App->collisions->AddCollider({ (int)position.x + 3, (int)position.y, 12, 20 }, COLLIDER_PLAYER, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 13, 20 }, COLLIDER_PLAYER, App->entity_manager);
 
 	return true;
 }
@@ -222,16 +222,18 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		if (c2->type == COLLIDER_WALL)
 		{
 			// Right & Left Collisions
-			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h >= c2->rect.y)
+			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 3 >= c2->rect.y)
 			{
 				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
+					ColLeft = false;
 					LOG("TOUCHES RIGHT");
 				}
 				else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x + c1->rect.w >= c2->rect.x + c2->rect.w)
 				{
 					ColLeft = true;
+					ColRight = false;
 					LOG("TOUCHES LEFT");
 				}
 			}
@@ -245,7 +247,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					isJumping = false;
 					jetpackActive = false;
 
-					position.y = c2->rect.y - c1->rect.h;
+					speed.y = 0;
 					doubleJump = 2;
 
 					ColDown = true;
