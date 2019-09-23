@@ -52,10 +52,13 @@ void j1Map::Draw()
 					{
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
-						if (layer->data->name == "big_background")
+						if (layer->data->name == "Decor")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 1.0F);
-						else
+						else if(layer->data->name == "Capa de Patrones 1")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r);  //playable layer
+						else if (layer->data->name == "parallax")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
+
 					}
 				}
 
