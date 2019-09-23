@@ -46,6 +46,7 @@ public:
 public:
 	fPoint position;	
 	fPoint speed;
+
 	float jumpForce;
 	float jetForce;
 	float godSpeed;

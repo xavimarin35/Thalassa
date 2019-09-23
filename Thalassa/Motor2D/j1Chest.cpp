@@ -6,6 +6,7 @@
 #include "j1Collisions.h"
 #include "j1Window.h"
 #include "j1Player.h"
+#include "j1Audio.h"
 
 j1Chest::j1Chest(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::CHEST)
 {
@@ -51,9 +52,13 @@ bool j1Chest::Update(float dt) {
 	if (App->entity_manager->player->itemPicked)
 		animation = &openedAnim;
 
-	else if (App->entity_manager->player->openingChest)
+	else if (App->entity_manager->player->openingChest) {
+		if (!playedFx) {
+			App->audio->PlayFx(App->audio->openChestFx);
+			playedFx = true;
+		}
 		animation = &openingAnim;
-
+	}
 	else animation = &idle;
 
 	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, position.x, position.y);

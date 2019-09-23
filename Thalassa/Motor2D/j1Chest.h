@@ -27,6 +27,7 @@ public:
 	Animation openedAnim;
 
 	bool opened = false;
+	bool playedFx = false;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include "j1Audio.h"
 
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
@@ -27,7 +28,7 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 	idle.PushBack({ 24,37,13,20 });
 
 	run.loop = true;
-	run.speed = 0.1f;
+	run.speed = 0.15f;
 	run.PushBack({ 1,298,13,21 });
 	run.PushBack({ 17,298,13,21 });
 	run.PushBack({ 33,298,13,21 });
@@ -49,9 +50,9 @@ bool j1Player::Start() {
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
 	position = { 100,75 };
-	godSpeed = 1.0f;
+	godSpeed = 2.0f;
 	speed.y = 0.7f;
-	speed.x = 0.9f;
+	speed.x = 1.3f;
 	gravity = 0.15f;
 	animation = &idle;
 	playerCreated = true;
@@ -119,6 +120,8 @@ bool j1Player::Update(float dt) {
 				jumpForce = 3.5f;
 				doubleJump -= 1;
 				changedFloor = false;
+
+				App->audio->PlayFx(App->audio->jumpFx);
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
@@ -260,7 +263,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 						position.y = c2->rect.y - c1->rect.h;
 						changedFloor = true;
 					}
-					//speed.y = 0;
+					speed.y = 0;
 					doubleJump = 2;
 
 					ColDown = true;
