@@ -56,10 +56,14 @@ void j1Map::Draw()
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 1.0F);
 						else if(layer->data->name == "Capa de Patrones 1")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r);  //playable layer
-						//else if (layer->data->name == "parallax")
-						//	App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
-						//else if (layer->data->name == "parallax2")
-						//	App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.8F);
+						else if (layer->data->name == "parallax")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.8F);
+						else if (layer->data->name == "parallax2")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
+						else if (layer->data->name == "parallax3")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.7F);
+						else if (layer->data->name == "parallax4")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.3F);
 						else if (layer->data->name == "bg")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.15F);
 					}
