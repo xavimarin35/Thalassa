@@ -36,6 +36,8 @@ bool j1Scene1::Start()
 
 	App->entity_manager->CreateEntity(CHEST);
 	App->entity_manager->CreateEntity(PLAYER);
+
+	App->audio->PlayMusic("audio/music/loading.ogg");
 		
 	return true;
 }

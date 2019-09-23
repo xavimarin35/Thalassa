@@ -150,6 +150,7 @@ bool j1Player::Update(float dt) {
 				if (!onFloor) {
 					position.y += speed.y;
 					speed.y += gravity;
+					animation = &jump;
 				}
 			}
 		}
