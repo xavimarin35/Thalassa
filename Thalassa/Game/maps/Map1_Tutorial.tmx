@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="277" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="23" nextobjectid="211">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="277" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="23" nextobjectid="215">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
  </tileset>
  <tileset firstgid="9103" name="parallax-space-stars" tilewidth="8" tileheight="8" tilecount="680" columns="34">
   <image source="parallax-space-stars.png" width="272" height="160"/>
  </tileset>
- <tileset firstgid="9783" name="clouds" tilewidth="8" tileheight="8" tilecount="0" columns="68">
-  <image source="../../../../../../Desktop/clouds.png" width="544" height="236"/>
- </tileset>
  <tileset firstgid="9783" name="ECbeOgkXYAAgJ-F" tilewidth="8" tileheight="8" tilecount="3600" columns="80">
   <image source="ECbeOgkXYAAgJ-F.png" width="640" height="360"/>
+ </tileset>
+ <tileset firstgid="13383" name="Tileset" tilewidth="8" tileheight="8" tilecount="7668" columns="142">
+  <image source="../../../../../../Downloads/The-Cliffborn-Islands-0.2/The-Cliffborn-Islands-0.2/The Cliffborn Islands/Game/maps/Tileset.png" width="1136" height="432"/>
  </tileset>
  <layer id="18" name="bg" width="277" height="50">
   <data>
@@ -79723,8 +79723,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1250"/>
-   <tile gid="1251"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -80000,8 +80000,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1332"/>
-   <tile gid="1333"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -89736,10 +89736,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
    <tile/>
    <tile/>
    <tile/>
@@ -90013,10 +90013,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
    <tile/>
    <tile/>
    <tile/>
@@ -90851,10 +90851,10 @@
    <tile gid="1586"/>
    <tile gid="1587"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
    <tile/>
    <tile/>
    <tile/>
@@ -91128,10 +91128,10 @@
    <tile/>
    <tile gid="85"/>
    <tile gid="86"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
    <tile/>
    <tile/>
    <tile/>
@@ -93562,22 +93562,22 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
+   <tile gid="15089"/>
+   <tile gid="15090"/>
    <tile/>
    <tile/>
    <tile/>
@@ -93839,22 +93839,22 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
+   <tile gid="15231"/>
+   <tile gid="15232"/>
    <tile/>
    <tile/>
    <tile/>
@@ -97173,6 +97173,10 @@
  <objectgroup color="#ff0000" id="4" name="death_collider">
   <object id="94" x="0" y="400" width="1119.33" height="32"/>
   <object id="98" x="1296" y="448" width="776" height="16"/>
+  <object id="211" x="1480.33" y="296.333" width="47" height="15.6667"/>
+  <object id="212" x="1400" y="295.667" width="48" height="15.6667"/>
+  <object id="213" x="1817" y="183.333" width="30.6667" height="16.3333"/>
+  <object id="214" x="1872.33" y="215.667" width="31.3333" height="15.3333"/>
  </objectgroup>
  <objectgroup color="#00aa00" id="5" name="chest_collider">
   <object id="108" x="584" y="0" width="40" height="64"/>
