@@ -17,7 +17,7 @@ j1Chest::j1Chest(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::C
 	idle.PushBack({ 0,0,15,35 });
 
 	openingAnim.loop = false;
-	openingAnim.speed = 0.02f;
+	openingAnim.speed = 0.1f;
 	openingAnim.PushBack({ 0,0,15,35 });
 	openingAnim.PushBack({ 16,0,15,35 });
 	openingAnim.PushBack({ 32,0,15,35 });

@@ -17,29 +17,28 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 	jetpack.LoadAnimations("jetpack");
 
 	godAnim.loop = true;
-	godAnim.speed = 0.01f;
+	godAnim.speed = 0.05f;
 	godAnim.PushBack({ 43,8,14,23 });
 	godAnim.PushBack({ 63,8,14,23 });
 
 	idle.loop = true;
-	idle.speed = 0.008f;
+	idle.speed = 0.05f;
 	idle.PushBack({ 4,37,13,20 });
 	idle.PushBack({ 24,37,13,20 });
 
 	run.loop = true;
-	run.speed = 0.01f;
+	run.speed = 0.1f;
 	run.PushBack({ 1,298,13,21 });
 	run.PushBack({ 17,298,13,21 });
 	run.PushBack({ 33,298,13,21 });
 	run.PushBack({ 49,298,13,21 });
 
 	jetpack.loop = true;
-	jetpack.speed = 0.01f;
+	jetpack.speed = 0.1f;
 	jetpack.PushBack({ 4,8,14,23 });
 	jetpack.PushBack({ 24,8,14,23 });
 
 	jump.loop = false;
-	jump.speed = 0.001f;
 	jump.PushBack({ 24,87,13,18 });
 }
 
@@ -50,10 +49,10 @@ bool j1Player::Start() {
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
 	position = { 100,75 };
-	godSpeed = 0.15f;
-	speed.y = 0.15f;
-	speed.x = 0.15f;
-	gravity = 0.006f;
+	godSpeed = 1.0f;
+	speed.y = 0.7f;
+	speed.x = 0.9f;
+	gravity = 0.15f;
 	animation = &idle;
 	playerCreated = true;
 
@@ -117,8 +116,9 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
 				isJumping = true;
 				onFloor = false;
-				jumpForce = 0.85f;
+				jumpForce = 3.5f;
 				doubleJump -= 1;
+				changedFloor = false;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
@@ -129,13 +129,13 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
 				jetpackActive = true;
 				onFloor = false;
-				jetForce = 0.2f;
+				jetForce = 2.1f;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 				jetpackActive = false;
 				jumpForce = 0.0f;
-				speed.y = 0.15f;
+				speed.y = 0.7f;
 			}
 
 			if (isJumping) Jumping();
@@ -231,7 +231,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		if (c2->type == COLLIDER_WALL)
 		{
 			// Right & Left Collisions
-			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 3 >= c2->rect.y)
+			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 5 >= c2->rect.y)
 			{
 				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
@@ -256,7 +256,11 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					isJumping = false;
 					jetpackActive = false;
 
-					speed.y = 0;
+					if (!changedFloor) {
+						position.y = c2->rect.y - c1->rect.h;
+						changedFloor = true;
+					}
+					//speed.y = 0;
 					doubleJump = 2;
 
 					ColDown = true;

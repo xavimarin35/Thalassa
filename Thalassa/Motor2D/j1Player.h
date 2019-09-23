@@ -63,6 +63,7 @@ public:
 	bool onFloor = false;
 	bool isJumping = false;
 	bool jetpackActive = false;
+	bool changedFloor = false;
 
 	bool ColRight = false;
 	bool ColLeft = false;
