@@ -117,7 +117,7 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
 				isJumping = true;
 				onFloor = false;
-				jumpForce = 3.5f;
+				jumpForce = 3.0f;
 				doubleJump -= 1;
 				changedFloor = false;
 
