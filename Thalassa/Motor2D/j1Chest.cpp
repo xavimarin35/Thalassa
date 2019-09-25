@@ -38,11 +38,11 @@ bool j1Chest::Start() {
 
 	sprites = App->tex->Load("textures/Chest_Spritesheet.png");
 
-	position = { 280,6 };
+	position = { 920,13 };
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)(position.x + 285), (int)position.y + 10, 15 ,35 }, COLLIDER_CHEST, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 15, 35 }, COLLIDER_CHEST, App->entity_manager);
 
 	return true;
 }

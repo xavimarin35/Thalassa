@@ -175,7 +175,7 @@ void j1Collisions::DebugColliders()
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 		case COLLIDER_OPENCHEST:
-			App->render->DrawQuad(colliders[i]->rect, 100, 0, 255, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 100, 100, 100, alpha);
 			break;
 		}
 	}

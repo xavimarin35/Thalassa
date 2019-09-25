@@ -22,6 +22,8 @@ public:
 
 public:
 
+	fPoint position;
+
 	Animation idle;
 	Animation openingAnim;
 	Animation openedAnim;

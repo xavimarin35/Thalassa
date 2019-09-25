@@ -132,7 +132,7 @@ bool j1Player::Update(float dt) {
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
 				jetpackActive = true;
 				onFloor = false;
-				jetForce = 2.1f;
+				jetForce = 1.5f;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {

@@ -90,7 +90,7 @@ bool j1Scene1::Update(float dt)
 					App->map->data.tilesets.count(),
 					map_coordinates.x, map_coordinates.y);
 
-	App->win->SetTitle(title.GetString());
+	App->win->SetTitle("Thalassa");
 	return true;
 }
 
