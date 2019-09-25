@@ -10,6 +10,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene1.h"
+#include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1Collisions.h"
 #include "j1EntityManager.h"
@@ -28,6 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene1 = new j1Scene1();
+	scene2 = new j1Scene2();
 	map = new j1Map();
 	collisions = new j1Collisions();
 	entity_manager = new j1EntityManager();
@@ -41,6 +43,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene1);
+	AddModule(scene2);
 	AddModule(collisions);
 	AddModule(entity_manager);
 	AddModule(transitions);
