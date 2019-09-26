@@ -164,16 +164,40 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_counter++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
 	if(want_to_save == true)
-		SavegameNow();
+		SaveGameNow();
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		previous_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == j1KeyState::KEY_DOWN) {
+		cappedFPS != cappedFPS;
+		frame_counter = 0;
+	}
+
+	float average_fps = float(frame_counter) / start_time.ReadSec();
+	float seconds_since_start = start_time.ReadSec();
+
+	uint32 last_time_ms = frame_time.Read();
+	uint32 frames_last_update = previous_last_sec_frame_count;
 }
 
 // Call modules before each loop iteration
@@ -345,7 +369,7 @@ bool j1App::LoadGameNow()
 	return ret;
 }
 
-bool j1App::SavegameNow() const
+bool j1App::SaveGameNow() const
 {
 	bool ret = true;
 
