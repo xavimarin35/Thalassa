@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="320" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="419">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="320" height="50" tilewidth="8" tileheight="8" infinite="0" nextobjectid="448">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
  </tileset>
@@ -12,7 +12,7 @@
  <tileset firstgid="13383" name="Tileset" tilewidth="8" tileheight="8" tilecount="7668" columns="142">
   <image source="spikes.png" width="1136" height="432"/>
  </tileset>
- <layer id="1" name="bg" width="320" height="50">
+ <layer name="bg" width="320" height="50">
   <data>
    <tile gid="9783"/>
    <tile gid="9784"/>
@@ -16016,7 +16016,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="2" name="parallax" width="320" height="50">
+ <layer name="parallax" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -32020,7 +32020,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="parallax2" width="320" height="50">
+ <layer name="parallax2" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -48024,7 +48024,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="parallax3" width="320" height="50">
+ <layer name="parallax3" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -64028,7 +64028,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="parallax4" width="320" height="50">
+ <layer name="parallax4" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -80032,7 +80032,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Decor" width="320" height="50">
+ <layer name="Decor" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -96036,7 +96036,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Capa de Patrones 1" width="320" height="50">
+ <layer name="Capa de Patrones 1" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -112040,7 +112040,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="wall_collider">
+ <objectgroup name="wall_collider">
   <object id="3" x="16" y="216" width="96" height="8"/>
   <object id="7" x="512.25" y="255.75" width="16" height="16"/>
   <object id="8" x="552.25" y="207.75" width="16" height="24"/>
@@ -112218,7 +112218,7 @@
   <object id="216" x="1552.25" y="311.75" width="56" height="8"/>
   <object id="290" x="808.25" y="223.75" width="8" height="8"/>
   <object id="294" x="496" y="223.75" width="32.25" height="16"/>
-  <object id="399" x="360.25" y="-12.25" width="1959" height="12"/>
+  <object id="399" x="-2.75" y="-12.25" width="2466" height="12"/>
   <object id="400" x="88" y="264" width="48" height="16"/>
   <object id="401" x="104" y="224" width="32" height="16"/>
   <object id="402" x="136.545" y="240" width="71.8182" height="6.72727"/>
@@ -112236,30 +112236,45 @@
   <object id="416" x="136" y="232" width="360" height="8"/>
   <object id="417" x="400" y="240" width="96" height="8"/>
   <object id="418" x="456" y="248" width="40" height="16"/>
+  <object id="445" x="-19" y="-0.5" width="18.5" height="396"/>
+  <object id="446" x="2464.5" y="-11.5" width="14" height="487"/>
  </objectgroup>
- <objectgroup color="#00aa00" id="9" name="win_collider">
+ <objectgroup color="#00aa00" name="win_collider">
   <object id="210" x="2307.7" y="162.114" width="12.1818" height="15.0909"/>
   <object id="231" x="2307.7" y="162.114" width="12.1818" height="15.0909"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="10" name="death_collider">
-  <object id="94" x="-96" y="399.75" width="1575.58" height="32"/>
-  <object id="211" x="1840.58" y="296.083" width="47" height="15.6667"/>
-  <object id="212" x="1768.25" y="295.417" width="32" height="15.6667"/>
-  <object id="217" x="1584.25" y="207.75" width="16" height="16"/>
-  <object id="218" x="1528.25" y="111.75" width="32" height="16"/>
-  <object id="219" x="1232.25" y="135.75" width="16" height="16"/>
-  <object id="220" x="592.25" y="199.75" width="32" height="16"/>
-  <object id="221" x="528.25" y="247.75" width="32" height="16"/>
+ <objectgroup color="#ff0000" name="death_collider">
+  <object id="94" x="-96" y="399.75" width="1626.08" height="32"/>
   <object id="223" x="1072.73" y="478.538" width="1479.58" height="32"/>
-  <object id="224" x="1840.58" y="296.083" width="47" height="15.6667"/>
-  <object id="225" x="1768.25" y="295.417" width="32" height="15.6667"/>
-  <object id="226" x="528.25" y="247.75" width="32" height="16"/>
-  <object id="227" x="1584.25" y="207.75" width="16" height="16"/>
-  <object id="228" x="592.25" y="199.75" width="32" height="16"/>
-  <object id="229" x="1232.25" y="135.75" width="16" height="16"/>
-  <object id="230" x="1528.25" y="111.75" width="32" height="16"/>
+  <object id="419" x="530.091" y="248.273" width="5.81818" height="16"/>
+  <object id="420" x="535.909" y="250.091" width="7.09091" height="14.1818"/>
+  <object id="421" x="546.091" y="248.273" width="5.81818" height="16"/>
+  <object id="422" x="551.909" y="250.091" width="7.09091" height="14.1818"/>
+  <object id="423" x="594.273" y="200.455" width="5.81818" height="16"/>
+  <object id="424" x="600.091" y="202.273" width="7.09091" height="14.1818"/>
+  <object id="425" x="610.364" y="200.636" width="5.81818" height="16"/>
+  <object id="426" x="616.182" y="202.454" width="7.09091" height="14.1818"/>
+  <object id="427" x="1234.25" y="136.402" width="5.81818" height="16"/>
+  <object id="428" x="1240.07" y="138.22" width="7.09091" height="14.1818"/>
+  <object id="429" x="1530.3" y="112.5" width="5.81818" height="16"/>
+  <object id="430" x="1536.11" y="114.318" width="7.09091" height="14.1818"/>
+  <object id="431" x="1546.3" y="112.625" width="5.81818" height="16"/>
+  <object id="432" x="1552.11" y="114.443" width="7.09091" height="14.1818"/>
+  <object id="433" x="1586.09" y="208.545" width="5.81818" height="16"/>
+  <object id="434" x="1591.91" y="210.363" width="7.09091" height="14.1818"/>
+  <object id="435" x="1770.15" y="296.466" width="5.81818" height="16"/>
+  <object id="436" x="1775.97" y="298.284" width="7.09091" height="14.1818"/>
+  <object id="437" x="1786.11" y="296.5" width="5.81818" height="16"/>
+  <object id="438" x="1791.93" y="298.318" width="7.09091" height="14.1818"/>
+  <object id="439" x="1841.86" y="296.625" width="5.81818" height="16"/>
+  <object id="440" x="1847.68" y="298.443" width="7.09091" height="14.1818"/>
+  <object id="441" x="1858.05" y="296.438" width="5.81818" height="16"/>
+  <object id="442" x="1863.86" y="298.255" width="7.09091" height="14.1818"/>
+  <object id="443" x="1873.98" y="296.688" width="5.81818" height="16"/>
+  <object id="444" x="1879.8" y="298.505" width="7.09091" height="14.1818"/>
+  <object id="447" x="1070.5" y="433.5" width="38" height="43.5"/>
  </objectgroup>
- <objectgroup color="#00aa00" id="11" name="chest_collider">
+ <objectgroup color="#00aa00" name="chest_collider">
   <object id="108" x="944.25" y="-0.25" width="40" height="64"/>
   <object id="222" x="944.25" y="-0.25" width="40" height="64"/>
  </objectgroup>

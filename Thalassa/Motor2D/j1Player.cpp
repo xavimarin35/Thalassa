@@ -127,11 +127,6 @@ bool j1Player::Update(float dt) {
 					App->audio->PlayFx(App->audio->jumpFx);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-					position.y += speed.y;
-					animation = &idle;
-				}
-
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
 					jetpackActive = true;
 					onFloor = false;
@@ -146,21 +141,21 @@ bool j1Player::Update(float dt) {
 
 			}
 
-				if (isJumping) Jumping();
+			if (isJumping) Jumping();
 
-				if (jetpackActive) JetPack();
+			if (jetpackActive) JetPack();
 
-				if (onFloor)
-					speed.y = 0;
+			if (onFloor)
+				speed.y = 0;
 
-				if (!isJumping && !godMode && !ColDown) 
-				{
-					if (!onFloor) {
-						position.y += speed.y;
-						speed.y += gravity;
-						animation = &jump;
-					}
+			if (!isJumping && !godMode && !ColDown) 
+			{
+				if (!onFloor) {
+					position.y += speed.y;
+					speed.y += gravity;
+					animation = &jump;
 				}
+			}
 			
 		}
 		else {
