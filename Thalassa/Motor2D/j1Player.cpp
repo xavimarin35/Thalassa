@@ -55,6 +55,7 @@ bool j1Player::Start() {
 	speed.x = 1.3f;
 	gravity = 0.15f;
 	animation = &idle;
+	flip = true;
 	playerCreated = true;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 13, 20 }, COLLIDER_PLAYER, App->entity_manager);
@@ -96,66 +97,71 @@ bool j1Player::Update(float dt) {
 		}
 		else if (!isDead)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-				if (!ColRight)
-				{
-					position.x += speed.x;
-					animation = &run;
-					flip = true;
-				}
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-				if (!ColLeft)
-				{
-					position.x -= speed.x;
-					animation = &run;
-					flip = false;
-				}
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
-				isJumping = true;
-				onFloor = false;
-				jumpForce = 3.0f;
-				doubleJump -= 1;
-				changedFloor = false;
-
-				App->audio->PlayFx(App->audio->jumpFx);
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-				position.y += speed.y;
-				animation = &idle;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
-				jetpackActive = true;
-				onFloor = false;
-				jetForce = 1.5f;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
-				jetpackActive = false;
-				jumpForce = 0.0f;
-				speed.y = 0.7f;
-			}
-
-			if (isJumping) Jumping();
-
-			if (jetpackActive) JetPack();
-
-			if (onFloor)
-				speed.y = 0;
-
-			if (!isJumping && !godMode && !ColDown) 
+			if (playerCanMove) 
 			{
-				if (!onFloor) {
-					position.y += speed.y;
-					speed.y += gravity;
-					animation = &jump;
+				if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+					if (!ColRight)
+					{
+						position.x += speed.x;
+						animation = &run;
+						flip = true;
+					}
 				}
+
+				if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
+					if (!ColLeft)
+					{
+						position.x -= speed.x;
+						animation = &run;
+						flip = false;
+					}
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
+					isJumping = true;
+					onFloor = false;
+					jumpForce = 3.0f;
+					doubleJump -= 1;
+					changedFloor = false;
+
+					App->audio->PlayFx(App->audio->jumpFx);
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
+					position.y += speed.y;
+					animation = &idle;
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
+					jetpackActive = true;
+					onFloor = false;
+					jetForce = 1.5f;
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
+					jetpackActive = false;
+					jumpForce = 0.0f;
+					speed.y = 0.7f;
+				}
+
 			}
+
+				if (isJumping) Jumping();
+
+				if (jetpackActive) JetPack();
+
+				if (onFloor)
+					speed.y = 0;
+
+				if (!isJumping && !godMode && !ColDown) 
+				{
+					if (!onFloor) {
+						position.y += speed.y;
+						speed.y += gravity;
+						animation = &jump;
+					}
+				}
+			
 		}
 		else {
 			if (lifes > 0)
@@ -268,6 +274,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 					ColDown = true;
 					ColUp = false;
+					playerCanMove = true;
 
 					LOG("TOUCHING DOWN");
 				}
@@ -318,6 +325,7 @@ void j1Player::JetPack() {
 void j1Player::Die() {
 
 	isDead = false;
+	playerCanMove = false;
 
 	fPoint death_position = { position.x,position.y };
 

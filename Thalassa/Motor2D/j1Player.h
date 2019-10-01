@@ -55,7 +55,7 @@ public:
 	int lifes = 3;
 	float gravity;
 
-	
+	bool playerCanMove = false;
 	bool openingChest = false;
 	bool itemPicked = false;
 	bool godMode = false;
