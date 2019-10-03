@@ -321,6 +321,7 @@ void j1Player::Die() {
 
 	isDead = false;
 	playerCanMove = false;
+	jetpackActive = false;
 
 	fPoint death_position = { position.x,position.y };
 
