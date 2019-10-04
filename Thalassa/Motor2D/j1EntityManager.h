@@ -48,6 +48,8 @@ public:
 
 	j1Entity* EntityFactory(ENTITY_TYPE type, int x = 0, int y = 0);
 	void CreateEntity(ENTITY_TYPE type);
+	void AddEnemy(int x, int y, ENTITY_TYPE type);
+	void SpawnEnemy(const EntityInfo& info);
 
 	void OnCollision(Collider* c1, Collider* c2);
 

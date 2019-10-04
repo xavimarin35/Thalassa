@@ -124,6 +124,38 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type)
 	}
 }
 
+void j1EntityManager::AddEnemy(int x, int y, ENTITY_TYPE type)
+{
+	for (int i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type == ENTITY_TYPE::NONE)
+		{
+			queue[i].type = type;
+			queue[i].position.x = x;
+			queue[i].position.y = y;
+			break;
+		}
+	}
+}
+
+void j1EntityManager::SpawnEnemy(const EntityInfo & info)
+{
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type != ENTITY_TYPE::NONE)
+		{
+			j1Entity* ret;
+			if (queue[i].type == OBSTACLE)
+				ret = new j1MovingObstacle(info.position.x, info.position.y, info.type);
+
+			entityList.add(ret);
+			ret->Start();
+
+			break;
+		}
+	}
+}
+
 bool j1EntityManager::Load(pugi::xml_node &)
 {
 	return true;

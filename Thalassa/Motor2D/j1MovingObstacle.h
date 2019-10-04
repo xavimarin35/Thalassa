@@ -24,6 +24,7 @@ public:
 
 	fPoint position;
 	fPoint speed;
+	fPoint limit;
 
 	Animation idle;
 
