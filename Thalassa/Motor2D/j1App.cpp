@@ -10,10 +10,12 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene1.h"
+#include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1Collisions.h"
 #include "j1EntityManager.h"
 #include "j1App.h"
+#include "j1TransitionsManager.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -27,9 +29,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene1 = new j1Scene1();
+	scene2 = new j1Scene2();
 	map = new j1Map();
 	collisions = new j1Collisions();
 	entity_manager = new j1EntityManager();
+	transitions = new j1TransitionsManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -39,8 +43,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene1);
+	AddModule(scene2);
 	AddModule(collisions);
 	AddModule(entity_manager);
+	AddModule(transitions);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -158,16 +164,40 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_counter++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
 	if(want_to_save == true)
-		SavegameNow();
+		SaveGameNow();
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		previous_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == j1KeyState::KEY_DOWN) {
+		cappedFPS != cappedFPS;
+		frame_counter = 0;
+	}
+
+	float average_fps = float(frame_counter) / start_time.ReadSec();
+	float seconds_since_start = start_time.ReadSec();
+
+	uint32 last_time_ms = frame_time.Read();
+	uint32 frames_last_update = previous_last_sec_frame_count;
 }
 
 // Call modules before each loop iteration
@@ -339,7 +369,7 @@ bool j1App::LoadGameNow()
 	return ret;
 }
 
-bool j1App::SavegameNow() const
+bool j1App::SaveGameNow() const
 {
 	bool ret = true;
 

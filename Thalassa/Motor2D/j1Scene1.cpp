@@ -32,12 +32,13 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
-	App->map->Load("Map1.tmx");
-	/*App->tex->Load("maps/bg_big.png");*/
+	App->map->Load("Map1_Tutorial.tmx");
 
+	App->entity_manager->CreateEntity(CHEST);
 	App->entity_manager->CreateEntity(PLAYER);
-	
-	
+
+	App->audio->PlayMusic("audio/music/loading.ogg");
+		
 	return true;
 }
 
@@ -56,7 +57,7 @@ bool j1Scene1::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	/*if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 1;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -66,7 +67,17 @@ bool j1Scene1::Update(float dt)
 		App->render->camera.x += 1;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+		App->render->camera.x -= 1;*/
+
+	if (App->entity_manager->player != nullptr) {
+		App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
+		if (- App->render->camera.x < 0) App->render->camera.x = 0;
+		else if (App->render->camera.x < -6290) App->render->camera.x = -6290;
+		
+		App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
+		if (App->render->camera.y > 0) App->render->camera.y = 0;
+		else if (App->render->camera.y < -360) App->render->camera.y = -360;
+	}
 
 	App->map->Draw();
 
@@ -79,7 +90,7 @@ bool j1Scene1::Update(float dt)
 					App->map->data.tilesets.count(),
 					map_coordinates.x, map_coordinates.y);
 
-	App->win->SetTitle(title.GetString());
+	App->win->SetTitle("Thalassa");
 	return true;
 }
 

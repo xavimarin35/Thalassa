@@ -5,7 +5,7 @@ A project made by CITM (Centre de la Imatge i la Tecnologia Multimedia) students
 ### Installation
 Download the zip file and unzip it. Open the folder, execute the .exe and enjoy!
 
-IMPORTANT: *do not modify, change or add any folder or file (unless specified) as you might not be able to execute the application.*
+IMPORTANT: *Do not modify, change or add any folder or file (unless specified) as you might not be able to execute the application.*
 
 ### Controls
 

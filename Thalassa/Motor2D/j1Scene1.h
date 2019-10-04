@@ -31,10 +31,6 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-
-private:
-
-	SDL_Texture* bg = nullptr;
 };
 
 #endif // __j1SCENE1_H__

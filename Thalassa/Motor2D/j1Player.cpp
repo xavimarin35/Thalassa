@@ -7,6 +7,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include "j1Audio.h"
 
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
@@ -16,33 +17,29 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 	idle.LoadAnimations("idle");
 	jetpack.LoadAnimations("jetpack");
 
+	godAnim.loop = true;
+	godAnim.speed = 0.05f;
+	godAnim.PushBack({ 43,8,14,23 });
+	godAnim.PushBack({ 63,8,14,23 });
+
 	idle.loop = true;
-	idle.speed = 0.008f;
-	idle.PushBack({ 4,36,13,21 });
-	idle.PushBack({ 24,36,13,21 });
+	idle.speed = 0.05f;
+	idle.PushBack({ 4,37,13,20 });
+	idle.PushBack({ 24,37,13,20 });
 
 	run.loop = true;
-	run.speed = 0.025f;
-	run.PushBack({ 64,37,13,21 });
-	run.PushBack({ 3,60,14,21 });
-	run.PushBack({ 44,60,13,21 });
-	run.PushBack({ 24,60,13,21 });
-	run.PushBack({ 24,60,13,21 });
-	run.PushBack({ 44,60,13,21 });
-	run.PushBack({ 3,60,14,21 });
+	run.speed = 0.15f;
+	run.PushBack({ 1,298,13,21 });
+	run.PushBack({ 17,298,13,21 });
+	run.PushBack({ 33,298,13,21 });
+	run.PushBack({ 49,298,13,21 });
 
 	jetpack.loop = true;
-	jetpack.speed = 0.01f;
+	jetpack.speed = 0.1f;
 	jetpack.PushBack({ 4,8,14,23 });
 	jetpack.PushBack({ 24,8,14,23 });
 
 	jump.loop = false;
-	jump.speed = 0.001f;
-	//jump.PushBack({ 3,112,15,17 });
-	//jump.PushBack({ 23,112,15,17 });
-	//jump.PushBack({ 43,112,15,17 });
-	//jump.PushBack({ 23,112,15,17 });
-	//jump.PushBack({ 3,112,15,17 });
 	jump.PushBack({ 24,87,13,18 });
 }
 
@@ -52,12 +49,16 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position = { 0,0 };
-	speed = 0.3f;
+	position = { 100,75 };
+	godSpeed = 2.0f;
+	speed.y = 0.7f;
+	speed.x = 1.3f;
+	gravity = 0.15f;
 	animation = &idle;
+	flip = true;
 	playerCreated = true;
 
-	collider = App->collisions->AddCollider({ (int)position.x + 3, (int)position.y, 12, 20 }, COLLIDER_PLAYER, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 13, 20 }, COLLIDER_PLAYER, App->entity_manager);
 
 	return true;
 }
@@ -73,54 +74,108 @@ bool j1Player::Update(float dt) {
 	{
 		animation = &idle;
 
-		/*if (godMode) 
+		if (godMode) 
 		{
-
-		}
-		else (NO GODMODE PART)
-		{*/
+			animation = &godAnim;
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-				if (!ColRight)
-				{
-					position.x += speed;
-					animation = &run;
-					flip = true;
-				}
+				position.x += godSpeed;
+				flip = true;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-				if (!ColLeft)
-				{
-					position.x -= speed;
-					animation = &run;
-					flip = false;
-				}
+				position.x -= godSpeed;
+				flip = false;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
-				position.y -= speed;
-				animation = &idle;
+				position.y -= godSpeed;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-				position.y += speed;
-				animation = &idle;
+				position.y += godSpeed;
 			}
-
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_REPEAT) {
-				//position.y += speed;
-				animation = &jump;
-			}
-
-
-			/* applying gravity*/
-			if (isJumping == false && onFloor == false) 
+		}
+		else if (!isDead)
+		{
+			if (playerCanMove) 
 			{
-				isFalling = true;
-				position.y += speed;
-				// animation = &falling;
+				if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+					if (!ColRight)
+					{
+						position.x += speed.x;
+						animation = &run;
+						flip = true;
+					}
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
+					if (!ColLeft)
+					{
+						position.x -= speed.x;
+						animation = &run;
+						flip = false;
+					}
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
+					isJumping = true;
+					onFloor = false;
+					jumpForce = 3.0f;
+					doubleJump -= 1;
+					changedFloor = false;
+
+					App->audio->PlayFx(App->audio->jumpFx);
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
+					jetpackActive = true;
+					onFloor = false;
+					jetForce = 1.5f;
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
+					jetpackActive = false;
+					jumpForce = 0.0f;
+					speed.y = 0.7f;
+				}
+
 			}
-		/*}*/
+
+			if (isJumping) Jumping();
+
+			if (jetpackActive) JetPack();
+
+			if (onFloor)
+				speed.y = 0;
+
+			if (!isJumping && !godMode && !ColDown) 
+			{
+				if (!onFloor) {
+					position.y += speed.y;
+					speed.y += gravity;
+					animation = &jump;
+				}
+			}
+			
+		}
+		else {
+			if (lifes > 0)
+				Die();
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			godMode = !godMode;
+			
+			if (godMode) 
+			{
+				collider->type = COLLIDER_GOD;
+			}
+			else if(!godMode)
+			{
+				collider->type = COLLIDER_PLAYER;
+			}
+		}
 	}
 
 	if (collider != nullptr)
@@ -132,6 +187,12 @@ bool j1Player::Update(float dt) {
 }
 
 bool j1Player::PostUpdate() {
+
+	ColRight = false;
+	ColLeft = false;
+	ColDown = false;
+	ColUp = false;
+	onFloor = false;
 
 	return true;
 }
@@ -157,6 +218,13 @@ bool j1Player::Save(pugi::xml_node& data) const {
 bool j1Player::CleanUp() {
 	LOG("Freeing the player");
 
+	App->tex->UnLoad(sprites);
+
+	if (collider != nullptr) {
+		collider->to_delete;
+		collider = nullptr;
+	}
+
 	return true;
 }
 
@@ -167,38 +235,99 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		if (c2->type == COLLIDER_WALL)
 		{
 			// Right & Left Collisions
-			if (collider->rect.y <= c2->rect.y + c2->rect.h && collider->rect.y + collider->rect.h >= c2->rect.y)
+			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 5 >= c2->rect.y)
 			{
-				if (collider->rect.x + collider->rect.w >= c2->rect.x && collider->rect.x <= c2->rect.x)
+				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
+					ColLeft = false;
 					LOG("TOUCHES RIGHT");
 				}
-				else
-
-					if (collider->rect.x <= c2->rect.x + c2->rect.w && collider->rect.x + collider->rect.w >= c2->rect.x + c2->rect.w)
-					{
-						ColLeft = true;
-						LOG("TOUCHES LEFT");
-					}
+				else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x + c1->rect.w >= c2->rect.x + c2->rect.w)
+				{
+					ColLeft = true;
+					ColRight = false;
+					LOG("TOUCHES LEFT");
+				}
 			}
 
 			// Up & Down Collisions
-			if (collider->rect.x + collider->rect.w >= c2->rect.x + 4
-				&& collider->rect.x + 4 < c2->rect.x + c2->rect.w)
+			if (c1->rect.x + c1->rect.w >= c2->rect.x + 4 && c1->rect.x + 4 <= c2->rect.x + c2->rect.w)
 			{
-				if (collider->rect.y + collider->rect.h >= c2->rect.y
-					&& collider->rect.y < c2->rect.y) {
+				if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y) {
 
-					position.y = c2->rect.y - collider->rect.h;
-
-					ColDown = true;
 					onFloor = true;
 					isJumping = false;
-					isFalling = false;
-					LOG("down");
+					jetpackActive = false;
+
+					if (!changedFloor) {
+						position.y = c2->rect.y - c1->rect.h;
+						changedFloor = true;
+					}
+					speed.y = 0;
+					doubleJump = 2;
+
+					ColDown = true;
+					ColUp = false;
+					playerCanMove = true;
+
+					LOG("TOUCHING DOWN");
+				}
+				else if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y > c2->rect.y) {
+					
+					onFloor = false;
+
+					position.y = c2->rect.y + c2->rect.h;
+
+					ColDown = false;
+					ColUp = true;
+
+					LOG("TOUCHING UP");
 				}
 			}
 		}
+
+		if (c2->type == COLLIDER_DEATH)
+			isDead = true;
+
+		if (c2->type == COLLIDER_OPENCHEST)
+			openingChest = true;
+
+		if (c2->type == COLLIDER_CHEST)
+			itemPicked = true;
 	}
+}
+
+void j1Player::Jumping() {
+
+	animation = &jump;
+
+	if (!onFloor && !jetpackActive) {
+		position.y -= jumpForce;
+		jumpForce -= gravity;
+	}
+}
+
+void j1Player::JetPack() {
+
+	animation = &jetpack;
+
+	if (!onFloor) {
+		position.y -= jetForce;
+	}
+}
+
+void j1Player::Die() {
+
+	isDead = false;
+	playerCanMove = false;
+	jetpackActive = false;
+
+	fPoint death_position = { position.x,position.y };
+
+	position.y += speed.y;
+	speed.y += gravity;
+
+	CleanUp();
+	Start();
 }

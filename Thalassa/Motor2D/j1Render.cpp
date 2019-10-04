@@ -12,9 +12,9 @@
 j1Render::j1Render() : j1Module()
 {
 	name.create("renderer");
-	background.r = 0;
-	background.g = 0;
-	background.b = 0;
+	background.r = 22;
+	background.g = 28;
+	background.b = 34;
 	background.a = 0;
 }
 

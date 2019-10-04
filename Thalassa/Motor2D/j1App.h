@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "j1Module.h"
+#include "j1PerfTimer.h"
+#include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -12,9 +14,11 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1Scene1;
+class j1Scene2;
 class j1Map;
 class j1Collisions;
 class j1EntityManager;
+class j1TransitionsManager;
 
 class j1App
 {
@@ -73,7 +77,7 @@ private:
 
 	// Load / Save
 	bool LoadGameNow();
-	bool SavegameNow() const;
+	bool SaveGameNow() const;
 
 public:
 
@@ -84,15 +88,16 @@ public:
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene1*			scene1;
+	j1Scene2*			scene2;
 	j1Map*				map;
 	j1Collisions*		collisions;
 	j1EntityManager*	entity_manager;
+	j1TransitionsManager* transitions;
 
 private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
-	float				dt;
 	int					argc;
 	char**				args;
 
@@ -103,6 +108,18 @@ private:
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	j1PerfTimer			pf_timer;
+	uint64				frame_counter = 0;
+	j1Timer				start_time;
+	j1Timer				frame_time;
+	j1Timer				last_sec_frame_time;
+	uint32				last_sec_frame_count = 0;
+	uint32				previous_last_sec_frame_count = 0;
+	uint32				framerate_cap = 0;
+
+	float				dt = 0.0f;
+	bool				cappedFPS = true;
 };
 
 extern j1App* App;

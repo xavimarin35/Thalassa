@@ -46,6 +46,27 @@
     <ClCompile Include="j1Player.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Transitions.cpp">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="j1TransitionsManager.cpp">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Color.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Timer.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Chest.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Scene2.cpp">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="j1PerfTimer.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -114,6 +135,27 @@
     <ClInclude Include="j1Player.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Transitions.h">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="j1TransitionsManager.h">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Color.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Timer.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Chest.h">
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Scene2.h">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="j1PerfTimer.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -136,6 +178,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Entities">
       <UniqueIdentifier>{2d9ceaac-5ab4-4ddc-9cd2-e8a73f7b4de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Transitions">
+      <UniqueIdentifier>{b8bb34a0-df98-4e78-bc9b-c1aee72ea7a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

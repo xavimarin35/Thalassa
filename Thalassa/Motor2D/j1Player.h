@@ -26,6 +26,9 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c1, Collider* c2);
+	void Jumping();
+	void JetPack();
+	void Die();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -37,17 +40,31 @@ public:
 	Animation run;
 	Animation jetpack;
 	Animation jump;
+	Animation godAnim;
 
 
 public:
 	fPoint position;	
-	float speed;
+	fPoint speed;
 
+	float jumpForce;
+	float jetForce;
+	float godSpeed;
+
+	int doubleJump = 2;
+	int lifes = 3;
+	float gravity;
+
+	bool playerCanMove = false;
+	bool openingChest = false;
+	bool itemPicked = false;
+	bool godMode = false;
 	bool isDead = false;
 	bool playerCreated = false;
 	bool onFloor = false;
 	bool isJumping = false;
-	bool isFalling = false;
+	bool jetpackActive = false;
+	bool changedFloor = false;
 
 	bool ColRight = false;
 	bool ColLeft = false;

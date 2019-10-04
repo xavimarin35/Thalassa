@@ -52,10 +52,20 @@ void j1Map::Draw()
 					{
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
-						if (layer->data->name == "big_background")
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
-						else
+						if (layer->data->name == "Decor")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 1.0F);
+						else if(layer->data->name == "Capa de Patrones 1")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r);  //playable layer
+						else if (layer->data->name == "parallax")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.8F);
+						else if (layer->data->name == "parallax2")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
+						else if (layer->data->name == "parallax3")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.7F);
+						else if (layer->data->name == "parallax4")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.3F);
+						else if (layer->data->name == "bg")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.08F);
 					}
 				}
 
@@ -430,6 +440,13 @@ bool j1Map::LoadColliders()
 		{
 			if (strcmp(name, "wall_collider") == 0)
 				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_WALL);
+
+			if (strcmp(name, "death_collider") == 0)
+				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_DEATH);
+
+			if (strcmp(name, "chest_collider") == 0)
+				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_OPENCHEST);
+
 		}
 	}
 
