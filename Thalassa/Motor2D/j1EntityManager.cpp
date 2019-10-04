@@ -1,6 +1,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Chest.h"
+#include "j1MovingObstacle.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -95,6 +96,13 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
+
+	case OBSTACLE:
+		ret = new j1MovingObstacle(x, y, type);
+
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
 	}
 
 	return ret;
@@ -110,6 +118,9 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type)
 		case CHEST:
 			chest = (j1Chest*)EntityFactory(CHEST);
 			break;
+
+		case OBSTACLE:
+			obstacle = (j1MovingObstacle*)EntityFactory(OBSTACLE);
 	}
 }
 

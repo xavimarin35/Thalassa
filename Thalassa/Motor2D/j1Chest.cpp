@@ -66,7 +66,14 @@ bool j1Chest::Update(float dt) {
 	return true;
 }
 
-bool j1Chest::CleanUp() {
+bool j1Chest::CleanUp() 
+{
+	App->tex->UnLoad(sprites);
+
+	if (collider != nullptr) {
+		collider->to_delete;
+		collider = nullptr;
+	}
 
 	return true;
 }
