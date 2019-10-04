@@ -14,28 +14,45 @@ j1MovingObstacle::j1MovingObstacle(int x, int y, ENTITY_TYPE type) : j1Entity(x,
 
 	idle.loop = false;
 	idle.speed = 1.0f;
-	idle.PushBack({ 128,50,32,14 });
+	idle.PushBack({ 140,133,36,36 });
 }
 
 j1MovingObstacle::~j1MovingObstacle() {}
 
 bool j1MovingObstacle::Start() {
 
-	sprites = App->tex->Load("textures/tiles_spike.png");
+	sprites = App->tex->Load("textures/spikes.png");
 
 	position = { 200,130 };
-	speed = { 4, 2 };
+	speed = { 1, 2.5f };
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 32, 14 }, COLLIDER_DEATH, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 30, 30 }, COLLIDER_DEATH, App->entity_manager);
 
 	return true;
 }
 
 bool j1MovingObstacle::Update(float dt) {
 
-	position.y += speed.y;
+	if (position.y <= 130) 
+	{
+		movingDown = true;
+		movingUp = false;
+	}
+		
+	else if (position.y >= 200)
+	{
+		movingUp = true;
+		movingDown = false;
+	}
+		
+
+	if (movingDown)
+		position.y += speed.y;
+	else if (movingUp)
+		position.y -= speed.y;
+
 
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);

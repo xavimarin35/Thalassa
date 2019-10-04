@@ -27,6 +27,8 @@ public:
 
 	Animation idle;
 
+	bool movingDown = false;
+	bool movingUp = false;
 	bool active = false;
 	bool playedFx = false;
 };
