@@ -10,6 +10,7 @@
 #include "j1Scene1.h"
 #include "j1EntityManager.h"
 #include "j1Player.h"
+#include "j1TransitionsManager.h"
 
 j1Scene1::j1Scene1() : j1Module()
 {
@@ -40,7 +41,7 @@ bool j1Scene1::Start()
 
 	App->entity_manager->AddEnemy(200, 130, OBSTACLE);
 
-	App->audio->PlayMusic("audio/music/loading.ogg");
+//	App->audio->PlayMusic("audio/music/loading.ogg");
 		
 	return true;
 }
@@ -54,6 +55,10 @@ bool j1Scene1::PreUpdate()
 // Called each loop iteration
 bool j1Scene1::Update(float dt)
 {
+	if (death) {
+		App->transitions->FadingToColor();
+	}
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 

@@ -17,9 +17,9 @@ public:
 	virtual bool PostUpdate();
 	virtual bool CleanUp();
 
+	void FadingToColor(j1Color color = Black, float time = 1.0f);
 	/*void MovingToMouse(iPoint mouse_position, float time = 2.0f);
 	void ZoomToMouse(iPoint mouse_position, bool repeat = false, float zoom = 3.0f, float time = 2.0f);
-	void FadingToColor(j1Color color = Black, float time = 1.0f);
 	void Wiping(j1Color color = Black, float time = 2.0f);
 	void LinesAppearing(j1Color color = Black, float time = 2.0f);
 	void SquaresAppearing(int transition = 1, j1Color color = Black, float time = 2.0f);*/

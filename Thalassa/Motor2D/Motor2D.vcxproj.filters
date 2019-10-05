@@ -70,6 +70,9 @@
     <ClCompile Include="j1MovingObstacle.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="FadeToColor.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="j1MovingObstacle.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="FadeToColor.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -187,6 +193,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Transitions">
       <UniqueIdentifier>{b8bb34a0-df98-4e78-bc9b-c1aee72ea7a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Transitions\Types">
+      <UniqueIdentifier>{c34e36d7-5dd3-4df6-b115-688cfc07c0f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

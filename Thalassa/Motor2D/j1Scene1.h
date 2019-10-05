@@ -31,6 +31,11 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+public:
+
+	bool death = false;
+	bool win1 = false;
 };
 
 #endif // __j1SCENE1_H__

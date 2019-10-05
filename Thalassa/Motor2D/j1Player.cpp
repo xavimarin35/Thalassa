@@ -41,6 +41,15 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 
 	jump.loop = false;
 	jump.PushBack({ 24,87,13,18 });
+
+	deathAnim.loop = false;
+	deathAnim.speed = 0.4f;
+	deathAnim.PushBack({ 2,327,13,20 });
+	deathAnim.PushBack({ 18,327,13,20 });
+	deathAnim.PushBack({ 34,327,13,20 });
+	deathAnim.PushBack({ 50,327,13,20 });
+	deathAnim.PushBack({ 66,327,13,20 });
+	deathAnim.PushBack({ 0,0,0,0 });
 }
 
 j1Player::~j1Player() {}
@@ -159,8 +168,10 @@ bool j1Player::Update(float dt) {
 			
 		}
 		else {
-			if (lifes > 0)
-				Die();
+			if (lifes > 0) {
+				App->scene1->death = true;
+				animation = &deathAnim;
+			}
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -322,6 +333,7 @@ void j1Player::Die() {
 	isDead = false;
 	playerCanMove = false;
 	jetpackActive = false;
+	App->scene1->death = false;
 
 	fPoint death_position = { position.x,position.y };
 
