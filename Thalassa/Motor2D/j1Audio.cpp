@@ -53,6 +53,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	jumpFx = LoadFx("audio/fx/jump.wav");
 	jetpackFx = LoadFx("audio/fx/jetpack.wav");
 	openChestFx = LoadFx("audio/fx/openchest.wav");
+	footStepFx = LoadFx("audio/fx/footstep.wav");
 
 	return ret;
 }
