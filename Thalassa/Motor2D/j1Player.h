@@ -59,6 +59,7 @@ public:
 	bool playerCanMove = false;
 	bool openingChest = false;
 	bool itemPicked = false;
+	bool doorOpened = false;
 	bool godMode = false;
 	bool isDead = false;
 	bool playerCreated = false;
