@@ -121,6 +121,7 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type)
 
 		case OBSTACLE:
 			obstacle = (j1MovingObstacle*)EntityFactory(OBSTACLE);
+			break;
 	}
 }
 

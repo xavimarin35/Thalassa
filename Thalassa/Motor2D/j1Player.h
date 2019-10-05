@@ -41,6 +41,7 @@ public:
 	Animation jetpack;
 	Animation jump;
 	Animation godAnim;
+	Animation deathAnim;
 
 
 public:

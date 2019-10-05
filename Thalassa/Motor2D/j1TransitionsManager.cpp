@@ -3,7 +3,7 @@
 #include "j1Transitions.h"
 #include "j1Render.h"
 #include "j1Window.h"
-//#include "FadeToColor.h"
+#include "FadeToColor.h"
 //#include "MoveToMouse.h"
 //#include "Zoom.h"
 //#include "Wipe.h"
@@ -41,11 +41,11 @@ void j1TransitionsManager::CleanTransitions(j1Transitions* transition) {
 	delete transition;
 }
 
-/*void j1TransitionsManager::FadingToColor(j1Color color, float time) {
+void j1TransitionsManager::FadingToColor(j1Color color, float time) {
 	transitions_list.push_back(new FadeToColor(color, time));
 }
 
-void j1TransitionsManager::MovingToMouse(iPoint mouse_position, float time) {
+/*void j1TransitionsManager::MovingToMouse(iPoint mouse_position, float time) {
 	transitions_list.push_back(new MoveToMouse(mouse_position, time));
 }
 
