@@ -15,15 +15,16 @@ j1Door::j1Door(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DOO
 	animation = NULL;
 
 	idle.loop = false;
-	idle.PushBack({ 40,0,8,15 });
+	idle.PushBack({ 80,0,16,30 });
 
 	openingAnim.loop = false;
 	openingAnim.speed = 1.0f;
-	openingAnim.PushBack({ 32,0,8,15 });
-	openingAnim.PushBack({ 24,0,8,15 });
-	openingAnim.PushBack({ 16,0,8,15 });
-	openingAnim.PushBack({ 8,0,8,15 });
-	openingAnim.PushBack({ 0,0,8,15 });
+	openingAnim.PushBack({ 80,0,16,30 });
+	openingAnim.PushBack({ 64,0,16,30 });
+	openingAnim.PushBack({ 48,0,16,30 });
+	openingAnim.PushBack({ 32,0,16,30 });
+	openingAnim.PushBack({ 16,0,16,30 });
+	openingAnim.PushBack({ 0,0,0,0 });
 }
 
 j1Door::~j1Door() {}

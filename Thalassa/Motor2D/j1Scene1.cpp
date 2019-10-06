@@ -11,6 +11,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1TransitionsManager.h"
+#include "j1Collisions.h"
 
 j1Scene1::j1Scene1() : j1Module()
 {
@@ -33,14 +34,41 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
-	App->map->Load("Map1_Tutorial.tmx");
+	// TUTORIAL
+	if (tutorial_active) {
+		App->map->Load("Map1_Tutorial.tmx");
+		cameraLimitX = -6290;
+		cameraLimitY = -360;
 
-	/*App->entity_manager->CreateEntity(OBSTACLE);*/
+		App->entity_manager->CreateEntity(PLAYER);
+	}
+
+	// LEVEL 1
+	else if (level1_active) {
+		App->map->Load("Map2_Level1.tmx");
+
+		if (!midlevel_completed) {
+			cameraLimitX = -5135;
+			cameraLimitY = -790;
+		}
+		else {
+			cameraLimitX = -10400;
+			cameraLimitY = -790;
+		}
+
+		App->entity_manager->CreateEntity(PLAYER);
+	}
+
+	// MID-LEVEL
+	else if (midlevel_active) {
+		App->map->Load("Map3_MidLevel.tmx");
+		App->entity_manager->CreateEntity(PLAYER);
+	}
+
+
+	/*App->entity_manager->CreateEntity(OBSTACLE);
 	App->entity_manager->CreateEntity(CHEST, 15, 100);
-	App->entity_manager->CreateEntity(PLAYER);
-	App->entity_manager->CreateEntity(DOOR, 50, 100);
-
-	App->entity_manager->AddEnemy(200, 130, OBSTACLE);
+	App->entity_manager->CreateEntity(DOOR, 50, 100);*/
 
 //	App->audio->PlayMusic("audio/music/loading.ogg");
 		
@@ -60,32 +88,107 @@ bool j1Scene1::Update(float dt)
 		App->transitions->FadingToColor();
 	}
 
+	// If player arrives to the end of a level
+	if (App->entity_manager->player->touchingWin) {
+
+		// Wins from tutorial & goes to level 1
+		if (tutorial_active) {
+			midlevel_completed = false;
+
+			tutorial_active = false;
+			level1_active = true;
+			midlevel_active = false;
+
+			LoadNewLevel();
+		}
+		
+		else if (level1_active) {
+			// Crosses the door & goes to mid level
+			if (!midlevel_completed) {
+				
+				tutorial_active = false;
+				level1_active = false;
+				midlevel_active = true;
+				
+				LoadNewLevel();
+			}
+
+			// Wins the game
+			else {
+				tutorial_active = true;
+				level1_active = false;
+				midlevel_active = false;
+
+				LoadNewLevel();
+			}
+		}
+
+		// Wins from midlevel & returns to level1
+		else if (midlevel_active) {
+			midlevel_completed = true;
+
+			tutorial_active = false;
+			level1_active = true;
+			midlevel_active = false;
+
+			LoadNewLevel();
+		}
+	}
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	/*if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 1;
+	// Loads tutorial
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		tutorial_active = true;
+		level1_active = false;
+		midlevel_active = false;
+		LoadNewLevel();
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 1;
+	// Loads level 1
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		midlevel_completed = false;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+		tutorial_active = false;
+		level1_active = true;
+		midlevel_active = false;
+		LoadNewLevel();
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;*/
+	// Loads mid-level
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		tutorial_active = false;
+		level1_active = false;
+		midlevel_active = true;
+		LoadNewLevel();
+	}
 
-	if (App->entity_manager->player != nullptr) {
+
+	// CAMERA FOLLOWING PLAYER
+	if (App->entity_manager->player != nullptr) 
+	{
 		App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
-		if (- App->render->camera.x < 0) App->render->camera.x = 0;
-		else if (App->render->camera.x < -6290) App->render->camera.x = -6290;
+		
+		// LIMITING X CAMERA
+		if (- App->render->camera.x < 0) 
+			App->render->camera.x = 0;
+		else if (App->render->camera.x < cameraLimitX) 
+			App->render->camera.x = cameraLimitX;
 		
 		App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
-		if (App->render->camera.y > 0) App->render->camera.y = 0;
-		else if (App->render->camera.y < -360) App->render->camera.y = -360;
+		
+		// LIMITING Y CAMERA
+		if (App->render->camera.y > 0)
+			App->render->camera.y = 0;
+		else if (App->render->camera.y < cameraLimitY)
+			App->render->camera.y = cameraLimitY;
 	}
 
 	App->map->Draw();
@@ -118,6 +221,22 @@ bool j1Scene1::PostUpdate()
 bool j1Scene1::CleanUp()
 {
 	LOG("Freeing scene1");
+	App->map->CleanUp();
+	App->collisions->CleanUp();
+	if (App->entity_manager->player != nullptr)
+		App->entity_manager->player->CleanUp();
+	App->entity_manager->CleanUp();
 
 	return true;
+}
+
+void j1Scene1::LoadNewLevel() {
+
+	CleanUp();
+
+	Start();
+	App->collisions->Start();
+	App->entity_manager->Start();
+	if (App->entity_manager->player != nullptr)
+		App->entity_manager->player->Start();
 }

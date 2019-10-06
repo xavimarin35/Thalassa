@@ -5,6 +5,14 @@
 
 struct SDL_Texture;
 
+enum ACTIVE_SCENE {
+	SCENE_TUTORIAL,
+	SCENE_LEVEL1,
+	SCENE_MIDLEVEL,
+
+	SCENE_NONE
+};
+
 class j1Scene1 : public j1Module
 {
 public:
@@ -32,10 +40,21 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void LoadNewLevel();
+
 public:
 
 	bool death = false;
 	bool win1 = false;
+
+	bool tutorial_active = true;
+	bool level1_active = false;
+	bool midlevel_active = false;
+
+	bool midlevel_completed = false;
+
+	int cameraLimitX;
+	int cameraLimitY;
 };
 
 #endif // __j1SCENE1_H__

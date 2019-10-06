@@ -12,6 +12,7 @@
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
 {
+	
 	animation = NULL;
 
 	idle.LoadAnimations("idle");
@@ -306,6 +307,9 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 		if (c2->type == COLLIDER_CHEST)
 			itemPicked = true;
+
+		if (c2->type == COLLIDER_WIN)
+			touchingWin = true;
 	}
 }
 
