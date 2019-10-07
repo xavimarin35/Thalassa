@@ -95,6 +95,7 @@
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Transitions.cpp" />
     <ClCompile Include="j1TransitionsManager.cpp" />
+    <ClCompile Include="Lines.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Transitions.h" />
     <ClInclude Include="j1TransitionsManager.h" />
+    <ClInclude Include="Lines.h" />
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />

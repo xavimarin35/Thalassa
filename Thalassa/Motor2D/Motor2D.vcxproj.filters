@@ -73,6 +73,9 @@
     <ClCompile Include="j1Door.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Lines.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="j1Door.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Lines.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
