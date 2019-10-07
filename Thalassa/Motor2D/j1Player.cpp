@@ -196,7 +196,7 @@ bool j1Player::CleanUp() {
 	App->tex->UnLoad(sprites);
 
 	if (collider != nullptr) {
-		collider->to_delete;
+		collider->to_delete = true;
 		collider = nullptr;
 	}
 

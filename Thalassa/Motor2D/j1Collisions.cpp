@@ -98,9 +98,8 @@ bool j1Collisions::PreUpdate()
 	{
 		if (colliders[i] != nullptr)
 		{
-			if (colliders[i]->to_delete)
+			if (colliders[i]->to_delete == true)
 			{
-
 				delete colliders[i];
 				colliders[i] = nullptr;
 			}
@@ -130,8 +129,8 @@ bool j1Collisions::PreUpdate()
 					if (matrix[collider1->type][collider2->type] && collider1->callback)
 						collider1->callback->OnCollision(collider1, collider2);
 
-					/*if (matrix[collider2->type][collider1->type] && collider2->callback)
-						collider2->callback->OnCollision(collider2, collider1);*/
+					if (matrix[collider2->type][collider1->type] && collider2->callback)
+						collider2->callback->OnCollision(collider2, collider1);
 				}
 			}
 		}
