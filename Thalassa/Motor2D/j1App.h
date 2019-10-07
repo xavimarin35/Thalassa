@@ -75,8 +75,8 @@ private:
 	bool PostUpdate();
 
 	// Load / Save
-	bool LoadGameNow();
-	bool SaveGameNow() const;
+	bool LoadGameApp();
+	bool SaveGameApp() const;
 
 public:
 

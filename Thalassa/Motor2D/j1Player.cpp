@@ -211,8 +211,8 @@ bool j1Player::PostUpdate() {
 
 bool j1Player::Load(pugi::xml_node& data) {
 
-	position.x = data.child("position").attribute("x").as_int();
-	position.y = data.child("position").attribute("y").as_int();
+	position.x = data.child("player").child("position").attribute("x").as_int();
+	position.y = data.child("player").child("position").attribute("y").as_int();
 
 	return true;
 }
@@ -249,23 +249,24 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			// Right & Left Collisions
 			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 5 >= c2->rect.y)
 			{
+				// right
 				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
 					ColLeft = false;
-					LOG("TOUCHES RIGHT");
 				}
+				// left
 				else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x + c1->rect.w >= c2->rect.x + c2->rect.w)
 				{
 					ColLeft = true;
 					ColRight = false;
-					LOG("TOUCHES LEFT");
 				}
 			}
 
 			// Up & Down Collisions
 			if (c1->rect.x + c1->rect.w >= c2->rect.x + 4 && c1->rect.x + 4 <= c2->rect.x + c2->rect.w)
 			{
+				// down
 				if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y) {
 
 					onFloor = true;
@@ -282,9 +283,8 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					ColDown = true;
 					ColUp = false;
 					playerCanMove = true;
-
-					LOG("TOUCHING DOWN");
 				}
+				// up
 				else if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y > c2->rect.y) {
 					
 					onFloor = false;

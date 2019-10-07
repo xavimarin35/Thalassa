@@ -1,13 +1,9 @@
 <!-- Save game for the game -->
 
-<game_state>
+<data>
 
-  <renderer>
-    <camera x="100" y="0"/>
-  </renderer>
-  
   <player>
 	<position x="0" y="0"/>
-  <player/>
+  </player>
 
-</game_state>
+</data>
