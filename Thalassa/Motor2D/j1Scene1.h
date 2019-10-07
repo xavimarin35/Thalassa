@@ -53,6 +53,9 @@ public:
 
 	bool midlevel_completed = false;
 
+	bool cameraMoving = true;
+	bool lateralMove = false;
+
 	int cameraLimitX;
 	int cameraLimitY;
 };

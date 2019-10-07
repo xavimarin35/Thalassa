@@ -190,7 +190,18 @@ bool j1Scene1::Update(float dt)
 	// CAMERA FOLLOWING PLAYER
 	if (App->entity_manager->player != nullptr) 
 	{
-		App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
+		if (lateralMove) {
+			if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2) {
+				App->render->camera.x -= 3.5f;
+				App->entity_manager->player->playerCanMove = false;
+			}
+			else {
+				lateralMove = false;
+				App->entity_manager->player->playerCanMove = true;
+			}
+		}
+		else
+			App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
 		
 		// LIMITING X CAMERA
 		if (- App->render->camera.x < 0) 
@@ -198,7 +209,19 @@ bool j1Scene1::Update(float dt)
 		else if (App->render->camera.x < cameraLimitX) 
 			App->render->camera.x = cameraLimitX;
 		
-		App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
+		if (cameraMoving)
+		{
+			if (App->render->camera.y >= -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2) {
+				App->render->camera.y -= 2.0f;
+				App->entity_manager->player->playerCanMove = false;
+			}
+			else {
+				cameraMoving = false;
+				App->entity_manager->player->playerCanMove = true;
+			}
+		}
+		else
+			App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
 		
 		// LIMITING Y CAMERA
 		if (App->render->camera.y > 0)
@@ -255,4 +278,14 @@ void j1Scene1::LoadNewLevel() {
 	App->entity_manager->Start();
 	if (App->entity_manager->player != nullptr)
 		App->entity_manager->player->Start();
+
+
+	if (level1_active && midlevel_completed) {
+		lateralMove = true;
+		App->render->camera.x = -5400;
+	}
+	else {
+		cameraMoving = true;
+		App->render->camera.y = 0;
+	}
 }
