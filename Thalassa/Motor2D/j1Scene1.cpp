@@ -12,6 +12,9 @@
 #include "j1Player.h"
 #include "j1TransitionsManager.h"
 #include "j1Collisions.h"
+#include "SDL_mixer/include/SDL_mixer.h"
+
+#define SDL_TICKS_PASSED(A, B)  ((Sint32)((B) - (A)) <= 0)
 
 j1Scene1::j1Scene1() : j1Module()
 {
@@ -41,11 +44,20 @@ bool j1Scene1::Start()
 		cameraLimitY = -360;
 
 		App->entity_manager->CreateEntity(PLAYER);
+
+		App->audio->PlayMusic("audio/music/loading.ogg");
 	}
 
 	// LEVEL 1
 	else if (level1_active) {
 		App->map->Load("Map2_Level1.tmx");
+
+		Mix_FadeOutMusic(2000);
+
+		uint32 timeout = SDL_GetTicks() + 2000;
+		while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
+			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
+		}
 
 		if (!midlevel_completed) {
 			cameraLimitX = -5135;
@@ -72,8 +84,6 @@ bool j1Scene1::Start()
 	/*App->entity_manager->CreateEntity(OBSTACLE);
 	App->entity_manager->CreateEntity(CHEST, 15, 100);
 	App->entity_manager->CreateEntity(DOOR, 50, 100);*/
-
-//	App->audio->PlayMusic("audio/music/loading.ogg");
 		
 	return true;
 }
