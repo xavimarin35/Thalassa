@@ -59,14 +59,8 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position = { 100,75 };
-	godSpeed = 2.0f;
-	speed.y = 0.7f;
-	speed.x = 1.3f;
-	gravity = 0.15f;
-	animation = &idle;
-	flip = true;
-	playerCreated = true;
+	// Load values from config.xml
+	LoadInfo();
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 13, 20 }, COLLIDER_PLAYER, App->entity_manager);
 
@@ -346,4 +340,24 @@ void j1Player::Die() {
 
 	CleanUp();
 	Start();
+}
+
+void j1Player::LoadInfo()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodePlayer;
+	nodePlayer = config.child("player");
+	position.x = nodePlayer.child("pos").attribute("x").as_int();
+	position.y = nodePlayer.child("pos").attribute("y").as_int();
+	godSpeed = nodePlayer.child("godSpeed").attribute("value").as_float();
+	speed.x = nodePlayer.child("speed").attribute("x").as_float();
+	speed.y = nodePlayer.child("speed").attribute("y").as_float();
+	gravity = nodePlayer.child("gravity").attribute("value").as_float();
+	flip = nodePlayer.child("flip").attribute("value").as_bool();
+	playerCreated = nodePlayer.child("created").attribute("value").as_bool();
 }

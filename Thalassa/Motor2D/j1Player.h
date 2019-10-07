@@ -29,6 +29,7 @@ public:
 	void Jumping();
 	void JetPack();
 	void Die();
+	void LoadInfo();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);

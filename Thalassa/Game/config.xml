@@ -26,4 +26,13 @@
     <folder>maps/</folder>
   </map>
 
+  <player>
+    <pos x="100" y="75"/>
+    <godSpeed value="2.0f"/>
+    <speed x="1.3f" y="0.7f"/>
+    <gravity value="0.15f"/>
+    <flip value="true"/>
+    <created value="true"/>
+  </player>
+
 </config>
