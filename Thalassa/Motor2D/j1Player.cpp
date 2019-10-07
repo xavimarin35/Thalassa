@@ -12,45 +12,14 @@
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
 {
-	
 	animation = NULL;
 
 	idle.LoadAnimations("idle");
 	jetpack.LoadAnimations("jetpack");
-
-	godAnim.loop = true;
-	godAnim.speed = 0.05f;
-	godAnim.PushBack({ 43,8,14,23 });
-	godAnim.PushBack({ 63,8,14,23 });
-
-	idle.loop = true;
-	idle.speed = 0.05f;
-	idle.PushBack({ 4,37,13,20 });
-	idle.PushBack({ 24,37,13,20 });
-
-	run.loop = true;
-	run.speed = 0.15f;
-	run.PushBack({ 1,298,13,21 });
-	run.PushBack({ 17,298,13,21 });
-	run.PushBack({ 33,298,13,21 });
-	run.PushBack({ 49,298,13,21 });
-
-	jetpack.loop = true;
-	jetpack.speed = 0.1f;
-	jetpack.PushBack({ 4,8,14,23 });
-	jetpack.PushBack({ 24,8,14,23 });
-
-	jump.loop = false;
-	jump.PushBack({ 24,87,13,18 });
-
-	deathAnim.loop = false;
-	deathAnim.speed = 0.4f;
-	deathAnim.PushBack({ 2,327,13,20 });
-	deathAnim.PushBack({ 18,327,13,20 });
-	deathAnim.PushBack({ 34,327,13,20 });
-	deathAnim.PushBack({ 50,327,13,20 });
-	deathAnim.PushBack({ 66,327,13,20 });
-	deathAnim.PushBack({ 0,0,0,0 });
+	godAnim.LoadAnimations("godmode");
+	run.LoadAnimations("run");
+	jump.LoadAnimations("jump");
+	deathAnim.LoadAnimations("death");
 }
 
 j1Player::~j1Player() {}
@@ -205,8 +174,8 @@ bool j1Player::PostUpdate() {
 
 bool j1Player::Load(pugi::xml_node& data) {
 
-	position.x = data.child("player").child("position").attribute("x").as_int();
-	position.y = data.child("player").child("position").attribute("y").as_int();
+	position.x = data.child("player").child("position").attribute("x").as_float();
+	position.y = data.child("player").child("position").attribute("y").as_float();
 
 	return true;
 }
