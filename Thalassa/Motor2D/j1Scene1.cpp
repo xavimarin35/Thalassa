@@ -62,6 +62,9 @@ bool j1Scene1::Start()
 	// MID-LEVEL
 	else if (midlevel_active) {
 		App->map->Load("Map3_MidLevel.tmx");
+
+		cameraLimitX = -2200;
+		cameraLimitY = -400;
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 
@@ -98,7 +101,7 @@ bool j1Scene1::Update(float dt)
 
 	
 	if (death) {
-		App->transitions->FadingToColor();
+		App->transitions->FadingToColor(Black, 0.5f);
 	}
 
 	// If player arrives to the end of a level

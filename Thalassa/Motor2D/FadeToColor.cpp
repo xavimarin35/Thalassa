@@ -36,7 +36,7 @@ void FadeToColor::Start() {
 
 void FadeToColor::Change() {
 
-	FillScreen(255.0f);
+	// FillScreen(255.0f);
 
 	if (App->scene1->death) {
 		App->entity_manager->player->Die();
@@ -47,10 +47,10 @@ void FadeToColor::Change() {
 
 void FadeToColor::Exit() {
 
-	j1Transitions::Exit();
-
 	// Color disappears
 	FillScreen(Interpolation(255, 0, percentage));
+
+	j1Transitions::Exit();
 }
 
 void FadeToColor::FillScreen(float percentage) {

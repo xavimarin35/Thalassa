@@ -9065,8 +9065,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="11605"/>
+   <tile gid="11606"/>
    <tile/>
    <tile/>
    <tile/>
@@ -9200,8 +9200,8 @@
    <tile/>
    <tile/>
    <tile gid="1250"/>
-   <tile gid="1251"/>
-   <tile/>
+   <tile gid="11617"/>
+   <tile gid="11618"/>
    <tile/>
    <tile/>
    <tile gid="9415"/>
@@ -9335,8 +9335,8 @@
    <tile/>
    <tile/>
    <tile gid="1332"/>
-   <tile gid="1333"/>
-   <tile/>
+   <tile gid="11629"/>
+   <tile gid="11630"/>
    <tile/>
    <tile/>
    <tile gid="9440"/>

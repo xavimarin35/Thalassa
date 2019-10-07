@@ -301,6 +301,7 @@ void j1Player::Die() {
 	playerCanMove = false;
 	jetpackActive = false;
 	App->scene1->death = false;
+	animation = NULL;
 
 	fPoint death_position = { position.x,position.y };
 
@@ -321,12 +322,35 @@ void j1Player::LoadInfo()
 
 	pugi::xml_node nodePlayer;
 	nodePlayer = config.child("player");
-	position.x = nodePlayer.child("pos").attribute("x").as_int();
-	position.y = nodePlayer.child("pos").attribute("y").as_int();
+
+	if (App->scene1->tutorial_active) 
+	{
+		position.x = nodePlayer.child("posTuto").attribute("x").as_int();
+		position.y = nodePlayer.child("posTuto").attribute("y").as_int();
+	}
+	else if (App->scene1->level1_active) 
+	{
+		if (App->scene1->midlevel_completed) 
+		{
+			position.x = nodePlayer.child("posLvl2").attribute("x").as_int();
+			position.y = nodePlayer.child("posLvl2").attribute("y").as_int();
+		}
+		else 
+		{
+			position.x = nodePlayer.child("posLvl1").attribute("x").as_int();
+			position.y = nodePlayer.child("posLvl1").attribute("y").as_int();
+		}
+	}
+	else if (App->scene1->midlevel_active) 
+	{
+		position.x = nodePlayer.child("posMidLvl").attribute("x").as_int();
+		position.y = nodePlayer.child("posMidLvl").attribute("y").as_int();
+	}
 	godSpeed = nodePlayer.child("godSpeed").attribute("value").as_float();
 	speed.x = nodePlayer.child("speed").attribute("x").as_float();
 	speed.y = nodePlayer.child("speed").attribute("y").as_float();
 	gravity = nodePlayer.child("gravity").attribute("value").as_float();
 	flip = nodePlayer.child("flip").attribute("value").as_bool();
 	playerCreated = nodePlayer.child("created").attribute("value").as_bool();
+
 }
