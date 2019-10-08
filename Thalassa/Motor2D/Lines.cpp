@@ -19,7 +19,7 @@ Lines::Lines(j1Color color, float time) : j1Transitions(time) {
 		// All lines have window width as width and height/10 as height
 		lines[i].h = ((int)h / 10);
 
-		lines[i].w = (int)w;
+		lines[i].w = (int)w + 40;
 
 		// 5 lines are placed at the left of the screen
 		if (i % 2 == 0)
@@ -61,6 +61,8 @@ void Lines::Change() {
 
 	SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, 255);
 	SDL_RenderFillRect(App->render->renderer, &screen);
+
+	App->scene1->LoadNewLevel();
 
 	j1Transitions::Change();
 }

@@ -271,8 +271,16 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		if (c2->type == COLLIDER_CHEST)
 			itemPicked = true;
 
-		if (c2->type == COLLIDER_WIN)
+		
+		if (c2->type == COLLIDER_WIN) {
 			touchingWin = true;
+			playerCanMove = false;
+			c2->to_delete = true;
+		}
+
+		if (c2->type == COLLIDER_OPENDOOR) {
+			doorOpened = true;
+		}
 	}
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="16" nextobjectid="453">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextobjectid="455">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
   <tile id="0">
@@ -51,7 +51,7 @@
  <tileset firstgid="12848" name="Door_Spritesheet" tilewidth="8" tileheight="8" tilecount="36" columns="12">
   <image source="../textures/Door_Spritesheet.png" width="96" height="30"/>
  </tileset>
- <layer id="6" name="bg" width="476" height="65">
+ <layer name="bg" width="476" height="65">
   <data>
    <tile gid="9103"/>
    <tile gid="9104"/>
@@ -30995,7 +30995,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="parallax" width="476" height="65">
+ <layer name="parallax" width="476" height="65">
   <data>
    <tile/>
    <tile/>
@@ -61939,7 +61939,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="10" name="parallax2" width="476" height="65">
+ <layer name="parallax2" width="476" height="65">
   <data>
    <tile/>
    <tile/>
@@ -92883,7 +92883,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="11" name="parallax3" width="476" height="65">
+ <layer name="parallax3" width="476" height="65">
   <data>
    <tile/>
    <tile/>
@@ -123827,7 +123827,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="12" name="parallax4" width="476" height="65">
+ <layer name="parallax4" width="476" height="65">
   <data>
    <tile/>
    <tile/>
@@ -154771,7 +154771,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="15" name="Capa de Patrones 1" width="476" height="65">
+ <layer name="Capa de Patrones 1" width="476" height="65">
   <data>
    <tile/>
    <tile/>
@@ -162638,8 +162638,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="12858"/>
-   <tile gid="12859"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="2980"/>
    <tile gid="2981"/>
@@ -163114,8 +163114,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="12870"/>
-   <tile gid="12871"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="3062"/>
    <tile gid="3063"/>
@@ -163590,8 +163590,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="12882"/>
-   <tile gid="12883"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="1588"/>
    <tile gid="1834"/>
@@ -185715,11 +185715,11 @@
    <tile/>
   </data>
  </layer>
- <objectgroup color="#55aa00" id="14" name="win_collider">
+ <objectgroup color="#55aa00" name="win_collider">
   <object id="440" x="1992" y="128" width="16" height="24"/>
   <object id="442" x="3747.25" y="131" width="12.5" height="15.25"/>
  </objectgroup>
- <objectgroup id="4" name="wall_collider">
+ <objectgroup name="wall_collider">
   <object id="1" x="24" y="232" width="208" height="8"/>
   <object id="2" x="40" y="240" width="192" height="16"/>
   <object id="3" x="40" y="256" width="128" height="16"/>
@@ -186009,7 +186009,11 @@
   <object id="444" x="-8" y="-8" width="8" height="528"/>
   <object id="446" x="3808" y="-8" width="8" height="528"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="5" name="death_collider">
+ <objectgroup color="#5500ff" name="opendoor_collider">
+  <object id="453" x="1960" y="104" width="8" height="48"/>
+  <object id="454" x="1968" y="96" width="48" height="8"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="death_collider">
   <object id="59" x="442.182" y="256" width="5.81818" height="16"/>
   <object id="60" x="448" y="257.818" width="7.09091" height="14.1818"/>
   <object id="61" x="457.909" y="256" width="5.81818" height="16"/>

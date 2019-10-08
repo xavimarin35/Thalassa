@@ -40,6 +40,7 @@ bool j1Scene1::Start()
 	// TUTORIAL
 	if (tutorial_active) {
 		App->map->Load("Map1_Tutorial.tmx");
+
 		cameraLimitX = -6290;
 		cameraLimitY = -360;
 
@@ -50,7 +51,11 @@ bool j1Scene1::Start()
 
 	// LEVEL 1
 	else if (level1_active) {
+		
 		App->map->Load("Map2_Level1.tmx");
+		
+		if (App->entity_manager->player != nullptr)
+			App->entity_manager->player->doorOpened = false;
 
 		Mix_FadeOutMusic(2000);
 
@@ -68,6 +73,7 @@ bool j1Scene1::Start()
 			cameraLimitY = -790;
 		}
 
+		App->entity_manager->CreateEntity(DOOR, 996, 61);
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 
@@ -75,11 +81,23 @@ bool j1Scene1::Start()
 	else if (midlevel_active) {
 		App->map->Load("Map3_MidLevel.tmx");
 
+		if (App->entity_manager->player != nullptr)
+			App->entity_manager->player->doorOpened = false;
+
+		Mix_FadeOutMusic(2000);
+
+		uint32 timeout = SDL_GetTicks() + 2000;
+		while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
+			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
+		}
+
 		cameraLimitX = -2200;
 		cameraLimitY = -400;
+
+		App->entity_manager->CreateEntity(DOOR, 494, 85);
 		App->entity_manager->CreateEntity(PLAYER);
 	}
-
+	
 
 	/*App->entity_manager->CreateEntity(OBSTACLE);
 	App->entity_manager->CreateEntity(CHEST, 15, 100);
@@ -109,7 +127,6 @@ bool j1Scene1::Update(float dt)
 		App->LoadGame("save_game.xml");
 	}
 
-	
 	if (death) {
 		App->transitions->FadingToColor(Black, 0.5f);
 	}
@@ -119,53 +136,48 @@ bool j1Scene1::Update(float dt)
 
 		// Wins from tutorial & goes to level 1
 		if (tutorial_active) {
+			App->entity_manager->player->touchingWin = false;
+			
 			midlevel_completed = false;
 
 			tutorial_active = false;
 			level1_active = true;
 			midlevel_active = false;
-
-			LoadNewLevel();
 		}
 		
 		else if (level1_active) {
 			// Crosses the door & goes to mid level
 			if (!midlevel_completed) {
-				
+				App->entity_manager->player->touchingWin = false;
+
 				tutorial_active = false;
 				level1_active = false;
 				midlevel_active = true;
-				
-				LoadNewLevel();
 			}
 
 			// Wins the game
 			else {
+				App->entity_manager->player->touchingWin = false;
+
 				tutorial_active = true;
 				level1_active = false;
 				midlevel_active = false;
-
-				LoadNewLevel();
 			}
 		}
 
 		// Wins from midlevel & returns to level1
 		else if (midlevel_active) {
+			App->entity_manager->player->touchingWin = false;
+
 			midlevel_completed = true;
 
 			tutorial_active = false;
 			level1_active = true;
 			midlevel_active = false;
-
-			LoadNewLevel();
 		}
+
+		App->transitions->LinesAppearing();
 	}
-
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
-
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
 
 	// Loads tutorial
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -173,7 +185,8 @@ bool j1Scene1::Update(float dt)
 		tutorial_active = true;
 		level1_active = false;
 		midlevel_active = false;
-		LoadNewLevel();
+
+		App->transitions->LinesAppearing();
 	}
 
 	// Loads level 1
@@ -184,7 +197,8 @@ bool j1Scene1::Update(float dt)
 		tutorial_active = false;
 		level1_active = true;
 		midlevel_active = false;
-		LoadNewLevel();
+		
+		App->transitions->LinesAppearing();
 	}
 
 	// Loads mid-level
@@ -193,7 +207,8 @@ bool j1Scene1::Update(float dt)
 		tutorial_active = false;
 		level1_active = false;
 		midlevel_active = true;
-		LoadNewLevel();
+		
+		App->transitions->LinesAppearing();
 	}
 
 

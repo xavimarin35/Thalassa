@@ -450,6 +450,9 @@ bool j1Map::LoadColliders()
 			if (strcmp(name, "win_collider") == 0)
 				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_WIN);
 
+			if (strcmp(name, "opendoor_collider") == 0)
+				App->collisions->AddCollider({ object.attribute("x").as_int(), object.attribute("y").as_int(), object.attribute("width").as_int(), object.attribute("height").as_int() }, COLLIDER_OPENDOOR);
+
 		}
 	}
 

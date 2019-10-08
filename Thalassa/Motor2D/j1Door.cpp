@@ -18,13 +18,12 @@ j1Door::j1Door(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DOO
 	idle.PushBack({ 80,0,16,30 });
 
 	openingAnim.loop = false;
-	openingAnim.speed = 1.0f;
+	openingAnim.speed = 0.1f;
 	openingAnim.PushBack({ 80,0,16,30 });
 	openingAnim.PushBack({ 64,0,16,30 });
 	openingAnim.PushBack({ 48,0,16,30 });
 	openingAnim.PushBack({ 32,0,16,30 });
 	openingAnim.PushBack({ 16,0,16,30 });
-	openingAnim.PushBack({ 0,0,0,0 });
 }
 
 j1Door::~j1Door() {}
@@ -35,7 +34,7 @@ bool j1Door::Start()
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)door_position.x, (int)door_position.y, 8,15 }, COLLIDER_DOOR, App->entity_manager);
+	// collider = App->collisions->AddCollider({ (int)door_position.x, (int)door_position.y, 8,15 }, COLLIDER_DOOR, App->entity_manager);
 
 	return true;
 }
@@ -43,7 +42,9 @@ bool j1Door::Start()
 bool j1Door::Update(float dt) {
 
 	if (App->entity_manager->player->doorOpened) {
+		
 		animation = &openingAnim;
+
 		if (!playedFx) {
 			//audio
 			playedFx = true;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="135" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="10" nextobjectid="160">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="135" height="50" tilewidth="8" tileheight="8" infinite="0" nextobjectid="162">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
  </tileset>
@@ -12,7 +12,7 @@
  <tileset firstgid="11603" name="Door_Spritesheet" tilewidth="8" tileheight="8" tilecount="36" columns="12">
   <image source="../textures/Door_Spritesheet.png" width="96" height="30"/>
  </tileset>
- <layer id="3" name="bg" width="135" height="50">
+ <layer name="bg" width="135" height="50">
   <data>
    <tile gid="9753"/>
    <tile gid="9754"/>
@@ -6766,7 +6766,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="Capa de Patrones 1" width="135" height="50">
+ <layer name="Capa de Patrones 1" width="135" height="50">
   <data>
    <tile/>
    <tile/>
@@ -13520,7 +13520,11 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="5" name="wall_collider">
+ <objectgroup color="#5500ff" name="opendoor_collider">
+  <object id="160" x="968" y="160" width="8" height="48"/>
+  <object id="161" x="976" y="152" width="56" height="8"/>
+ </objectgroup>
+ <objectgroup name="wall_collider">
   <object id="3" x="0" y="160" width="80" height="16"/>
   <object id="4" x="0" y="176" width="32" height="16"/>
   <object id="5" x="32" y="184" width="16" height="8"/>
@@ -13653,10 +13657,10 @@
   <object id="138" x="944" y="80" width="16" height="8"/>
   <object id="139" x="992" y="112" width="16" height="8"/>
  </objectgroup>
- <objectgroup color="#55aa00" id="7" name="win_collider">
+ <objectgroup color="#55aa00" name="win_collider">
   <object id="159" x="992" y="176" width="16" height="24"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="6" name="death_collider">
+ <objectgroup color="#ff0000" name="death_collider">
   <object id="140" x="51.0909" y="146.182" width="27.2727" height="12.9091"/>
   <object id="141" x="57.6364" y="97.2727" width="13.2727" height="13.6364"/>
   <object id="142" x="145.091" y="195.273" width="11.8182" height="12.9091"/>
