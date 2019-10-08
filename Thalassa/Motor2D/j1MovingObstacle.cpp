@@ -24,12 +24,11 @@ bool j1MovingObstacle::Start() {
 
 	sprites = App->tex->Load("textures/spikes.png");
 
-	position = { 200,130 };
-	speed = { 1, 2.5f };
+	speed = { 1, 2.0f };
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 30, 30 }, COLLIDER_DEATH, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 32, 32 }, COLLIDER_DEATH, App->entity_manager);
 
 	return true;
 }
@@ -58,7 +57,7 @@ bool j1MovingObstacle::Update(float dt) {
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 	
-	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, position.x, position.y);
+	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE);
 
 	return true;
 }

@@ -46,6 +46,8 @@ bool j1Scene1::Start()
 		App->entity_manager->CreateEntity(PLAYER);
 
 		App->audio->PlayMusic("audio/music/loading.ogg");
+
+		App->entity_manager->AddEnemy(10, 10, OBSTACLE);
 	}
 
 	// LEVEL 1

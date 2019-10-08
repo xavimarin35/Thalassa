@@ -22,7 +22,7 @@ public:
 
 public:
 
-	fPoint position;
+	/*fPoint position;*/
 	fPoint speed;
 	fPoint limit;
 

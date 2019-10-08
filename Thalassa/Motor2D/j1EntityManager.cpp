@@ -29,6 +29,15 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
+	for (int i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type != ENTITY_TYPE::NONE) 
+		{
+			SpawnEnemy(queue[i]);
+			queue[i].type = ENTITY_TYPE::NONE;
+		}
+	}
+
 	return true;
 }
 
@@ -73,6 +82,7 @@ void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
 		if (it->data->collider == c1)
 		{
 			it->data->OnCollision(c1, c2);
+			it->data->OnCollision(c2, c1);
 			break;
 		}
 	}
@@ -84,28 +94,21 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 
 	switch (type) 
 	{
-	case PLAYER:
+	case ENTITY_TYPE::PLAYER:
 		ret = new j1Player(x, y, type);
 
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
 
-	case CHEST:
+	case ENTITY_TYPE::CHEST:
 		ret = new j1Chest(x, y, type);
 
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
 
-	case OBSTACLE:
-		ret = new j1MovingObstacle(x, y, type);
-
-		if (ret != nullptr)
-			entityList.add(ret);
-		break;
-
-	case DOOR:
+	case ENTITY_TYPE::DOOR:
 		ret = new j1Door(x, y, type);
 
 		if (ret != nullptr)
@@ -119,20 +122,16 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 void j1EntityManager::CreateEntity(ENTITY_TYPE type, int x, int y)
 {
 	switch (type) {
-		case PLAYER:
-			player = (j1Player*)EntityFactory(PLAYER, x, y);
+		case ENTITY_TYPE::PLAYER:
+			player = (j1Player*)EntityFactory(ENTITY_TYPE::PLAYER, x, y);
 			break;
 
-		case CHEST:
-			chest = (j1Chest*)EntityFactory(CHEST, x, y);
+		case ENTITY_TYPE::CHEST:
+			chest = (j1Chest*)EntityFactory(ENTITY_TYPE::CHEST, x, y);
 			break;
 
-		case OBSTACLE:
-			obstacle = (j1MovingObstacle*)EntityFactory(OBSTACLE, x, y);
-			break;
-
-		case DOOR:
-			door = (j1Door*)EntityFactory(DOOR, x, y);
+		case ENTITY_TYPE::DOOR:
+			door = (j1Door*)EntityFactory(ENTITY_TYPE::DOOR, x, y);
 			break;
 
 	}
@@ -159,7 +158,8 @@ void j1EntityManager::SpawnEnemy(const EntityInfo & info)
 		if (queue[i].type != ENTITY_TYPE::NONE)
 		{
 			j1Entity* ret;
-			if (queue[i].type == OBSTACLE)
+
+			if (queue[i].type == ENTITY_TYPE::OBSTACLE)
 				ret = new j1MovingObstacle(info.position.x, info.position.y, info.type);
 
 			entityList.add(ret);

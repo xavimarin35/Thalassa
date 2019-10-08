@@ -28,7 +28,7 @@ enum ENTITY_TYPE
 struct EntityInfo
 {
 	ENTITY_TYPE type = ENTITY_TYPE::NONE;
-	iPoint position;
+	fPoint position;
 };
 
 class j1EntityManager : public j1Module

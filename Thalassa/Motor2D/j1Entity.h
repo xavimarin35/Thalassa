@@ -33,7 +33,7 @@ public:
 	ENTITY_TYPE type;
 
 	
-	iPoint position;
+	fPoint position;
 
 	Collider* collider = nullptr;
 	Animation* animation = nullptr;
