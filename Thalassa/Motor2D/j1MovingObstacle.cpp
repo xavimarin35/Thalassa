@@ -13,6 +13,9 @@ j1MovingObstacle::j1MovingObstacle(int x, int y, ENTITY_TYPE type) : j1Entity(x,
 {
 	animation = NULL;
 
+	topHeight = y - 40;
+	lowHeight = y + 40;
+
 	idle.loop = false;
 	idle.speed = 1.0f;
 	idle.PushBack({ 140,133,36,36 });
@@ -35,13 +38,13 @@ bool j1MovingObstacle::Start() {
 
 bool j1MovingObstacle::Update(float dt) {
 
-	if (position.y <= 130) 
+	if (position.y <= topHeight) 
 	{
 		movingDown = true;
 		movingUp = false;
 	}
 		
-	else if (position.y >= 200)
+	else if (position.y >= lowHeight)
 	{
 		movingUp = true;
 		movingDown = false;

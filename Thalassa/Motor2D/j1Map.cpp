@@ -65,7 +65,7 @@ void j1Map::Draw()
 						else if (layer->data->name == "parallax4")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.3F);
 						else if (layer->data->name == "bg")
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.08F);
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.067F);
 					}
 				}
 

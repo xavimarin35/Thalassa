@@ -38,11 +38,21 @@
     <created value="true"/>
   </player>
   
-  <camera>
+  <scene>
+	<cameraPositionMoving x="-5400"/>
 	<cameraLimit1 x="-6290" y="-360"/>
 	<cameraLimit2 x="-5135" y="-790"/>
 	<cameraLimit3 x="-10400" y="-790"/>
 	<cameraLimit4 x="-2200" y="-400"/>
-  </camera>
+	<doorPosition1 x="996" y="61"/>
+	<doorPosition2 x="494" y="85"/>
+	<obstacle1 x="1803" y="144"/>
+	<obstacle2 x="700" y="120"/>
+	<obstacle3 x="795" y="120"/>
+	<obstacle4 x="513" y="120"/>
+	<obstacle5 x="755" y="180"/>
+	<obstacle6 x="3500" y="400"/>
+	<obstacle7 x="3650" y="65"/>
+  </scene>
 
 </config>

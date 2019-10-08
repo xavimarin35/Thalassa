@@ -59,10 +59,17 @@ public:
 	bool cameraMoving = true;
 	bool lateralMove = false;
 
+private:
+
 	int cameraLimitX;
 	int cameraLimitY;
+	int cameraPositionMoving;
 
+	iPoint doorPosition;
 	iPoint cameraLimit;
+
+	iPoint obstacle1;
+	iPoint obstacle2;
 };
 
 #endif // __j1SCENE1_H__

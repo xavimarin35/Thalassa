@@ -28,10 +28,13 @@ public:
 
 	Animation idle;
 
-	bool movingDown = false;
+	bool movingDown = true;
 	bool movingUp = false;
 	bool active = false;
 	bool playedFx = false;
+
+	int topHeight;
+	int lowHeight;
 };
 
 #endif

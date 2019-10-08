@@ -43,11 +43,11 @@ bool j1Scene1::Start()
 	if (tutorial_active) {
 		App->map->Load("Map1_Tutorial.tmx");
 
+		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+
 		App->entity_manager->CreateEntity(PLAYER);
 
 		App->audio->PlayMusic("audio/music/loading.ogg");
-
-		App->entity_manager->AddEnemy(10, 10, OBSTACLE);
 	}
 
 	// LEVEL 1
@@ -65,7 +65,10 @@ bool j1Scene1::Start()
 			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
 		}
 
-		App->entity_manager->CreateEntity(DOOR, 996, 61);
+		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+		App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+		App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 
@@ -80,10 +83,13 @@ bool j1Scene1::Start()
 
 		uint32 timeout = SDL_GetTicks() + 2000;
 		while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
-			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
+			App->audio->PlayMusic("audio/music/Music_MidLevel.ogg");
 		}
 
-		App->entity_manager->CreateEntity(DOOR, 494, 85);
+		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+		App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+		App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 	
@@ -298,7 +304,7 @@ void j1Scene1::LoadNewLevel() {
 
 	if (level1_active && midlevel_completed) {
 		lateralMove = true;
-		App->render->camera.x = -5400;
+		App->render->camera.x = cameraPositionMoving;
 	}
 	else {
 		cameraMoving = true;
@@ -314,33 +320,52 @@ void j1Scene1::LoadSceneInfo()
 	pugi::xml_node config;
 	config = config_file.child("config");
 
-	pugi::xml_node nodePlayer;
-	nodePlayer = config.child("camera");
+	pugi::xml_node nodeScene;
+	nodeScene = config.child("scene");
+
+	cameraPositionMoving = nodeScene.child("cameraPositionMoving").attribute("x").as_int();
 
 	if (tutorial_active) 
 	{
-		cameraLimit.x = nodePlayer.child("cameraLimit1").attribute("x").as_int();
-		cameraLimit.y = nodePlayer.child("cameraLimit1").attribute("y").as_int();
+		cameraLimit.x = nodeScene.child("cameraLimit1").attribute("x").as_int();
+		cameraLimit.y = nodeScene.child("cameraLimit1").attribute("y").as_int();
+
+		obstacle1 = { nodeScene.child("obstacle1").attribute("x").as_int() , nodeScene.child("obstacle1").attribute("y").as_int() };
 	}
 
 	else if (level1_active) 
 	{
+		doorPosition.x = nodeScene.child("doorPosition1").attribute("x").as_int();
+		doorPosition.y = nodeScene.child("doorPosition1").attribute("y").as_int();
+
 		if (!midlevel_completed) 
 		{
-			cameraLimit.x = nodePlayer.child("cameraLimit2").attribute("x").as_int();
-			cameraLimit.y = nodePlayer.child("cameraLimit2").attribute("y").as_int();
+			obstacle1 = { nodeScene.child("obstacle2").attribute("x").as_int() , nodeScene.child("obstacle2").attribute("y").as_int() };
+			obstacle2 = { nodeScene.child("obstacle3").attribute("x").as_int() , nodeScene.child("obstacle3").attribute("y").as_int() };
+
+			cameraLimit.x = nodeScene.child("cameraLimit2").attribute("x").as_int();
+			cameraLimit.y = nodeScene.child("cameraLimit2").attribute("y").as_int();
 		}
 		else 
 		{
-			cameraLimit.x = nodePlayer.child("cameraLimit3").attribute("x").as_int();
-			cameraLimit.y = nodePlayer.child("cameraLimit3").attribute("y").as_int();
+			obstacle1 = { nodeScene.child("obstacle6").attribute("x").as_int() , nodeScene.child("obstacle6").attribute("y").as_int() };
+			obstacle2 = { nodeScene.child("obstacle7").attribute("x").as_int() , nodeScene.child("obstacle7").attribute("y").as_int() };
+
+			cameraLimit.x = nodeScene.child("cameraLimit3").attribute("x").as_int();
+			cameraLimit.y = nodeScene.child("cameraLimit3").attribute("y").as_int();
 		}
 	}
 
 	else if (midlevel_active) 
 	{
-		cameraLimit.x = nodePlayer.child("cameraLimit4").attribute("x").as_int();
-		cameraLimit.y = nodePlayer.child("cameraLimit4").attribute("y").as_int();
+		doorPosition.x = nodeScene.child("doorPosition2").attribute("x").as_int();
+		doorPosition.y = nodeScene.child("doorPosition2").attribute("y").as_int();
+
+		obstacle1 = { nodeScene.child("obstacle4").attribute("x").as_int() , nodeScene.child("obstacle4").attribute("y").as_int() };
+		obstacle2 = { nodeScene.child("obstacle5").attribute("x").as_int() , nodeScene.child("obstacle5").attribute("y").as_int() };
+
+		cameraLimit.x = nodeScene.child("cameraLimit4").attribute("x").as_int();
+		cameraLimit.y = nodeScene.child("cameraLimit4").attribute("y").as_int();
 	}
 
 }
