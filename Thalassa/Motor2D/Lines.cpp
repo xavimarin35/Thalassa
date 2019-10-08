@@ -19,11 +19,11 @@ Lines::Lines(j1Color color, float time) : j1Transitions(time) {
 		// All lines have window width as width and height/10 as height
 		lines[i].h = ((int)h / 10);
 
-		lines[i].w = (int)w + 40;
+		lines[i].w = (int)w + 100;
 
 		// 5 lines are placed at the left of the screen
 		if (i % 2 == 0)
-			lines[i].x = initial_x_left;
+			lines[i].x = initial_x_left - 50;
 
 		// 5 lines are placed at the right of the screen
 		else
