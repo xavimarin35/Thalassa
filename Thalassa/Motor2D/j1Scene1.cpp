@@ -37,12 +37,11 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
+	LoadSceneInfo();
+
 	// TUTORIAL
 	if (tutorial_active) {
 		App->map->Load("Map1_Tutorial.tmx");
-
-		cameraLimitX = -6290;
-		cameraLimitY = -360;
 
 		App->entity_manager->CreateEntity(PLAYER);
 
@@ -64,15 +63,6 @@ bool j1Scene1::Start()
 			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
 		}
 
-		if (!midlevel_completed) {
-			cameraLimitX = -5135;
-			cameraLimitY = -790;
-		}
-		else {
-			cameraLimitX = -10400;
-			cameraLimitY = -790;
-		}
-
 		App->entity_manager->CreateEntity(DOOR, 996, 61);
 		App->entity_manager->CreateEntity(PLAYER);
 	}
@@ -91,13 +81,12 @@ bool j1Scene1::Start()
 			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
 		}
 
-		cameraLimitX = -2200;
-		cameraLimitY = -400;
-
 		App->entity_manager->CreateEntity(DOOR, 494, 85);
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 	
+	cameraLimitX = cameraLimit.x;
+	cameraLimitY = cameraLimit.y;
 
 	/*App->entity_manager->CreateEntity(OBSTACLE);
 	App->entity_manager->CreateEntity(CHEST, 15, 100);
@@ -313,4 +302,43 @@ void j1Scene1::LoadNewLevel() {
 		cameraMoving = true;
 		App->render->camera.y = 0;
 	}
+}
+
+void j1Scene1::LoadSceneInfo()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodePlayer;
+	nodePlayer = config.child("camera");
+
+	if (tutorial_active) 
+	{
+		cameraLimit.x = nodePlayer.child("cameraLimit1").attribute("x").as_int();
+		cameraLimit.y = nodePlayer.child("cameraLimit1").attribute("y").as_int();
+	}
+
+	else if (level1_active) 
+	{
+		if (!midlevel_completed) 
+		{
+			cameraLimit.x = nodePlayer.child("cameraLimit2").attribute("x").as_int();
+			cameraLimit.y = nodePlayer.child("cameraLimit2").attribute("y").as_int();
+		}
+		else 
+		{
+			cameraLimit.x = nodePlayer.child("cameraLimit3").attribute("x").as_int();
+			cameraLimit.y = nodePlayer.child("cameraLimit3").attribute("y").as_int();
+		}
+	}
+
+	else if (midlevel_active) 
+	{
+		cameraLimit.x = nodePlayer.child("cameraLimit4").attribute("x").as_int();
+		cameraLimit.y = nodePlayer.child("cameraLimit4").attribute("y").as_int();
+	}
+
 }

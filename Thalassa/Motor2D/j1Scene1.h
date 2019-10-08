@@ -2,6 +2,7 @@
 #define __j1SCENE1_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 
@@ -42,6 +43,8 @@ public:
 
 	void LoadNewLevel();
 
+	void LoadSceneInfo();
+
 public:
 
 	bool death = false;
@@ -58,6 +61,8 @@ public:
 
 	int cameraLimitX;
 	int cameraLimitY;
+
+	iPoint cameraLimit;
 };
 
 #endif // __j1SCENE1_H__

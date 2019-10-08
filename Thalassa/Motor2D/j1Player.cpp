@@ -354,6 +354,7 @@ void j1Player::LoadInfo()
 		position.x = nodePlayer.child("posMidLvl").attribute("x").as_int();
 		position.y = nodePlayer.child("posMidLvl").attribute("y").as_int();
 	}
+
 	godSpeed = nodePlayer.child("godSpeed").attribute("value").as_float();
 	speed.x = nodePlayer.child("speed").attribute("x").as_float();
 	speed.y = nodePlayer.child("speed").attribute("y").as_float();
