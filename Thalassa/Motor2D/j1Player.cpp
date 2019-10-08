@@ -16,31 +16,10 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 
 	idle.LoadAnimations("idle");
 	jetpack.LoadAnimations("jetpack");
-
-	godAnim.loop = true;
-	godAnim.speed = 0.05f;
-	godAnim.PushBack({ 43,8,14,23 });
-	godAnim.PushBack({ 63,8,14,23 });
-
-	idle.loop = true;
-	idle.speed = 0.05f;
-	idle.PushBack({ 4,37,13,20 });
-	idle.PushBack({ 24,37,13,20 });
-
-	run.loop = true;
-	run.speed = 0.15f;
-	run.PushBack({ 1,298,13,21 });
-	run.PushBack({ 17,298,13,21 });
-	run.PushBack({ 33,298,13,21 });
-	run.PushBack({ 49,298,13,21 });
-
-	jetpack.loop = true;
-	jetpack.speed = 0.1f;
-	jetpack.PushBack({ 4,8,14,23 });
-	jetpack.PushBack({ 24,8,14,23 });
-
-	jump.loop = false;
-	jump.PushBack({ 24,87,13,18 });
+	godAnim.LoadAnimations("godmode");
+	run.LoadAnimations("run");
+	jump.LoadAnimations("jump");
+	deathAnim.LoadAnimations("death");
 }
 
 j1Player::~j1Player() {}
@@ -49,14 +28,8 @@ bool j1Player::Start() {
 
 	sprites = App->tex->Load("textures/Character_Spritesheet.png");
 
-	position = { 100,75 };
-	godSpeed = 2.0f;
-	speed.y = 0.7f;
-	speed.x = 1.3f;
-	gravity = 0.15f;
-	animation = &idle;
-	flip = true;
-	playerCreated = true;
+	// Load values from config.xml
+	LoadInfo();
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 13, 20 }, COLLIDER_PLAYER, App->entity_manager);
 
@@ -159,8 +132,10 @@ bool j1Player::Update(float dt) {
 			
 		}
 		else {
-			if (lifes > 0)
-				Die();
+			if (lifes > 0) {
+				App->scene1->death = true;
+				animation = &deathAnim;
+			}
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -199,8 +174,8 @@ bool j1Player::PostUpdate() {
 
 bool j1Player::Load(pugi::xml_node& data) {
 
-	position.x = data.child("position").attribute("x").as_int();
-	position.y = data.child("position").attribute("y").as_int();
+	position.x = data.child("player").child("position").attribute("x").as_float();
+	position.y = data.child("player").child("position").attribute("y").as_float();
 
 	return true;
 }
@@ -221,7 +196,7 @@ bool j1Player::CleanUp() {
 	App->tex->UnLoad(sprites);
 
 	if (collider != nullptr) {
-		collider->to_delete;
+		collider->to_delete = true;
 		collider = nullptr;
 	}
 
@@ -237,23 +212,24 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			// Right & Left Collisions
 			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 5 >= c2->rect.y)
 			{
+				// right
 				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
 					ColLeft = false;
-					LOG("TOUCHES RIGHT");
 				}
+				// left
 				else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x + c1->rect.w >= c2->rect.x + c2->rect.w)
 				{
 					ColLeft = true;
 					ColRight = false;
-					LOG("TOUCHES LEFT");
 				}
 			}
 
 			// Up & Down Collisions
 			if (c1->rect.x + c1->rect.w >= c2->rect.x + 4 && c1->rect.x + 4 <= c2->rect.x + c2->rect.w)
 			{
+				// down
 				if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y) {
 
 					onFloor = true;
@@ -270,9 +246,8 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					ColDown = true;
 					ColUp = false;
 					playerCanMove = true;
-
-					LOG("TOUCHING DOWN");
 				}
+				// up
 				else if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y > c2->rect.y) {
 					
 					onFloor = false;
@@ -295,6 +270,17 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 		if (c2->type == COLLIDER_CHEST)
 			itemPicked = true;
+
+		
+		if (c2->type == COLLIDER_WIN) {
+			touchingWin = true;
+			playerCanMove = false;
+			c2->to_delete = true;
+		}
+
+		if (c2->type == COLLIDER_OPENDOOR) {
+			doorOpened = true;
+		}
 	}
 }
 
@@ -322,6 +308,8 @@ void j1Player::Die() {
 	isDead = false;
 	playerCanMove = false;
 	jetpackActive = false;
+	App->scene1->death = false;
+	animation = NULL;
 
 	fPoint death_position = { position.x,position.y };
 
@@ -330,4 +318,48 @@ void j1Player::Die() {
 
 	CleanUp();
 	Start();
+}
+
+void j1Player::LoadInfo()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodePlayer;
+	nodePlayer = config.child("player");
+
+	if (App->scene1->tutorial_active) 
+	{
+		position.x = nodePlayer.child("posTuto").attribute("x").as_int();
+		position.y = nodePlayer.child("posTuto").attribute("y").as_int();
+	}
+	else if (App->scene1->level1_active) 
+	{
+		if (App->scene1->midlevel_completed) 
+		{
+			position.x = nodePlayer.child("posLvl2").attribute("x").as_int();
+			position.y = nodePlayer.child("posLvl2").attribute("y").as_int();
+		}
+		else 
+		{
+			position.x = nodePlayer.child("posLvl1").attribute("x").as_int();
+			position.y = nodePlayer.child("posLvl1").attribute("y").as_int();
+		}
+	}
+	else if (App->scene1->midlevel_active) 
+	{
+		position.x = nodePlayer.child("posMidLvl").attribute("x").as_int();
+		position.y = nodePlayer.child("posMidLvl").attribute("y").as_int();
+	}
+
+	godSpeed = nodePlayer.child("godSpeed").attribute("value").as_float();
+	speed.x = nodePlayer.child("speed").attribute("x").as_float();
+	speed.y = nodePlayer.child("speed").attribute("y").as_float();
+	gravity = nodePlayer.child("gravity").attribute("value").as_float();
+	flip = nodePlayer.child("flip").attribute("value").as_bool();
+	playerCreated = nodePlayer.child("created").attribute("value").as_bool();
+
 }

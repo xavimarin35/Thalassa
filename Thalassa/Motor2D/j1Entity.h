@@ -3,7 +3,6 @@
 
 #include "j1EntityManager.h"
 #include "p2Point.h"
-#include "p2DynArray.h"
 #include "p2Animation.h"
 
 struct SDL_Texture;

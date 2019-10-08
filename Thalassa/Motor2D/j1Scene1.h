@@ -2,8 +2,17 @@
 #define __j1SCENE1_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
+
+enum ACTIVE_SCENE {
+	SCENE_TUTORIAL,
+	SCENE_LEVEL1,
+	SCENE_MIDLEVEL,
+
+	SCENE_NONE
+};
 
 class j1Scene1 : public j1Module
 {
@@ -31,6 +40,29 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	void LoadNewLevel();
+
+	void LoadSceneInfo();
+
+public:
+
+	bool death = false;
+	bool win1 = false;
+
+	bool tutorial_active = true;
+	bool level1_active = false;
+	bool midlevel_active = false;
+
+	bool midlevel_completed = false;
+
+	bool cameraMoving = true;
+	bool lateralMove = false;
+
+	int cameraLimitX;
+	int cameraLimitY;
+
+	iPoint cameraLimit;
 };
 
 #endif // __j1SCENE1_H__

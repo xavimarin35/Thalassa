@@ -10,6 +10,11 @@
 #include "j1Scene1.h"
 #include "j1EntityManager.h"
 #include "j1Player.h"
+#include "j1TransitionsManager.h"
+#include "j1Collisions.h"
+#include "SDL_mixer/include/SDL_mixer.h"
+
+#define SDL_TICKS_PASSED(A, B)  ((Sint32)((B) - (A)) <= 0)
 
 j1Scene1::j1Scene1() : j1Module()
 {
@@ -32,12 +37,60 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
-	App->map->Load("Map1_Tutorial.tmx");
+	LoadSceneInfo();
 
-	App->entity_manager->CreateEntity(CHEST);
-	App->entity_manager->CreateEntity(PLAYER);
+	// TUTORIAL
+	if (tutorial_active) {
+		App->map->Load("Map1_Tutorial.tmx");
 
-	App->audio->PlayMusic("audio/music/loading.ogg");
+		App->entity_manager->CreateEntity(PLAYER);
+
+		App->audio->PlayMusic("audio/music/loading.ogg");
+	}
+
+	// LEVEL 1
+	else if (level1_active) {
+		
+		App->map->Load("Map2_Level1.tmx");
+		
+		if (App->entity_manager->player != nullptr)
+			App->entity_manager->player->doorOpened = false;
+
+		Mix_FadeOutMusic(2000);
+
+		uint32 timeout = SDL_GetTicks() + 2000;
+		while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
+			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
+		}
+
+		App->entity_manager->CreateEntity(DOOR, 996, 61);
+		App->entity_manager->CreateEntity(PLAYER);
+	}
+
+	// MID-LEVEL
+	else if (midlevel_active) {
+		App->map->Load("Map3_MidLevel.tmx");
+
+		if (App->entity_manager->player != nullptr)
+			App->entity_manager->player->doorOpened = false;
+
+		Mix_FadeOutMusic(2000);
+
+		uint32 timeout = SDL_GetTicks() + 2000;
+		while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
+			App->audio->PlayMusic("audio/music/Music_Level1.ogg");
+		}
+
+		App->entity_manager->CreateEntity(DOOR, 494, 85);
+		App->entity_manager->CreateEntity(PLAYER);
+	}
+	
+	cameraLimitX = cameraLimit.x;
+	cameraLimitY = cameraLimit.y;
+
+	/*App->entity_manager->CreateEntity(OBSTACLE);
+	App->entity_manager->CreateEntity(CHEST, 15, 100);
+	App->entity_manager->CreateEntity(DOOR, 50, 100);*/
 		
 	return true;
 }
@@ -51,32 +104,144 @@ bool j1Scene1::PreUpdate()
 // Called each loop iteration
 bool j1Scene1::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	//Save & Load
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
 		App->SaveGame("save_game.xml");
+	}
 
-	/*if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 1;
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
+		App->LoadGame("save_game.xml");
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 1;
+	if (death) {
+		App->transitions->FadingToColor(Black, 0.5f);
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+	// If player arrives to the end of a level
+	if (App->entity_manager->player->touchingWin) {
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;*/
+		// Wins from tutorial & goes to level 1
+		if (tutorial_active) {
+			App->entity_manager->player->touchingWin = false;
+			
+			midlevel_completed = false;
 
-	if (App->entity_manager->player != nullptr) {
-		App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
-		if (- App->render->camera.x < 0) App->render->camera.x = 0;
-		else if (App->render->camera.x < -6290) App->render->camera.x = -6290;
+			tutorial_active = false;
+			level1_active = true;
+			midlevel_active = false;
+		}
 		
-		App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
-		if (App->render->camera.y > 0) App->render->camera.y = 0;
-		else if (App->render->camera.y < -360) App->render->camera.y = -360;
+		else if (level1_active) {
+			// Crosses the door & goes to mid level
+			if (!midlevel_completed) {
+				App->entity_manager->player->touchingWin = false;
+
+				tutorial_active = false;
+				level1_active = false;
+				midlevel_active = true;
+			}
+
+			// Wins the game
+			else {
+				App->entity_manager->player->touchingWin = false;
+
+				tutorial_active = true;
+				level1_active = false;
+				midlevel_active = false;
+			}
+		}
+
+		// Wins from midlevel & returns to level1
+		else if (midlevel_active) {
+			App->entity_manager->player->touchingWin = false;
+
+			midlevel_completed = true;
+
+			tutorial_active = false;
+			level1_active = true;
+			midlevel_active = false;
+		}
+
+		App->transitions->LinesAppearing();
+	}
+
+	// Loads tutorial
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		tutorial_active = true;
+		level1_active = false;
+		midlevel_active = false;
+
+		App->transitions->LinesAppearing();
+	}
+
+	// Loads level 1
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		midlevel_completed = false;
+
+		tutorial_active = false;
+		level1_active = true;
+		midlevel_active = false;
+		
+		App->transitions->LinesAppearing();
+	}
+
+	// Loads mid-level
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		tutorial_active = false;
+		level1_active = false;
+		midlevel_active = true;
+		
+		App->transitions->LinesAppearing();
+	}
+
+
+	// CAMERA FOLLOWING PLAYER
+	if (App->entity_manager->player != nullptr) 
+	{
+		if (lateralMove) {
+			if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2) {
+				App->render->camera.x -= 3.5f;
+				App->entity_manager->player->playerCanMove = false;
+			}
+			else {
+				lateralMove = false;
+				App->entity_manager->player->playerCanMove = true;
+			}
+		}
+		else
+			App->render->camera.x = -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2;
+		
+		// LIMITING X CAMERA
+		if (- App->render->camera.x < 0) 
+			App->render->camera.x = 0;
+		else if (App->render->camera.x < cameraLimitX) 
+			App->render->camera.x = cameraLimitX;
+		
+		if (cameraMoving)
+		{
+			if (App->render->camera.y >= -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2) {
+				App->render->camera.y -= 2.0f;
+				App->entity_manager->player->playerCanMove = false;
+			}
+			else {
+				cameraMoving = false;
+				App->entity_manager->player->playerCanMove = true;
+			}
+		}
+		else
+			App->render->camera.y = -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2;
+		
+		// LIMITING Y CAMERA
+		if (App->render->camera.y > 0)
+			App->render->camera.y = 0;
+		else if (App->render->camera.y < cameraLimitY)
+			App->render->camera.y = cameraLimitY;
 	}
 
 	App->map->Draw();
@@ -109,6 +274,71 @@ bool j1Scene1::PostUpdate()
 bool j1Scene1::CleanUp()
 {
 	LOG("Freeing scene1");
+	App->map->CleanUp();
+	App->collisions->CleanUp();
+	if (App->entity_manager->player != nullptr)
+		App->entity_manager->player->CleanUp();
+	App->entity_manager->CleanUp();
 
 	return true;
+}
+
+void j1Scene1::LoadNewLevel() {
+
+	CleanUp();
+
+	Start();
+	App->collisions->Start();
+	App->entity_manager->Start();
+	if (App->entity_manager->player != nullptr)
+		App->entity_manager->player->Start();
+
+
+	if (level1_active && midlevel_completed) {
+		lateralMove = true;
+		App->render->camera.x = -5400;
+	}
+	else {
+		cameraMoving = true;
+		App->render->camera.y = 0;
+	}
+}
+
+void j1Scene1::LoadSceneInfo()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodePlayer;
+	nodePlayer = config.child("camera");
+
+	if (tutorial_active) 
+	{
+		cameraLimit.x = nodePlayer.child("cameraLimit1").attribute("x").as_int();
+		cameraLimit.y = nodePlayer.child("cameraLimit1").attribute("y").as_int();
+	}
+
+	else if (level1_active) 
+	{
+		if (!midlevel_completed) 
+		{
+			cameraLimit.x = nodePlayer.child("cameraLimit2").attribute("x").as_int();
+			cameraLimit.y = nodePlayer.child("cameraLimit2").attribute("y").as_int();
+		}
+		else 
+		{
+			cameraLimit.x = nodePlayer.child("cameraLimit3").attribute("x").as_int();
+			cameraLimit.y = nodePlayer.child("cameraLimit3").attribute("y").as_int();
+		}
+	}
+
+	else if (midlevel_active) 
+	{
+		cameraLimit.x = nodePlayer.child("cameraLimit4").attribute("x").as_int();
+		cameraLimit.y = nodePlayer.child("cameraLimit4").attribute("y").as_int();
+	}
+
 }

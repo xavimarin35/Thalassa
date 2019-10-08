@@ -12,12 +12,16 @@
 class j1Entity;
 class j1Player;
 class j1Chest;
+class j1MovingObstacle;
+class j1Door;
 struct SDL_Texture;
 
 enum ENTITY_TYPE
 {
 	PLAYER,
 	CHEST,
+	OBSTACLE,
+	DOOR,
 	NONE
 };
 
@@ -45,7 +49,9 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	j1Entity* EntityFactory(ENTITY_TYPE type, int x = 0, int y = 0);
-	void CreateEntity(ENTITY_TYPE type);
+	void CreateEntity(ENTITY_TYPE type, int x = 0, int y = 0);
+	void AddEnemy(int x, int y, ENTITY_TYPE type);
+	void SpawnEnemy(const EntityInfo& info);
 
 	void OnCollision(Collider* c1, Collider* c2);
 
@@ -54,6 +60,8 @@ public:
 	p2List<j1Entity*>	entityList;
 	j1Player*			player = nullptr;
 	j1Chest*			chest = nullptr;
+	j1MovingObstacle*	obstacle = nullptr;
+	j1Door*				door = nullptr;
 
 private:
 

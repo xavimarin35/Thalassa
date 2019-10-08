@@ -10,6 +10,8 @@
 
 j1Chest::j1Chest(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::CHEST)
 {
+	chest_position = { (float)x,(float)y };
+
 	animation = NULL;
 
 	idle.loop = false;
@@ -38,11 +40,9 @@ bool j1Chest::Start() {
 
 	sprites = App->tex->Load("textures/Chest_Spritesheet.png");
 
-	position = { 920,13 };
-
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 15, 35 }, COLLIDER_CHEST, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)chest_position.x, (int)chest_position.y, 15, 35 }, COLLIDER_CHEST, App->entity_manager);
 
 	return true;
 }
@@ -61,12 +61,19 @@ bool j1Chest::Update(float dt) {
 	}
 	else animation = &idle;
 
-	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, position.x, position.y);
+	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, chest_position.x, chest_position.y);
 
 	return true;
 }
 
-bool j1Chest::CleanUp() {
+bool j1Chest::CleanUp() 
+{
+	App->tex->UnLoad(sprites);
+
+	if (collider != nullptr) {
+		collider->to_delete = true;
+		collider = nullptr;
+	}
 
 	return true;
 }

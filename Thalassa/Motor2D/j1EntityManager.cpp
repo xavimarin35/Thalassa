@@ -1,6 +1,8 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Chest.h"
+#include "j1MovingObstacle.h"
+#include "j1Door.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -95,21 +97,76 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
+
+	case OBSTACLE:
+		ret = new j1MovingObstacle(x, y, type);
+
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
+
+	case DOOR:
+		ret = new j1Door(x, y, type);
+
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
 	}
 
 	return ret;
 }
 
-void j1EntityManager::CreateEntity(ENTITY_TYPE type)
+void j1EntityManager::CreateEntity(ENTITY_TYPE type, int x, int y)
 {
 	switch (type) {
 		case PLAYER:
-			player = (j1Player*)EntityFactory(PLAYER);
+			player = (j1Player*)EntityFactory(PLAYER, x, y);
 			break;
 
 		case CHEST:
-			chest = (j1Chest*)EntityFactory(CHEST);
+			chest = (j1Chest*)EntityFactory(CHEST, x, y);
 			break;
+
+		case OBSTACLE:
+			obstacle = (j1MovingObstacle*)EntityFactory(OBSTACLE, x, y);
+			break;
+
+		case DOOR:
+			door = (j1Door*)EntityFactory(DOOR, x, y);
+			break;
+
+	}
+}
+
+void j1EntityManager::AddEnemy(int x, int y, ENTITY_TYPE type)
+{
+	for (int i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type == ENTITY_TYPE::NONE)
+		{
+			queue[i].type = type;
+			queue[i].position.x = x;
+			queue[i].position.y = y;
+			break;
+		}
+	}
+}
+
+void j1EntityManager::SpawnEnemy(const EntityInfo & info)
+{
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type != ENTITY_TYPE::NONE)
+		{
+			j1Entity* ret;
+			if (queue[i].type == OBSTACLE)
+				ret = new j1MovingObstacle(info.position.x, info.position.y, info.type);
+
+			entityList.add(ret);
+			ret->Start();
+
+			break;
+		}
 	}
 }
 

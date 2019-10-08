@@ -29,6 +29,7 @@ public:
 	void Jumping();
 	void JetPack();
 	void Die();
+	void LoadInfo();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -41,6 +42,7 @@ public:
 	Animation jetpack;
 	Animation jump;
 	Animation godAnim;
+	Animation deathAnim;
 
 
 public:
@@ -58,6 +60,7 @@ public:
 	bool playerCanMove = false;
 	bool openingChest = false;
 	bool itemPicked = false;
+	bool doorOpened = false;
 	bool godMode = false;
 	bool isDead = false;
 	bool playerCreated = false;
@@ -65,6 +68,7 @@ public:
 	bool isJumping = false;
 	bool jetpackActive = false;
 	bool changedFloor = false;
+	bool touchingWin = false;
 
 	bool ColRight = false;
 	bool ColLeft = false;

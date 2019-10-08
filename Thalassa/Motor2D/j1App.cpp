@@ -10,7 +10,6 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene1.h"
-#include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1Collisions.h"
 #include "j1EntityManager.h"
@@ -29,7 +28,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene1 = new j1Scene1();
-	scene2 = new j1Scene2();
 	map = new j1Map();
 	collisions = new j1Collisions();
 	entity_manager = new j1EntityManager();
@@ -43,7 +41,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene1);
-	AddModule(scene2);
 	AddModule(collisions);
 	AddModule(entity_manager);
 	AddModule(transitions);
@@ -176,28 +173,10 @@ void j1App::PrepareUpdate()
 void j1App::FinishUpdate()
 {
 	if(want_to_save == true)
-		SaveGameNow();
+		SaveGameApp();
 
 	if(want_to_load == true)
-		LoadGameNow();
-
-	if (last_sec_frame_time.Read() > 1000)
-	{
-		last_sec_frame_time.Start();
-		previous_last_sec_frame_count = last_sec_frame_count;
-		last_sec_frame_count = 0;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F11) == j1KeyState::KEY_DOWN) {
-		cappedFPS != cappedFPS;
-		frame_counter = 0;
-	}
-
-	float average_fps = float(frame_counter) / start_time.ReadSec();
-	float seconds_since_start = start_time.ReadSec();
-
-	uint32 last_time_ms = frame_time.Read();
-	uint32 frames_last_update = previous_last_sec_frame_count;
+		LoadGameApp();
 }
 
 // Call modules before each loop iteration
@@ -311,52 +290,43 @@ const char* j1App::GetOrganization() const
 // Load / Save
 void j1App::LoadGame(const char* file)
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list
 	want_to_load = true;
 }
 
 // ---------------------------------------
 void j1App::SaveGame(const char* file) const
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list ... should we overwrite ?
-
 	want_to_save = true;
 	save_game.create(file);
 }
 
 // ---------------------------------------
-void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
-{
-	// need to add functionality to file_system module for this to work
-}
 
-bool j1App::LoadGameNow()
+bool j1App::LoadGameApp()
 {
 	bool ret = false;
 
-	pugi::xml_document data;
-	pugi::xml_node root;
+	pugi::xml_document load_data;
+	pugi::xml_node load_node;
 
-	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	pugi::xml_parse_result result = load_data.load_file(load_game.GetString());
 
 	if(result != NULL)
 	{
 		LOG("Loading new Game State from %s...", load_game.GetString());
 
-		root = data.child("game_state");
+		load_node = load_data.child("data");
 
 		p2List_item<j1Module*>* item = modules.start;
 		ret = true;
 
 		while(item != NULL && ret == true)
 		{
-			ret = item->data->Load(root.child(item->data->name.GetString()));
+			ret = item->data->Load(load_node.child(item->data->name.GetString()));
 			item = item->next;
 		}
 
-		data.reset();
+		load_data.reset();
 		if(ret == true)
 			LOG("...finished loading");
 		else
@@ -369,30 +339,29 @@ bool j1App::LoadGameNow()
 	return ret;
 }
 
-bool j1App::SaveGameNow() const
+bool j1App::SaveGameApp() const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", save_game.GetString());
+	LOG("Game save to %s...", save_game.GetString());
 
-	// xml object were we will store all data
-	pugi::xml_document data;
-	pugi::xml_node root;
+	pugi::xml_document save_data;
+	pugi::xml_node save_node;
 	
-	root = data.append_child("game_state");
+	save_node = save_data.append_child("data");
 
 	p2List_item<j1Module*>* item = modules.start;
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Save(root.append_child(item->data->name.GetString()));
+		ret = item->data->Save(save_node.append_child(item->data->name.GetString()));
 		item = item->next;
 	}
 
 	if(ret == true)
 	{
 		std::stringstream stream;
-		data.save(stream);
+		save_data.save(stream);
 
 		// we are done, so write data to disk
 		// fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
@@ -401,7 +370,7 @@ bool j1App::SaveGameNow() const
 	else
 		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 
-	data.reset();
+	save_data.reset();
 	want_to_save = false;
 	return ret;
 }

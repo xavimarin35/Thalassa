@@ -26,6 +26,8 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_CHEST] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_OPENCHEST] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_DOOR] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_OPENDOOR] = true;
 
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
@@ -63,7 +65,30 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_OPENCHEST][COLLIDER_GOD] = false;
 	matrix[COLLIDER_OPENCHEST][COLLIDER_CHEST] = false;
 	matrix[COLLIDER_OPENCHEST][COLLIDER_OPENCHEST] = false;
+
+	matrix[COLLIDER_DOOR][COLLIDER_DOOR] = false;
+	matrix[COLLIDER_DOOR][COLLIDER_WALL] = false;
+	matrix[COLLIDER_DOOR][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_DOOR][COLLIDER_WIN] = false;
+	matrix[COLLIDER_DOOR][COLLIDER_GOD] = false;
+	matrix[COLLIDER_DOOR][COLLIDER_CHEST] = false;
+
+	matrix[COLLIDER_OPENCHEST][COLLIDER_WALL] = false;
+	matrix[COLLIDER_OPENCHEST][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_OPENCHEST][COLLIDER_WIN] = false;
+	matrix[COLLIDER_OPENCHEST][COLLIDER_GOD] = false;
+	matrix[COLLIDER_OPENCHEST][COLLIDER_CHEST] = false;
+	matrix[COLLIDER_OPENCHEST][COLLIDER_OPENCHEST] = false;
+
+	matrix[COLLIDER_OPENDOOR][COLLIDER_WALL] = false;
+	matrix[COLLIDER_OPENDOOR][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_OPENDOOR][COLLIDER_WIN] = false;
+	matrix[COLLIDER_OPENDOOR][COLLIDER_GOD] = false;
+	matrix[COLLIDER_OPENDOOR][COLLIDER_CHEST] = false;
+	matrix[COLLIDER_OPENDOOR][COLLIDER_OPENCHEST] = false;
+	matrix[COLLIDER_OPENDOOR][COLLIDER_OPENDOOR] = false;
 }
+
 
 j1Collisions::~j1Collisions() {}
 
@@ -73,9 +98,8 @@ bool j1Collisions::PreUpdate()
 	{
 		if (colliders[i] != nullptr)
 		{
-			if (colliders[i]->to_delete)
+			if (colliders[i]->to_delete == true)
 			{
-
 				delete colliders[i];
 				colliders[i] = nullptr;
 			}
@@ -105,8 +129,8 @@ bool j1Collisions::PreUpdate()
 					if (matrix[collider1->type][collider2->type] && collider1->callback)
 						collider1->callback->OnCollision(collider1, collider2);
 
-					/*if (matrix[collider2->type][collider1->type] && collider2->callback)
-						collider2->callback->OnCollision(collider2, collider1);*/
+					if (matrix[collider2->type][collider1->type] && collider2->callback)
+						collider2->callback->OnCollision(collider2, collider1);
 				}
 			}
 		}
@@ -176,6 +200,12 @@ void j1Collisions::DebugColliders()
 			break;
 		case COLLIDER_OPENCHEST:
 			App->render->DrawQuad(colliders[i]->rect, 100, 100, 100, alpha);
+			break;
+		case COLLIDER_DOOR:
+			App->render->DrawQuad(colliders[i]->rect, 200, 255, 20, alpha);
+			break;
+		case COLLIDER_OPENDOOR:
+			App->render->DrawQuad(colliders[i]->rect, 0, 200, 200, alpha);
 			break;
 		}
 	}

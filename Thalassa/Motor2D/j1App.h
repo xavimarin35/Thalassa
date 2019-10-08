@@ -14,7 +14,6 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1Scene1;
-class j1Scene2;
 class j1Map;
 class j1Collisions;
 class j1EntityManager;
@@ -76,8 +75,8 @@ private:
 	bool PostUpdate();
 
 	// Load / Save
-	bool LoadGameNow();
-	bool SaveGameNow() const;
+	bool LoadGameApp();
+	bool SaveGameApp() const;
 
 public:
 
@@ -88,7 +87,6 @@ public:
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene1*			scene1;
-	j1Scene2*			scene2;
 	j1Map*				map;
 	j1Collisions*		collisions;
 	j1EntityManager*	entity_manager;

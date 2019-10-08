@@ -26,4 +26,23 @@
     <folder>maps/</folder>
   </map>
 
+  <player>
+    <posTuto x="57" y="201"/>
+	<posLvl1 x="74" y="210"/>
+	<posMidLvl x="25" y="130"/>
+	<posLvl2 x="2313" y="170"/>
+    <godSpeed value="2.0f"/>
+    <speed x="1.3f" y="0.7f"/>
+    <gravity value="0.15f"/>
+    <flip value="true"/>
+    <created value="true"/>
+  </player>
+  
+  <camera>
+	<cameraLimit1 x="-6290" y="-360"/>
+	<cameraLimit2 x="-5135" y="-790"/>
+	<cameraLimit3 x="-10400" y="-790"/>
+	<cameraLimit4 x="-2200" y="-400"/>
+  </camera>
+
 </config>
