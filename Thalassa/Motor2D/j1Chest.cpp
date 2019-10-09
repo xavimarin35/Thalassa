@@ -14,24 +14,9 @@ j1Chest::j1Chest(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::C
 
 	animation = NULL;
 
-	idle.loop = false;
-	idle.speed = 1.0f;
-	idle.PushBack({ 0,0,15,35 });
-	idle.PushBack({ 0,0,15,35 });
-
-	openingAnim.loop = false;
-	openingAnim.speed = 0.1f;
-	openingAnim.PushBack({ 0,0,15,35 });
-	openingAnim.PushBack({ 16,0,15,35 });
-	openingAnim.PushBack({ 32,0,15,35 });
-	openingAnim.PushBack({ 48,0,15,35 });
-	openingAnim.PushBack({ 64,0,15,35 });
-	openingAnim.PushBack({ 80,0,15,35 });
-	openingAnim.PushBack({ 96,0,15,35 });
-	openingAnim.PushBack({ 112,0,15,35 });
-	openingAnim.PushBack({ 128,0,15,35 });
-
-	openedAnim.PushBack({ 144,0,15,35 });
+	idle.LoadAnimations("chestIdle");
+	openingAnim.LoadAnimations("chestOpening");
+	openedAnim.LoadAnimations("chestOpened");
 }
 
 j1Chest::~j1Chest() {}

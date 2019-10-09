@@ -25,6 +25,7 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 - Player can use a jet-pack
 - Implemented different transitions (not only fading)
 - Applied camera movements in the begginning of each level
+- Animations loaded from xml
 
 ## Usage
 
