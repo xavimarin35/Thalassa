@@ -37,7 +37,9 @@ public:
 	int jumpFx;
 	int jetpackFx;
 	int openChestFx;
+	int openDoorFx;
 	int footStepFx;
+	int transitionFx;
 
 private:
 

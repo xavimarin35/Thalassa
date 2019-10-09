@@ -46,7 +46,7 @@ bool j1Door::Update(float dt) {
 		animation = &openingAnim;
 
 		if (!playedFx) {
-			//audio
+			App->audio->PlayFx(App->audio->openDoorFx);
 			playedFx = true;
 		}
 	}

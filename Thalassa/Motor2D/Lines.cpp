@@ -2,6 +2,7 @@
 #include "Lines.h"
 #include "j1Scene1.h"
 #include "j1App.h"
+#include "j1Audio.h"
 #include "j1Window.h"
 
 Lines::Lines(j1Color color, float time) : j1Transitions(time) {
@@ -59,6 +60,7 @@ void Lines::Start() {
 
 void Lines::Change() {
 
+	App->audio->PlayFx(App->audio->transitionFx);
 	App->scene1->LoadNewLevel();
 
 	j1Transitions::Change();
