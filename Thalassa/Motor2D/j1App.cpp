@@ -288,16 +288,16 @@ const char* j1App::GetOrganization() const
 }
 
 // Load / Save
-void j1App::LoadGame(const char* file)
+void j1App::LoadGame()
 {
 	want_to_load = true;
 }
 
 // ---------------------------------------
-void j1App::SaveGame(const char* file) const
+void j1App::SaveGame() const
 {
 	want_to_save = true;
-	save_game.create(file);
+	
 }
 
 // ---------------------------------------
@@ -306,29 +306,34 @@ bool j1App::LoadGameApp()
 {
 	bool ret = false;
 
-	pugi::xml_document load_data;
-	pugi::xml_node load_node;
+	pugi::xml_document data;
+	pugi::xml_node root;
 
-	pugi::xml_parse_result result = load_data.load_file(load_game.GetString());
+	pugi::xml_parse_result result = data.load_file(load_game.GetString());
 
-	if(result != NULL)
+	if (result != NULL)
 	{
 		LOG("Loading new Game State from %s...", load_game.GetString());
 
-		load_node = load_data.child("data");
+		root = data.child("game_state");
 
 		p2List_item<j1Module*>* item = modules.start;
 		ret = true;
 
-		while(item != NULL && ret == true)
+		while (item != NULL && ret == true)
 		{
-			ret = item->data->Load(load_node.child(item->data->name.GetString()));
+			ret = item->data->Load(root.child(item->data->name.GetString()));
 			item = item->next;
 		}
 
-		load_data.reset();
-		if(ret == true)
+		// Diferencia entre child i append_child ??
+
+		data.reset(); //!!
+		if (ret == true)
+		{
+			data.load_file(load_game.GetString()); //!!
 			LOG("...finished loading");
+		}
 		else
 			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 	}
@@ -343,34 +348,31 @@ bool j1App::SaveGameApp() const
 {
 	bool ret = true;
 
-	LOG("Game save to %s...", save_game.GetString());
+	LOG("Saving Game State to %s...", save_game.GetString());
 
-	pugi::xml_document save_data;
-	pugi::xml_node save_node;
-	
-	save_node = save_data.append_child("data");
+	// xml object were we will store all data
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("game_state");
 
 	p2List_item<j1Module*>* item = modules.start;
 
-	while(item != NULL && ret == true)
+	while (item != NULL && ret == true)
 	{
-		ret = item->data->Save(save_node.append_child(item->data->name.GetString()));
+		ret = item->data->Save(root.append_child(item->data->name.GetString()));
 		item = item->next;
 	}
 
-	if(ret == true)
+	if (ret == true)
 	{
-		std::stringstream stream;
-		save_data.save(stream);
-
-		// we are done, so write data to disk
-		// fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
-		LOG("... finished saving", save_game.GetString());
+		data.save_file(save_game.GetString());
+		LOG("... finished saving", );
 	}
 	else
 		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 
-	save_data.reset();
+	data.reset();
 	want_to_save = false;
 	return ret;
 }

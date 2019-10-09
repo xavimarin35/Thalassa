@@ -116,12 +116,12 @@ bool j1Scene1::Update(float dt)
 	//Save & Load
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
-		App->SaveGame("save_game.xml");
+		App->SaveGame();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
-		App->LoadGame("save_game.xml");
+		App->LoadGame();
 	}
 
 	if (death) {
