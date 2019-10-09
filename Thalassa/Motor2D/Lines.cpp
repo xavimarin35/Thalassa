@@ -23,7 +23,7 @@ Lines::Lines(j1Color color, float time) : j1Transitions(time) {
 
 		// 5 lines are placed at the left of the screen
 		if (i % 2 == 0)
-			lines[i].x = initial_x_left + 10;
+			lines[i].x = initial_x_left - 10;
 
 		// 5 lines are placed at the right of the screen
 		else
@@ -47,7 +47,7 @@ void Lines::Start() {
 
 	for (int i = 0; i < 11; i++) {
 		if (i % 2 == 0)
-			lines[i].x = Interpolation(-(int)w, 0, percentage);
+			lines[i].x = Interpolation(-(int)w - 10, -15, percentage);
 		else
 			lines[i].x = Interpolation((int)w, 0, percentage);
 	}
@@ -59,26 +59,28 @@ void Lines::Start() {
 
 void Lines::Change() {
 
-	SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, 255);
-	SDL_RenderFillRect(App->render->renderer, &screen);
-
 	App->scene1->LoadNewLevel();
 
 	j1Transitions::Change();
+
+	SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, 255);
+	SDL_RenderFillRect(App->render->renderer, &screen);
 }
 
 void Lines::Exit() {
 
-	for (int i = 0; i < 11; i++) {
-		if (i % 2 == 0)
-			lines[i].x = Interpolation(0, (int)w, percentage);
-		else
-			lines[i].x = Interpolation(0, -(int)w, percentage);
-	}
+	j1Transitions::Exit();
 
 	SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, 255);
 	for (int i = 0; i < 11; i++)
 		SDL_RenderFillRect(App->render->renderer, &lines[i]);
+	
+	for (int i = 0; i < 11; i++) {
+		if (i % 2 == 0)
+			lines[i].x = Interpolation(-10, (int)w, percentage);
+		else
+			lines[i].x = Interpolation(-10, -(int)w, percentage);
+	}
 
-	j1Transitions::Exit();
+	
 }
