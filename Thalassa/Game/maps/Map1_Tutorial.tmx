@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="320" height="50" tilewidth="8" tileheight="8" infinite="0" nextobjectid="448">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="320" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="448">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
   <tile id="37">
@@ -121,7 +121,7 @@
    </animation>
   </tile>
  </tileset>
- <layer name="bg" width="320" height="50">
+ <layer id="1" name="bg" width="320" height="50">
   <data>
    <tile gid="9783"/>
    <tile gid="9784"/>
@@ -16125,7 +16125,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="parallax" width="320" height="50">
+ <layer id="2" name="parallax" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -32129,7 +32129,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="parallax2" width="320" height="50">
+ <layer id="3" name="parallax2" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -48133,7 +48133,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="parallax3" width="320" height="50">
+ <layer id="4" name="parallax3" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -64137,7 +64137,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="parallax4" width="320" height="50">
+ <layer id="5" name="parallax4" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -80141,7 +80141,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Decor" width="320" height="50">
+ <layer id="6" name="Decor" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -87276,8 +87276,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="38"/>
-   <tile gid="39"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -87596,8 +87596,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="120"/>
-   <tile gid="121"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -87916,8 +87916,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="202"/>
-   <tile gid="203"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -88236,8 +88236,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="284"/>
-   <tile gid="285"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -88556,8 +88556,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="366"/>
-   <tile gid="367"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -90954,8 +90954,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="38"/>
-   <tile gid="39"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -91274,8 +91274,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="120"/>
-   <tile gid="121"/>
    <tile/>
    <tile/>
    <tile/>
@@ -91594,8 +91592,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="202"/>
-   <tile gid="203"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -91914,8 +91914,8 @@
    <tile gid="1163"/>
    <tile gid="1164"/>
    <tile/>
-   <tile gid="284"/>
-   <tile gid="285"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -92234,8 +92234,8 @@
    <tile gid="1245"/>
    <tile gid="1246"/>
    <tile/>
-   <tile gid="366"/>
-   <tile gid="367"/>
+   <tile/>
+   <tile/>
    <tile gid="3638"/>
    <tile/>
    <tile/>
@@ -93465,8 +93465,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="38"/>
-   <tile gid="39"/>
    <tile/>
    <tile/>
    <tile/>
@@ -93785,8 +93783,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="120"/>
-   <tile gid="121"/>
    <tile/>
    <tile/>
    <tile/>
@@ -94105,8 +94101,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="202"/>
-   <tile gid="203"/>
    <tile/>
    <tile/>
    <tile/>
@@ -94425,8 +94419,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="284"/>
-   <tile gid="285"/>
    <tile/>
    <tile/>
    <tile/>
@@ -94745,8 +94737,16 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="366"/>
-   <tile gid="367"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -96145,7 +96145,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Capa de Patrones 1" width="320" height="50">
+ <layer id="7" name="Capa de Patrones 1" width="320" height="50">
   <data>
    <tile/>
    <tile/>
@@ -112149,7 +112149,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="keys" width="320" height="50">
+ <layer id="8" name="keys" width="320" height="50" visible="0">
   <data>
    <tile/>
    <tile/>
@@ -113935,8 +113935,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="38"/>
-   <tile gid="39"/>
    <tile/>
    <tile/>
    <tile/>
@@ -114255,8 +114253,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="120"/>
-   <tile gid="121"/>
    <tile/>
    <tile/>
    <tile/>
@@ -114575,8 +114571,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="202"/>
-   <tile gid="203"/>
    <tile/>
    <tile/>
    <tile/>
@@ -114895,8 +114889,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="284"/>
-   <tile gid="285"/>
    <tile/>
    <tile/>
    <tile/>
@@ -115215,8 +115207,16 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="366"/>
-   <tile gid="367"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -128153,7 +128153,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="wall_collider">
+ <objectgroup id="9" name="wall_collider">
   <object id="3" x="16" y="216" width="96" height="8"/>
   <object id="7" x="512.25" y="255.75" width="16" height="16"/>
   <object id="8" x="552.25" y="207.75" width="16" height="24"/>
@@ -128352,11 +128352,11 @@
   <object id="445" x="-19" y="-0.5" width="18.5" height="396"/>
   <object id="446" x="2464.5" y="-11.5" width="14" height="487"/>
  </objectgroup>
- <objectgroup color="#00aa00" name="win_collider">
+ <objectgroup color="#00aa00" id="10" name="win_collider">
   <object id="210" x="2307.7" y="162.114" width="12.1818" height="15.0909"/>
   <object id="231" x="2307.7" y="162.114" width="12.1818" height="15.0909"/>
  </objectgroup>
- <objectgroup color="#ff0000" name="death_collider">
+ <objectgroup color="#ff0000" id="11" name="death_collider">
   <object id="94" x="-96" y="399.75" width="1626.08" height="32"/>
   <object id="223" x="1072.73" y="478.538" width="1479.58" height="32"/>
   <object id="419" x="530.091" y="248.273" width="5.81818" height="16"/>
@@ -128386,5 +128386,5 @@
   <object id="443" x="1873.98" y="296.688" width="5.81818" height="16"/>
   <object id="444" x="1879.8" y="298.505" width="7.09091" height="14.1818"/>
  </objectgroup>
- <objectgroup color="#00aa00" name="chest_collider"/>
+ <objectgroup color="#00aa00" id="12" name="chest_collider"/>
 </map>

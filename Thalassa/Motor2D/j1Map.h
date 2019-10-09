@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "p2Animation.h"
 
 struct MapLayer
 {
@@ -43,6 +44,7 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+	Animation*			tmxAnim = nullptr;
 };
 
 enum MapTypes

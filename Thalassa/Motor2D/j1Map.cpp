@@ -386,6 +386,24 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		set->num_tiles_height = set->tex_height / set->tile_height;
 	}
 
+	// animations from tmx WIP
+	if (tileset_node.child("tile").child("animation")) {
+
+		set->tmxAnim = new Animation;
+
+		pugi::xml_node tileAnim;
+		pugi::xml_node durationAnim;
+		float convertor = 0.10f;
+
+		for (tileAnim = tileset_node.child("tile").child("animation").child("frame"); tileAnim; tileAnim = tileAnim.next_sibling()) 
+		{
+			set->tmxAnim->PushBack(set->GetTileRect(tileAnim.attribute("tileid").as_int() + set->firstgid));
+		}
+
+		durationAnim = tileset_node.child("tile").child("animation").child("frame");
+		set->tmxAnim->speed = durationAnim.attribute("duration").as_float() * convertor;
+	}
+
 	return ret;
 }
 
