@@ -11,7 +11,7 @@ Lines::Lines(j1Color color, float time) : j1Transitions(time) {
 	screen = { -(int)w, 0, (int)w, (int)h };
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 
-	initial_x_left = App->render->camera.x;
+	initial_x_left = App->render->camera.x - (int)w;
 	initial_x_right = App->render->camera.x + (int)w;
 
 
@@ -19,15 +19,15 @@ Lines::Lines(j1Color color, float time) : j1Transitions(time) {
 		// All lines have window width as width and height/10 as height
 		lines[i].h = ((int)h / 10);
 
-		lines[i].w = (int)w + 100;
+		lines[i].w = (int)w + 20;
 
 		// 5 lines are placed at the left of the screen
 		if (i % 2 == 0)
-			lines[i].x = initial_x_left - 50;
+			lines[i].x = initial_x_left + 10;
 
 		// 5 lines are placed at the right of the screen
 		else
-			lines[i].x = initial_x_right;
+			lines[i].x = initial_x_right + 10;
 	}
 
 	// Each one is placed h += h/10 than the previous one
