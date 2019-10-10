@@ -116,7 +116,7 @@ bool j1Scene1::Update(float dt)
 	//Save & Load
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
-		App->SaveGame();
+		App->SaveGame("save_game.xml");
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
@@ -276,6 +276,45 @@ bool j1Scene1::PostUpdate()
 		ret = false;
 
 	return ret;
+}
+
+// Load Game State
+bool j1Scene1::Load(pugi::xml_node& data)
+{
+	tutorial_active = data.child("tutorialActive").attribute("active").as_bool();
+	level1_active= data.child("level1Active").attribute("active").as_bool();
+	midlevel_active = data.child("midLevelActive").attribute("active").as_bool();
+	midlevel_completed = data.child("midLevelCompleted").attribute("active").as_bool();
+
+	LoadNewLevel();
+
+	App->entity_manager->player->position.x = data.child("playerPos").attribute("x").as_int();
+	App->entity_manager->player->position.y = data.child("playerPos").attribute("y").as_int();
+
+	return true;
+}
+
+// Save Game State
+bool j1Scene1::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node playerPos = data.append_child("playerPos");
+
+	playerPos.append_attribute("x") = App->entity_manager->player->position.x;
+	playerPos.append_attribute("y") = App->entity_manager->player->position.y;
+
+	pugi::xml_node tutorial = data.append_child("tutorialActive");
+	tutorial.append_attribute("active") = tutorial_active;
+
+	pugi::xml_node level1 = data.append_child("level1Active");
+	level1.append_attribute("active") = level1_active;
+
+	pugi::xml_node midlevel = data.append_child("midLevelActive");
+	midlevel.append_attribute("active") = midlevel_active;
+
+	pugi::xml_node midcompleted = data.append_child("midLevelCompleted");
+	midcompleted.append_attribute("active") = midlevel_completed;
+
+	return true;
 }
 
 // Called before quitting

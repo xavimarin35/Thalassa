@@ -294,10 +294,10 @@ void j1App::LoadGame()
 }
 
 // ---------------------------------------
-void j1App::SaveGame() const
+void j1App::SaveGame(const char* file) const
 {
 	want_to_save = true;
-	
+	save_game.create(file);
 }
 
 // ---------------------------------------
@@ -305,6 +305,8 @@ void j1App::SaveGame() const
 bool j1App::LoadGameApp()
 {
 	bool ret = false;
+
+	load_game.create("save_game.xml");
 
 	pugi::xml_document data;
 	pugi::xml_node root;
