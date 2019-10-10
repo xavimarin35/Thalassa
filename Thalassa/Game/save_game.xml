@@ -1,9 +1,21 @@
-<!-- Save game for the game -->
-
+<?xml version="1.0"?>
 <game_state>
-
-  <renderer>
-    <camera x="0" y="0"/>
-  </renderer>
-
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene1>
+		<playerPos x="919.100281" y="28.5" />
+		<tutorialActive active="true" />
+		<level1Active active="false" />
+		<midLevelActive active="false" />
+		<midLevelCompleted active="false" />
+	</scene1>
+	<collisions />
+	<:anonymous />
+	<:anonymous />
+	<renderer>
+		<camera x="-2245" y="0" />
+	</renderer>
 </game_state>

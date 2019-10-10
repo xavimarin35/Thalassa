@@ -174,15 +174,15 @@ bool j1Player::PostUpdate() {
 
 bool j1Player::Load(pugi::xml_node& data) {
 
-	position.x = data.child("player").child("position").attribute("x").as_float();
-	position.y = data.child("player").child("position").attribute("y").as_float();
+	position.x = data.child("scene1").child("playerPos").attribute("x").as_float();
+	position.y = data.child("sceen1").child("playerPos").attribute("y").as_float();
 
 	return true;
 }
 
 bool j1Player::Save(pugi::xml_node& data) const {
 
-	pugi::xml_node player = data.append_child("position");
+	pugi::xml_node player = data.append_child("playerPos");
 
 	player.append_attribute("x") = position.x;
 	player.append_attribute("y") = position.y;

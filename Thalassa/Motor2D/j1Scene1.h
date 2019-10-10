@@ -41,6 +41,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Load(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data) const;
+
 	void LoadNewLevel();
 
 	void LoadSceneInfo();
