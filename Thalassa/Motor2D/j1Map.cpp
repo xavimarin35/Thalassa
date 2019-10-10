@@ -54,8 +54,8 @@ void j1Map::Draw()
 						iPoint pos = MapToWorld(x, y);
 						if (layer->data->name == "Decor")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 1.0F);
-						else if (layer->data->name == "keys")
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 1.0F);
+						else if (layer->data->name == "anim")
+							App->render->Blit(tileset->texture, pos.x, pos.y, &tileset->tmxAnim->GetCurrentFrame(), SDL_FLIP_NONE, 1.0F); //animations layer
 						else if(layer->data->name == "Capa de Patrones 1")
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r);  //playable layer
 						else if (layer->data->name == "parallax")
@@ -393,7 +393,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 		pugi::xml_node tileAnim;
 		pugi::xml_node durationAnim;
-		float convertor = 0.10f;
+		float convertor = 0.00008f;
 
 		for (tileAnim = tileset_node.child("tile").child("animation").child("frame"); tileAnim; tileAnim = tileAnim.next_sibling()) 
 		{
