@@ -6,19 +6,19 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 
 ### Controls
 
-- A & D: 	Running left and right
-- W & W x2: 	Jump and double jump
-- SPACE: 	Maintain to use jetpack
+- **A & D:** 	Running left and right
+- **W & W x2:** 	Jump and double jump
+- **SPACE:** 	Maintain to use jetpack
 
 ### Debug functions
 
-- F1: Play the tutorial
-- F2: Play the level 1
-- F3: Play the mid-level
-- F5: Save the current state
-- F6: Load the saved state
-- F9: View colliders logic
-- F10: Activate / Deactivate GodMode
+- **F1:** Play the tutorial
+- **F2:** Play the level 1
+- **F3:** Play the mid-level
+- **F5:** Save the current state
+- **F6:** Load the saved state
+- **F9:** View colliders logic
+- **F10:** Activate / Deactivate GodMode
 
 ### Innovations
 
@@ -26,6 +26,8 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 - Implemented different transitions (not only fading)
 - Applied camera movements in the begginning of each level
 - Animations loaded from xml
+- Animation of some tiles from loaded from Tiled
+- Dynamic obstacles through the map that can kill you
 
 ## Usage
 
@@ -47,7 +49,8 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Death loop and animation
 	- Transitions and changes between scenes
 	- Camera movements between levels
-	- Bug fixing: Collisions and GodMode
+	- GodMode implementation
+	- Save & Load
 
 ### Xavi Marín
 
@@ -58,9 +61,10 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Entity system
 	- Collision system
 	- Parallax
-	- Save & Load
+	- Entity animations loaded from XML
 	- Data from xml
-	- Bug fixing: Collisions
+	- Animated tiles from TMX
+	- Dynamic obstacles
   
 ## License
 
