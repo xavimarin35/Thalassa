@@ -7,6 +7,7 @@
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1Collisions.h"
+#include "j1Scene1.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -386,14 +387,24 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		set->num_tiles_height = set->tex_height / set->tile_height;
 	}
 
-	// animations from tmx WIP
+	// animations from tmx 
 	if (tileset_node.child("tile").child("animation")) {
 
 		set->tmxAnim = new Animation;
 
 		pugi::xml_node tileAnim;
 		pugi::xml_node durationAnim;
-		float convertor = 0.00008f;
+
+		// load convertor values from xml
+		float convertor;
+
+		if (App->scene1->tutorial_active)
+			convertor = 0.00008f;
+		else if (App->scene1->level1_active)
+			convertor = 0.00002f;
+		else if (App->scene1->midlevel_active)
+			convertor = 0.00013f;
+
 
 		for (tileAnim = tileset_node.child("tile").child("animation").child("frame"); tileAnim; tileAnim = tileAnim.next_sibling()) 
 		{
