@@ -13,12 +13,12 @@ j1MovingObstacle::j1MovingObstacle(int x, int y, ENTITY_TYPE type) : j1Entity(x,
 {
 	animation = NULL;
 
-	topHeight = y - 40;
-	lowHeight = y + 40;
+	Properties();
 
-	idle.loop = false;
-	idle.speed = 1.0f;
-	idle.PushBack({ 140,133,36,36 });
+	topHeight = y - variation;
+	lowHeight = y + variation;
+
+	idle.LoadAnimations("movingObstacle");
 }
 
 j1MovingObstacle::~j1MovingObstacle() {}
@@ -27,11 +27,11 @@ bool j1MovingObstacle::Start() {
 
 	sprites = App->tex->Load("textures/spikes.png");
 
-	speed = { 1, 2.0f };
+	speed = { movement.x, movement.y };
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 32, 32 }, COLLIDER_DEATH, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox, hitbox }, COLLIDER_DEATH, App->entity_manager);
 
 	return true;
 }
@@ -58,7 +58,7 @@ bool j1MovingObstacle::Update(float dt) {
 
 
 	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
+		collider->SetPos(position.x + adjust, position.y + adjust);
 	
 	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE);
 
@@ -75,4 +75,21 @@ bool j1MovingObstacle::CleanUp()
 	}
 
 	return true;
+}
+
+void j1MovingObstacle::Properties() 
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodeObstacle;
+	nodeObstacle = config.child("entities");
+
+	variation = nodeObstacle.child("obstacleVariation").attribute("value").as_int();
+	movement = { nodeObstacle.child("obstacleSpeed").attribute("x").as_float(), nodeObstacle.child("obstacleSpeed").attribute("y").as_float() };
+	hitbox = nodeObstacle.child("obstacleCollider").attribute("value").as_int();
+	adjust = nodeObstacle.child("obstacleAdjust").attribute("value").as_int();
 }

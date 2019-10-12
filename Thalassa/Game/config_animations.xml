@@ -54,6 +54,22 @@
 	<chestOpened>
 		<animation x="144" y="0" w="15" h="35"/>
 	</chestOpened>
+	
+	<doorIdle loop="false">
+		<animation x="80" y="0" w="16" h="30"/>
+	</doorIdle>
+	
+	<doorOpen loop="false" speed="0.1f">
+		<animation x="80" y="0" w="16" h="30"/>
+		<animation x="64" y="0" w="16" h="30"/>
+		<animation x="48" y="0" w="16" h="30"/>
+		<animation x="32" y="0" w="16" h="30"/>
+		<animation x="16" y="0" w="16" h="30"/>
+	</doorOpen>
+	
+	<movingObstacle>
+		<animation x="140" y="133" w="36" h="36"/>
+	</movingObstacle>
 
   </player>
 </animations>

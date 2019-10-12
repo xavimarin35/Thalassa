@@ -14,16 +14,8 @@ j1Door::j1Door(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DOO
 
 	animation = NULL;
 
-	idle.loop = false;
-	idle.PushBack({ 80,0,16,30 });
-
-	openingAnim.loop = false;
-	openingAnim.speed = 0.1f;
-	openingAnim.PushBack({ 80,0,16,30 });
-	openingAnim.PushBack({ 64,0,16,30 });
-	openingAnim.PushBack({ 48,0,16,30 });
-	openingAnim.PushBack({ 32,0,16,30 });
-	openingAnim.PushBack({ 16,0,16,30 });
+	idle.LoadAnimations("doorIdle");
+	openingAnim.LoadAnimations("doorOpen");
 }
 
 j1Door::~j1Door() {}
@@ -33,8 +25,6 @@ bool j1Door::Start()
 	sprites = App->tex->Load("textures/Door_Spritesheet.png");
 
 	animation = &idle;
-
-	// collider = App->collisions->AddCollider({ (int)door_position.x, (int)door_position.y, 8,15 }, COLLIDER_DOOR, App->entity_manager);
 
 	return true;
 }

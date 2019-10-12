@@ -38,7 +38,16 @@
     <created value="true"/>
 	<jumpForce value="3.0f"/>
 	<jetForce value="1.5f"/>
+	<hitbox x="13" y="20"/>
   </player>
+  
+  <entities>
+	<chestCollider x="15" y="35"/>
+	<obstacleVariation value="40"/>
+	<obstacleSpeed x="1.0f" y="2.0f"/>
+	<obstacleCollider value="25"/>
+	<obstacleAdjust value="7"/>
+  </entities>
   
   <scene>
 	<cameraPositionMoving x="-5400"/>

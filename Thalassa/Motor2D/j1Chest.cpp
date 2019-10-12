@@ -14,6 +14,8 @@ j1Chest::j1Chest(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::C
 
 	animation = NULL;
 
+	Properties();
+
 	idle.LoadAnimations("chestIdle");
 	openingAnim.LoadAnimations("chestOpening");
 	openedAnim.LoadAnimations("chestOpened");
@@ -27,7 +29,7 @@ bool j1Chest::Start() {
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)chest_position.x, (int)chest_position.y, 15, 35 }, COLLIDER_CHEST, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)chest_position.x, (int)chest_position.y, hitbox.x, hitbox.y }, COLLIDER_CHEST, App->entity_manager);
 
 	return true;
 }
@@ -61,4 +63,18 @@ bool j1Chest::CleanUp()
 	}
 
 	return true;
+}
+
+void j1Chest::Properties()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodeChest;
+	nodeChest = config.child("entities");
+
+	hitbox = { nodeChest.child("chestCollider").attribute("x").as_int(), nodeChest.child("chestCollider").attribute("y").as_int() };
 }

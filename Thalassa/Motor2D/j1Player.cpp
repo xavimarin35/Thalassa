@@ -32,7 +32,7 @@ bool j1Player::Start() {
 	// Load values from config.xml
 	LoadInfo();
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 13, 20 }, COLLIDER_PLAYER, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_PLAYER, App->entity_manager);
 
 	return true;
 }
@@ -368,5 +368,5 @@ void j1Player::LoadInfo()
 	playerCreated = nodePlayer.child("created").attribute("value").as_bool();
 	jetForce_xml = nodePlayer.child("jetForce").attribute("value").as_float();
 	jumpForce_xml = nodePlayer.child("jumpForce").attribute("value").as_float();
-
+	hitbox = { nodePlayer.child("hitbox").attribute("x").as_int(), nodePlayer.child("hitbox").attribute("y").as_int() };
 }

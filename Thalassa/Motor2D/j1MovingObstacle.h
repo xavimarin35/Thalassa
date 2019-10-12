@@ -20,6 +20,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
+	void Properties();
+
 public:
 
 	/*fPoint position;*/
@@ -33,8 +35,15 @@ public:
 	bool active = false;
 	bool playedFx = false;
 
+private:
+
 	int topHeight;
 	int lowHeight;
+
+	int variation;
+	int hitbox;
+	int adjust;
+	fPoint movement;
 };
 
 #endif

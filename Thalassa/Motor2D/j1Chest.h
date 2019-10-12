@@ -20,6 +20,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
+	void Properties();
+
 public:
 
 	fPoint chest_position;
@@ -30,6 +32,10 @@ public:
 
 	bool opened = false;
 	bool playedFx = false;
+
+private:
+
+	iPoint hitbox;
 };
 
 #endif

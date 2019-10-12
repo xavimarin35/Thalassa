@@ -66,9 +66,11 @@ bool j1Scene1::Start()
 		}
 
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+
 		App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
 		App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
+
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 
@@ -87,18 +89,16 @@ bool j1Scene1::Start()
 		}
 
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+
 		App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
 		App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
+
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 	
 	cameraLimitX = cameraLimit.x;
 	cameraLimitY = cameraLimit.y;
-
-	/*App->entity_manager->CreateEntity(OBSTACLE);
-	App->entity_manager->CreateEntity(CHEST, 15, 100);
-	App->entity_manager->CreateEntity(DOOR, 50, 100);*/
 		
 	return true;
 }
@@ -112,7 +112,6 @@ bool j1Scene1::PreUpdate()
 // Called each loop iteration
 bool j1Scene1::Update(float dt)
 {
-
 	//Save & Load
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
