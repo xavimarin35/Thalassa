@@ -78,6 +78,9 @@ public:
 private:
 	bool flip = true;
 	bool playedFx = false;
+
+	float jumpForce_xml;
+	float jetForce_xml;
 };
 
 #endif // __j1PLAYER_H__

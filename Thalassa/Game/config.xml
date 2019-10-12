@@ -36,6 +36,8 @@
     <gravity value="0.15f"/>
     <flip value="true"/>
     <created value="true"/>
+	<jumpForce value="3.0f"/>
+	<jetForce value="1.5f"/>
   </player>
   
   <scene>

@@ -14,6 +14,7 @@ j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE:
 {
 	animation = NULL;
 
+	// Loading all animations from xml
 	idle.LoadAnimations("idle");
 	jetpack.LoadAnimations("jetpack");
 	godAnim.LoadAnimations("godmode");
@@ -93,7 +94,7 @@ bool j1Player::Update(float dt) {
 				if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
 					isJumping = true;
 					onFloor = false;
-					jumpForce = 3.0f;
+					jumpForce = jumpForce_xml;
 					doubleJump -= 1;
 					changedFloor = false;
 
@@ -103,7 +104,7 @@ bool j1Player::Update(float dt) {
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
 					jetpackActive = true;
 					onFloor = false;
-					jetForce = 1.5f;
+					jetForce = jetForce_xml;
 				}
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
@@ -121,6 +122,7 @@ bool j1Player::Update(float dt) {
 			if (onFloor)
 				speed.y = 0;
 
+			// Falling
 			if (!isJumping && !godMode && !ColDown) 
 			{
 				if (!onFloor) {
@@ -131,6 +133,7 @@ bool j1Player::Update(float dt) {
 			}
 			
 		}
+		// Dead
 		else {
 			if (lifes > 0) {
 				App->scene1->death = true;
@@ -235,10 +238,8 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					isJumping = false;
 					jetpackActive = false;
 
-					if (!changedFloor) {
-						position.y = c2->rect.y - c1->rect.h;
-						changedFloor = true;
-					}
+					position.y = c2->rect.y - c1->rect.h + 1;
+
 					speed.y = 0;
 					doubleJump = 2;
 
@@ -365,5 +366,7 @@ void j1Player::LoadInfo()
 	gravity = nodePlayer.child("gravity").attribute("value").as_float();
 	flip = nodePlayer.child("flip").attribute("value").as_bool();
 	playerCreated = nodePlayer.child("created").attribute("value").as_bool();
+	jetForce_xml = nodePlayer.child("jetForce").attribute("value").as_float();
+	jumpForce_xml = nodePlayer.child("jumpForce").attribute("value").as_float();
 
 }
