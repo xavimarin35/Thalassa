@@ -77,6 +77,7 @@ public:
 
 private:
 	bool flip = true;
+	bool playedFx = false;
 };
 
 #endif // __j1PLAYER_H__

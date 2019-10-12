@@ -40,6 +40,7 @@ public:
 	int openDoorFx;
 	int footStepFx;
 	int transitionFx;
+	int deathFx;
 
 private:
 

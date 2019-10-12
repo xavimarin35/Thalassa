@@ -134,7 +134,6 @@ bool j1Player::Update(float dt) {
 		else {
 			if (lifes > 0) {
 				App->scene1->death = true;
-				animation = &deathAnim;
 			}
 		}
 
@@ -262,8 +261,15 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			}
 		}
 
-		if (c2->type == COLLIDER_DEATH)
+		if (c2->type == COLLIDER_DEATH) {
+			if (!playedFx) {
+				App->audio->PlayFx(App->audio->deathFx);
+				playedFx = true;
+			}
+
+			animation = &deathAnim;
 			isDead = true;
+		}
 
 		if (c2->type == COLLIDER_OPENCHEST)
 			openingChest = true;
@@ -305,13 +311,11 @@ void j1Player::JetPack() {
 
 void j1Player::Die() {
 
+	playedFx = false;
 	isDead = false;
 	playerCanMove = false;
 	jetpackActive = false;
 	App->scene1->death = false;
-	animation = NULL;
-
-	fPoint death_position = { position.x,position.y };
 
 	position.y += speed.y;
 	speed.y += gravity;
