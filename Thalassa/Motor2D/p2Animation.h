@@ -53,7 +53,7 @@ public:
 		pugi::xml_parse_result result = anim_file.load_file("config_animations.xml");
 		if (result != NULL)
 		{
-			pugi::xml_node animation_name = anim_file.child("animations").child("player").child(name.GetString());
+			pugi::xml_node animation_name = anim_file.child("animations").child(name.GetString());
 			loop = animation_name.attribute("loop").as_bool();
 			speed = animation_name.attribute("speed").as_float();
 			for (pugi::xml_node animation = animation_name.child("animation"); animation; animation = animation.next_sibling("animation"))

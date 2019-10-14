@@ -1,5 +1,4 @@
 <animations>
-  <player>
     <idle loop="true" speed="0.05f">
       <animation x="4" y="37" w="13" h="20"/>
       <animation x="24" y="37" w="13" h="20"/>
@@ -70,6 +69,4 @@
 	<movingObstacle>
 		<animation x="140" y="133" w="36" h="36"/>
 	</movingObstacle>
-
-  </player>
 </animations>

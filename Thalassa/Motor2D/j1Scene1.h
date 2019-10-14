@@ -3,8 +3,12 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include "p2Animation.h"
+#include "j1Entity.h"
+#include "j1EntityManager.h"
 
 struct SDL_Texture;
+//class Animation;
 
 enum ACTIVE_SCENE {
 	SCENE_TUTORIAL,
@@ -62,7 +66,26 @@ public:
 	bool cameraMoving = true;
 	bool lateralMove = false;
 
+
+
 private:
+
+	// key animations
+	Animation keyA;
+	Animation press_keyA;
+	Animation keyD;
+	Animation press_keyD;
+	Animation keyW;
+	Animation press_keyW;
+	Animation keySpace;
+	Animation press_keySpace;
+
+	Animation* A;
+	Animation* D;
+	Animation* W;
+	Animation* Space;
+
+	SDL_Texture* keys;
 
 	int cameraLimitX;
 	int cameraLimitY;

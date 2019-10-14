@@ -12,6 +12,7 @@
 #include "j1Player.h"
 #include "j1TransitionsManager.h"
 #include "j1Collisions.h"
+#include "p2Animation.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #define SDL_TICKS_PASSED(A, B)  ((Sint32)((B) - (A)) <= 0)
@@ -39,9 +40,22 @@ bool j1Scene1::Start()
 {
 	LoadSceneInfo();
 
+	
+
 	// TUTORIAL
 	if (tutorial_active) {
 		App->map->Load("Map1_Tutorial.tmx");
+
+		keys = App->tex->Load("textures/keys.png");
+		keyA.loop = false;
+		keyA.speed = 0.0F;
+		keyA.PushBack({ 48, 49, 16, 15 });
+		keyA.PushBack({ 48, 147, 16, 13 });
+
+		keyD.loop = false;
+		keyD.speed = 0.0F;
+		keyD.PushBack({ 80, 49, 16, 15 });
+		keyD.PushBack({ 80, 147, 16, 13 });
 
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 
@@ -122,6 +136,9 @@ bool j1Scene1::Update(float dt)
 	{
 		App->LoadGame();
 	}
+
+	
+
 
 	if (death) {
 		App->transitions->FadingToColor(Black, 0.5f);
@@ -252,6 +269,18 @@ bool j1Scene1::Update(float dt)
 	}
 
 	App->map->Draw();
+
+	//keys animations manager
+	if (tutorial_active)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			A = &keyA;
+		else
+			A = &press_keyA;
+
+	/*SDL_Rect r = { 80, 49, 16, 15 };*/
+	App->render->Blit(keys, 100, 100, &A->GetCurrentFrame(), SDL_FLIP_NONE, 1.0F);
+	}
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
