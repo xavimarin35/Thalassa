@@ -216928,7 +216928,7 @@
   <object id="463" x="3400" y="408" width="16" height="16"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="10" name="opendoor_collider">
-  <object id="453" x="1960" y="104" width="8" height="48"/>
+  <object id="453" x="1960" y="104" width="8" height="64"/>
   <object id="454" x="1968" y="96" width="48" height="8"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="11" name="death_collider">

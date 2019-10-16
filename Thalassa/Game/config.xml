@@ -44,7 +44,7 @@
   <entities>
 	<chestCollider x="15" y="35"/>
 	<obstacleVariation value="40"/>
-	<obstacleSpeed x="1.0f" y="2.0f"/>
+	<obstacleSpeed x="1.0f" y="1.7f"/>
 	<obstacleCollider value="25"/>
 	<obstacleAdjust value="7"/>
   </entities>

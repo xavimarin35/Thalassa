@@ -50,6 +50,7 @@ bool j1Player::Update(float dt) {
 
 		if (godMode) 
 		{
+			jetpackActive = false;
 			animation = &godAnim;
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 				position.x += godSpeed;
