@@ -8,7 +8,7 @@
 //#include "Zoom.h"
 //#include "Wipe.h"
 #include "Lines.h"
-//#include "Squares.h"
+#include "Squares.h"
 #include "j1Input.h"
 
 j1TransitionsManager::j1TransitionsManager()
@@ -49,6 +49,10 @@ void j1TransitionsManager::LinesAppearing(j1Color color, float time) {
 	transitions_list.push_back(new Lines(color, time));
 }
 
+void j1TransitionsManager::SquaresAppearing(int transition, j1Color color, float time) {
+	transitions_list.push_back(new Squares(transition, color, time));
+}
+
 /*void j1TransitionsManager::MovingToMouse(iPoint mouse_position, float time) {
 	transitions_list.push_back(new MoveToMouse(mouse_position, time));
 }
@@ -63,6 +67,4 @@ void j1TransitionsManager::Wiping(j1Color color, float time) {
 
 
 
-void j1TransitionsManager::SquaresAppearing(int transition, j1Color color, float time) {
-	transitions_list.push_back(new Squares(transition, color, time));
 }*/

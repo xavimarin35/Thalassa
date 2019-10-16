@@ -76,6 +76,9 @@
     <ClCompile Include="Lines.cpp">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClCompile>
+    <ClCompile Include="Squares.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -172,6 +175,9 @@
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Lines.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Squares.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
   </ItemGroup>
