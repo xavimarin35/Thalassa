@@ -175,6 +175,7 @@ bool j1Scene1::Update(float dt)
 				tutorial_active = true;
 				level1_active = false;
 				midlevel_active = false;
+				App->transitions->SquaresAppearing(3, Black, 4.0F);
 			}
 		}
 
@@ -189,7 +190,8 @@ bool j1Scene1::Update(float dt)
 			midlevel_active = false;
 		}
 
-		App->transitions->LinesAppearing();
+		if (!tutorial_active)
+			App->transitions->LinesAppearing();
 	}
 
 	// Loads tutorial
@@ -273,13 +275,59 @@ bool j1Scene1::Update(float dt)
 	//keys animations manager
 	if (tutorial_active)
 	{
+		// a
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			A = &keyA;
+		{
+			SDL_Rect APressed = { 48, 147, 16, 13 };
+			App->render->Blit(keys, 160, 192, &APressed, SDL_FLIP_NONE, 1.0F);
+		}
 		else
-			A = &press_keyA;
+		{
+			SDL_Rect A = { 48, 49, 16, 15 };
+			App->render->Blit(keys, 160, 190, &A, SDL_FLIP_NONE, 1.0F);
+		}
+		// d
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			SDL_Rect DPressed = { 80, 147, 16, 13 };
+			App->render->Blit(keys, 200, 192, &DPressed, SDL_FLIP_NONE, 1.0F);
+		}
+		else
+		{
+			SDL_Rect D = { 80, 49, 16, 15 };
+			App->render->Blit(keys, 200, 190, &D, SDL_FLIP_NONE, 1.0F);
+		}
+		// normal jump
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			SDL_Rect WPressed = { 64, 131, 16, 13 };
+			App->render->Blit(keys, 520, 157, &WPressed, SDL_FLIP_NONE, 1.0F);
+		}
+		else
+		{
+			SDL_Rect W = { 64, 33, 16, 15 };
+			App->render->Blit(keys, 520, 155, &W, SDL_FLIP_NONE, 1.0F);
+		}
 
-	/*SDL_Rect r = { 80, 49, 16, 15 };*/
-	App->render->Blit(keys, 100, 100, &A->GetCurrentFrame(), SDL_FLIP_NONE, 1.0F);
+		// doble jump
+		if (App->input->GetKey(SDL_SCANCODE_W == KEY_REPEAT) && App->entity_manager->player->doubleJump == 2)
+		{
+			SDL_Rect WPressedJump1 = { 64, 131, 16, 13 };
+			App->render->Blit(keys, 800, 157, &WPressedJump1, SDL_FLIP_NONE, 1.0F);
+		}
+	
+		else if(App->input->GetKey(SDL_SCANCODE_W == KEY_REPEAT) && App->entity_manager->player->doubleJump == 1)
+		{
+			SDL_Rect WPressedJump2 = { 64, 131, 16, 13 };
+			App->render->Blit(keys, 830, 132, &WPressedJump2, SDL_FLIP_NONE, 1.0F);
+		}
+		else
+		{
+			SDL_Rect WJump1 = { 64, 33, 16, 15 };
+			App->render->Blit(keys, 800, 155, &WJump1, SDL_FLIP_NONE, 1.0F);
+			SDL_Rect WJump2 = { 64, 33, 16, 15 };
+			App->render->Blit(keys, 830, 130, &WJump2, SDL_FLIP_NONE, 1.0F);
+		}
 	}
 
 	int x, y;
