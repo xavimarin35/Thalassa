@@ -70,21 +70,6 @@ public:
 
 private:
 
-	// key animations
-	Animation keyA;
-	Animation press_keyA;
-	Animation keyD;
-	Animation press_keyD;
-	Animation keyW;
-	Animation press_keyW;
-	Animation keySpace;
-	Animation press_keySpace;
-
-	Animation* A;
-	Animation* D;
-	Animation* W;
-	Animation* Space;
-
 	SDL_Texture* keys;
 
 	int cameraLimitX;
@@ -96,6 +81,11 @@ private:
 
 	iPoint obstacle1;
 	iPoint obstacle2;
+
+	int differenceY;
+
+	SDL_Rect W, WPressed, A, APressed, D, DPressed, SPACE, SPACEPressed;
+	iPoint posA, posD, posW1, posW2, posW3, posW4, posSPACE;
 };
 
 #endif // __j1SCENE1_H__

@@ -65,5 +65,24 @@
 	<obstacle6 x="3500" y="400"/>
 	<obstacle7 x="3650" y="65"/>
   </scene>
+  
+  <keys>
+	<A x="48" y="49" w="16" h="15"/>
+	<APressed x="48" y="147" w="16" h="13"/>
+	<W x="64" y="33" w="16" h="15"/>
+	<WPressed x="64" y="131" w="16" h="13"/>
+	<D x="80" y="49" w="16" h="15"/>
+	<DPressed x="80" y="147" w="16" h="13"/>
+	<SPACE x="96" y="81" w="64" h="15"/>
+	<SPACEPressed x="96" y="179" w="64" h="13"/>
+	<differenceY value="2"/>
+	<posA x="160" y="192"/>
+	<posD x="200" y = "192"/>
+	<posW1 x="520" y="157"/>
+	<posW2 x="800" y="157"/>
+	<posW3 x="830" y="130"/>
+	<posW4 x="1285" y="60"/>
+	<posSPACE x="1310" y="60"/>
+  </keys>
 
 </config>

@@ -47,15 +47,6 @@ bool j1Scene1::Start()
 		App->map->Load("Map1_Tutorial.tmx");
 
 		keys = App->tex->Load("textures/keys.png");
-		keyA.loop = false;
-		keyA.speed = 0.0F;
-		keyA.PushBack({ 48, 49, 16, 15 });
-		keyA.PushBack({ 48, 147, 16, 13 });
-
-		keyD.loop = false;
-		keyD.speed = 0.0F;
-		keyD.PushBack({ 80, 49, 16, 15 });
-		keyD.PushBack({ 80, 147, 16, 13 });
 
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 
@@ -136,9 +127,6 @@ bool j1Scene1::Update(float dt)
 	{
 		App->LoadGame();
 	}
-
-	
-
 
 	if (death) {
 		App->transitions->FadingToColor(Black, 0.5f);
@@ -277,57 +265,49 @@ bool j1Scene1::Update(float dt)
 	{
 		// a
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			SDL_Rect APressed = { 48, 147, 16, 13 };
-			App->render->Blit(keys, 160, 192, &APressed, SDL_FLIP_NONE, 1.0F);
-		}
+			App->render->Blit(keys, posA.x, posA.y, &APressed);
 		else
-		{
-			SDL_Rect A = { 48, 49, 16, 15 };
-			App->render->Blit(keys, 160, 190, &A, SDL_FLIP_NONE, 1.0F);
-		}
+			App->render->Blit(keys, posA.x, posA.y - differenceY, &A);
+
 		// d
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			SDL_Rect DPressed = { 80, 147, 16, 13 };
-			App->render->Blit(keys, 200, 192, &DPressed, SDL_FLIP_NONE, 1.0F);
-		}
+			App->render->Blit(keys, posD.x, posD.y, &DPressed);
 		else
-		{
-			SDL_Rect D = { 80, 49, 16, 15 };
-			App->render->Blit(keys, 200, 190, &D, SDL_FLIP_NONE, 1.0F);
-		}
+			App->render->Blit(keys, posD.x, posD.y - differenceY, &D);
+
 		// normal jump
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		{
-			SDL_Rect WPressed = { 64, 131, 16, 13 };
-			App->render->Blit(keys, 520, 157, &WPressed, SDL_FLIP_NONE, 1.0F);
-		}
+			App->render->Blit(keys, posW1.x, posW1.y, &WPressed);
 		else
-		{
-			SDL_Rect W = { 64, 33, 16, 15 };
-			App->render->Blit(keys, 520, 155, &W, SDL_FLIP_NONE, 1.0F);
-		}
+			App->render->Blit(keys, posW1.x, posW1.y - differenceY, &W);
 
 		// doble jump
-		if (App->input->GetKey(SDL_SCANCODE_W == KEY_REPEAT) && App->entity_manager->player->doubleJump == 2)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->entity_manager->player->doubleJump == 1)
 		{
-			SDL_Rect WPressedJump1 = { 64, 131, 16, 13 };
-			App->render->Blit(keys, 800, 157, &WPressedJump1, SDL_FLIP_NONE, 1.0F);
+			App->render->Blit(keys, posW2.x, posW2.y, &WPressed);
+			App->render->Blit(keys, posW3.x, posW3.y - differenceY, &W);
 		}
-	
-		else if(App->input->GetKey(SDL_SCANCODE_W == KEY_REPEAT) && App->entity_manager->player->doubleJump == 1)
+		else if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->entity_manager->player->doubleJump == 0)
 		{
-			SDL_Rect WPressedJump2 = { 64, 131, 16, 13 };
-			App->render->Blit(keys, 830, 132, &WPressedJump2, SDL_FLIP_NONE, 1.0F);
+			App->render->Blit(keys, posW3.x, posW3.y, &WPressed);
+			App->render->Blit(keys, posW2.x, posW2.y - differenceY, &W);
 		}
 		else
 		{
-			SDL_Rect WJump1 = { 64, 33, 16, 15 };
-			App->render->Blit(keys, 800, 155, &WJump1, SDL_FLIP_NONE, 1.0F);
-			SDL_Rect WJump2 = { 64, 33, 16, 15 };
-			App->render->Blit(keys, 830, 130, &WJump2, SDL_FLIP_NONE, 1.0F);
+			App->render->Blit(keys, posW2.x, posW2.y - differenceY, &W);
+			App->render->Blit(keys, posW3.x, posW3.y - differenceY, &W);
 		}
+
+		// w and SPACE
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
+			App->render->Blit(keys, posW4.x, posW4.y, &WPressed);
+		else
+			App->render->Blit(keys, posW4.x, posW4.y - differenceY, &W);
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			App->render->Blit(keys, posSPACE.x, posSPACE.y, &SPACEPressed);
+		else
+			App->render->Blit(keys, posSPACE.x, posSPACE.y - differenceY, &SPACE);
 	}
 
 	int x, y;
@@ -483,4 +463,24 @@ void j1Scene1::LoadSceneInfo()
 		cameraLimit.y = nodeScene.child("cameraLimit4").attribute("y").as_int();
 	}
 
+	pugi::xml_node nodeKeys;
+	nodeKeys = config.child("keys");
+
+	A = { nodeKeys.child("A").attribute("x").as_int(), nodeKeys.child("A").attribute("y").as_int(), nodeKeys.child("A").attribute("w").as_int(), nodeKeys.child("A").attribute("h").as_int() };
+	APressed = { nodeKeys.child("APressed").attribute("x").as_int(), nodeKeys.child("APressed").attribute("y").as_int(), nodeKeys.child("APressed").attribute("w").as_int(), nodeKeys.child("APressed").attribute("h").as_int() };
+	W = { nodeKeys.child("W").attribute("x").as_int(), nodeKeys.child("W").attribute("y").as_int(), nodeKeys.child("W").attribute("w").as_int(), nodeKeys.child("W").attribute("h").as_int() };
+	WPressed = { nodeKeys.child("WPressed").attribute("x").as_int(), nodeKeys.child("WPressed").attribute("y").as_int(), nodeKeys.child("WPressed").attribute("w").as_int(), nodeKeys.child("WPressed").attribute("h").as_int() };
+	D = { nodeKeys.child("D").attribute("x").as_int(), nodeKeys.child("D").attribute("y").as_int(), nodeKeys.child("D").attribute("w").as_int(), nodeKeys.child("D").attribute("h").as_int() };
+	DPressed = { nodeKeys.child("DPressed").attribute("x").as_int(), nodeKeys.child("DPressed").attribute("y").as_int(), nodeKeys.child("DPressed").attribute("w").as_int(), nodeKeys.child("DPressed").attribute("h").as_int() };
+	SPACE = { nodeKeys.child("SPACE").attribute("x").as_int(), nodeKeys.child("SPACE").attribute("y").as_int(), nodeKeys.child("SPACE").attribute("w").as_int(), nodeKeys.child("SPACE").attribute("h").as_int() };
+	SPACEPressed = { nodeKeys.child("SPACEPressed").attribute("x").as_int(), nodeKeys.child("SPACEPressed").attribute("y").as_int(), nodeKeys.child("SPACEPressed").attribute("w").as_int(), nodeKeys.child("SPACEPressed").attribute("h").as_int() };
+
+	differenceY = nodeKeys.child("differenceY").attribute("value").as_int();
+	posA = { nodeKeys.child("posA").attribute("x").as_int(), nodeKeys.child("posA").attribute("y").as_int() };
+	posD = { nodeKeys.child("posD").attribute("x").as_int(), nodeKeys.child("posD").attribute("y").as_int() };
+	posW1 = { nodeKeys.child("posW1").attribute("x").as_int(), nodeKeys.child("posW1").attribute("y").as_int() };
+	posW2 = { nodeKeys.child("posW2").attribute("x").as_int(), nodeKeys.child("posW2").attribute("y").as_int() };
+	posW3 = { nodeKeys.child("posW3").attribute("x").as_int(), nodeKeys.child("posW3").attribute("y").as_int() };
+	posW4 = { nodeKeys.child("posW4").attribute("x").as_int(), nodeKeys.child("posW4").attribute("y").as_int() };
+	posSPACE = { nodeKeys.child("posSPACE").attribute("x").as_int(), nodeKeys.child("posSPACE").attribute("y").as_int() };
 }
