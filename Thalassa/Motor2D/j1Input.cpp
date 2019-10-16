@@ -28,12 +28,24 @@ bool j1Input::Awake(pugi::xml_node& config)
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
+	SDL_Init(SDL_INIT_GAMECONTROLLER);
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+
+	if (SDL_Init(SDL_INIT_JOYSTICK) < 0)
+		LOG("SDL_INIT_JOYSTICK could not initialize");
+
+	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+		if (SDL_IsGameController(0))
+			controller = SDL_GameControllerOpen(0);
+	}
+
+	if (controller == NULL)
+		LOG("Unable to detect game controller!");
 
 	return ret;
 }
@@ -51,6 +63,21 @@ bool j1Input::PreUpdate()
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
+
+	controller = SDL_GameControllerOpen(0);
+
+	if (SDL_GameControllerGetAttached(controller)) 
+	{
+		controllerLAxisX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
+		controllerLAxisY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
+		controllerRAxisX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
+		controllerRAxisY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
+	}
+	else 
+	{
+		SDL_GameControllerClose(controller);
+		controller = nullptr;
+	}
 
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{
@@ -136,6 +163,7 @@ bool j1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	controller = nullptr;
 	return true;
 }
 
