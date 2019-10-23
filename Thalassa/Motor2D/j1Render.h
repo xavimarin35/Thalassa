@@ -33,6 +33,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	// Blit
+	bool IsOnCamera(int x, int y, int w, int h, int camera_position);
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;

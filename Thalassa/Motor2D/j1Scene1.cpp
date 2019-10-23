@@ -258,7 +258,7 @@ bool j1Scene1::Update(float dt)
 			App->render->camera.y = cameraLimitY;
 	}
 
-	App->map->Draw();
+	App->map->Draw(App->entity_manager->player->position.x);
 
 	//keys animations manager
 	if (tutorial_active)
@@ -319,7 +319,7 @@ bool j1Scene1::Update(float dt)
 					App->map->data.tilesets.count(),
 					map_coordinates.x, map_coordinates.y);
 
-	App->win->SetTitle("Thalassa");
+	// App->win->SetTitle("Thalassa");
 	return true;
 }
 
