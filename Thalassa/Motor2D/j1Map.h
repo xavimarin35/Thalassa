@@ -101,6 +101,8 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders();
 
+	void LoadInfo();
+
 	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
@@ -108,6 +110,8 @@ public:
 	MapData data;
 
 	bool draw_grid = false;
+	
+	float parallax_speed = 0.057F;
 
 private:
 
@@ -116,6 +120,8 @@ private:
 	p2SString			folder;
 	bool				map_loaded;
 	SDL_Texture*		grid = nullptr;
+
+	float parallax1, parallax2, parallax3, parallax4, parallaxBg, parallaxNormal;
 };
 
 #endif // __j1MAP_H__

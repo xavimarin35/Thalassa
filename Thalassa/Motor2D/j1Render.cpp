@@ -199,14 +199,18 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	return ret;
 }
 
-bool j1Render::IsOnCamera(int x, int y, int w, int h, int player_position)
+bool j1Render::CameraCulling(int x, int y, int w, int h, int camera_position)
 {
 	bool ret = false;
 
-	int camera_width = App->win->width / 2;
+	int variation = 30;
+	int camera_width = App->win->width;
+	int scale = App->win->scale;
+	float speed = App->map->parallax_speed;
+
 	SDL_Rect tile_to_print = { App->map->MapToWorld(x,y).x, App->map->MapToWorld(x,y).y, w, h };
 
-	if (player_position - camera_width <= tile_to_print.x && player_position + camera_width >= tile_to_print.x)
+	if ((camera_position * speed - variation) / scale <= tile_to_print.x && (camera_position * speed + variation) / scale + camera_width >= tile_to_print.x)
 		ret = true;
 
 	else ret = false;

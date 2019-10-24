@@ -25,6 +25,15 @@
   <map>
     <folder>maps/</folder>
   </map>
+  
+  <mapInfo>
+	<speednormal value="1.0f"/>
+	<parallax1 value="0.8f"/>
+	<parallax2 value="0.5f"/>
+	<parallax3 value="0.7f"/>
+	<parallax4 value="0.3f"/>
+	<parallaxBg value="0.057f"/>
+  </mapInfo>
 
   <player>
     <posTuto x="57" y="201"/>

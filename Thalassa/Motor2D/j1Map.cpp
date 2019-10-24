@@ -25,12 +25,14 @@ bool j1Map::Awake(pugi::xml_node& config)
 	LOG("Loading Map Parser");
 	bool ret = true;
 
+	LoadInfo();
+
 	folder.create(config.child("folder").child_value());
 
 	return ret;
 }
 
-void j1Map::Draw(int player_pos)
+void j1Map::Draw(int camera_position)
 {
 	if (map_loaded == false)
 		return;
@@ -46,9 +48,21 @@ void j1Map::Draw(int player_pos)
 		{
 			for (int x = 0; x < data.width; ++x)
 			{
-				// if (App->render->IsOnCamera(x, y, data.tile_width, data.tile_height, player_pos)) 
-				{
+				if (layer->data->name == "Decor" || layer->data->name == "Capa de Patrones 1" || layer->data->name == "anim")
+					parallax_speed = parallaxNormal;
+				else if (layer->data->name == "parallax")
+					parallax_speed = parallax1;
+				else if (layer->data->name == "parallax2")
+					parallax_speed = parallax2;
+				else if (layer->data->name == "parallax3")
+					parallax_speed = parallax3;
+				else if (layer->data->name == "parallax4")
+					parallax_speed = parallax4;
+				else if (layer->data->name == "bg")
+					parallax_speed = parallaxBg;
 
+				if (App->render->CameraCulling(x, y, data.tile_width, data.tile_height, camera_position)) 
+				{
 					int tile_id = layer->data->data[tile_num];
 					if (tile_id > 0)
 					{
@@ -58,22 +72,11 @@ void j1Map::Draw(int player_pos)
 							tiles_painted++;
 							SDL_Rect r = tileset->GetTileRect(tile_id);
 							iPoint pos = MapToWorld(x, y);
-							if (layer->data->name == "Decor")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 1.0F);
-							else if (layer->data->name == "anim")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &tileset->tmxAnim->GetCurrentFrame(), SDL_FLIP_NONE, 1.0F); //animations layer
-							else if (layer->data->name == "Capa de Patrones 1")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r);  //playable layer
-							else if (layer->data->name == "parallax")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.8F);
-							else if (layer->data->name == "parallax2")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.5F);
-							else if (layer->data->name == "parallax3")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.7F);
-							else if (layer->data->name == "parallax4")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.3F);
-							else if (layer->data->name == "bg")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, 0.057F);
+
+							if (layer->data->name == "anim")
+								App->render->Blit(tileset->texture, pos.x, pos.y, &tileset->tmxAnim->GetCurrentFrame(), SDL_FLIP_NONE, parallax_speed); //animations layer
+							else
+								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, parallax_speed);
 						}
 					}
 				}
@@ -82,8 +85,8 @@ void j1Map::Draw(int player_pos)
 		}
 	}
 
-	static char title[30];
-	sprintf_s(title, 30, " | Tiles Rendered: %u", tiles_painted);
+	static char title[200];
+	sprintf_s(title, 200, " | Tiles Rendered: %u | Camera Position: %d", tiles_painted, camera_position);
 	App->win->SetTitle(title);
 
 	if (draw_grid) {
@@ -505,4 +508,23 @@ bool j1Map::LoadColliders()
 	}
 
 	return true;
+}
+
+void j1Map::LoadInfo()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodeMap;
+	nodeMap = config.child("mapInfo");
+
+	parallaxNormal = nodeMap.child("speednormal").attribute("value").as_float();
+	parallax1 = nodeMap.child("parallax1").attribute("value").as_float();
+	parallax2 = nodeMap.child("parallax2").attribute("value").as_float();
+	parallax3 = nodeMap.child("parallax3").attribute("value").as_float();
+	parallax4 = nodeMap.child("parallax4").attribute("value").as_float();
+	parallaxBg = nodeMap.child("parallaxBg").attribute("value").as_float();
 }

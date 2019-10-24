@@ -258,7 +258,7 @@ bool j1Scene1::Update(float dt)
 			App->render->camera.y = cameraLimitY;
 	}
 
-	App->map->Draw(App->entity_manager->player->position.x);
+	App->map->Draw(-App->render->camera.x);
 
 	//keys animations manager
 	if (tutorial_active)
