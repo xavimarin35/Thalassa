@@ -28,6 +28,7 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 - Animations loaded from xml
 - Animation of some tiles from loaded from Tiled
 - Dynamic obstacles through the map that can kill you
+- Camera culling during whole level
 
 ## Usage
 
@@ -51,6 +52,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Camera movements between levels
 	- GodMode implementation
 	- Save & Load
+	- Camera Culling
 
 ### Xavi Marín
 
