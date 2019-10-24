@@ -86,7 +86,7 @@ void j1Map::Draw(int camera_position)
 	}
 
 	static char title[200];
-	sprintf_s(title, 200, " Thalassa | Tiles Rendered: %u", tiles_painted);
+	sprintf_s(title, 200, " Thalassa");
 	App->win->SetTitle(title);
 
 	if (draw_grid) {
