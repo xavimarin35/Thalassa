@@ -86,7 +86,7 @@ void j1Map::Draw(int camera_position)
 	}
 
 	static char title[200];
-	sprintf_s(title, 200, " | Tiles Rendered: %u | Camera Position: %d", tiles_painted, camera_position);
+	sprintf_s(title, 200, " Thalassa | Tiles Rendered: %u", tiles_painted);
 	App->win->SetTitle(title);
 
 	if (draw_grid) {
@@ -419,11 +419,11 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		float convertor;
 
 		if (App->scene1->tutorial_active)
-			convertor = 0.0001f;
+			convertor = convertor1;
 		else if (App->scene1->level1_active)
-			convertor = 0.0002f;
+			convertor = convertor2;
 		else if (App->scene1->midlevel_active)
-			convertor = 0.00013f;
+			convertor = convertor3;
 
 
 		for (tileAnim = tileset_node.child("tile").child("animation").child("frame"); tileAnim; tileAnim = tileAnim.next_sibling()) 
@@ -529,4 +529,8 @@ void j1Map::LoadInfo()
 	parallaxBg = nodeMap.child("parallaxBg").attribute("value").as_float();
 
 	culling_variation = { nodeMap.child("cullingVariation").attribute("x").as_int(), nodeMap.child("cullingVariation").attribute("y").as_int() };
+
+	convertor1 = nodeMap.child("convertor").attribute("value").as_float();
+	convertor2 = nodeMap.child("convertor2").attribute("value").as_float();
+	convertor3 = nodeMap.child("convertor3").attribute("value").as_float();
 }

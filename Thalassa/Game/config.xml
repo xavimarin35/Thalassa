@@ -34,6 +34,9 @@
 	<parallax4 value="0.3f"/>
 	<parallaxBg value="0.057f"/>
 	<cullingVariation x="30" y="2050"/>
+	<convertor value="0.0001f"/>
+	<convertor2 value="0.0002f"/>
+	<convertor3 value="0.00013f"/>
   </mapInfo>
 
   <player>

@@ -123,6 +123,7 @@ private:
 	SDL_Texture*		grid = nullptr;
 
 	float parallax1, parallax2, parallax3, parallax4, parallaxBg, parallaxNormal;
+	float convertor1, convertor2, convertor3;
 };
 
 #endif // __j1MAP_H__
