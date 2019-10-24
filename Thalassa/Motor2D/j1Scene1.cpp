@@ -126,6 +126,13 @@ bool j1Scene1::Update(float dt)
 		App->LoadGame();
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) 
+	{
+		if (cullingView)
+			cullingView = false;
+		else cullingView = true;
+	}
+
 	if (death) {
 		App->transitions->FadingToColor(Black, 0.5f);
 	}

@@ -113,6 +113,7 @@ public:
 	
 	float parallax_speed = 0.057F;
 	iPoint culling_variation;
+	iPoint culling_view;
 
 private:
 

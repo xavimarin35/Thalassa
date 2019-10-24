@@ -7,6 +7,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "j1Scene1.h"
 
 #define VSYNC true
 
@@ -203,7 +204,13 @@ bool j1Render::CameraCulling(int x, int y, int w, int h, int camera_position)
 {
 	bool ret = false;
 
-	iPoint variation = { App->map->culling_variation };
+	iPoint variation;
+
+	if (!App->scene1->cullingView)
+		variation = { App->map->culling_variation };
+	else
+		variation = { App->map->culling_view };
+
 	int camera_width = App->win->width;
 	int scale = App->win->scale;
 	float speed = App->map->parallax_speed;

@@ -529,6 +529,7 @@ void j1Map::LoadInfo()
 	parallaxBg = nodeMap.child("parallaxBg").attribute("value").as_float();
 
 	culling_variation = { nodeMap.child("cullingVariation").attribute("x").as_int(), nodeMap.child("cullingVariation").attribute("y").as_int() };
+	culling_view = { nodeMap.child("cullingDebug").attribute("x").as_int(), nodeMap.child("cullingDebug").attribute("y").as_int() };
 
 	convertor1 = nodeMap.child("convertor").attribute("value").as_float();
 	convertor2 = nodeMap.child("convertor2").attribute("value").as_float();

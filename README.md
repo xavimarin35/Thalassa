@@ -19,6 +19,7 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 - **F6:** Load the saved state
 - **F9:** View colliders logic
 - **F10:** Activate / Deactivate GodMode
+- **F11:** View Camera Culling
 
 ### Innovations
 

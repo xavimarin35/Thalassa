@@ -66,7 +66,7 @@ public:
 	bool cameraMoving = true;
 	bool lateralMove = false;
 
-
+	bool cullingView = false;
 
 private:
 
