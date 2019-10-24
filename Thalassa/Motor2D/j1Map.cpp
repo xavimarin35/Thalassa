@@ -419,9 +419,9 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		float convertor;
 
 		if (App->scene1->tutorial_active)
-			convertor = 0.00008f;
+			convertor = 0.0001f;
 		else if (App->scene1->level1_active)
-			convertor = 0.00002f;
+			convertor = 0.0002f;
 		else if (App->scene1->midlevel_active)
 			convertor = 0.00013f;
 
@@ -527,4 +527,6 @@ void j1Map::LoadInfo()
 	parallax3 = nodeMap.child("parallax3").attribute("value").as_float();
 	parallax4 = nodeMap.child("parallax4").attribute("value").as_float();
 	parallaxBg = nodeMap.child("parallaxBg").attribute("value").as_float();
+
+	culling_variation = { nodeMap.child("cullingVariation").attribute("x").as_int(), nodeMap.child("cullingVariation").attribute("y").as_int() };
 }

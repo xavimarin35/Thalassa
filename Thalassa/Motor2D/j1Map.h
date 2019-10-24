@@ -112,6 +112,7 @@ public:
 	bool draw_grid = false;
 	
 	float parallax_speed = 0.057F;
+	iPoint culling_variation;
 
 private:
 

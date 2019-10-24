@@ -203,14 +203,14 @@ bool j1Render::CameraCulling(int x, int y, int w, int h, int camera_position)
 {
 	bool ret = false;
 
-	int variation = 30;
+	iPoint variation = { App->map->culling_variation };
 	int camera_width = App->win->width;
 	int scale = App->win->scale;
 	float speed = App->map->parallax_speed;
 
 	SDL_Rect tile_to_print = { App->map->MapToWorld(x,y).x, App->map->MapToWorld(x,y).y, w, h };
 
-	if ((camera_position * speed - variation) / scale <= tile_to_print.x && (camera_position * speed + variation) / scale + camera_width >= tile_to_print.x)
+	if ((camera_position * speed - variation.x) / scale <= tile_to_print.x && (camera_position * speed - variation.y) / scale + camera_width >= tile_to_print.x)
 		ret = true;
 
 	else ret = false;
