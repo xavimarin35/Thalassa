@@ -468,12 +468,10 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
-
 uint MapLayer::Get(int x, int y) const
 {
 	return (y * width) + x;
 }
-
 
 bool j1Map::LoadColliders()
 {

@@ -219,6 +219,17 @@ bool j1Scene1::Update(float dt)
 		App->transitions->LinesAppearing();
 	}
 
+	// Loads level 1 (second part)
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		midlevel_completed = true;
+
+		tutorial_active = false;
+		level1_active = true;
+		midlevel_active = false;
+
+		App->transitions->LinesAppearing();
+	}
 
 	// CAMERA FOLLOWING PLAYER
 	if (App->entity_manager->player != nullptr) 

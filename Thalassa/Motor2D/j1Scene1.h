@@ -10,14 +10,6 @@
 struct SDL_Texture;
 //class Animation;
 
-enum ACTIVE_SCENE {
-	SCENE_TUTORIAL,
-	SCENE_LEVEL1,
-	SCENE_MIDLEVEL,
-
-	SCENE_NONE
-};
-
 class j1Scene1 : public j1Module
 {
 public:
