@@ -40,8 +40,6 @@ bool j1Scene1::Start()
 {
 	LoadSceneInfo();
 
-	
-
 	// TUTORIAL
 	if (tutorial_active) {
 		App->map->Load("Map1_Tutorial.tmx");

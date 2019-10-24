@@ -104,8 +104,13 @@ bool j1Player::Update(float dt) {
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
 					jetpackActive = true;
+					playedFx2 = false;
 					onFloor = false;
 					jetForce = jetForce_xml;
+					if (!playedFx2) {
+						App->audio->PlayFx(App->audio->jetpackFx);
+						playedFx2 = true;
+					}
 				}
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {

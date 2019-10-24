@@ -78,6 +78,7 @@ public:
 private:
 	bool flip = true;
 	bool playedFx = false;
+	bool playedFx2 = false;
 
 	float jumpForce_xml;
 	float jetForce_xml;
