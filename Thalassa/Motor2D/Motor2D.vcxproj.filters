@@ -214,4 +214,7 @@
   <ItemGroup>
     <ResourceCompile Include="Thalassa Engine.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\icon.ico" />
+  </ItemGroup>
 </Project>
