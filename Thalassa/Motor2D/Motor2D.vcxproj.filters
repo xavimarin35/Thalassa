@@ -180,6 +180,7 @@
     <ClInclude Include="Squares.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -209,5 +210,11 @@
     <Filter Include="Desenvolupament  ========\Transitions\Types">
       <UniqueIdentifier>{c34e36d7-5dd3-4df6-b115-688cfc07c0f5}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Thalassa Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\icon.ico" />
   </ItemGroup>
 </Project>
