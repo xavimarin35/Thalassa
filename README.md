@@ -44,7 +44,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 ### Pol Casaú
 
 - Github: [Bullseye14](https://github.com/Bullseye14)
-- Accomplisments:
+- Accomplishments:
 	- Design of first and second maps (tutorial and level 1)
 	- Player movement (jump, double jump and jetpack)
 	- Camera following player
