@@ -69,4 +69,11 @@
 	<movingObstacle>
 		<animation x="140" y="133" w="36" h="36"/>
 	</movingObstacle>
+	
+	<batIdle loop="true" speed="0.05f">
+		<animation x="0" y="0" w="19" h="12"/>
+		<animation x="30" y="0" w="19" h="12"/>
+		<animation x="60" y="0" w="19" h="12"/>
+		<animation x="30" y="0" w="19" h="12"/>
+	</batIdle>
 </animations>

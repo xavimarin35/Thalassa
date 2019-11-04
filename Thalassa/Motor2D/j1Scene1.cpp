@@ -10,6 +10,7 @@
 #include "j1Scene1.h"
 #include "j1EntityManager.h"
 #include "j1Player.h"
+#include "j1Bat.h"
 #include "j1TransitionsManager.h"
 #include "j1Collisions.h"
 #include "p2Animation.h"
@@ -49,6 +50,8 @@ bool j1Scene1::Start()
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 
 		App->entity_manager->CreateEntity(PLAYER);
+
+		// App->entity_manager->CreateEntity(BAT, App->entity_manager->player->position.x, App->entity_manager->player->position.y);
 
 		App->audio->PlayMusic("audio/music/loading.ogg");
 	}

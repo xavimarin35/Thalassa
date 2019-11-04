@@ -3,6 +3,7 @@
 #include "j1Chest.h"
 #include "j1MovingObstacle.h"
 #include "j1Door.h"
+#include "j1Bat.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -114,6 +115,13 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
+
+	case ENTITY_TYPE::BAT:
+		ret = new j1Bat(x, y, type);
+
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
 	}
 
 	return ret;
@@ -132,6 +140,10 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type, int x, int y)
 
 		case ENTITY_TYPE::DOOR:
 			door = (j1Door*)EntityFactory(ENTITY_TYPE::DOOR, x, y);
+			break;
+
+		case ENTITY_TYPE::BAT:
+			bat = (j1Bat*)EntityFactory(ENTITY_TYPE::BAT, x, y);
 			break;
 
 	}
