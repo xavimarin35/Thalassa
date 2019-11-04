@@ -24,9 +24,9 @@ public:
 public:
 
 	fPoint bat_position;
-	fPoint speed = { 0,0 };
 
 	float inertia = 0;
+	float vertical_speed = 0;
 
 	Animation idle;
 };

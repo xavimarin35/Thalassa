@@ -49,11 +49,11 @@ bool j1Scene1::Start()
 
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 
+		App->entity_manager->CreateEntity(BAT);
+
 		App->entity_manager->CreateEntity(PLAYER);
 
-		// App->entity_manager->CreateEntity(BAT, App->entity_manager->player->position.x, App->entity_manager->player->position.y);
-
-		App->audio->PlayMusic("audio/music/loading.ogg");
+		//App->audio->PlayMusic("audio/music/loading.ogg");
 	}
 
 	// LEVEL 1
@@ -77,6 +77,8 @@ bool j1Scene1::Start()
 
 		App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 
+		App->entity_manager->CreateEntity(BAT);
+
 		App->entity_manager->CreateEntity(PLAYER);
 	}
 
@@ -99,6 +101,8 @@ bool j1Scene1::Start()
 		App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
 		App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
+
+		App->entity_manager->CreateEntity(BAT);
 
 		App->entity_manager->CreateEntity(PLAYER);
 	}

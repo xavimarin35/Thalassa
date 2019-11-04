@@ -46,19 +46,54 @@ bool j1Bat::CleanUp()
 
 void j1Bat::Move(float x, float y)
 {
-	float vertical_pos = y - 30;
-	float horitzontal_pos = x - 30;
-	
+	float vertical_pos = y - 20;
+	float horitzontal_pos;
+
+
+	if (App->entity_manager->player->flip)
+		horitzontal_pos = x - 30;
+	else horitzontal_pos = x + 30;
+
 	if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT && (bat_position.x < horitzontal_pos + 60))
 	{
-		inertia += 0.1f;
+		inertia += 1.5f;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT && (bat_position.x < horitzontal_pos - 60))
+	{
+		inertia -= 1.5f;
 	}
 
 	else if (bat_position.x > horitzontal_pos)
-		inertia -= 0.2f;
+		inertia -= 1.5f;
+
+	else if (bat_position.x < horitzontal_pos)
+	{
+		inertia += 1.5f;
+	}
+
+	if (App->entity_manager->player->isJumping || !App->entity_manager->player->onFloor) 
+	{
+		if (vertical_pos < bat_position.y)
+			vertical_speed -= 0.5f;
+
+		if (vertical_pos > bat_position.y)
+			vertical_speed += 0.5f;
+	}
+
+	else if (bat_position.y < vertical_pos - 5)
+	{
+		vertical_speed += 1.0f;
+	}
+
+	else if (bat_position.y > vertical_pos + 5)
+	{
+		vertical_speed -= 1.0f;
+	}
 
 	horitzontal_pos += inertia;
+	vertical_pos += vertical_speed;
 
-	bat_position = {horitzontal_pos, vertical_pos};
+	bat_position = {inertia, vertical_speed};
 
 }

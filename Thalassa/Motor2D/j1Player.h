@@ -75,8 +75,9 @@ public:
 	bool ColUp = false;
 	bool ColDown = false;
 
-private:
 	bool flip = true;
+
+private:
 	bool playedFx = false;
 	bool playedFx2 = false;
 

@@ -70,10 +70,18 @@
 		<animation x="140" y="133" w="36" h="36"/>
 	</movingObstacle>
 	
-	<batIdle loop="true" speed="0.05f">
+	<batIdle loop="true" speed="0.14f">
 		<animation x="0" y="0" w="19" h="12"/>
 		<animation x="30" y="0" w="19" h="12"/>
-		<animation x="60" y="0" w="19" h="12"/>
+		<animation x="60" y="-1" w="19" h="13"/>
 		<animation x="30" y="0" w="19" h="12"/>
 	</batIdle>
+	
+	<enemyBatIdle loop="true" speed="0.1f">
+		<animation x="1" y="27" w="16" h="11"/>
+		<animation x="18" y="27" w="16" h="11"/>
+		<animation x="34" y="27" w="16" h="11"/>
+		<animation x="50" y="27" w="16" h="11"/>
+		<animation x="64" y="27" w="16" h="11"/>
+	</enemyBatIdle>
 </animations>
