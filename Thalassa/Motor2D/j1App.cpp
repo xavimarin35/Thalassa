@@ -15,6 +15,7 @@
 #include "j1EntityManager.h"
 #include "j1App.h"
 #include "j1TransitionsManager.h"
+#include "j1Particle.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -32,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collisions = new j1Collisions();
 	entity_manager = new j1EntityManager();
 	transitions = new j1TransitionsManager();
+	particles = new j1Particle();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -44,6 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collisions);
 	AddModule(entity_manager);
 	AddModule(transitions);
+	AddModule(particles);
 
 	// render last to swap buffer
 	AddModule(render);
