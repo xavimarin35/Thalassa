@@ -19,7 +19,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	void Move(float x, float y);
+	void MoveHorizontal(float x);
+	void MoveVertical(float y);
 
 public:
 
@@ -27,6 +28,11 @@ public:
 
 	float inertia = 0;
 	float vertical_speed = 0;
+
+	bool redirect_horizontal = false;
+
+	bool moving_vertical = false;
+	bool movement = false;
 
 	Animation idle;
 };

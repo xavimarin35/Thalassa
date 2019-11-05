@@ -30,7 +30,8 @@ bool j1Bat::Start()
 
 bool j1Bat::Update(float dt)
 {
-	Move(App->entity_manager->player->position.x, App->entity_manager->player->position.y);
+	MoveHorizontal(App->entity_manager->player->position.x);
+	MoveVertical(App->entity_manager->player->position.y);
 
 	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, bat_position.x, bat_position.y);
 
@@ -44,56 +45,79 @@ bool j1Bat::CleanUp()
 	return true;
 }
 
-void j1Bat::Move(float x, float y)
+void j1Bat::MoveHorizontal(float x)
 {
-	float vertical_pos = y - 20;
-	float horitzontal_pos;
-
+	// Bat position, behind the player
+	float horizontal_pos;
+	fPoint horizontal_limit;
 
 	if (App->entity_manager->player->flip)
-		horitzontal_pos = x - 30;
-	else horitzontal_pos = x + 30;
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT && (bat_position.x < horitzontal_pos + 60))
 	{
-		inertia += 1.5f;
+		// Bat at the left of the character
+		horizontal_pos = x - 30;
+		horizontal_limit = { horizontal_pos + 60, horizontal_pos - 10 };
+
+		// If the bat is too far away from the character, he returns to his initial position
+		if (redirect_horizontal) 
+		{
+			if (bat_position.x > horizontal_limit.y)
+			{
+				inertia -= 0.5f;
+			}
+			else redirect_horizontal = false;
+		}
+
+		// If the player moves forward, the bat follows him at higher speed than the player
+		else if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT && (bat_position.x < horizontal_limit.x))
+			inertia += 1.5f;
+
+		else if (bat_position.x >= horizontal_limit.x)
+			redirect_horizontal = true;
+	}
+	
+	// We do the same as before but if the player is flipped and looking to the left
+	if(!App->entity_manager->player->flip)
+	{
+		horizontal_pos = x + 30;
+		horizontal_limit = { horizontal_pos - 60,horizontal_pos + 10 };
+
+		if (redirect_horizontal)
+		{
+			if (bat_position.x < horizontal_limit.y)
+			{
+				inertia += 0.5f;
+			}
+			else redirect_horizontal = false;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT && (bat_position.x > horizontal_limit.x))
+			inertia -= 1.5f;
+
+		else if (bat_position.x <= horizontal_pos)
+			redirect_horizontal = true;
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT && (bat_position.x < horitzontal_pos - 60))
-	{
-		inertia -= 1.5f;
-	}
+	bat_position.x = inertia;
 
-	else if (bat_position.x > horitzontal_pos)
-		inertia -= 1.5f;
+}
 
-	else if (bat_position.x < horitzontal_pos)
-	{
-		inertia += 1.5f;
-	}
+void j1Bat::MoveVertical(float y)
+{
+	float vertical_pos = y - 20;
+	fPoint idle_vertical;
 
-	if (App->entity_manager->player->isJumping || !App->entity_manager->player->onFloor) 
-	{
-		if (vertical_pos < bat_position.y)
-			vertical_speed -= 0.5f;
+	if (bat_position.y < vertical_pos - 50)
+		vertical_speed += 1.4f;
 
-		if (vertical_pos > bat_position.y)
-			vertical_speed += 0.5f;
-	}
-
-	else if (bat_position.y < vertical_pos - 5)
-	{
+	else if (bat_position.y < vertical_pos - 30)
 		vertical_speed += 1.0f;
-	}
 
-	else if (bat_position.y > vertical_pos + 5)
-	{
-		vertical_speed -= 1.0f;
-	}
+	else if (bat_position.y < vertical_pos - 10)
+		vertical_speed += 0.5f;
 
-	horitzontal_pos += inertia;
-	vertical_pos += vertical_speed;
+	else if (bat_position.y > vertical_pos)
+		vertical_speed -= 0.5f;
 
-	bat_position = {inertia, vertical_speed};
+	bat_position.y = vertical_speed;
 
 }
