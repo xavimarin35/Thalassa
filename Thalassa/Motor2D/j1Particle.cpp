@@ -95,6 +95,12 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 					p->collider = App->collisions->AddCollider({p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 22, 20 }, collider_type, this);
 				else 
 					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+
+				if(particle.type == REMOTE_SHOOT)
+					p->collider = App->collisions->AddCollider({p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 22, 20 }, collider_type, this);
+				else
+					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+
 			}
 
 			Collider* test = p->collider;

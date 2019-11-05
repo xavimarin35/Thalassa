@@ -22,7 +22,7 @@ enum PARTICLE_TYPE {
 struct Particle
 {
 	SDL_Texture * tex = nullptr;
-	int type_particle;
+	/*int type_particle;*/
 	Collider* collider = nullptr;
 	Animation anim;
 	uint fx = 0;
@@ -60,5 +60,6 @@ public:
 	uint width, height;
 
 	Particle basicShoot;
+	Particle remoteShoot;
 };
 #endif // __j1PARTICLE_H__ 
