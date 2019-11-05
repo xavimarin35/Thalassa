@@ -4,6 +4,7 @@
 #include "j1MovingObstacle.h"
 #include "j1Door.h"
 #include "j1Bat.h"
+#include "j1Demon.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -122,6 +123,13 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
+
+	case ENTITY_TYPE::DEMON:
+		ret = new j1Demon(x, y, type);
+
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
 	}
 
 	return ret;
@@ -173,6 +181,9 @@ void j1EntityManager::SpawnEnemy(const EntityInfo & info)
 
 			if (queue[i].type == ENTITY_TYPE::OBSTACLE)
 				ret = new j1MovingObstacle(info.position.x, info.position.y, info.type);
+
+			if (queue[i].type == ENTITY_TYPE::DEMON)
+				ret = new j1Demon(info.position.x, info.position.y, info.type);
 
 			entityList.add(ret);
 			ret->Start();

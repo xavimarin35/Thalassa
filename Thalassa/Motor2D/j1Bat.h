@@ -26,6 +26,8 @@ public:
 
 	fPoint bat_position;
 
+private:
+
 	float inertia = 0;
 	float vertical_speed = 0;
 

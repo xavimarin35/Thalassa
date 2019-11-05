@@ -15,6 +15,7 @@ class j1Chest;
 class j1MovingObstacle;
 class j1Door;
 class j1Bat;
+class j1Demon;
 
 struct SDL_Texture;
 
@@ -25,6 +26,7 @@ enum ENTITY_TYPE
 	OBSTACLE,
 	DOOR,
 	BAT,
+	DEMON,
 	NONE
 };
 
@@ -66,6 +68,7 @@ public:
 	j1MovingObstacle*	obstacle = nullptr;
 	j1Door*				door = nullptr;
 	j1Bat*				bat = nullptr;
+	j1Demon*			demon = nullptr;
 
 private:
 
