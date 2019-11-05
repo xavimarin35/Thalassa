@@ -1,3 +1,5 @@
+#include "p2Defs.h"
+#include "p2Log.h"
 #include "j1App.h"
 #include "j1Demon.h"
 #include "j1Textures.h"
@@ -10,8 +12,6 @@
 
 j1Demon::j1Demon(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DEMON)
 {
-	demon_position = { (float)x, (float)y };
-
 	animation = NULL;
 
 	idleAnim.LoadAnimations("demonIdle");
@@ -26,6 +26,8 @@ j1Demon::~j1Demon() {}
 bool j1Demon::Start()
 {
 	sprites = App->tex->Load("textures/Enemies/Demon_Spritesheet.png");
+
+	position = { 150, 30 };
 
 	animation = &idleAnim;
 
@@ -51,7 +53,7 @@ bool j1Demon::Update(float dt)
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
-	BlitEntity(animation->GetCurrentFrame(), flip, position.x, position.y);
+	BlitEntity(animation->GetCurrentFrame(), flip);
 
 	return true;
 }
@@ -66,6 +68,11 @@ bool j1Demon::PostUpdate()
 bool j1Demon::CleanUp()
 {
 	App->tex->UnLoad(sprites);
+
+	if (collider != nullptr) {
+		collider->to_delete = true;
+		collider = nullptr;
+	}
 
 	return true;
 }

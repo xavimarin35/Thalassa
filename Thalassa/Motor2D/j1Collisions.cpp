@@ -42,6 +42,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_WIN][COLLIDER_GOD] = true;
 
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_WALL][COLLIDER_WIN] = false;
@@ -135,7 +136,7 @@ bool j1Collisions::PreUpdate()
 		if (colliders[i] == nullptr) 
 			continue;
 
-		if (colliders[i]->type == COLLIDER_PLAYER)
+		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMY)
 		{
 			collider1 = colliders[i];
 

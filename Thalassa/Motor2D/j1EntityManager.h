@@ -53,9 +53,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	j1Entity* EntityFactory(ENTITY_TYPE type, int x = 0, int y = 0);
-	void CreateEntity(ENTITY_TYPE type, int x = 0, int y = 0);
-	void AddEnemy(int x, int y, ENTITY_TYPE type);
+	j1Entity* EntityFactory(ENTITY_TYPE type, float x = 0, float y = 0);
+	void CreateEntity(ENTITY_TYPE type, float x = 0, float y = 0);
+	void AddEnemy(float x, float y, ENTITY_TYPE type);
 	void SpawnEnemy(const EntityInfo& info);
 
 	void OnCollision(Collider* c1, Collider* c2);

@@ -90,7 +90,7 @@ void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
 	}
 }
 
-j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
+j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, float x, float y)
 {
 	j1Entity* ret = nullptr;
 
@@ -124,18 +124,12 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, int x, int y)
 			entityList.add(ret);
 		break;
 
-	case ENTITY_TYPE::DEMON:
-		ret = new j1Demon(x, y, type);
-
-		if (ret != nullptr)
-			entityList.add(ret);
-		break;
 	}
 
 	return ret;
 }
 
-void j1EntityManager::CreateEntity(ENTITY_TYPE type, int x, int y)
+void j1EntityManager::CreateEntity(ENTITY_TYPE type, float x, float y)
 {
 	switch (type) {
 		case ENTITY_TYPE::PLAYER:
@@ -157,7 +151,7 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type, int x, int y)
 	}
 }
 
-void j1EntityManager::AddEnemy(int x, int y, ENTITY_TYPE type)
+void j1EntityManager::AddEnemy(float x, float y, ENTITY_TYPE type)
 {
 	for (int i = 0; i < MAX_ENTITIES; ++i)
 	{
@@ -177,15 +171,24 @@ void j1EntityManager::SpawnEnemy(const EntityInfo & info)
 	{
 		if (queue[i].type != ENTITY_TYPE::NONE)
 		{
-			j1Entity* ret;
+			j1Entity* ret = nullptr;
 
-			if (queue[i].type == ENTITY_TYPE::OBSTACLE)
+			switch (info.type) {
+			case ENTITY_TYPE::OBSTACLE:
 				ret = new j1MovingObstacle(info.position.x, info.position.y, info.type);
 
-			if (queue[i].type == ENTITY_TYPE::DEMON)
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+
+			case ENTITY_TYPE::DEMON:
 				ret = new j1Demon(info.position.x, info.position.y, info.type);
 
-			entityList.add(ret);
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+			}
+
 			ret->Start();
 
 			break;

@@ -8,6 +8,7 @@
 #include "j1Particle.h"
 
 struct SDL_Texture;
+struct Collider;
 
 enum ENTITY_TYPE;
 
