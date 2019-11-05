@@ -5,11 +5,14 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Entity.h"
+#include "j1Particle.h"
 
 struct Collider;
 struct SDL_Texture;
+struct Particle;
 
 enum ENTITY_TYPE;
+enum PARTICLE_TYPE;
 
 class j1Player : public j1Entity
 {
@@ -30,6 +33,8 @@ public:
 	void JetPack();
 	void Die();
 	void LoadInfo();
+	void Shooting(float x, float y, float dt);
+	void ChangeWeapon();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -48,6 +53,8 @@ public:
 public:
 	fPoint position;	
 	fPoint speed;
+
+	PARTICLE_TYPE currentType = REMOTE_SHOOT;
 
 	float jumpForce;
 	float jetForce;

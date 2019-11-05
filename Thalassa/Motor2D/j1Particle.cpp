@@ -19,6 +19,17 @@ j1Particle::j1Particle()
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 
+	basicShoot.anim.PushBack({ 0,52,6,6 });
+	basicShoot.life = 500;
+	basicShoot.type = BASIC_SHOOT;
+
+	remoteShoot.anim.PushBack({ 379,8,14,12 });
+	remoteShoot.anim.PushBack({ 396,8,14,12 });
+	remoteShoot.anim.PushBack({ 413,8,14,12 });
+	remoteShoot.anim.PushBack({ 396,8,14,12 });
+	remoteShoot.anim.PushBack({ 379,8,14,12 });
+	remoteShoot.life = 500;
+	remoteShoot.type = REMOTE_SHOOT;
 
 }
 
@@ -29,7 +40,10 @@ j1Particle::~j1Particle()
 bool j1Particle::Start()
 {
 	LOG("Loading particles");
+	part_tex = App->tex->Load("textures/Particles/particles.png");
 
+	basicShoot.tex = part_tex;
+	remoteShoot.tex = part_tex;
 
 	return true;
 }
@@ -37,6 +51,7 @@ bool j1Particle::Start()
 bool j1Particle::CleanUp()
 {
 	LOG("Unloading particles");
+	App->tex->UnLoad(part_tex);
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -65,7 +80,7 @@ bool j1Particle::Update(float dt)
 			}
 			else if (SDL_GetTicks() >= p->born)
 			{
-				//App->render->Blit(part_tex, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+				App->render->Blit(part_tex, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
 
 				if (p->fx_played == false)
 				{
@@ -77,7 +92,7 @@ bool j1Particle::Update(float dt)
 	return true;
 }
 
-void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type, Uint32 delay, int rotation)
+void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type, Uint32 delay, int rotation, PARTICLE_TYPE ptype)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -88,19 +103,21 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 			p->position.x = x;
 			p->position.y = y;
 			p->rotation = rotation;
+			p->type = ptype;
 			p->state = 0;
 			p->anim.Reset();
-			if (collider_type != COLLIDER_NONE) {
-				if (particle.type == BASIC_SHOOT) 
-					p->collider = App->collisions->AddCollider({p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 22, 20 }, collider_type, this);
-				else 
-					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+			if (collider_type == COLLIDER_SHOOT) {
 
-				if(particle.type == REMOTE_SHOOT)
-					p->collider = App->collisions->AddCollider({p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 22, 20 }, collider_type, this);
-				else
-					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
-
+				switch (particle.type)
+				{
+				case PARTICLE_TYPE::BASIC_SHOOT:
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 10, 10 }, collider_type, this);
+					break;
+				case PARTICLE_TYPE::REMOTE_SHOOT:
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 10, 10 }, collider_type, this);
+					break;
+				}
+				
 			}
 
 			Collider* test = p->collider;
@@ -112,9 +129,8 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 
 void j1Particle::OnCollision(Collider* c1, Collider* c2)
 {
-	bool destroy = false;
-	if (c2->type == COLLIDER_PLAYER)
-	{
+	bool particleDestroyed = false;
+	
 		int ret = true;
 		for (uint i = 0; i < MAX_ACTIVE_PARTICLES && ret; ++i)
 		{
@@ -130,12 +146,12 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 		}
-	}
+	
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		// Always destroy particles that collide
-		if (active[i] != nullptr && active[i]->collider == c1 && destroy)
+		if (active[i] != nullptr && active[i]->collider == c1 && particleDestroyed)
 		{
 			//AddParticle(...) ---> If we want to print an explosion when hitting an enemy
 			delete active[i];
@@ -143,7 +159,10 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 			break;
 
 		}
+
 	}
+	
+
 }
 
 // -------------------------------------------------------------

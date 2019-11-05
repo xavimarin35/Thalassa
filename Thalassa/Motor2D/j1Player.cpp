@@ -8,6 +8,11 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1Audio.h"
+#include "j1Particle.h"
+#include "j1Window.h"
+#include "SDL/include/SDL.h"
+#include "p2Point.h"
+
 
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
@@ -117,6 +122,18 @@ bool j1Player::Update(float dt) {
 					jetpackActive = false;
 					jumpForce = 0.0f;
 					speed.y = 0.7f;
+				}
+
+				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				{
+					ChangeWeapon();
+				}
+
+				if (App->input->GetMouseButtonDown(1) == KEY_DOWN) 
+				{
+					iPoint mouse_pos;
+					App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+					Shooting(mouse_pos.x, mouse_pos.y, dt);
 				}
 
 			}
@@ -329,6 +346,51 @@ void j1Player::Die() {
 
 	CleanUp();
 	Start();
+}
+
+void j1Player::Shooting(float x, float y, float dt)
+{
+	fPoint margin;
+	margin.x = 8;
+	margin.y = 8;
+
+	fPoint edge;
+	edge.x = x - (position.x + margin.x) - (App->render->camera.x / (int)App->win->scale);
+	edge.y = (position.y + margin.y) - y + (App->render->camera.y / (int)App->win->scale);
+
+	// If the map is very big and its not enough accurate, we should use long double for the var angle
+	double angle = -(atan2(edge.y, edge.x));
+
+	fPoint speed_particle;
+	fPoint p_speed = { 5,5 };
+
+	speed_particle.x = p_speed.x * cos(angle);
+	speed_particle.y = p_speed.y * sin(angle);
+
+	switch (currentType) 
+	{
+	case PARTICLE_TYPE::BASIC_SHOOT:
+		App->particles->basicShoot.speed = speed_particle;
+		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT);
+		break;
+	case PARTICLE_TYPE::REMOTE_SHOOT:
+		App->particles->remoteShoot.speed = speed_particle;
+		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT);
+		break;
+	}
+
+}
+
+void j1Player::ChangeWeapon()
+{
+	if (currentType == PARTICLE_TYPE::BASIC_SHOOT)
+	{
+		currentType = PARTICLE_TYPE::REMOTE_SHOOT;
+	}
+	else if (currentType == PARTICLE_TYPE::REMOTE_SHOOT)
+	{
+		currentType = PARTICLE_TYPE::BASIC_SHOOT;
+	}
 }
 
 void j1Player::LoadInfo()

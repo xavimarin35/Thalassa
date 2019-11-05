@@ -228,6 +228,12 @@ void j1Collisions::DebugColliders()
 		case COLLIDER_OPENDOOR:
 			App->render->DrawQuad(colliders[i]->rect, 0, 200, 200, alpha);
 			break;
+		case COLLIDER_SHOOT:
+			App->render->DrawQuad(colliders[i]->rect, 180, 180, 0, alpha);
+			break;
+		case COLLIDER_ENEMY:
+			App->render->DrawQuad(colliders[i]->rect, 255, 50, 0, alpha);
+			break;
 		}
 	}
 }

@@ -50,7 +50,7 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
-	void AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0, int rotation = 0);
+	void AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0, int rotation = 0, PARTICLE_TYPE ptype = BASIC_SHOOT);
 	Particle* active[MAX_ACTIVE_PARTICLES];
 private:
 
@@ -58,6 +58,7 @@ private:
 
 public:
 	uint width, height;
+	fPoint particle_speed;
 
 	Particle basicShoot;
 	Particle remoteShoot;
