@@ -36,13 +36,15 @@ void j1Pathfinding::SetMap(uint width, uint height, uchar* data)
 
 bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 {
-	return (pos.x >= 0 && pos.x <= (int)width && pos.y >= 0 && pos.y <= (int)height);
+	return (pos.x >= 0 && pos.x <= (int)width &&
+		pos.y >= 0 && pos.y <= (int)height);
 }
 
 bool j1Pathfinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	//return t != INVALID_WALK_CODE && t > 0;
+	return true;
 }
 
 uchar j1Pathfinding::GetTileAt(const iPoint& pos) const

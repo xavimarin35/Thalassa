@@ -6,6 +6,9 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "j1Particle.h"
+#include "j1Pathfinding.h"
+
+#define DETECTION_RANGE 100
 
 struct SDL_Texture;
 struct Collider;
@@ -26,19 +29,23 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void Move();
+	void Move(p2DynArray<iPoint>& path, float dt);
 
 public:
 
 	fPoint demon_position;
-	fPoint speed = {0.0f, 0.7f};
+	fPoint speed = {0.7f, 0.7f};
 
 	bool ColLeft = false;
 	bool ColRight = false;
 	bool ColDown = false;
 	bool ColUp = false;
 
+	bool dead = false;
+
 private:
+
+	PATH_MOVEMENT direction;
 
 	Animation idleAnim;
 	Animation runAnim;
@@ -47,6 +54,9 @@ private:
 	Animation hurtAnim;
 
 	bool flip = false;
+	bool path_created = false;
+
+	p2DynArray<iPoint>* path;
 
 	float gravity = 0.15f;
 };

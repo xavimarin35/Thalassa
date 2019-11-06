@@ -83,6 +83,7 @@ public:
 	bool ColDown = false;
 
 	bool flip = true;
+	iPoint hitbox;
 
 private:
 	bool playedFx = false;
@@ -90,8 +91,6 @@ private:
 
 	float jumpForce_xml;
 	float jetForce_xml;
-
-	iPoint hitbox;
 };
 
 #endif // __j1PLAYER_H__

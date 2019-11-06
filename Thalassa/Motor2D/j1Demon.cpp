@@ -9,6 +9,7 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Audio.h"
+#include "j1Map.h"
 
 j1Demon::j1Demon(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DEMON)
 {
@@ -27,7 +28,7 @@ bool j1Demon::Start()
 {
 	sprites = App->tex->Load("textures/Enemies/Demon_Spritesheet.png");
 
-	position = { 150, 30 };
+	position = { 200, 150 };
 
 	animation = &idleAnim;
 
@@ -38,22 +39,50 @@ bool j1Demon::Start()
 
 bool j1Demon::Update(float dt)
 {
-	Move();
-
-	if (ColDown)
-		speed.y = 0;
-
-	else if (!ColDown)
+	if (!dead)
 	{
-		position.y += speed.y;
-		speed.y += gravity;
-		animation = &idleAnim;
+
+		if (ColDown)
+			speed.y = 0;
+
+		else if (!ColDown)
+		{
+			position.y += speed.y;
+			speed.y += gravity;
+			animation = &idleAnim;
+		}
+
+		if (collider != nullptr)
+			collider->SetPos(position.x, position.y);
+
+
+		if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
+			&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
+			&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
+		{
+			iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
+			iPoint destination;
+
+			if (position.x < App->entity_manager->player->position.x)
+				destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
+			else
+				destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
+
+			if (App->pathfinding->IsWalkable(destination) && App->pathfinding->IsWalkable(origin))
+			{
+				path = App->pathfinding->CreatePath(origin, destination);
+				Move(*path, dt);
+				path_created = true;
+			}
+		}
+		else if (path_created)
+		{
+			path->Clear();
+			path_created = false;
+		}
+
+		BlitEntity(animation->GetCurrentFrame(), flip);
 	}
-
-	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
-
-	BlitEntity(animation->GetCurrentFrame(), flip);
 
 	return true;
 }
@@ -77,9 +106,33 @@ bool j1Demon::CleanUp()
 	return true;
 }
 
-void j1Demon::Move()
+void j1Demon::Move(p2DynArray<iPoint>& path, float dt)
 {
-	
+	direction = App->pathfinding->CheckDirectionGround(path);
+
+	if (direction == PATH_MOVEMENT::LEFT)
+	{
+		animation = &runAnim;
+		position.x -= speed.x;
+		flip = true;
+	}
+	else if (direction == PATH_MOVEMENT::RIGHT)
+	{
+		animation = &runAnim;
+		position.x += speed.x;
+		flip = false;
+	}
+
+	if (direction == PATH_MOVEMENT::DOWN)
+	{
+		animation = &runAnim;
+		position.y += speed.y;
+	}
+	else if (direction == PATH_MOVEMENT::UP)
+	{
+		animation = &runAnim;
+		position.y -= speed.y;
+	}
 }
 
 void j1Demon::OnCollision(Collider* c1, Collider* c2)
