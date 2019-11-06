@@ -15,6 +15,7 @@
 #include "j1EntityManager.h"
 #include "j1App.h"
 #include "j1TransitionsManager.h"
+#include "j1Pathfinding.h"
 #include "j1Particle.h"
 
 // Constructor
@@ -31,6 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene1 = new j1Scene1();
 	map = new j1Map();
 	collisions = new j1Collisions();
+	pathfinding = new j1Pathfinding();
 	entity_manager = new j1EntityManager();
 	transitions = new j1TransitionsManager();
 	particles = new j1Particle();
@@ -44,6 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene1);
 	AddModule(collisions);
+	AddModule(pathfinding);
 	AddModule(entity_manager);
 	AddModule(transitions);
 	AddModule(particles);

@@ -19,6 +19,7 @@ class j1Collisions;
 class j1EntityManager;
 class j1TransitionsManager;
 class j1Particle;
+class j1Pathfinding;
 
 class j1App
 {
@@ -53,7 +54,6 @@ public:
 
 	void LoadGame();
 	void SaveGame(const char* file) const;
-	/*void GetSaveGames(p2List<p2SString>& list_to_fill) const;*/
 
 private:
 
@@ -93,6 +93,7 @@ public:
 	j1EntityManager*	entity_manager;
 	j1TransitionsManager* transitions;
 	j1Particle*			particles;
+	j1Pathfinding*		pathfinding;
 
 private:
 

@@ -48,7 +48,7 @@ void j1Map::Draw(int camera_position)
 		{
 			for (int x = 0; x < data.width; ++x)
 			{
-				if (layer->data->name == "Decor" || layer->data->name == "Capa de Patrones 1" || layer->data->name == "anim")
+				if (layer->data->name == "Decor" || layer->data->name == "Capa de Patrones 1" || layer->data->name == "anim" || layer->data->name == "Pathfinding")
 					parallax_speed = parallaxNormal;
 				else if (layer->data->name == "parallax")
 					parallax_speed = parallax1;
@@ -61,7 +61,8 @@ void j1Map::Draw(int camera_position)
 				else if (layer->data->name == "bg")
 					parallax_speed = parallaxBg;
 
-				if (App->render->CameraCulling(x, y, data.tile_width, data.tile_height, camera_position)) 
+				
+				if (App->render->CameraCulling(x, y, data.tile_width, data.tile_height, camera_position))
 				{
 					int tile_id = layer->data->data[tile_num];
 					if (tile_id > 0)
@@ -96,6 +97,21 @@ void j1Map::Draw(int camera_position)
 			}
 		}
 	}
+}
+
+int Properties::Get(const char* value, int default_value) const
+{
+	p2List_item<Property*>* item = list.start;
+
+	while (item)
+	{
+		if (item->data->name == value)
+			return item->data->value;
+
+		item = item->next;
+	}
+
+	return default_value;
 }
 
 TileSet* j1Map::GetTilesetFromTileId(int id) const
@@ -463,6 +479,49 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		{
 			layer->data[i++] = tile.attribute("gid").as_int(0);
 		}
+	}
+
+	return ret;
+}
+
+bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+{
+	bool ret = false;
+	p2List_item<MapLayer*>* item;
+	item = data.layers.start;
+
+	for (item = data.layers.start; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if (layer->properties.Get("Navigation", 0) == 0)
+			continue;
+
+		uchar* map = new uchar[layer->width * layer->height];
+		memset(map, 1, layer->width * layer->height);
+
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int i = (y * layer->width) + x;
+
+				int tile_id = layer->Get(x, y);
+				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
+
+				if (tileset != NULL)
+				{
+					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
+				}
+			}
+		}
+
+		*buffer = map;
+		width = data.width;
+		height = data.height;
+		ret = true;
+
+		break;
 	}
 
 	return ret;
