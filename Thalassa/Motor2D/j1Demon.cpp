@@ -18,7 +18,7 @@ j1Demon::j1Demon(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::D
 	runAnim.LoadAnimations("demonRun");
 	attackAnim.LoadAnimations("demonAttack");
 	hurtAnim.LoadAnimations("demonHurt");
-	deathAnim.LoadAnimations("demonDeath");
+	deathAnim.LoadAnimations("demonDie");
 }
 
 j1Demon::~j1Demon() {}
