@@ -23,11 +23,19 @@ j1Particle::j1Particle()
 	basicShoot.life = 500;
 	basicShoot.type = BASIC_SHOOT;
 
-	remoteShoot.anim.PushBack({ 379,8,14,12 });
+	/*remoteShoot.anim.PushBack({ 379,8,14,12 });
 	remoteShoot.anim.PushBack({ 396,8,14,12 });
 	remoteShoot.anim.PushBack({ 413,8,14,12 });
 	remoteShoot.anim.PushBack({ 396,8,14,12 });
 	remoteShoot.anim.PushBack({ 379,8,14,12 });
+	remoteShoot.life = 500;
+	remoteShoot.type = REMOTE_SHOOT;*/
+
+	remoteShoot.anim.PushBack({ 0,0,58,11 });
+	//remoteShoot.anim.PushBack({ 0,10,48,8 });
+	//remoteShoot.anim.PushBack({ 0,20,52,12 });
+	//remoteShoot.anim.PushBack({ 0,30,58,12 });
+	//remoteShoot.anim.PushBack({ 0,40,55,12 });
 	remoteShoot.life = 500;
 	remoteShoot.type = REMOTE_SHOOT;
 
@@ -41,9 +49,10 @@ bool j1Particle::Start()
 {
 	LOG("Loading particles");
 	part_tex = App->tex->Load("textures/Particles/particles.png");
+	ice_tex = App->tex->Load("textures/Particles/iceball.png");
 
 	basicShoot.tex = part_tex;
-	remoteShoot.tex = part_tex;
+	remoteShoot.tex = ice_tex;
 
 	return true;
 }
@@ -80,7 +89,7 @@ bool j1Particle::Update(float dt)
 			}
 			else if (SDL_GetTicks() >= p->born)
 			{
-				App->render->Blit(part_tex, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+				App->render->Blit(p->tex, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), SDL_FLIP_NONE, 1.0F, p->rotation);
 
 				if (p->fx_played == false)
 				{
@@ -94,6 +103,7 @@ bool j1Particle::Update(float dt)
 
 void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type, Uint32 delay, int rotation, PARTICLE_TYPE ptype)
 {
+
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		if (active[i] == nullptr)

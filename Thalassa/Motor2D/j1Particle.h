@@ -55,6 +55,7 @@ public:
 private:
 
 	SDL_Texture* part_tex = nullptr;
+	SDL_Texture* ice_tex = nullptr;
 
 public:
 	uint width, height;
