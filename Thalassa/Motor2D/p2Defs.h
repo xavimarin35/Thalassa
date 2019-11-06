@@ -35,6 +35,7 @@
 #define MIN( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #define MAX( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #define TO_BOOL( a )  ( (a != 0) ? true : false )
+#define PI 3.14159265
 
 typedef unsigned int uint;
 typedef unsigned __int32 uint32;

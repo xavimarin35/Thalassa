@@ -367,15 +367,17 @@ void j1Player::Shooting(float x, float y, float dt)
 	speed_particle.x = p_speed.x * cos(angle);
 	speed_particle.y = p_speed.y * sin(angle);
 
+	double angleInDeg = angle * 180 / PI;
+
 	switch (currentType) 
 	{
 	case PARTICLE_TYPE::BASIC_SHOOT:
 		App->particles->basicShoot.speed = speed_particle;
-		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT, 0, (int)angle);
+		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT, 0, angleInDeg);
 		break;
 	case PARTICLE_TYPE::REMOTE_SHOOT:
 		App->particles->remoteShoot.speed = speed_particle;
-		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT, 0, (int)angle);
+		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT, 0, angleInDeg);
 		break;
 	}
 

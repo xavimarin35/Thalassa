@@ -101,7 +101,7 @@ bool j1Particle::Update(float dt)
 	return true;
 }
 
-void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type, Uint32 delay, int rotation, PARTICLE_TYPE ptype)
+void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type, Uint32 delay, double rotation, PARTICLE_TYPE ptype)
 {
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
