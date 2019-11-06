@@ -41,7 +41,6 @@ bool j1Demon::Update(float dt)
 {
 	if (!dead)
 	{
-
 		if (ColDown)
 			speed.y = 0;
 
@@ -54,7 +53,6 @@ bool j1Demon::Update(float dt)
 
 		if (collider != nullptr)
 			collider->SetPos(position.x, position.y);
-
 
 		if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
 			&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
@@ -79,6 +77,7 @@ bool j1Demon::Update(float dt)
 		{
 			path->Clear();
 			path_created = false;
+			animation = &idleAnim;
 		}
 
 		BlitEntity(animation->GetCurrentFrame(), flip);
@@ -180,6 +179,18 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 					ColDown = false;
 				}
 			}
+		}
+
+		if (c2->type == COLLIDER_SHOOT)
+		{
+			animation = &hurtAnim;
+
+			if (c2->rect.x > c1->rect.x)
+			{
+				position.x -= 3.0f;
+			}
+			else
+				position.x += 3.0f;
 		}
 	}
 }

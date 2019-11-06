@@ -108,7 +108,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_DOOR] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_OPENDOOR] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_SHOOT] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_SHOOT] = true;
 }
 
 
