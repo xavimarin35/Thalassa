@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="FadeToColor.cpp" />
     <ClCompile Include="j1Bat.cpp" />
+    <ClCompile Include="j1BatEnemy.cpp" />
     <ClCompile Include="j1Chest.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1Color.cpp" />
@@ -110,6 +111,7 @@
   <ItemGroup>
     <ClInclude Include="FadeToColor.h" />
     <ClInclude Include="j1Bat.h" />
+    <ClInclude Include="j1BatEnemy.h" />
     <ClInclude Include="j1Chest.h" />
     <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1Color.h" />

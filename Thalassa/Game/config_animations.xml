@@ -78,12 +78,31 @@
 	</batIdle>
 	
 	<enemyBatIdle loop="true" speed="0.1f">
-		<animation x="1" y="27" w="16" h="11"/>
-		<animation x="18" y="27" w="16" h="11"/>
-		<animation x="34" y="27" w="16" h="11"/>
-		<animation x="50" y="27" w="16" h="11"/>
-		<animation x="64" y="27" w="16" h="11"/>
+		<animation x="1" y="27" w="13" h="8"/>
+		<animation x="18" y="27" w="12" h="9"/>
+		<animation x="35" y="28" w="10" h="10"/>
+		<animation x="51" y="27" w="10" h="10"/>
+		<animation x="64" y="28" w="16" h="6"/>
 	</enemyBatIdle>
+	
+	<enemyBatRun loop="true" speed="0.1f">
+		<animation x="1" y="3" w="13" h="8"/>
+		<animation x="18" y="3" w="12" h="9"/>
+		<animation x="35" y="4" w="10" h="10"/>
+		<animation x="51" y="3" w="10" h="10"/>
+		<animation x="64" y="4" w="16" h="6"/>
+	</enemyBatRun>
+	
+	<enemyBatDie loop="false" speed="0.1f">
+		<animation x="0" y="52" w="16" h="9"/>
+		<animation x="18" y="52" w="16" h="11"/>
+		<animation x="35" y="56" w="16" h="10"/>
+		<animation x="50" y="61" w="16" h="9"/>
+	</enemyBatDie>
+	
+	<enemyBatDead loop="false" speed="0.1f">
+		<animation x="64" y="66" w="15" h="5"/>
+	</enemyBatDead>
 	
 	<demonIdle loop="true" speed="0.1f">
 		<animation x="7" y="19" w="15" h="13"/>

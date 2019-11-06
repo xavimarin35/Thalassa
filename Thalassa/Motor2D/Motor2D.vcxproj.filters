@@ -43,9 +43,6 @@
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1Player.cpp">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1Transitions.cpp">
       <Filter>Desenvolupament  ========\Transitions</Filter>
     </ClCompile>
@@ -64,9 +61,6 @@
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="j1MovingObstacle.cpp">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="FadeToColor.cpp">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClCompile>
@@ -79,17 +73,26 @@
     <ClCompile Include="Squares.cpp">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClCompile>
-    <ClCompile Include="j1Bat.cpp">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1Particle.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Demon.cpp">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Demon.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="j1MovingObstacle.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Bat.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="j1BatEnemy.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +159,6 @@
     <ClInclude Include="j1EntityManager.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="j1Player.h">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="j1Transitions.h">
       <Filter>Desenvolupament  ========\Transitions</Filter>
     </ClInclude>
@@ -177,9 +177,6 @@
     <ClInclude Include="j1PerfTimer.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="j1MovingObstacle.h">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="FadeToColor.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
@@ -192,17 +189,26 @@
     <ClInclude Include="Squares.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
-    <ClInclude Include="j1Bat.h">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="j1Particle.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Demon.h">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Demon.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1MovingObstacle.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Bat.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="j1BatEnemy.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +238,12 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Transitions\Types">
       <UniqueIdentifier>{c34e36d7-5dd3-4df6-b115-688cfc07c0f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Entities\Enemies">
+      <UniqueIdentifier>{28fb0c41-3e7a-427a-a403-c4d285918607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Entities\Player">
+      <UniqueIdentifier>{e3cd6076-92d2-4538-8a9c-545816191542}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

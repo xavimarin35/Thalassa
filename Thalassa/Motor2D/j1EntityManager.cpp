@@ -5,6 +5,7 @@
 #include "j1Door.h"
 #include "j1Bat.h"
 #include "j1Demon.h"
+#include "j1BatEnemy.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -183,6 +184,13 @@ void j1EntityManager::SpawnEnemy(const EntityInfo & info)
 
 			case ENTITY_TYPE::DEMON:
 				ret = new j1Demon(info.position.x, info.position.y, info.type);
+
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+
+			case ENTITY_TYPE::BAT_E:
+				ret = new j1BatEnemy(info.position.x, info.position.y, info.type);
 
 				if (ret != nullptr)
 					entityList.add(ret);

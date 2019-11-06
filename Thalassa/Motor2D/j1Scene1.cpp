@@ -51,6 +51,8 @@ bool j1Scene1::Start()
 
 		App->entity_manager->AddEnemy(50, 50, DEMON);
 
+		App->entity_manager->AddEnemy(0, 0, BAT_E);
+
 		App->entity_manager->CreateEntity(BAT);
 
 		App->entity_manager->CreateEntity(PLAYER);
