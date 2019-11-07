@@ -54,31 +54,33 @@ bool j1Demon::Update(float dt)
 		if (collider != nullptr)
 			collider->SetPos(position.x, position.y);
 
-		if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
-			&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
-			&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
-		{
-			iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
-			iPoint destination;
-
-			if (position.x < App->entity_manager->player->position.x)
-				destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
-			else
-				destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
-
-			if (App->pathfinding->IsWalkable(destination) && App->pathfinding->IsWalkable(origin))
+		if (App->entity_manager->player->collider != nullptr) {
+			if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
+				&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
+				&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
 			{
-				path = App->pathfinding->CreatePath(origin, destination);
-				Move(*path, dt);
-				path_created = true;
-			}
-		}
+				iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
+				iPoint destination;
 
-		else if (path_created)
-		{
-			path->Clear();
-			path_created = false;
-			animation = &idleAnim;
+				if (position.x < App->entity_manager->player->position.x)
+					destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
+				else
+					destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
+
+				if (App->pathfinding->IsWalkable(destination) && App->pathfinding->IsWalkable(origin))
+				{
+					path = App->pathfinding->CreatePath(origin, destination);
+					Move(*path, dt);
+					path_created = true;
+				}
+			}
+
+			else if (path_created)
+			{
+				path->Clear();
+				path_created = false;
+				animation = &idleAnim;
+			}
 		}
 
 		if (ColLeft || ColRight)

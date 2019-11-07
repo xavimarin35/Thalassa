@@ -43,12 +43,15 @@ void j1Map::Draw(int camera_position)
 	int tile_num;
 	for (layer = data.layers.start; layer != nullptr; layer = layer->next)
 	{
+		if (layer->data->properties.Get("MustDraw") != 0)
+			continue;
+
 		tile_num = 0;
 		for (int y = 0; y < data.height; ++y)
 		{
 			for (int x = 0; x < data.width; ++x)
 			{
-				if (layer->data->name == "Decor" || layer->data->name == "Capa de Patrones 1" || layer->data->name == "anim" || layer->data->name == "Pathfinding")
+				if (layer->data->name == "Decor" || layer->data->name == "Capa de Patrones 1" || layer->data->name == "anim")
 					parallax_speed = parallaxNormal;
 				else if (layer->data->name == "parallax")
 					parallax_speed = parallax1;

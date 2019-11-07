@@ -59,28 +59,30 @@ bool j1BatEnemy::Update(float dt)
 
 	else if (!dead && !fall)
 	{
-		if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
-			&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
-			&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
-		{
-			iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
-			iPoint destination;
+		if (App->entity_manager->player->collider != nullptr) {
+			if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
+				&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
+				&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
+			{
+				iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
+				iPoint destination;
 
-			if (position.x < App->entity_manager->player->position.x)
-				destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
-			else
-				destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
+				if (position.x < App->entity_manager->player->position.x)
+					destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
+				else
+					destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
 
-			path = App->pathfinding->CreatePath(origin, destination);
-			Move(*path, dt);
-			path_created = true;
-		}
+				path = App->pathfinding->CreatePath(origin, destination);
+				Move(*path, dt);
+				path_created = true;
+			}
 
-		else if (path_created)
-		{
-			path->Clear();
-			path_created = false;
-			animation = &idleAnim;
+			else if (path_created)
+			{
+				path->Clear();
+				path_created = false;
+				animation = &idleAnim;
+			}
 		}
 	}
 
@@ -187,17 +189,20 @@ void j1BatEnemy::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y)
 			{
-				fall = false;
-				dead = true;
+				if (fall) 
+				{
+					fall = false;
+					dead = true;
 
-				if (collider != nullptr)
-					collider->to_delete = true;
-				collider = nullptr;
+					if (collider != nullptr)
+						collider->to_delete = true;
+					collider = nullptr;
 
-				position.y = c2->rect.y + c2->rect.h - 13;
+					position.y = c2->rect.y + c2->rect.h - 13;
 
-				ColUp = false;
-				ColDown = true;
+					ColUp = false;
+					ColDown = true;
+				}
 			}
 		}
 	}
