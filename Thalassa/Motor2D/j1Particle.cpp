@@ -19,11 +19,13 @@ j1Particle::j1Particle()
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 
-	basicShoot.anim.PushBack({ 0,52,6,6 });
-	basicShoot.life = 500;
+	basicShoot.anim.PushBack({ 65,75,8,6 });
+	basicShoot.anim.PushBack({ 77,74,8,7 });
+	basicShoot.anim.speed = 0.1f;
+	basicShoot.life = 2000;
 	basicShoot.type = BASIC_SHOOT;
 
-	/*remoteShoot.anim.PushBack({ 379,8,14,12 });
+	/*remoteShoot.anim.PushBack({ 119,76,11,5 });
 	remoteShoot.anim.PushBack({ 396,8,14,12 });
 	remoteShoot.anim.PushBack({ 413,8,14,12 });
 	remoteShoot.anim.PushBack({ 396,8,14,12 });
@@ -31,12 +33,13 @@ j1Particle::j1Particle()
 	remoteShoot.life = 500;
 	remoteShoot.type = REMOTE_SHOOT;*/
 
-	remoteShoot.anim.PushBack({ 0,0,58,11 });
-	//remoteShoot.anim.PushBack({ 0,10,48,8 });
+	remoteShoot.anim.PushBack({ 52,25,11,6 });
+	remoteShoot.anim.PushBack({ 70,24,9,7 });
 	//remoteShoot.anim.PushBack({ 0,20,52,12 });
 	//remoteShoot.anim.PushBack({ 0,30,58,12 });
 	//remoteShoot.anim.PushBack({ 0,40,55,12 });
-	remoteShoot.life = 500;
+	remoteShoot.anim.speed = 0.1f;
+	remoteShoot.life = 2000;
 	remoteShoot.type = REMOTE_SHOOT;
 
 }
@@ -48,11 +51,11 @@ j1Particle::~j1Particle()
 bool j1Particle::Start()
 {
 	LOG("Loading particles");
-	part_tex = App->tex->Load("textures/Particles/particles.png");
-	ice_tex = App->tex->Load("textures/Particles/iceball.png");
+	/*part_tex = App->tex->Load("textures/Particles/particles.png");*/
+	part2_tex = App->tex->Load("textures/Particles/shots.png");
 
-	basicShoot.tex = part_tex;
-	remoteShoot.tex = ice_tex;
+	basicShoot.tex = part2_tex;
+	remoteShoot.tex = part2_tex;
 
 	return true;
 }

@@ -362,7 +362,7 @@ void j1Player::Shooting(float x, float y, float dt)
 	double angle = -(atan2(edge.y, edge.x));
 
 	fPoint speed_particle;
-	fPoint p_speed = { 5,5 };
+	fPoint p_speed = { 3,3 };
 
 	speed_particle.x = p_speed.x * cos(angle);
 	speed_particle.y = p_speed.y * sin(angle);
