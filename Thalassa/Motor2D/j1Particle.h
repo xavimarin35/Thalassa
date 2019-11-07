@@ -15,8 +15,9 @@ struct Collider;
 enum COLLIDER_TYPE;
 
 enum PARTICLE_TYPE {
-	BASIC_SHOOT, 
-	REMOTE_SHOOT
+	BASIC_SHOOT,
+	REMOTE_SHOOT,
+	DEMON_SHOOT
 };
 
 struct Particle
@@ -54,7 +55,7 @@ public:
 	Particle* active[MAX_ACTIVE_PARTICLES];
 private:
 
-	SDL_Texture* part_tex = nullptr;
+	SDL_Texture* demonShot_tex = nullptr;
 	SDL_Texture* part2_tex = nullptr;
 
 public:
@@ -63,5 +64,9 @@ public:
 
 	Particle basicShoot;
 	Particle remoteShoot;
+	Particle demonShoot;
+	Particle basicShootDestroyed;
+	Particle remoteShootDestroyed;
+	Particle demonShootDestroyed;
 };
 #endif // __j1PARTICLE_H__ 

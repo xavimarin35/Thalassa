@@ -31,6 +31,17 @@ j1Particle::j1Particle()
 	remoteShoot.life = 2000;
 	remoteShoot.type = REMOTE_SHOOT;
 
+	demonShoot.anim.PushBack({ 117,184,9,3 });
+	demonShoot.anim.PushBack({ 153,184,5,3 });
+	demonShoot.anim.speed = 0.1f;
+	demonShoot.life = 2000;
+	demonShoot.type = DEMON_SHOOT;
+
+	demonShootDestroyed.anim.PushBack({ 186,181,4,8 });
+	demonShootDestroyed.anim.PushBack({ 153,184,5,3 });
+	demonShootDestroyed.anim.speed = 0.1f;
+	demonShootDestroyed.anim.loop = false;
+
 }
 
 j1Particle::~j1Particle()
@@ -42,9 +53,11 @@ bool j1Particle::Start()
 	LOG("Loading particles");
 	/*part_tex = App->tex->Load("textures/Particles/particles.png");*/
 	part2_tex = App->tex->Load("textures/Particles/shots.png");
+	demonShot_tex = App->tex->Load("textures/Enemies/Demon_Spritesheet.png");
 
 	basicShoot.tex = part2_tex;
 	remoteShoot.tex = part2_tex;
+	demonShoot.tex = demonShot_tex;
 
 	return true;
 }
@@ -52,7 +65,8 @@ bool j1Particle::Start()
 bool j1Particle::CleanUp()
 {
 	LOG("Unloading particles");
-	App->tex->UnLoad(part_tex);
+	App->tex->UnLoad(part2_tex);
+	App->tex->UnLoad(demonShot_tex);
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -113,10 +127,10 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 				switch (particle.type)
 				{
 				case PARTICLE_TYPE::BASIC_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 10, 10 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 5, 5 }, collider_type, this);
 					break;
 				case PARTICLE_TYPE::REMOTE_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 10, 10 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 5, 5 }, collider_type, this);
 					break;
 				}
 				
@@ -155,6 +169,7 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1 && particleDestroyed)
 		{
+			/*App->particles->AddParticle(App->particles->demonShootDestroyed, )*/
 			//AddParticle(...) ---> If we want to print an explosion when hitting an enemy
 			delete active[i];
 			active[i] = nullptr;
