@@ -73,6 +73,7 @@ bool j1Demon::Update(float dt)
 				path_created = true;
 			}
 		}
+
 		else if (path_created)
 		{
 			path->Clear();
@@ -80,8 +81,26 @@ bool j1Demon::Update(float dt)
 			animation = &idleAnim;
 		}
 
-		BlitEntity(animation->GetCurrentFrame(), flip);
+		if (ColLeft || ColRight)
+		{
+			move_back = true;
+
+			if (flip)
+				back_pos = position.x + 10;
+
+			else back_pos = position.x - 10;
+		}
+
+		if (move_back)
+			MoveBack();
+
+		if (jumping)
+		{
+			Jump();
+		}			
 	}
+
+	BlitEntity(animation->GetCurrentFrame(), flip);
 
 	return true;
 }
@@ -109,28 +128,31 @@ void j1Demon::Move(p2DynArray<iPoint>& path, float dt)
 {
 	direction = App->pathfinding->CheckDirectionGround(path);
 
-	if (direction == PATH_MOVEMENT::LEFT)
+	if (!move_back) 
 	{
-		animation = &runAnim;
-		position.x -= speed.x;
-		flip = true;
-	}
-	else if (direction == PATH_MOVEMENT::RIGHT)
-	{
-		animation = &runAnim;
-		position.x += speed.x;
-		flip = false;
-	}
+		if (direction == PATH_MOVEMENT::LEFT)
+		{
+			animation = &runAnim;
+			position.x -= speed.x;
+			flip = true;
+		}
+		else if (direction == PATH_MOVEMENT::RIGHT)
+		{
+			animation = &runAnim;
+			position.x += speed.x;
+			flip = false;
+		}
 
-	if (direction == PATH_MOVEMENT::DOWN)
-	{
-		animation = &runAnim;
-		position.y += speed.y;
-	}
-	else if (direction == PATH_MOVEMENT::UP)
-	{
-		animation = &runAnim;
-		position.y -= speed.y;
+		/*if (direction == PATH_MOVEMENT::DOWN)
+		{
+			animation = &runAnim;
+			position.y += speed.y;
+		}
+		else if (direction == PATH_MOVEMENT::UP)
+		{
+			animation = &runAnim;
+			position.y -= speed.y;
+		}*/
 	}
 }
 
@@ -141,10 +163,10 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == COLLIDER_WALL)
 		{
 			// Right & Left
-			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h >= c2->rect.y)
+			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h + 5 >= c2->rect.y)
 			{
 				// Right
-				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
+				if (c1->rect.x + c1->rect.w + 10 >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
 					ColLeft = false;
@@ -167,6 +189,8 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 					speed.y = 0.0f;
 
+					jumping_1 = false;
+					jumping = false;
 					ColDown = true;
 					ColUp = false;
 				}
@@ -192,5 +216,40 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 			else
 				position.x += 3.0f;
 		}
+	}
+}
+
+void j1Demon::MoveBack()
+{
+	
+
+	bool moving = false;
+
+	if (flip)
+	{
+		if (!moving)
+			moving = true;
+
+		if (moving) 
+		{
+			if (position.x < back_pos)
+				position.x += speed.x;
+
+			if (position.x >= back_pos)
+			{
+				move_back = false;
+				jumping = true;
+				jumping_1 = true;
+			}
+		}
+	}
+}
+
+void j1Demon::Jump()
+{
+	if (jumping_1) 
+	{
+		position.y -= jump_force;
+		jump_force -= gravity;
 	}
 }

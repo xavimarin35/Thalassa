@@ -38,6 +38,9 @@ bool j1BatEnemy::Start()
 
 bool j1BatEnemy::Update(float dt)
 {
+	if (collider != nullptr)
+		collider->SetPos(position.x, position.y);
+
 	if (dead)
 	{
 		speed.y = 0;
@@ -187,25 +190,11 @@ void j1BatEnemy::OnCollision(Collider* c1, Collider* c2)
 				fall = false;
 				dead = true;
 
-				position.y = c2->rect.y + c2->rect.h;
+				if (collider != nullptr)
+					collider->to_delete = true;
+				collider = nullptr;
 
-				ColUp = false;
-				ColDown = true;
-			}
-		}
-	}
-
-	else if (c1->type == COLLIDER_WALL)
-	{
-		if (c2->type == COLLIDER_ENEMY) 
-		{
-
-			if (c2->rect.y + c2->rect.h >= c1->rect.y && c2->rect.y < c1->rect.y)
-			{
-				fall = false;
-				dead = true;
-
-				position.y = c2->rect.y + c2->rect.h;
+				position.y = c2->rect.y + c2->rect.h - 13;
 
 				ColUp = false;
 				ColDown = true;

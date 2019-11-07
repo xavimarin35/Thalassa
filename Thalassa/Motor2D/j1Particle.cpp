@@ -25,19 +25,8 @@ j1Particle::j1Particle()
 	basicShoot.life = 2000;
 	basicShoot.type = BASIC_SHOOT;
 
-	/*remoteShoot.anim.PushBack({ 119,76,11,5 });
-	remoteShoot.anim.PushBack({ 396,8,14,12 });
-	remoteShoot.anim.PushBack({ 413,8,14,12 });
-	remoteShoot.anim.PushBack({ 396,8,14,12 });
-	remoteShoot.anim.PushBack({ 379,8,14,12 });
-	remoteShoot.life = 500;
-	remoteShoot.type = REMOTE_SHOOT;*/
-
 	remoteShoot.anim.PushBack({ 52,25,11,6 });
 	remoteShoot.anim.PushBack({ 70,24,9,7 });
-	//remoteShoot.anim.PushBack({ 0,20,52,12 });
-	//remoteShoot.anim.PushBack({ 0,30,58,12 });
-	//remoteShoot.anim.PushBack({ 0,40,55,12 });
 	remoteShoot.anim.speed = 0.1f;
 	remoteShoot.life = 2000;
 	remoteShoot.type = REMOTE_SHOOT;

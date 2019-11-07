@@ -58,7 +58,7 @@ private:
 
 	p2DynArray<iPoint>* path;
 
-	float gravity = 0.15f;
+	float gravity = 0.05f;
 };
 
 #endif

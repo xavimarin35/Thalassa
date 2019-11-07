@@ -8,7 +8,7 @@
 #include "j1Particle.h"
 #include "j1Pathfinding.h"
 
-#define DETECTION_RANGE 100
+#define DETECTION_RANGE 200
 
 struct SDL_Texture;
 struct Collider;
@@ -30,6 +30,9 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	void Move(p2DynArray<iPoint>& path, float dt);
+	
+	void Jump();
+	void MoveBack();
 
 public:
 
@@ -42,10 +45,15 @@ public:
 	bool ColUp = false;
 
 	bool dead = false;
+	bool jumping = false;
+	bool move_back = false;
+	bool jumping_1 = false;
 
 private:
 
 	PATH_MOVEMENT direction;
+
+	float jump_force = 10.0f;
 
 	Animation idleAnim;
 	Animation runAnim;
@@ -59,6 +67,7 @@ private:
 	p2DynArray<iPoint>* path;
 
 	float gravity = 0.15f;
+	float back_pos;
 };
 
 #endif
