@@ -28,7 +28,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_PLAYER][COLLIDER_OPENCHEST] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_OPENDOOR] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_SHOOT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_SHOT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_BAT] = true;
 
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
@@ -91,15 +91,15 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_OPENDOOR][COLLIDER_OPENCHEST] = false;
 	matrix[COLLIDER_OPENDOOR][COLLIDER_OPENDOOR] = false;
 
-	matrix[COLLIDER_SHOOT][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_SHOOT][COLLIDER_WALL] = true;
-	matrix[COLLIDER_SHOOT][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_SHOOT][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_SHOOT][COLLIDER_WIN] = false;
-	matrix[COLLIDER_SHOOT][COLLIDER_GOD] = false;
-	matrix[COLLIDER_SHOOT][COLLIDER_DOOR] = false;
-	matrix[COLLIDER_SHOOT][COLLIDER_OPENDOOR] = false;
-	matrix[COLLIDER_SHOOT][COLLIDER_SHOOT] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_WIN] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_GOD] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_DOOR] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_OPENDOOR] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_SHOT] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
@@ -109,9 +109,13 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_DOOR] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_OPENDOOR] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_SHOOT] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_SHOT] = true;
 
 	matrix[COLLIDER_BAT][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
+
+
 }
 
 
@@ -232,11 +236,14 @@ void j1Collisions::DebugColliders()
 		case COLLIDER_OPENDOOR:
 			App->render->DrawQuad(colliders[i]->rect, 0, 200, 200, alpha);
 			break;
-		case COLLIDER_SHOOT:
+		case COLLIDER_SHOT:
 			App->render->DrawQuad(colliders[i]->rect, 180, 180, 0, alpha);
 			break;
 		case COLLIDER_ENEMY:
 			App->render->DrawQuad(colliders[i]->rect, 255, 50, 0, alpha);
+			break;
+		case COLLIDER_ENEMY_SHOT:
+			App->render->DrawQuad(colliders[i]->rect, 255, 50, 100, alpha);
 			break;
 		}
 	}

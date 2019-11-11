@@ -180,7 +180,7 @@ void j1BatEnemy::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_ENEMY) {
 
-		if (c2->type == COLLIDER_SHOOT) 
+		if (c2->type == COLLIDER_SHOT) 
 		{
 			fall = true;
 		}

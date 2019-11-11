@@ -34,6 +34,8 @@ bool j1Demon::Start()
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 15, 13 }, COLLIDER_ENEMY, App->entity_manager);
 
+	timerShot.Start();
+
 	return true;
 }
 
@@ -72,6 +74,32 @@ bool j1Demon::Update(float dt)
 					path = App->pathfinding->CreatePath(origin, destination);
 					Move(*path, dt);
 					path_created = true;
+				}
+
+				if (timerShot.Read() >= lastShot + cooldownShot)
+				{
+					fPoint margin;
+					margin.x = 8;
+					margin.y = 8;
+
+					fPoint edge;
+					edge.x = App->entity_manager->player->position.x - position.x;
+					edge.y = position.y - App->entity_manager->player->position.y;
+
+					double angle = -(atan2(edge.y, edge.x));
+
+					fPoint speed_particle;
+					fPoint p_speed = { 2,2 };
+
+					speed_particle.x = p_speed.x * cos(angle);
+					speed_particle.y = p_speed.y * sin(angle);
+					App->particles->demonShoot.speed = speed_particle;
+
+					double angleInDeg = angle * 180 / PI;
+
+					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, 0, angleInDeg, DEMON_SHOOT);
+
+					lastShot = timerShot.Read();
 				}
 			}
 
@@ -207,7 +235,7 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 
-		if (c2->type == COLLIDER_SHOOT)
+		if (c2->type == COLLIDER_SHOT)
 		{
 			animation = &hurtAnim;
 

@@ -56,7 +56,7 @@ public:
 private:
 
 	SDL_Texture* demonShot_tex = nullptr;
-	SDL_Texture* part2_tex = nullptr;
+	SDL_Texture* shots_tex = nullptr;
 
 public:
 	uint width, height;
@@ -65,7 +65,7 @@ public:
 	Particle basicShoot;
 	Particle remoteShoot;
 	Particle demonShoot;
-	Particle basicShootDestroyed;
+	Particle ShootDestroyed;
 	Particle remoteShootDestroyed;
 	Particle demonShootDestroyed;
 };

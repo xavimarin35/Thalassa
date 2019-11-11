@@ -364,7 +364,6 @@ void j1Player::Shooting(float x, float y, float dt)
 	edge.x = x - (position.x + margin.x) - (App->render->camera.x / (int)App->win->scale);
 	edge.y = (position.y + margin.y) - y + (App->render->camera.y / (int)App->win->scale);
 
-	// If the map is very big and its not enough accurate, we should use long double for the var angle
 	double angle = -(atan2(edge.y, edge.x));
 
 	fPoint speed_particle;
@@ -379,11 +378,11 @@ void j1Player::Shooting(float x, float y, float dt)
 	{
 	case PARTICLE_TYPE::BASIC_SHOOT:
 		App->particles->basicShoot.speed = speed_particle;
-		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT, 0, angleInDeg);
+		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
 		break;
 	case PARTICLE_TYPE::REMOTE_SHOOT:
 		App->particles->remoteShoot.speed = speed_particle;
-		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOOT, 0, angleInDeg);
+		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
 		break;
 	}
 

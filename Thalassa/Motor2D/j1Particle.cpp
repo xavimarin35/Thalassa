@@ -23,39 +23,37 @@ j1Particle::j1Particle()
 	basicShoot.anim.PushBack({ 65,75,8,6 });
 	basicShoot.anim.PushBack({ 77,74,8,7 });
 	basicShoot.anim.speed = 0.1f;
-	basicShoot.life = 2000;
+	basicShoot.life = 3000;
 	basicShoot.type = BASIC_SHOOT;
 
-	basicShootDestroyed.anim.PushBack({ 88,73,9,9 });
-	basicShootDestroyed.anim.PushBack({ 100,73,12,9 });
-	basicShootDestroyed.anim.PushBack({ 113,73,12,11 });
-	basicShootDestroyed.anim.PushBack({ 129,71,14,12 });
-	basicShootDestroyed.anim.speed = 0.1f;
-	basicShootDestroyed.life = 200;
+	//explosion
+	ShootDestroyed.anim.PushBack({ 88,73,9,9 });
+	ShootDestroyed.anim.PushBack({ 100,73,12,9 });
+	ShootDestroyed.anim.PushBack({ 113,73,12,11 });
+	ShootDestroyed.anim.PushBack({ 129,71,14,12 });
+	ShootDestroyed.anim.speed = 0.15f;
+	ShootDestroyed.life = 200;
 
 	//remote
 	remoteShoot.anim.PushBack({ 52,25,11,6 });
 	remoteShoot.anim.PushBack({ 70,24,9,7 });
 	remoteShoot.anim.speed = 0.1f;
-	remoteShoot.life = 2000;
+	remoteShoot.life = 3000;
 	remoteShoot.type = REMOTE_SHOOT;
-
-	remoteShootDestroyed.anim.PushBack({ 83,19,11,17 });
-	remoteShootDestroyed.anim.PushBack({ 103,17,14,21 });
-	remoteShootDestroyed.anim.PushBack({ 125,17,14,19 });
-	remoteShootDestroyed.anim.speed = 0.1f;
-	remoteShootDestroyed.life = 200;
 
 	//demon
 	demonShoot.anim.PushBack({ 117,184,9,3 });
 	demonShoot.anim.PushBack({ 153,184,5,3 });
-	demonShoot.anim.speed = 0.1f;
-	demonShoot.life = 2000;
+	demonShoot.anim.speed = 0.2f;
+	demonShoot.life = 4000;
 	demonShoot.type = DEMON_SHOOT;
 
-	demonShootDestroyed.anim.PushBack({ 186,181,4,8 });
-	demonShootDestroyed.anim.PushBack({ 153,184,5,3 });
-	demonShootDestroyed.anim.speed = 0.1f;
+	// demon explosion
+	demonShootDestroyed.anim.PushBack({ 87,62,8,7 });
+	demonShootDestroyed.anim.PushBack({ 96,61,9,9 });
+	demonShootDestroyed.anim.PushBack({ 105,61,10,9 });
+	demonShootDestroyed.anim.PushBack({ 117,61,10,10 });
+	demonShootDestroyed.anim.speed = 0.15f;
 	demonShootDestroyed.life = 200;
 
 
@@ -68,15 +66,15 @@ j1Particle::~j1Particle()
 bool j1Particle::Start()
 {
 	LOG("Loading particles");
-	part2_tex = App->tex->Load("textures/Particles/shots.png");
+	shots_tex = App->tex->Load("textures/Particles/shots.png");
 	demonShot_tex = App->tex->Load("textures/Enemies/Demon_Spritesheet.png");
 
-	basicShoot.tex = part2_tex;
-	basicShootDestroyed.tex = part2_tex;
-	remoteShoot.tex = part2_tex;
-	remoteShootDestroyed.tex = part2_tex;
+	basicShoot.tex = shots_tex;
+	ShootDestroyed.tex = shots_tex;
+	remoteShoot.tex = shots_tex;
+	remoteShootDestroyed.tex = shots_tex;
 	demonShoot.tex = demonShot_tex;
-	demonShootDestroyed.tex = demonShot_tex;
+	demonShootDestroyed.tex = shots_tex;
 
 
 	return true;
@@ -85,16 +83,17 @@ bool j1Particle::Start()
 bool j1Particle::CleanUp()
 {
 	LOG("Unloading particles");
-	App->tex->UnLoad(part2_tex);
+	App->tex->UnLoad(shots_tex);
 	App->tex->UnLoad(demonShot_tex);
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		if (active[i] != nullptr)
 		{
-			if (active[i]->type == BASIC_SHOOT)
+			if (active[i]->type == BASIC_SHOOT || active[i]->type == REMOTE_SHOOT)
 			{
-				App->tex->UnLoad(part2_tex);
+				App->tex->UnLoad(shots_tex);
+				App->tex->UnLoad(demonShot_tex);
 				delete active[i];
 				active[i] = nullptr;
 			}
@@ -146,7 +145,7 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 			p->type = ptype;
 			p->state = 0;
 			p->anim.Reset();
-			if (collider_type == COLLIDER_SHOOT) {
+			if (collider_type == COLLIDER_SHOT) {
 
 				switch (particle.type)
 				{
@@ -160,6 +159,15 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 				
 			}
 
+			if (collider_type == COLLIDER_ENEMY_SHOT) {
+				
+				switch (particle.type)
+				{
+				case PARTICLE_TYPE::DEMON_SHOOT:
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 5, 5 }, collider_type, this);
+				}
+			}
+
 			Collider* test = p->collider;
 			active[i] = p;
 			break;
@@ -170,7 +178,7 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 void j1Particle::OnCollision(Collider* c1, Collider* c2)
 {
 	bool particleDestroyed = false;
-		if (c2->type == COLLIDER_ENEMY) 
+		if (c1->type == COLLIDER_SHOT && c2->type == COLLIDER_ENEMY) 
 		{
 			int ret = true;
 			for (uint i = 0; i < MAX_ACTIVE_PARTICLES && ret; ++i)
@@ -179,12 +187,12 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 					if (active[i]->collider == c1) {
 						switch (active[i]->type) {
 						case BASIC_SHOOT:
-								AddParticle(demonShootDestroyed, active[i]->position.x, active[i]->position.y, 0);
-								particleDestroyed = true;
+							AddParticle(ShootDestroyed, active[i]->position.x, active[i]->position.y, 0);
+							particleDestroyed = true;
 							break;
 						case REMOTE_SHOOT:
-								AddParticle(demonShootDestroyed, active[i]->position.x, active[i]->position.y, 0, COLLIDER_SHOOT, 0, (double)-90.0f, REMOTE_SHOOT);
-								particleDestroyed = true;
+							AddParticle(ShootDestroyed, active[i]->position.x, active[i]->position.y, 0);
+							particleDestroyed = true;
 							break;
 						}
 						ret = false;
@@ -192,8 +200,25 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 		}
+
+		else if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
+		{
+			int ret = true;
+			for (uint i = 0; i < MAX_ACTIVE_PARTICLES && ret; ++i)
+			{
+				if (active[i] != nullptr) {
+					if (active[i]->collider == c1) {
+						switch (active[i]->type) {
+						case DEMON_SHOOT:
+							AddParticle(demonShootDestroyed, active[i]->position.x, active[i]->position.y, 0);
+							particleDestroyed = true;
+						}
+						ret = false;
+					}
+				}
+			}
+		}
 		
-	
 // destroy the particle collided
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -205,8 +230,6 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 		}
 
 	}
-	
-
 }
 
 // -------------------------------------------------------------

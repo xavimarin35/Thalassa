@@ -7,6 +7,7 @@
 #include "p2List.h"
 #include "j1Particle.h"
 #include "j1Pathfinding.h"
+#include "j1Timer.h"
 
 #define DETECTION_RANGE 200
 
@@ -50,6 +51,10 @@ public:
 	bool jumping_1 = false;
 
 private:
+
+	j1Timer timerShot;
+	uint lastShot = 0;
+	uint cooldownShot = 2000;
 
 	PATH_MOVEMENT direction;
 

@@ -54,7 +54,7 @@ public:
 	fPoint position;	
 	fPoint speed;
 
-	PARTICLE_TYPE currentType = REMOTE_SHOOT;
+	PARTICLE_TYPE currentType = BASIC_SHOOT;
 
 	float jumpForce;
 	float jetForce;
