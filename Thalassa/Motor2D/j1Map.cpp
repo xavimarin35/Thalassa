@@ -89,9 +89,9 @@ void j1Map::Draw(int camera_position)
 		}
 	}
 
-	static char title[200];
+	/*static char title[200];
 	sprintf_s(title, 200, " Thalassa");
-	App->win->SetTitle(title);
+	App->win->SetTitle(title);*/
 
 	if (draw_grid) {
 		for (uint i = 0; i < data.width; ++i) {
