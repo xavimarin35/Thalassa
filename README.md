@@ -1,6 +1,6 @@
 # Thalassa
 
-This is a project made by CITM students of the Tech Talent Center in Barcelona. We are Pol Casaú and Xavi Marín and we hope you will enjoy our game.
+This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC (Tech Talent Center) in Barcelona, in which we make our own platformer game in C & C++.
 
 ## Information
 
