@@ -17,9 +17,10 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 - **F3:** Play the mid-level
 - **F5:** Save the current state
 - **F6:** Load the saved state
-- **F9:** View colliders logic
+- **F8:** View camera culling feature
+- **F9:** View colliders 
 - **F10:** Activate / Deactivate GodMode
-- **F11:** View Camera Culling
+- **F11:** Enable / Disable FPS cap to 30 
 
 ### Innovations
 
@@ -30,6 +31,9 @@ This is a project made by CITM students of the Tech Talent Center in Barcelona. 
 - Animation of some tiles from loaded from Tiled
 - Dynamic obstacles through the map that can kill you
 - Camera culling during whole level
+- Air and ground enemies pathfinding
+- Ground enemy shoots you
+- Bat partner who follows you
 
 ## Usage
 
@@ -54,6 +58,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- GodMode implementation
 	- Save & Load
 	- Camera Culling
+	- Pathfinding
 
 ### Xavi Marín
 
@@ -68,6 +73,18 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Data from xml
 	- Animated tiles from TMX
 	- Dynamic obstacles
+	- Particles system
+	- Framerate cap
+	
+## Contact
+
+ Don't hesitate to visit:
+ - Our repository: https://github.com/xavimarin35/Thalassa 
+ 
+ Or contact us:
+ - Pol Casau: pccpolcasau@gmail.com
+ - Xavi Marín: xmarin98@gmail.com
+ 
   
 ## License
 
