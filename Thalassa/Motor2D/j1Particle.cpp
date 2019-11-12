@@ -143,7 +143,6 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 			p->position.y = y;
 			p->rotation = rotation;
 			p->type = ptype;
-			p->state = 0;
 			p->anim.Reset();
 			if (collider_type == COLLIDER_SHOT) {
 
@@ -178,7 +177,7 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 void j1Particle::OnCollision(Collider* c1, Collider* c2)
 {
 	bool particleDestroyed = false;
-		if (c1->type == COLLIDER_SHOT && c2->type == COLLIDER_ENEMY) 
+		if (c1->type == COLLIDER_SHOT && (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)) 
 		{
 			int ret = true;
 			for (uint i = 0; i < MAX_ACTIVE_PARTICLES && ret; ++i)
@@ -201,7 +200,7 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 
-		else if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
+		else if (c1->type == COLLIDER_ENEMY_SHOT && (c2->type == COLLIDER_PLAYER || c2->type == COLLIDER_WALL))
 		{
 			int ret = true;
 			for (uint i = 0; i < MAX_ACTIVE_PARTICLES && ret; ++i)

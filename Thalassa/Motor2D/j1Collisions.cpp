@@ -114,6 +114,9 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_BAT][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY] = false;
+
 
 
 }
@@ -143,7 +146,7 @@ bool j1Collisions::PreUpdate()
 		if (colliders[i] == nullptr) 
 			continue;
 
-		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMY)
+		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMY || colliders[i]->type == COLLIDER_SHOT || colliders[i]->type == COLLIDER_ENEMY_SHOT)
 		{
 			collider1 = colliders[i];
 
@@ -243,7 +246,7 @@ void j1Collisions::DebugColliders()
 			App->render->DrawQuad(colliders[i]->rect, 255, 50, 0, alpha);
 			break;
 		case COLLIDER_ENEMY_SHOT:
-			App->render->DrawQuad(colliders[i]->rect, 255, 50, 100, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 100, 50, 100, alpha);
 			break;
 		}
 	}

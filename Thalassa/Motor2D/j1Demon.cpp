@@ -78,6 +78,8 @@ bool j1Demon::Update(float dt)
 
 				if (timerShot.Read() >= lastShot + cooldownShot)
 				{
+					runAnim.Finished();
+
 					fPoint margin;
 					margin.x = 8;
 					margin.y = 8;
@@ -97,6 +99,7 @@ bool j1Demon::Update(float dt)
 
 					double angleInDeg = angle * 180 / PI;
 
+					animation = &attackAnim;
 					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, 0, angleInDeg, DEMON_SHOOT);
 
 					lastShot = timerShot.Read();

@@ -54,7 +54,7 @@ private:
 
 	j1Timer timerShot;
 	uint lastShot = 0;
-	uint cooldownShot = 2000;
+	uint cooldownShot = 3000;
 
 	PATH_MOVEMENT direction;
 

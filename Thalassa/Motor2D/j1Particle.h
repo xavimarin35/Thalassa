@@ -31,7 +31,6 @@ struct Particle
 	fPoint speed;
 	Uint32 born = 0;
 	Uint32 life = 0;
-	uint32 state = 0;
 	int rotation = 0;
 	bool fx_played = false;
 	Particle();
