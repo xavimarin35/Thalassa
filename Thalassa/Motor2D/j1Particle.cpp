@@ -22,7 +22,7 @@ j1Particle::j1Particle()
 	//basic
 	basicShoot.anim.PushBack({ 65,75,8,6 });
 	basicShoot.anim.PushBack({ 77,74,8,7 });
-	basicShoot.anim.speed = 0.1f;
+	basicShoot.anim.speed = 15.0f;
 	basicShoot.life = 3000;
 	basicShoot.type = BASIC_SHOOT;
 
@@ -31,20 +31,20 @@ j1Particle::j1Particle()
 	ShootDestroyed.anim.PushBack({ 100,73,12,9 });
 	ShootDestroyed.anim.PushBack({ 113,73,12,11 });
 	ShootDestroyed.anim.PushBack({ 129,71,14,12 });
-	ShootDestroyed.anim.speed = 0.15f;
+	ShootDestroyed.anim.speed = 15.0f;
 	ShootDestroyed.life = 200;
 
 	//remote
 	remoteShoot.anim.PushBack({ 52,25,11,6 });
 	remoteShoot.anim.PushBack({ 70,24,9,7 });
-	remoteShoot.anim.speed = 0.1f;
+	remoteShoot.anim.speed = 15.0f;
 	remoteShoot.life = 3000;
 	remoteShoot.type = REMOTE_SHOOT;
 
 	//demon
 	demonShoot.anim.PushBack({ 117,184,9,3 });
 	demonShoot.anim.PushBack({ 153,184,5,3 });
-	demonShoot.anim.speed = 0.2f;
+	demonShoot.anim.speed = 15.0f;
 	demonShoot.life = 4000;
 	demonShoot.type = DEMON_SHOOT;
 
@@ -53,7 +53,7 @@ j1Particle::j1Particle()
 	demonShootDestroyed.anim.PushBack({ 96,61,9,9 });
 	demonShootDestroyed.anim.PushBack({ 105,61,10,9 });
 	demonShootDestroyed.anim.PushBack({ 117,61,10,10 });
-	demonShootDestroyed.anim.speed = 0.15f;
+	demonShootDestroyed.anim.speed = 10.0f;
 	demonShootDestroyed.life = 200;
 
 

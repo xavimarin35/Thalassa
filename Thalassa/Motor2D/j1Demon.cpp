@@ -32,7 +32,7 @@ bool j1Demon::Start()
 
 	animation = &idleAnim;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 15, 13 }, COLLIDER_ENEMY, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 10, 13 }, COLLIDER_ENEMY, App->entity_manager);
 
 	timerShot.Start();
 
@@ -54,7 +54,12 @@ bool j1Demon::Update(float dt)
 		}
 
 		if (collider != nullptr)
-			collider->SetPos(position.x, position.y);
+		{
+			if (flip)
+				collider->SetPos(position.x, position.y);
+			else
+				collider->SetPos(position.x + 3, position.y);
+		}
 
 		if (App->entity_manager->player->collider != nullptr) {
 			if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
@@ -91,16 +96,16 @@ bool j1Demon::Update(float dt)
 					double angle = -(atan2(edge.y, edge.x));
 
 					fPoint speed_particle;
-					fPoint p_speed = { 2,2 };
+					fPoint p_speed = { 4000, 4000 };
 
 					speed_particle.x = p_speed.x * cos(angle);
 					speed_particle.y = p_speed.y * sin(angle);
-					App->particles->demonShoot.speed = speed_particle;
+					App->particles->demonShoot.speed = { speed_particle.x * dt, speed_particle.y * dt };
 
 					double angleInDeg = angle * 180 / PI;
 
 					animation = &attackAnim;
-					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, App->GetDT(), angleInDeg, DEMON_SHOOT);
+					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, dt, angleInDeg, DEMON_SHOOT);
 
 					lastShot = timerShot.Read();
 				}
@@ -254,8 +259,6 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 void j1Demon::MoveBack()
 {
-	
-
 	bool moving = false;
 
 	if (flip)

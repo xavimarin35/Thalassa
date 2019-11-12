@@ -33,7 +33,7 @@ public:
 
 public:
 
-	fPoint speed = { 0.8f,0.8f };
+	fPoint speed = { 35.0f,35.0f };
 
 	bool ColLeft = false;
 	bool ColRight = false;
@@ -58,7 +58,7 @@ private:
 
 	p2DynArray<iPoint>* path;
 
-	float gravity = 0.05f;
+	float gravity = 150.0f;
 };
 
 #endif

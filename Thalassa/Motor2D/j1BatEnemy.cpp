@@ -31,7 +31,7 @@ bool j1BatEnemy::Start()
 
 	animation = &idleAnim;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16,11 }, COLLIDER_ENEMY, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 10, 11 }, COLLIDER_ENEMY, App->entity_manager);
 
 	return true;
 }
@@ -39,7 +39,7 @@ bool j1BatEnemy::Start()
 bool j1BatEnemy::Update(float dt)
 {
 	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
+		collider->SetPos(position.x + 2, position.y);
 
 	if (dead)
 	{
@@ -52,8 +52,8 @@ bool j1BatEnemy::Update(float dt)
 		animation = &dyingAnim;
 
 		if (!ColDown) {
-			position.y += speed.y * App->GetDT();
-			speed.y += gravity * App->GetDT();
+			position.y += speed.y * dt;
+			speed.y += gravity * dt;
 		}
 	}
 
@@ -119,57 +119,57 @@ void j1BatEnemy::Move(p2DynArray<iPoint>& path, float dt)
 	case PATH_MOVEMENT::UP_LEFT:
 		animation = &pathAnim;
 		position.x -= speed.x * dt;
-		position.y -= speed.y;
+		position.y -= speed.y * dt;
 		flip = true;
 
 		break;
 
 	case PATH_MOVEMENT::UP_RIGHT:
 		animation = &pathAnim;
-		position.x += speed.x;
-		position.y -= speed.y;
+		position.x += speed.x * dt;
+		position.y -= speed.y * dt;
 		flip = false;
 
 		break;
 
 	case PATH_MOVEMENT::DOWN_LEFT:
 		animation = &pathAnim;
-		position.x -= speed.x;
-		position.y += speed.y;
+		position.x -= speed.x * dt;
+		position.y += speed.y * dt;
 		flip = true;
 
 		break;
 
 	case PATH_MOVEMENT::DOWN_RIGHT:
 		animation = &pathAnim;
-		position.x += speed.x;
-		position.y += speed.y;
+		position.x += speed.x * dt;
+		position.y += speed.y * dt;
 		flip = false;
 
 		break;
 
 	case PATH_MOVEMENT::UP:
 		animation = &pathAnim;
-		position.y -= speed.y;
+		position.y -= speed.y * dt;
 
 		break;
 
 	case PATH_MOVEMENT::DOWN:
 		animation = &pathAnim;
-		position.y += speed.y;
+		position.y += speed.y * dt;
 
 		break;
 
 	case PATH_MOVEMENT::LEFT:
 		animation = &pathAnim;
-		position.x -= speed.x;
+		position.x -= speed.x * dt;
 		flip = true;
 
 		break;
 
 	case PATH_MOVEMENT::RIGHT:
 		animation = &pathAnim;
-		position.x += speed.x;
+		position.x += speed.x * dt;
 		flip = false;
 
 		break;

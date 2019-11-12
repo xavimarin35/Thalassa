@@ -4,7 +4,7 @@
       <animation x="24" y="37" w="13" h="20"/>
     </idle>
 
-    <run loop="true" speed="0.65f">
+    <run loop="true" speed="7.5f">
       <animation x="1" y="298" w="13" h="21"/>
       <animation x="17" y="298" w="13" h="21"/>
       <animation x="33" y="298" w="13" h="21"/>
@@ -15,12 +15,12 @@
       <animation x="24" y="87" w="13" h="18"/>
     </jump>
 	
-	<jetpack loop="true" speed="0.4f">
+	<jetpack loop="true" speed="7.5f">
 	  <animation x="4" y="8" w="14" h="23"/>
       <animation x="24" y="8" w="14" h="23"/>
 	</jetpack>
 	
-	<death loop="false" speed="0.7f">
+	<death loop="false" speed="7.5f">
       <animation x="2" y="327" w="13" h="20"/>
       <animation x="18" y="327" w="13" h="20"/>
       <animation x="34" y="327" w="13" h="20"/>
@@ -29,7 +29,7 @@
       <animation x="0" y="0" w="0" h="0"/>
 	</death>
 	
-	<godmode loop="true" speed="0.45f">
+	<godmode loop="true" speed="7.5f">
       <animation x="43" y="8" w="14" h="23"/>
       <animation x="63" y="8" w="14" h="23"/>
     </godmode>
@@ -38,7 +38,7 @@
 		<animation x="0" y="0" w="15" h="35"/>
 	</chestIdle>
 	
-	<chestOpening loop="false" speed="0.1f">
+	<chestOpening loop="false" speed="6.0f">
 		<animation x="0" y="0" w="15" h="35"/>
 		<animation x="16" y="0" w="15" h="35"/>
 		<animation x="32" y="0" w="15" h="35"/>
@@ -58,7 +58,7 @@
 		<animation x="80" y="0" w="16" h="30"/>
 	</doorIdle>
 	
-	<doorOpen loop="false" speed="0.6f">
+	<doorOpen loop="false" speed="7.5f">
 		<animation x="80" y="0" w="16" h="30"/>
 		<animation x="64" y="0" w="16" h="30"/>
 		<animation x="48" y="0" w="16" h="30"/>
@@ -70,14 +70,14 @@
 		<animation x="140" y="133" w="36" h="36"/>
 	</movingObstacle>
 	
-	<batIdle loop="true" speed="1.2f">
+	<batIdle loop="true" speed="10.0f">
 		<animation x="0" y="0" w="19" h="12"/>
 		<animation x="30" y="0" w="19" h="12"/>
 		<animation x="60" y="-1" w="19" h="13"/>
 		<animation x="30" y="0" w="19" h="12"/>
 	</batIdle>
 	
-	<enemyBatIdle loop="true" speed="1.2f">
+	<enemyBatIdle loop="true" speed="8.0f">
 		<animation x="1" y="27" w="13" h="8"/>
 		<animation x="18" y="27" w="12" h="9"/>
 		<animation x="35" y="28" w="10" h="10"/>
@@ -85,7 +85,7 @@
 		<animation x="64" y="28" w="16" h="6"/>
 	</enemyBatIdle>
 	
-	<enemyBatRun loop="true" speed="1.1f">
+	<enemyBatRun loop="true" speed="10.0f">
 		<animation x="1" y="3" w="13" h="8"/>
 		<animation x="18" y="3" w="12" h="9"/>
 		<animation x="35" y="4" w="10" h="10"/>
@@ -93,18 +93,18 @@
 		<animation x="64" y="4" w="16" h="6"/>
 	</enemyBatRun>
 	
-	<enemyBatDie loop="false" speed="1.1f">
+	<enemyBatDie loop="false" speed="10.0f">
 		<animation x="0" y="52" w="16" h="9"/>
 		<animation x="18" y="52" w="16" h="11"/>
 		<animation x="35" y="56" w="16" h="10"/>
 		<animation x="50" y="61" w="16" h="9"/>
 	</enemyBatDie>
 	
-	<enemyBatDead loop="false" speed="1.2f">
+	<enemyBatDead loop="false" speed="10.0f">
 		<animation x="64" y="66" w="15" h="5"/>
 	</enemyBatDead>
 	
-	<demonIdle loop="true" speed="0.8f">
+	<demonIdle loop="true" speed="10.0f">
 		<animation x="7" y="19" w="15" h="13"/>
 		<animation x="39" y="19" w="15" h="13"/>
 		<animation x="71" y="19" w="15" h="13"/>
@@ -114,7 +114,7 @@
 		<animation x="199" y="19" w="15" h="13"/>
 	</demonIdle>
 	
-	<demonRun loop="true" speed="0.8f">
+	<demonRun loop="true" speed="9.0f">
 		<animation x="7" y="49" w="15" h="14"/>
 		<animation x="39" y="49" w="15" h="14"/>
 		<animation x="71" y="49" w="15" h="14"/>
@@ -124,7 +124,7 @@
 		<animation x="199" y="49" w="15" h="14"/>
 	</demonRun>
 	
-	<demonHurt loop="false" speed="0.8f">
+	<demonHurt loop="false" speed="9.0f">
 		<animation x="8" y="115" w="15" h="13"/>
 		<animation x="40" y="115" w="15" h="13"/>
 		<animation x="0" y="0" w="0" h="0"/>
@@ -132,7 +132,7 @@
 		<animation x="104" y="115" w="15" h="13"/>
 	</demonHurt>
 	
-	<demonAttack loop="false" speed="0.8f">
+	<demonAttack loop="false" speed="9.0f">
 		<animation x="8" y="83" w="16" h="13"/>
 		<animation x="40" y="83" w="16" h="13"/>
 		<animation x="71" y="83" w="16" h="13"/>
@@ -141,7 +141,7 @@
 		<animation x="167" y="83" w="16" h="13"/>
 	</demonAttack>
 	
-	<demonDie loop="false" speed="0.8f">
+	<demonDie loop="false" speed="9.0f">
 	<animation x="8" y="147" w="15" h="13"/>
 	<animation x="40" y="147" w="15" h="13"/>
 	<animation x="72" y="147" w="15" h="13"/>

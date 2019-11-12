@@ -62,14 +62,14 @@ void j1Bat::MoveHorizontal(float x)
 		{
 			if (bat_position.x > horizontal_limit.y)
 			{
-				inertia -= 0.5f;
+				inertia -= 25.0f * App->GetDT();
 			}
 			else redirect_horizontal = false;
 		}
 
 		// If the player moves forward, the bat follows him at higher speed than the player
 		else if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT && (bat_position.x < horizontal_limit.x))
-			inertia += 1.5f;
+			inertia += 100.0f * App->GetDT();
 
 		else if (bat_position.x >= horizontal_limit.x)
 			redirect_horizontal = true;
@@ -79,19 +79,19 @@ void j1Bat::MoveHorizontal(float x)
 	if(!App->entity_manager->player->flip)
 	{
 		horizontal_pos = x + 30;
-		horizontal_limit = { horizontal_pos - 60,horizontal_pos + 10 };
+		horizontal_limit = { horizontal_pos - 60, horizontal_pos + 10 };
 
 		if (redirect_horizontal)
 		{
 			if (bat_position.x < horizontal_limit.y)
 			{
-				inertia += 0.5f;
+				inertia += 25.0f * App->GetDT();
 			}
 			else redirect_horizontal = false;
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT && (bat_position.x > horizontal_limit.x))
-			inertia -= 1.5f;
+			inertia -= 100.0f * App->GetDT();
 
 		else if (bat_position.x <= horizontal_pos)
 			redirect_horizontal = true;
@@ -103,20 +103,20 @@ void j1Bat::MoveHorizontal(float x)
 
 void j1Bat::MoveVertical(float y)
 {
-	float vertical_pos = y - 20;
+	float vertical_pos = y - 30;
 	fPoint idle_vertical;
 
 	if (bat_position.y < vertical_pos - 50)
-		vertical_speed += 1.4f;
+		vertical_speed += 75.0f * App->GetDT();
 
 	else if (bat_position.y < vertical_pos - 30)
-		vertical_speed += 1.0f;
+		vertical_speed += 50.0f * App->GetDT();
 
 	else if (bat_position.y < vertical_pos - 10)
-		vertical_speed += 0.5f;
+		vertical_speed += 25.0f * App->GetDT();
 
 	else if (bat_position.y > vertical_pos)
-		vertical_speed -= 0.5f;
+		vertical_speed -= 50.0f * App->GetDT();
 
 	bat_position.y = vertical_speed;
 

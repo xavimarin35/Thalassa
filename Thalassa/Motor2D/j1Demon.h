@@ -38,7 +38,7 @@ public:
 public:
 
 	fPoint demon_position;
-	fPoint speed = {0.7f, 0.7f};
+	fPoint speed = {30.0f, 30.0f};
 
 	bool ColLeft = false;
 	bool ColRight = false;
@@ -71,7 +71,7 @@ private:
 
 	p2DynArray<iPoint>* path;
 
-	float gravity = 0.15f;
+	float gravity = 150.0f;
 	float back_pos;
 };
 

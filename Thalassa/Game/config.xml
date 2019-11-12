@@ -35,9 +35,9 @@
 	<parallaxBg value="0.057f"/>
 	<cullingVariation x="30" y="2050"/>
 	<cullingDebug x="-50" y="2137"/>
-	<convertor value="0.0001f"/>
-	<convertor2 value="0.0002f"/>
-	<convertor3 value="0.00013f"/>
+	<convertor value="1.0f"/>
+	<convertor2 value="2.0f"/>
+	<convertor3 value="1.3f"/>
   </mapInfo>
 
   <player>
@@ -45,20 +45,20 @@
 	<posLvl1 x="74" y="210"/>
 	<posMidLvl x="25" y="130"/>
 	<posLvl2 x="2313" y="170"/>
-    <godSpeed value="2.0f"/>
-    <speed x="1.3f" y="0.7f"/>
-    <gravity value="0.15f"/>
+    <godSpeed value="95.0f"/>
+    <speed x="80.0f" y="70.0f"/>
+    <gravity value="350.0f"/>
     <flip value="true"/>
     <created value="true"/>
-	<jumpForce value="3.0f"/>
-	<jetForce value="1.5f"/>
+	<jumpForce value="135.0f"/>
+	<jetForce value="70.0f"/>
 	<hitbox x="13" y="20"/>
   </player>
   
   <entities>
 	<chestCollider x="15" y="35"/>
 	<obstacleVariation value="40"/>
-	<obstacleSpeed x="1.0f" y="1.7f"/>
+	<obstacleSpeed x="75.0f" y="75.0f"/>
 	<obstacleCollider value="25"/>
 	<obstacleAdjust value="7"/>
   </entities>

@@ -193,7 +193,7 @@ void j1App::FinishUpdate()
 		last_sec_frame_count = 0;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == j1KeyState::KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F11) == j1KeyState::KEY_DOWN) {
 		capFPS = !capFPS;
 		frame_count = 0;
 	}

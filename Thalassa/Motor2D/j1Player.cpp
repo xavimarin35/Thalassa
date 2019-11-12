@@ -120,8 +120,8 @@ bool j1Player::Update(float dt) {
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 					jetpackActive = false;
-					jumpForce = 0.0f * dt;
-					speed.y = 0.7f * dt;
+					jumpForce = 0.0f;
+					speed.y = 0.7f;
 				}
 
 				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
@@ -160,7 +160,7 @@ bool j1Player::Update(float dt) {
 		else {
 			if (lifes > 0) {
 				App->scene1->death = true;
-				jumpForce = 1.0f * dt;
+				jumpForce = 1.0f;
 				Jumping();
 
 				if(collider!=nullptr)
@@ -367,7 +367,7 @@ void j1Player::Shooting(float x, float y, float dt)
 	double angle = -(atan2(edge.y, edge.x));
 
 	fPoint speed_particle;
-	fPoint p_speed = { 3,3 };
+	fPoint p_speed = { 5000, 5000 };
 
 	speed_particle.x = p_speed.x * cos(angle);
 	speed_particle.y = p_speed.y * sin(angle);
@@ -377,11 +377,11 @@ void j1Player::Shooting(float x, float y, float dt)
 	switch (currentType) 
 	{
 	case PARTICLE_TYPE::BASIC_SHOOT:
-		App->particles->basicShoot.speed = speed_particle;
+		App->particles->basicShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
 		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
 		break;
 	case PARTICLE_TYPE::REMOTE_SHOOT:
-		App->particles->remoteShoot.speed = speed_particle;
+		App->particles->remoteShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
 		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
 		break;
 	}

@@ -137,7 +137,7 @@ bool j1Scene1::Update(float dt)
 		App->LoadGame();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) 
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) 
 	{
 		if (cullingView)
 			cullingView = false;
@@ -267,7 +267,7 @@ bool j1Scene1::Update(float dt)
 		if (cameraMoving)
 		{
 			if (App->render->camera.y >= -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2) {
-				App->render->camera.y -= 2.0f;
+				App->render->camera.y -= 3.5f;
 				App->entity_manager->player->playerCanMove = false;
 			}
 			else {
