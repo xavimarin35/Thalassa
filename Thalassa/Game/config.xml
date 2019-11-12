@@ -35,9 +35,9 @@
 	<parallaxBg value="0.057f"/>
 	<cullingVariation x="30" y="2050"/>
 	<cullingDebug x="-50" y="2137"/>
-	<convertor value="1.0f"/>
-	<convertor2 value="2.0f"/>
-	<convertor3 value="1.3f"/>
+	<convertor value="0.02f"/>
+	<convertor2 value="0.02f"/>
+	<convertor3 value="0.02f"/>
   </mapInfo>
 
   <player>
