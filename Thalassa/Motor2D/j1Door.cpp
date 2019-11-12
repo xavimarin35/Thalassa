@@ -43,7 +43,7 @@ bool j1Door::Update(float dt) {
 
 	else animation = &idle;
 
-	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, door_position.x, door_position.y);
+	BlitEntity(animation->GetCurrentFrame(dt), SDL_FLIP_NONE, door_position.x, door_position.y);
 
 	return true;
 }

@@ -58,21 +58,21 @@ bool j1Player::Update(float dt) {
 			jetpackActive = false;
 			animation = &godAnim;
 			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-				position.x += godSpeed;
+				position.x += godSpeed * dt;
 				flip = true;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-				position.x -= godSpeed;
+				position.x -= godSpeed * dt;
 				flip = false;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
-				position.y -= godSpeed;
+				position.y -= godSpeed * dt;
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-				position.y += godSpeed;
+				position.y += godSpeed * dt;
 			}
 		}
 		else if (!isDead)
@@ -82,7 +82,7 @@ bool j1Player::Update(float dt) {
 				if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 					if (!ColRight)
 					{
-						position.x += speed.x;
+						position.x += speed.x * dt;
 						animation = &run;
 						flip = true;
 					}
@@ -91,7 +91,7 @@ bool j1Player::Update(float dt) {
 				if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
 					if (!ColLeft)
 					{
-						position.x -= speed.x;
+						position.x -= speed.x * dt;
 						animation = &run;
 						flip = false;
 					}
@@ -120,8 +120,8 @@ bool j1Player::Update(float dt) {
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 					jetpackActive = false;
-					jumpForce = 0.0f;
-					speed.y = 0.7f;
+					jumpForce = 0.0f * dt;
+					speed.y = 0.7f * dt;
 				}
 
 				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
@@ -149,8 +149,8 @@ bool j1Player::Update(float dt) {
 			if (!isJumping && !godMode && !ColDown) 
 			{
 				if (!onFloor) {
-					position.y += speed.y;
-					speed.y += gravity;
+					position.y += speed.y * dt;
+					speed.y += gravity * dt;
 					animation = &jump;
 				}
 			}
@@ -160,7 +160,7 @@ bool j1Player::Update(float dt) {
 		else {
 			if (lifes > 0) {
 				App->scene1->death = true;
-				jumpForce = 1.0f;
+				jumpForce = 1.0f * dt;
 				Jumping();
 
 				if(collider!=nullptr)
@@ -187,7 +187,7 @@ bool j1Player::Update(float dt) {
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
-	BlitEntity(animation->GetCurrentFrame(), flip, position.x, position.y);
+	BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);
 
 	return true;
 }
@@ -325,8 +325,8 @@ void j1Player::Jumping() {
 	animation = &jump;
 
 	if (!onFloor && !jetpackActive) {
-		position.y -= jumpForce;
-		jumpForce -= gravity;
+		position.y -= jumpForce * App->GetDT();
+		jumpForce -= gravity * App->GetDT();
 	}
 }
 
@@ -335,7 +335,7 @@ void j1Player::JetPack() {
 	animation = &jetpack;
 
 	if (!onFloor) {
-		position.y -= jetForce;
+		position.y -= jetForce * App->GetDT();
 	}
 }
 
@@ -347,8 +347,8 @@ void j1Player::Die() {
 	jetpackActive = false;
 	App->scene1->death = false;
 
-	position.y += speed.y;
-	speed.y += gravity;
+	position.y += speed.y * App->GetDT();
+	speed.y += gravity * App->GetDT();
 
 	CleanUp();
 	Start();

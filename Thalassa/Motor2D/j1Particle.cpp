@@ -118,7 +118,7 @@ bool j1Particle::Update(float dt)
 			}
 			else if (SDL_GetTicks() >= p->born)
 			{
-				App->render->Blit(p->tex, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), SDL_FLIP_NONE, 1.0F, p->rotation);
+				App->render->Blit(p->tex, p->position.x, p->position.y, &(p->anim.GetCurrentFrame(dt)), SDL_FLIP_NONE, 1.0F, p->rotation);
 
 				if (p->fx_played == false)
 				{
@@ -149,10 +149,10 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 				switch (particle.type)
 				{
 				case PARTICLE_TYPE::BASIC_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 5, 5 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, 5, 5 }, collider_type, this);
 					break;
 				case PARTICLE_TYPE::REMOTE_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 5, 5 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, 5, 5 }, collider_type, this);
 					break;
 				}
 				
@@ -163,7 +163,7 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 				switch (particle.type)
 				{
 				case PARTICLE_TYPE::DEMON_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame().x, p->anim.GetCurrentFrame().y, 5, 5 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, 5, 5 }, collider_type, this);
 				}
 			}
 
@@ -260,8 +260,8 @@ bool Particle::Update(float dt)
 		}
 	}
 
-	position.x += speed.x/* * dt*/;
-	position.y += speed.y/* * dt*/;
+	position.x += speed.x * dt;
+	position.y += speed.y * dt;
 	
 	if (collider != nullptr) 
 	{

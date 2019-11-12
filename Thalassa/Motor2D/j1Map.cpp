@@ -78,7 +78,7 @@ void j1Map::Draw(int camera_position)
 							iPoint pos = MapToWorld(x, y);
 
 							if (layer->data->name == "anim")
-								App->render->Blit(tileset->texture, pos.x, pos.y, &tileset->tmxAnim->GetCurrentFrame(), SDL_FLIP_NONE, parallax_speed); //animations layer
+								App->render->Blit(tileset->texture, pos.x, pos.y, &tileset->tmxAnim->GetCurrentFrame(App->GetDT()), SDL_FLIP_NONE, parallax_speed); //animations layer
 							else
 								App->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, parallax_speed);
 						}

@@ -52,8 +52,8 @@ bool j1BatEnemy::Update(float dt)
 		animation = &dyingAnim;
 
 		if (!ColDown) {
-			position.y += speed.y;
-			speed.y += gravity;
+			position.y += speed.y * App->GetDT();
+			speed.y += gravity * App->GetDT();
 		}
 	}
 
@@ -86,7 +86,7 @@ bool j1BatEnemy::Update(float dt)
 		}
 	}
 
-	BlitEntity(animation->GetCurrentFrame(), flip);
+	BlitEntity(animation->GetCurrentFrame(dt), flip);
 
 	return true;
 }
@@ -118,7 +118,7 @@ void j1BatEnemy::Move(p2DynArray<iPoint>& path, float dt)
 	{
 	case PATH_MOVEMENT::UP_LEFT:
 		animation = &pathAnim;
-		position.x -= speed.x;
+		position.x -= speed.x * dt;
 		position.y -= speed.y;
 		flip = true;
 

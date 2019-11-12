@@ -33,7 +33,7 @@ bool j1Bat::Update(float dt)
 	MoveHorizontal(App->entity_manager->player->position.x);
 	MoveVertical(App->entity_manager->player->position.y);
 
-	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, bat_position.x, bat_position.y);
+	BlitEntity(animation->GetCurrentFrame(dt), SDL_FLIP_NONE, bat_position.x, bat_position.y);
 
 	return true;
 }

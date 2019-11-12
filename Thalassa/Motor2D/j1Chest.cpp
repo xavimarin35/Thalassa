@@ -48,7 +48,7 @@ bool j1Chest::Update(float dt) {
 	}
 	else animation = &idle;
 
-	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE, chest_position.x, chest_position.y);
+	BlitEntity(animation->GetCurrentFrame(dt), SDL_FLIP_NONE, chest_position.x, chest_position.y);
 
 	return true;
 }

@@ -55,6 +55,8 @@ public:
 	void LoadGame();
 	void SaveGame(const char* file) const;
 
+	float GetDT() const;
+
 private:
 
 	// Load config file

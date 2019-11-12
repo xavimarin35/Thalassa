@@ -48,8 +48,8 @@ bool j1Demon::Update(float dt)
 
 		else if (!ColDown)
 		{
-			position.y += speed.y;
-			speed.y += gravity;
+			position.y += speed.y * dt;
+			speed.y += gravity * dt;
 			animation = &idleAnim;
 		}
 
@@ -100,7 +100,7 @@ bool j1Demon::Update(float dt)
 					double angleInDeg = angle * 180 / PI;
 
 					animation = &attackAnim;
-					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, 0, angleInDeg, DEMON_SHOOT);
+					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, App->GetDT(), angleInDeg, DEMON_SHOOT);
 
 					lastShot = timerShot.Read();
 				}
@@ -133,7 +133,7 @@ bool j1Demon::Update(float dt)
 		}			
 	}
 
-	BlitEntity(animation->GetCurrentFrame(), flip);
+	BlitEntity(animation->GetCurrentFrame(dt), flip);
 
 	return true;
 }
@@ -166,13 +166,13 @@ void j1Demon::Move(p2DynArray<iPoint>& path, float dt)
 		if (direction == PATH_MOVEMENT::LEFT)
 		{
 			animation = &runAnim;
-			position.x -= speed.x;
+			position.x -= speed.x * dt;
 			flip = true;
 		}
 		else if (direction == PATH_MOVEMENT::RIGHT)
 		{
 			animation = &runAnim;
-			position.x += speed.x;
+			position.x += speed.x * dt;
 			flip = false;
 		}
 
@@ -244,10 +244,10 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 			if (c2->rect.x > c1->rect.x)
 			{
-				position.x -= 3.0f;
+				position.x -= 3.0f  * App->GetDT();
 			}
 			else
-				position.x += 3.0f;
+				position.x += 3.0f * App->GetDT();
 		}
 	}
 }
@@ -266,7 +266,7 @@ void j1Demon::MoveBack()
 		if (moving) 
 		{
 			if (position.x < back_pos)
-				position.x += speed.x;
+				position.x += speed.x * App->GetDT();
 
 			if (position.x >= back_pos)
 			{
@@ -282,7 +282,7 @@ void j1Demon::Jump()
 {
 	if (jumping_1) 
 	{
-		position.y -= jump_force;
-		jump_force -= gravity;
+		position.y -= jump_force * App->GetDT();
+		jump_force -= gravity * App->GetDT();
 	}
 }

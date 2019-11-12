@@ -52,15 +52,15 @@ bool j1MovingObstacle::Update(float dt) {
 		
 
 	if (movingDown)
-		position.y += speed.y;
+		position.y += speed.y * dt;
 	else if (movingUp)
-		position.y -= speed.y;
+		position.y -= speed.y * dt;
 
 
 	if (collider != nullptr)
 		collider->SetPos(position.x + adjust, position.y + adjust);
 	
-	BlitEntity(animation->GetCurrentFrame(), SDL_FLIP_NONE);
+	BlitEntity(animation->GetCurrentFrame(dt), SDL_FLIP_NONE);
 
 	return true;
 }

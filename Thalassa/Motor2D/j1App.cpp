@@ -309,6 +309,11 @@ bool j1App::CleanUp()
 	return ret;
 }
 
+float j1App::GetDT() const
+{
+	return dt;
+}
+
 // ---------------------------------------
 int j1App::GetArgc() const
 {
@@ -377,12 +382,10 @@ bool j1App::LoadGameApp()
 			item = item->next;
 		}
 
-		// Diferencia entre child i append_child ??
-
-		data.reset(); //!!
+		data.reset();
 		if (ret == true)
 		{
-			data.load_file(load_game.GetString()); //!!
+			data.load_file(load_game.GetString()); 
 			LOG("...finished loading");
 		}
 		else
