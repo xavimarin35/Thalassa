@@ -29,7 +29,7 @@
       <animation x="0" y="0" w="0" h="0"/>
 	</death>
 	
-	<godmode loop="true" speed="7.5f">
+	<godmode loop="true" speed="5.0f">
       <animation x="43" y="8" w="14" h="23"/>
       <animation x="63" y="8" w="14" h="23"/>
     </godmode>

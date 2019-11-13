@@ -10,13 +10,13 @@
 #define MAX_ENTITIES 50
 
 class j1Entity;
+class j1Bat;
+class j1Demon;
+class j1BatEnemy;
 class j1Player;
 class j1Chest;
 class j1MovingObstacle;
 class j1Door;
-class j1Bat;
-class j1Demon;
-class j1BatEnemy;
 
 struct SDL_Texture;
 

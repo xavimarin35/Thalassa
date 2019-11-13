@@ -62,52 +62,16 @@ bool j1Demon::Update(float dt)
 		}
 
 		if (App->entity_manager->player->collider != nullptr) {
+
 			if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
 				&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
 				&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
 			{
-				iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
-				iPoint destination;
-
-				if (position.x < App->entity_manager->player->position.x)
-					destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
-				else
-					destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
-
-				if (App->pathfinding->IsWalkable(destination) && App->pathfinding->IsWalkable(origin))
-				{
-					path = App->pathfinding->CreatePath(origin, destination);
-					Move(*path, dt);
-					path_created = true;
-				}
+				PathFind(dt);
 
 				if (timerShot.Read() >= lastShot + cooldownShot)
 				{
-					runAnim.Finished();
-
-					fPoint margin;
-					margin.x = 8;
-					margin.y = 8;
-
-					fPoint edge;
-					edge.x = App->entity_manager->player->position.x - position.x;
-					edge.y = position.y - App->entity_manager->player->position.y;
-
-					double angle = -(atan2(edge.y, edge.x));
-
-					fPoint speed_particle;
-					fPoint p_speed = { 4000, 4000 };
-
-					speed_particle.x = p_speed.x * cos(angle);
-					speed_particle.y = p_speed.y * sin(angle);
-					App->particles->demonShoot.speed = { speed_particle.x * dt, speed_particle.y * dt };
-
-					double angleInDeg = angle * 180 / PI;
-
-					animation = &attackAnim;
-					App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, dt, angleInDeg, DEMON_SHOOT);
-
-					lastShot = timerShot.Read();
+					Shoot(dt);
 				}
 			}
 
@@ -133,9 +97,7 @@ bool j1Demon::Update(float dt)
 			MoveBack();
 
 		if (jumping)
-		{
 			Jump();
-		}			
 	}
 
 	BlitEntity(animation->GetCurrentFrame(dt), flip);
@@ -257,6 +219,24 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
+void j1Demon::PathFind(float dt)
+{
+	iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
+	iPoint destination;
+
+	if (position.x < App->entity_manager->player->position.x)
+		destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x + App->entity_manager->player->hitbox.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y / 2)) };
+	else
+		destination = { App->map->WorldToMap((int)(App->entity_manager->player->position.x), (int)(App->entity_manager->player->position.y + App->entity_manager->player->hitbox.y)) };
+
+	if (App->pathfinding->IsWalkable(destination) && App->pathfinding->IsWalkable(origin))
+	{
+		path = App->pathfinding->CreatePath(origin, destination);
+		Move(*path, dt);
+		path_created = true;
+	}
+}
+
 void j1Demon::MoveBack()
 {
 	bool moving = false;
@@ -288,4 +268,33 @@ void j1Demon::Jump()
 		position.y -= jump_force * App->GetDT();
 		jump_force -= gravity * App->GetDT();
 	}
+}
+
+void j1Demon::Shoot(float dt)
+{
+	runAnim.Finished();
+
+	fPoint margin;
+	margin.x = 8;
+	margin.y = 8;
+
+	fPoint edge;
+	edge.x = App->entity_manager->player->position.x - position.x;
+	edge.y = position.y - App->entity_manager->player->position.y;
+
+	double angle = -(atan2(edge.y, edge.x));
+
+	fPoint speed_particle;
+	fPoint p_speed = { 4000, 4000 };
+
+	speed_particle.x = p_speed.x * cos(angle);
+	speed_particle.y = p_speed.y * sin(angle);
+	App->particles->demonShoot.speed = { speed_particle.x * dt, speed_particle.y * dt };
+
+	double angleInDeg = angle * 180 / PI;
+
+	animation = &attackAnim;
+	App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, dt, angleInDeg, DEMON_SHOOT);
+
+	lastShot = timerShot.Read();
 }

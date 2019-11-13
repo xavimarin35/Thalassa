@@ -29,12 +29,14 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c1, Collider* c2);
+	void PlayerMovement(float dt);
 	void Jumping();
 	void JetPack();
 	void Die();
 	void LoadInfo();
 	void Shooting(float x, float y, float dt);
 	void ChangeWeapon();
+	void GodMode(float dt);
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
@@ -88,6 +90,9 @@ public:
 private:
 	bool playedFx = false;
 	bool playedFx2 = false;
+
+	fPoint margin_particles;
+	fPoint speed_particles;
 
 	float jumpForce_xml;
 	float jetForce_xml;

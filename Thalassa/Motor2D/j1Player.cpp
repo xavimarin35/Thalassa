@@ -57,87 +57,16 @@ bool j1Player::Update(float dt) {
 		{
 			jetpackActive = false;
 			animation = &godAnim;
-			if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-				position.x += godSpeed * dt;
-				flip = true;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-				position.x -= godSpeed * dt;
-				flip = false;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
-				position.y -= godSpeed * dt;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
-				position.y += godSpeed * dt;
-			}
+			GodMode(dt);
 		}
+
 		else if (!isDead)
 		{
-			if (playerCanMove) 
+			if (playerCanMove)
 			{
-				if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
-					if (!ColRight)
-					{
-						position.x += speed.x * dt;
-						animation = &run;
-						flip = true;
-					}
-				}
-
-				if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
-					if (!ColLeft)
-					{
-						position.x -= speed.x * dt;
-						animation = &run;
-						flip = false;
-					}
-				}
-
-				if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
-					isJumping = true;
-					onFloor = false;
-					jumpForce = jumpForce_xml;
-					doubleJump -= 1;
-					changedFloor = false;
-
-					App->audio->PlayFx(App->audio->jumpFx);
-				}
-
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
-					jetpackActive = true;
-					playedFx2 = false;
-					onFloor = false;
-					jetForce = jetForce_xml;
-					if (!playedFx2) {
-						App->audio->PlayFx(App->audio->jetpackFx);
-						playedFx2 = true;
-					}
-				}
-
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
-					jetpackActive = false;
-					jumpForce = 0.0f;
-					speed.y = 0.7f;
-				}
-
-				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				{
-					ChangeWeapon();
-				}
-
-				if (App->input->GetMouseButtonDown(1) == KEY_DOWN) 
-				{
-					iPoint mouse_pos;
-					App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
-					Shooting(mouse_pos.x, mouse_pos.y, dt);
-				}
-
+				PlayerMovement(dt);
 			}
-
+			
 			if (isJumping) Jumping();
 
 			if (jetpackActive) JetPack();
@@ -146,7 +75,7 @@ bool j1Player::Update(float dt) {
 				speed.y = 0;
 
 			// Falling
-			if (!isJumping && !godMode && !ColDown) 
+			if (!isJumping && !godMode && !ColDown)
 			{
 				if (!onFloor) {
 					position.y += speed.y * dt;
@@ -154,17 +83,16 @@ bool j1Player::Update(float dt) {
 					animation = &jump;
 				}
 			}
-			
 		}
+
 		// Dead
 		else {
 			if (lifes > 0) {
 				App->scene1->death = true;
-				jumpForce = 1.0f;
-				Jumping();
+				isJumping = true;
 
-				if(collider!=nullptr)
-					collider->to_delete = true;;
+				if (collider != nullptr)
+					collider->to_delete = true;
 				collider = nullptr;
 			}
 		}
@@ -194,11 +122,7 @@ bool j1Player::Update(float dt) {
 
 bool j1Player::PostUpdate() {
 
-	ColRight = false;
-	ColLeft = false;
-	ColDown = false;
-	ColUp = false;
-	onFloor = false;
+	ColRight = ColLeft = ColDown = ColUp = onFloor = false;
 
 	return true;
 }
@@ -320,6 +244,66 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 	}
 }
 
+void j1Player::PlayerMovement(float dt)
+{
+	if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+		if (!ColRight)
+		{
+			position.x += speed.x * dt;
+			animation = &run;
+			flip = true;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
+		if (!ColLeft)
+		{
+			position.x -= speed.x * dt;
+			animation = &run;
+			flip = false;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_DOWN && doubleJump != 0) {
+		isJumping = true;
+		onFloor = false;
+		jumpForce = jumpForce_xml;
+		doubleJump -= 1;
+		changedFloor = false;
+
+		App->audio->PlayFx(App->audio->jumpFx);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
+		jetpackActive = true;
+		playedFx2 = false;
+		onFloor = false;
+		jetForce = jetForce_xml;
+		if (!playedFx2) {
+			App->audio->PlayFx(App->audio->jetpackFx);
+			playedFx2 = true;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
+		jetpackActive = false;
+		jumpForce = 0.0f;
+		speed.y = 0.7f;
+	}
+
+	if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+	{
+		ChangeWeapon();
+	}
+
+	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+	{
+		iPoint mouse_pos;
+		App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+		Shooting(mouse_pos.x, mouse_pos.y, dt);
+	}
+}
+
 void j1Player::Jumping() {
 
 	animation = &jump;
@@ -357,8 +341,7 @@ void j1Player::Die() {
 void j1Player::Shooting(float x, float y, float dt)
 {
 	fPoint margin;
-	margin.x = 8;
-	margin.y = 8;
+	margin = margin_particles;
 
 	fPoint edge;
 	edge.x = x - (position.x + margin.x) - (App->render->camera.x / (int)App->win->scale);
@@ -367,7 +350,7 @@ void j1Player::Shooting(float x, float y, float dt)
 	double angle = -(atan2(edge.y, edge.x));
 
 	fPoint speed_particle;
-	fPoint p_speed = { 5000, 5000 };
+	fPoint p_speed = speed_particles;
 
 	speed_particle.x = p_speed.x * cos(angle);
 	speed_particle.y = p_speed.y * sin(angle);
@@ -397,6 +380,27 @@ void j1Player::ChangeWeapon()
 	else if (currentType == PARTICLE_TYPE::REMOTE_SHOOT)
 	{
 		currentType = PARTICLE_TYPE::BASIC_SHOOT;
+	}
+}
+
+void j1Player::GodMode(float dt)
+{
+	if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
+		position.x += godSpeed * dt;
+		flip = true;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == j1KeyState::KEY_REPEAT) {
+		position.x -= godSpeed * dt;
+		flip = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == j1KeyState::KEY_REPEAT) {
+		position.y -= godSpeed * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == j1KeyState::KEY_REPEAT) {
+		position.y += godSpeed * dt;
 	}
 }
 
@@ -444,4 +448,10 @@ void j1Player::LoadInfo()
 	jetForce_xml = nodePlayer.child("jetForce").attribute("value").as_float();
 	jumpForce_xml = nodePlayer.child("jumpForce").attribute("value").as_float();
 	hitbox = { nodePlayer.child("hitbox").attribute("x").as_int(), nodePlayer.child("hitbox").attribute("y").as_int() };
+
+	pugi::xml_node nodeParticles;
+	nodeParticles = config.child("particles");
+
+	margin_particles = { nodeParticles.child("margin1").attribute("x").as_float(),nodeParticles.child("margin1").attribute("y").as_float() };
+	speed_particles = { nodeParticles.child("p_speed1").attribute("x").as_float(),nodeParticles.child("p_speed1").attribute("y").as_float() };
 }

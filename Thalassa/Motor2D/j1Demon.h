@@ -32,6 +32,8 @@ public:
 
 	void Move(p2DynArray<iPoint>& path, float dt);
 	
+	void PathFind(float dt);
+	void Shoot(float dt);
 	void Jump();
 	void MoveBack();
 

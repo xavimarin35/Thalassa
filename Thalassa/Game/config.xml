@@ -98,5 +98,10 @@
 	<posW4 x="1285" y="60"/>
 	<posSPACE x="1310" y="60"/>
   </keys>
+  
+  <particles>
+	<margin1 x="8" y="8"/>
+	<p_speed1 x="5000" y="5000"/>
+  </particles>
 
 </config>
