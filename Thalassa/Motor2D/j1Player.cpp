@@ -288,7 +288,7 @@ void j1Player::PlayerMovement(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 		jetpackActive = false;
 		jumpForce = 0.0f;
-		speed.y = 0.7f;
+		speed.y = 70.0f;
 	}
 
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN)

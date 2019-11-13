@@ -247,7 +247,7 @@ bool j1Scene1::Update(float dt)
 	{
 		if (lateralMove) {
 			if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2) {
-				App->render->camera.x -= 3.5f;
+				App->render->camera.x -= 4.5f;
 				App->entity_manager->player->playerCanMove = false;
 			}
 			else {

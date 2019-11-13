@@ -41,10 +41,10 @@
   </mapInfo>
 
   <player>
-    <posTuto x="57" y="201"/>
-	<posLvl1 x="74" y="210"/>
-	<posMidLvl x="25" y="130"/>
-	<posLvl2 x="2313" y="170"/>
+    <posTuto x="57" y="200"/>
+	<posLvl1 x="74" y="0"/>
+	<posMidLvl x="25" y="0"/>
+	<posLvl2 x="2313" y="0"/>
     <godSpeed value="95.0f"/>
     <speed x="80.0f" y="70.0f"/>
     <gravity value="350.0f"/>

@@ -216635,7 +216635,7 @@
  </objectgroup>
  <objectgroup id="9" name="wall_collider">
   <object id="1" x="24" y="232" width="208" height="8"/>
-  <object id="2" x="40" y="240" width="192" height="16"/>
+  <object id="2" x="40" y="232" width="192" height="24"/>
   <object id="3" x="40" y="256" width="128" height="16"/>
   <object id="4" x="40" y="272" width="32" height="8"/>
   <object id="5" x="424" y="256" width="16" height="32"/>
