@@ -43,24 +43,6 @@ bool j1Demon::Update(float dt)
 {
 	if (!dead)
 	{
-		if (ColDown)
-			speed.y = 0;
-
-		else if (!ColDown)
-		{
-			position.y += speed.y * dt;
-			speed.y += gravity * dt;
-			animation = &idleAnim;
-		}
-
-		if (collider != nullptr)
-		{
-			if (flip)
-				collider->SetPos(position.x, position.y);
-			else
-				collider->SetPos(position.x + 3, position.y);
-		}
-
 		if (App->entity_manager->player->collider != nullptr) {
 
 			if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
@@ -85,19 +67,30 @@ bool j1Demon::Update(float dt)
 
 		if (ColLeft || ColRight)
 		{
-			move_back = true;
-
-			if (flip)
-				back_pos = position.x + 10;
-
-			else back_pos = position.x - 10;
+			jumping = true;
+			ColDown = false;
 		}
-
-		if (move_back)
-			MoveBack();
 
 		if (jumping)
 			Jump();
+
+		if (ColDown)
+			speed.y = 0;
+
+		else if (!ColDown)
+		{
+			position.y += speed.y * dt;
+			speed.y += gravity * dt;
+			animation = &idleAnim;
+		}
+
+		if (collider != nullptr)
+		{
+			if (flip)
+				collider->SetPos(position.x, position.y);
+			else
+				collider->SetPos(position.x + 3, position.y);
+		}
 	}
 
 	BlitEntity(animation->GetCurrentFrame(dt), flip);
@@ -128,32 +121,29 @@ void j1Demon::Move(p2DynArray<iPoint>& path, float dt)
 {
 	direction = App->pathfinding->CheckDirectionGround(path);
 
-	if (!move_back) 
+	if (direction == PATH_MOVEMENT::LEFT)
 	{
-		if (direction == PATH_MOVEMENT::LEFT)
-		{
-			animation = &runAnim;
-			position.x -= speed.x * dt;
-			flip = true;
-		}
-		else if (direction == PATH_MOVEMENT::RIGHT)
-		{
-			animation = &runAnim;
-			position.x += speed.x * dt;
-			flip = false;
-		}
-
-		/*if (direction == PATH_MOVEMENT::DOWN)
-		{
-			animation = &runAnim;
-			position.y += speed.y;
-		}
-		else if (direction == PATH_MOVEMENT::UP)
-		{
-			animation = &runAnim;
-			position.y -= speed.y;
-		}*/
+		animation = &runAnim;
+		position.x -= speed.x * dt;
+		flip = true;
 	}
+	else if (direction == PATH_MOVEMENT::RIGHT)
+	{
+		animation = &runAnim;
+		position.x += speed.x * dt;
+		flip = false;
+	}
+
+	/*if (direction == PATH_MOVEMENT::DOWN)
+	{
+		animation = &runAnim;
+		position.y += speed.y;
+	}
+	else if (direction == PATH_MOVEMENT::UP)
+	{
+		animation = &runAnim;
+		position.y -= speed.y;
+	}*/
 }
 
 void j1Demon::OnCollision(Collider* c1, Collider* c2)
@@ -189,8 +179,6 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 					speed.y = 0.0f;
 
-					jumping_1 = false;
-					jumping = false;
 					ColDown = true;
 					ColUp = false;
 				}
@@ -237,33 +225,9 @@ void j1Demon::PathFind(float dt)
 	}
 }
 
-void j1Demon::MoveBack()
-{
-	bool moving = false;
-
-	if (flip)
-	{
-		if (!moving)
-			moving = true;
-
-		if (moving) 
-		{
-			if (position.x < back_pos)
-				position.x += speed.x * App->GetDT();
-
-			if (position.x >= back_pos)
-			{
-				move_back = false;
-				jumping = true;
-				jumping_1 = true;
-			}
-		}
-	}
-}
-
 void j1Demon::Jump()
 {
-	if (jumping_1) 
+	if (!ColDown) 
 	{
 		position.y -= jump_force * App->GetDT();
 		jump_force -= gravity * App->GetDT();

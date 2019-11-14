@@ -35,7 +35,6 @@ public:
 	void PathFind(float dt);
 	void Shoot(float dt);
 	void Jump();
-	void MoveBack();
 
 public:
 
@@ -50,7 +49,7 @@ public:
 	bool dead = false;
 	bool jumping = false;
 	bool move_back = false;
-	bool jumping_1 = false;
+	bool stop_moving = false;
 
 private:
 
@@ -60,7 +59,7 @@ private:
 
 	PATH_MOVEMENT direction;
 
-	float jump_force = 10.0f;
+	float jump_force = 70.0f;
 
 	Animation idleAnim;
 	Animation runAnim;
