@@ -245,12 +245,15 @@ bool j1Scene1::Update(float dt)
 	// CAMERA FOLLOWING PLAYER
 	if (App->entity_manager->player != nullptr) 
 	{
-		if (lateralMove) {
-			if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2) {
-				App->render->camera.x -= 4.5f;
+		if (lateralMove) 
+		{
+			if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2)
+			{
+				App->render->camera.x -= 95.0f * dt;
 				App->entity_manager->player->playerCanMove = false;
 			}
-			else {
+			else 
+			{
 				lateralMove = false;
 				App->entity_manager->player->playerCanMove = true;
 			}
@@ -266,11 +269,13 @@ bool j1Scene1::Update(float dt)
 		
 		if (cameraMoving)
 		{
-			if (App->render->camera.y >= -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2) {
-				App->render->camera.y -= 3.5f;
+			if (App->render->camera.y >= -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2) 
+			{
+				App->render->camera.y -= 95.0f * dt;
 				App->entity_manager->player->playerCanMove = false;
 			}
-			else {
+			else 
+			{
 				cameraMoving = false;
 				App->entity_manager->player->playerCanMove = true;
 			}
@@ -413,22 +418,21 @@ bool j1Scene1::CleanUp()
 	return true;
 }
 
-void j1Scene1::LoadNewLevel() {
-
+void j1Scene1::LoadNewLevel() 
+{
 	CleanUp();
 
 	Start();
 	App->collisions->Start();
 	App->entity_manager->Start();
-	if (App->entity_manager->player != nullptr)
-		App->entity_manager->player->Start();
 
-
-	if (level1_active && midlevel_completed) {
+	if (level1_active && midlevel_completed) 
+	{
 		lateralMove = true;
 		App->render->camera.x = cameraPositionMoving;
 	}
-	else {
+	else 
+	{
 		cameraMoving = true;
 		App->render->camera.y = 0;
 	}
