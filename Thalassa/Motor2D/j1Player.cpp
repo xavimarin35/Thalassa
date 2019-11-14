@@ -77,7 +77,7 @@ bool j1Player::Update(float dt) {
 			// Falling
 			if (!isJumping && !godMode && !ColDown)
 			{
-				if (!onFloor) {
+				if (!onFloor && App->scene1->scene_timer.Read() > 2400) {
 					position.y += speed.y * dt;
 					speed.y += gravity * dt;
 					animation = &jump;

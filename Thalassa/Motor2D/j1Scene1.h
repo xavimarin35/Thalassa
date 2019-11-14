@@ -6,6 +6,7 @@
 #include "p2Animation.h"
 #include "j1Entity.h"
 #include "j1EntityManager.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 //class Animation;
@@ -59,6 +60,8 @@ public:
 	bool lateralMove = false;
 
 	bool cullingView = false;
+
+	j1Timer scene_timer;
 
 private:
 

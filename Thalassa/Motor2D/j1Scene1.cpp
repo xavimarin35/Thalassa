@@ -344,12 +344,6 @@ bool j1Scene1::Update(float dt)
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->MapToWorld(x - App->render->camera.x, y - App->render->camera.y);
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(),
-					map_coordinates.x, map_coordinates.y);
 
 	// App->win->SetTitle("Thalassa");
 	return true;
@@ -421,6 +415,8 @@ bool j1Scene1::CleanUp()
 void j1Scene1::LoadNewLevel() 
 {
 	CleanUp();
+
+	scene_timer.Start();
 
 	Start();
 	App->collisions->Start();

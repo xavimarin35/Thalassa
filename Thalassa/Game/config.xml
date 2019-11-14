@@ -42,9 +42,9 @@
 
   <player>
     <posTuto x="57" y="200"/>
-	<posLvl1 x="74" y="0"/>
-	<posMidLvl x="25" y="0"/>
-	<posLvl2 x="2313" y="0"/>
+	<posLvl1 x="74" y="205"/>
+	<posMidLvl x="25" y="125"/>
+	<posLvl2 x="2313" y="155"/>
     <godSpeed value="95.0f"/>
     <speed x="80.0f" y="70.0f"/>
     <gravity value="350.0f"/>
