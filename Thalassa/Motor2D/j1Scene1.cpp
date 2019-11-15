@@ -15,9 +15,6 @@
 #include "j1Collisions.h"
 #include "p2Animation.h"
 #include "SDL_mixer/include/SDL_mixer.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <cstdlib>
 #include <time.h>
 
 #define SDL_TICKS_PASSED(A, B)  ((Sint32)((B) - (A)) <= 0)
@@ -25,7 +22,7 @@
 j1Scene1::j1Scene1() : j1Module()
 {
 	name.create("scene1");
-	
+	srand(time(NULL));
 }
 
 // Destructor
@@ -46,8 +43,6 @@ bool j1Scene1::Start()
 {
 	LoadSceneInfo();
 
-	srand(time(NULL));
-
 	// TUTORIAL
 	if (tutorial_active) {
 		App->map->Load("Map1_Tutorial.tmx");
@@ -64,9 +59,9 @@ bool j1Scene1::Start()
 
 		App->entity_manager->CreateEntity(PLAYER);
 
-		App->entity_manager->CreateEntity(JETPACK_ITEM, 100, 150);
+		App->entity_manager->CreateEntity(RandomItem(), 100, 150);
 
-		App->entity_manager->CreateEntity(JETPACK_ITEM, 40, 150);
+		App->entity_manager->CreateEntity(RandomItem(), 40, 150);
 
 		//App->audio->PlayMusic("audio/music/loading.ogg");
 	}
@@ -527,15 +522,15 @@ ENTITY_TYPE j1Scene1::RandomItem()
 {
 	ENTITY_TYPE type;
 
-	int val1 = rand() % 2;
+	int value = rand() % 2;
 
-	if (val1 == 0)
+	if (value == 0)
 		type = LIFE_ITEM;
-	else if (val1 == 1)
+	else if (value == 1)
 		type = JETPACK_ITEM;
-	//else if (val1 == 2)
+	//else if (value == 2)
 	//	type = DAMAGE_ITEM;
-	//else if (val1 == 3)
+	//else if (value == 3)
 	//	type = POINTS_ITEM;
 
 	return type;

@@ -28,7 +28,7 @@ bool j1JetpackItem::Start()
 
 	/*position = { 50,150 };*/
 
-	animation = &destroyAnim;
+	animation = &idleAnim;
 
 	collider = App->collisions->AddCollider({ (int)position.x + 2, (int)position.y + 2, 12, 12 }, COLLIDER_ITEM, App->entity_manager);
 
@@ -58,7 +58,7 @@ void j1JetpackItem::OnCollision(Collider * c1, Collider * c2)
 	if (c1->type == COLLIDER_PLAYER) {
 		if (c2->type == COLLIDER_ITEM)
 		{
-			animation = &idleAnim;
+			animation = &destroyAnim;
 			c2->to_delete = true;
 		}
 	}

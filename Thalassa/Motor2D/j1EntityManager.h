@@ -18,6 +18,7 @@ class j1Chest;
 class j1MovingObstacle;
 class j1Door;
 class j1LifeItem;
+class j1JetpackItem;
 
 struct SDL_Texture;
 
@@ -79,6 +80,7 @@ public:
 	j1Demon*			demon = nullptr;
 	j1BatEnemy*			bat_e = nullptr;
 	j1LifeItem*			lifeItem = nullptr;
+	j1JetpackItem*		jetpackItem = nullptr;
 
 private:
 
