@@ -97,6 +97,9 @@
     <ClCompile Include="j1LifeItem.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
     </ClCompile>
+    <ClCompile Include="j1JetpackItem.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -214,6 +217,9 @@
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="j1LifeItem.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="j1JetpackItem.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
     </ClInclude>
   </ItemGroup>

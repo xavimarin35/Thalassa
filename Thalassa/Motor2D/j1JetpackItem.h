@@ -1,5 +1,5 @@
-#ifndef __j1LIFEITEM_H__
-#define __j1LIFEITEM_H__
+#ifndef __j1JETPACKITEM_H__
+#define __j1JETPACKITEM_H__
 
 #include "j1Entity.h"
 #include "p2Point.h"
@@ -13,12 +13,12 @@ struct Collider;
 
 enum ENTITY_TYPE;
 
-class j1LifeItem : public j1Entity {
+class j1JetpackItem : public j1Entity {
 
 public:
 
-	j1LifeItem(int x, int y, ENTITY_TYPE type);
-	virtual ~j1LifeItem();
+	j1JetpackItem(int x, int y, ENTITY_TYPE type);
+	virtual ~j1JetpackItem();
 
 	bool Start();
 	bool Update(float dt);

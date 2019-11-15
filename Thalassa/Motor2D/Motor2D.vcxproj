@@ -86,6 +86,7 @@
     <ClCompile Include="j1Door.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="j1JetpackItem.cpp" />
     <ClCompile Include="j1LifeItem.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="j1Door.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="j1JetpackItem.h" />
     <ClInclude Include="j1LifeItem.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1MovingObstacle.h" />

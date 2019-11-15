@@ -7,6 +7,7 @@
 #include "j1Demon.h"
 #include "j1BatEnemy.h"
 #include "j1LifeItem.h"
+#include "j1JetpackItem.h"
 
 j1EntityManager::j1EntityManager()
 {

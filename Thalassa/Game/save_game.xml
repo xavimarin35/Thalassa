@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene1>
+		<playerPos x="57" y="197" />
+		<tutorialActive active="true" />
+		<level1Active active="false" />
+		<midLevelActive active="false" />
+		<midLevelCompleted active="false" />
+	</scene1>
+	<collisions />
+	<pathfinding />
+	<:anonymous />
+	<:anonymous />
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="-184" />
+	</renderer>
+</game_state>
