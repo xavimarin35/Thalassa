@@ -511,3 +511,21 @@ void j1Scene1::LoadSceneInfo()
 	posW4 = { nodeKeys.child("posW4").attribute("x").as_int(), nodeKeys.child("posW4").attribute("y").as_int() };
 	posSPACE = { nodeKeys.child("posSPACE").attribute("x").as_int(), nodeKeys.child("posSPACE").attribute("y").as_int() };
 }
+
+ENTITY_TYPE j1Scene1::RandomItem()
+{
+	ENTITY_TYPE type;
+
+	int val1 = rand() % (5 + 1);
+
+	if (val1 == 0)
+		type = LIFE_ITEM;
+	else if (val1 == 1)
+		type = JETPACK_ITEM;
+	else if (val1 == 2)
+		type = DAMAGE_ITEM;
+	else if (val1 == 3)
+		type = POINTS_ITEM;
+
+	return type;
+}

@@ -45,6 +45,8 @@ public:
 
 	void LoadSceneInfo();
 
+	ENTITY_TYPE RandomItem();
+
 public:
 
 	bool death = false;
