@@ -6,6 +6,7 @@
 #include "j1Bat.h"
 #include "j1Demon.h"
 #include "j1BatEnemy.h"
+#include "j1LifeItem.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -124,7 +125,12 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, float x, float y)
 		if (ret != nullptr)
 			entityList.add(ret);
 		break;
+	case ENTITY_TYPE::LIFE_ITEM:
+		ret = new j1LifeItem(x, y, type);
 
+		if (ret != nullptr)
+			entityList.add(ret);
+		break;
 	}
 
 	return ret;
@@ -147,6 +153,10 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type, float x, float y)
 
 		case ENTITY_TYPE::BAT:
 			bat = (j1Bat*)EntityFactory(ENTITY_TYPE::BAT, x, y);
+			break;
+		
+		case ENTITY_TYPE::LIFE_ITEM:
+			lifeItem = (j1LifeItem*)EntityFactory(ENTITY_TYPE::LIFE_ITEM, x, y);
 			break;
 
 	}

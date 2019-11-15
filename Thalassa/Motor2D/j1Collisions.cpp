@@ -117,7 +117,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY] = false;
 
-
+	matrix[COLLIDER_ITEM][COLLIDER_PLAYER] = true;
 
 }
 
@@ -248,6 +248,8 @@ void j1Collisions::DebugColliders()
 		case COLLIDER_ENEMY_SHOT:
 			App->render->DrawQuad(colliders[i]->rect, 100, 50, 100, alpha);
 			break;
+		case COLLIDER_ITEM:
+			App->render->DrawQuad(colliders[i]->rect, 255, 125, 125, alpha);
 		}
 	}
 }

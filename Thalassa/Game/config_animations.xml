@@ -142,16 +142,29 @@
 	</demonAttack>
 	
 	<demonDie loop="false" speed="9.0f">
-	<animation x="8" y="147" w="15" h="13"/>
-	<animation x="40" y="147" w="15" h="13"/>
-	<animation x="72" y="147" w="15" h="13"/>
-	<animation x="104" y="147" w="15" h="13"/>
-	<animation x="135" y="147" w="15" h="13"/>
-	<animation x="167" y="147" w="15" h="13"/>
-	<animation x="194" y="147" w="15" h="13"/>
-	<animation x="218" y="147" w="15" h="13"/>
-	<animation x="239" y="147" w="15" h="13"/>
+		<animation x="8" y="147" w="15" h="13"/>
+		<animation x="40" y="147" w="15" h="13"/>
+		<animation x="72" y="147" w="15" h="13"/>
+		<animation x="104" y="147" w="15" h="13"/>
+		<animation x="135" y="147" w="15" h="13"/>
+		<animation x="167" y="147" w="15" h="13"/>
+		<animation x="194" y="147" w="15" h="13"/>
+		<animation x="218" y="147" w="15" h="13"/>
+		<animation x="239" y="147" w="15" h="13"/>
 		<animation x="0" y="0" w="0" h="0"/>
 	</demonDie>
 	
+	<bubbleIdle loop="true" speed="2.0f">
+		<animation x="19" y="0" w="17" h="17"/>
+	</bubbleIdle>
+	
+	<bubbleDestroy loop="false" speed="12.0f">
+		<animation x="0" y="20" w="17" h="17"/>
+		<animation x="19" y="20" w="16" h="17"/>
+		<animation x="38" y="20" w="15" h="17"/>
+		<animation x="0" y="41" w="13" h="12"/>
+		<animation x="19" y="41" w="13" h="13"/>
+		<animation x="40" y="42" w="13" h="13"/>
+		<animation x="0" y="0" w="0" h="0"/>
+	</bubbleDestroy>
 </animations>

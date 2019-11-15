@@ -94,6 +94,9 @@
     <ClCompile Include="j1BatEnemy.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="j1LifeItem.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -210,6 +213,9 @@
     <ClInclude Include="j1BatEnemy.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="j1LifeItem.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Enemies\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -244,6 +250,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Entities\Player">
       <UniqueIdentifier>{e3cd6076-92d2-4538-8a9c-545816191542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Entities\Enemies\Items">
+      <UniqueIdentifier>{02a5d932-724d-4a1a-8961-55b0d8e8c678}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
