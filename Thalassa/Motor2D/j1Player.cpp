@@ -13,8 +13,6 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 
-
-
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
 {
 	animation = NULL;

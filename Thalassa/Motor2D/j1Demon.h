@@ -34,7 +34,8 @@ public:
 	
 	void PathFind(float dt);
 	void Shoot(float dt);
-	void Jump();
+	void MoveBack(float dt);
+	void Jump(float dt);
 
 public:
 
@@ -49,7 +50,6 @@ public:
 	bool dead = false;
 	bool jumping = false;
 	bool move_back = false;
-	bool stop_moving = false;
 
 private:
 
@@ -57,9 +57,11 @@ private:
 	uint lastShot = 0;
 	uint cooldownShot = 3000;
 
+	float back_pos;
+
 	PATH_MOVEMENT direction;
 
-	float jump_force = 70.0f;
+	float jump_force;
 
 	Animation idleAnim;
 	Animation runAnim;
@@ -73,7 +75,6 @@ private:
 	p2DynArray<iPoint>* path;
 
 	float gravity = 150.0f;
-	float back_pos;
 };
 
 #endif

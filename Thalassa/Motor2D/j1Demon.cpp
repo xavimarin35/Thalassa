@@ -10,6 +10,7 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 #include "j1Map.h"
+#include "j1Scene1.h"
 
 j1Demon::j1Demon(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DEMON)
 {
@@ -67,17 +68,27 @@ bool j1Demon::Update(float dt)
 
 		if (ColLeft || ColRight)
 		{
-			jumping = true;
-			ColDown = false;
+			move_back = true;
+
+			if (flip) back_pos = position.x + 10;
+			else back_pos = position.x - 10;
+		}
+
+		if (move_back)
+		{
+			ColLeft = ColRight = false;
+			MoveBack(dt);
 		}
 
 		if (jumping)
-			Jump();
+		{
+			Jump(dt);
+		}
 
 		if (ColDown)
 			speed.y = 0;
 
-		else if (!ColDown)
+		else if (!ColDown && !jumping && App->scene1->scene_timer.Read() > 1000)
 		{
 			position.y += speed.y * dt;
 			speed.y += gravity * dt;
@@ -91,6 +102,15 @@ bool j1Demon::Update(float dt)
 			else
 				collider->SetPos(position.x + 3, position.y);
 		}
+	}
+
+	else if (dead)
+	{
+		animation = &deathAnim;
+
+		if (collider != nullptr)
+			collider->to_delete = true;
+		collider = nullptr;
 	}
 
 	BlitEntity(animation->GetCurrentFrame(dt), flip);
@@ -119,31 +139,34 @@ bool j1Demon::CleanUp()
 
 void j1Demon::Move(p2DynArray<iPoint>& path, float dt)
 {
-	direction = App->pathfinding->CheckDirectionGround(path);
+	if (!move_back) 
+	{
+		direction = App->pathfinding->CheckDirectionGround(path);
 
-	if (direction == PATH_MOVEMENT::LEFT)
-	{
-		animation = &runAnim;
-		position.x -= speed.x * dt;
-		flip = true;
-	}
-	else if (direction == PATH_MOVEMENT::RIGHT)
-	{
-		animation = &runAnim;
-		position.x += speed.x * dt;
-		flip = false;
-	}
+		if (direction == PATH_MOVEMENT::LEFT)
+		{
+			animation = &runAnim;
+			position.x -= speed.x * dt;
+			flip = true;
+		}
+		else if (direction == PATH_MOVEMENT::RIGHT)
+		{
+			animation = &runAnim;
+			position.x += speed.x * dt;
+			flip = false;
+		}
 
-	/*if (direction == PATH_MOVEMENT::DOWN)
-	{
-		animation = &runAnim;
-		position.y += speed.y;
+		/*if (direction == PATH_MOVEMENT::DOWN)
+		{
+			animation = &runAnim;
+			position.y += speed.y;
+		}
+		else if (direction == PATH_MOVEMENT::UP)
+		{
+			animation = &runAnim;
+			position.y -= speed.y;
+		}*/
 	}
-	else if (direction == PATH_MOVEMENT::UP)
-	{
-		animation = &runAnim;
-		position.y -= speed.y;
-	}*/
 }
 
 void j1Demon::OnCollision(Collider* c1, Collider* c2)
@@ -160,12 +183,14 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 				{
 					ColRight = true;
 					ColLeft = false;
+					move_back = true;
 				}
 				// Left
 				else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x + c1->rect.w >= c2->rect.x + c2->rect.w)
 				{
 					ColRight = false;
 					ColLeft = true;
+					move_back = true;
 				}
 			}
 
@@ -178,7 +203,7 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 					position.y = c2->rect.y - c1->rect.h + 1;
 
 					speed.y = 0.0f;
-
+					jumping = false;
 					ColDown = true;
 					ColUp = false;
 				}
@@ -199,10 +224,15 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 			if (c2->rect.x > c1->rect.x)
 			{
-				position.x -= 3.0f  * App->GetDT();
+				position.x -= 3.0f * App->GetDT();
 			}
 			else
 				position.x += 3.0f * App->GetDT();
+		}
+
+		if (c2->type == COLLIDER_DEATH)
+		{
+			dead = true;
 		}
 	}
 }
@@ -225,13 +255,53 @@ void j1Demon::PathFind(float dt)
 	}
 }
 
-void j1Demon::Jump()
+void j1Demon::MoveBack(float dt)
 {
-	if (!ColDown) 
+	jump_force = 70.0f;
+
+	if (flip)
 	{
-		position.y -= jump_force * App->GetDT();
-		jump_force -= gravity * App->GetDT();
+		if (position.x < back_pos)
+		{
+			position.x += 40.0 * dt;
+		}
+		else if (position.x >= back_pos)
+		{
+			move_back = false;
+			ColDown = false;
+			jumping = true;
+		}
 	}
+
+	else if (!flip)
+	{
+		if (position.x > back_pos)
+		{
+			position.x -= 40.0 * dt;
+		}
+		else if (position.x <= back_pos)
+		{
+			move_back = false;
+			ColDown = false;
+			jumping = true;
+		}
+	}
+}
+
+void j1Demon::Jump(float dt)
+{
+	if (!ColDown)
+	{
+		position.y -= jump_force * dt;
+		jump_force -= gravity * dt;
+	}
+
+	else
+	{
+		ColDown = true;
+		jumping = false;
+	}
+
 }
 
 void j1Demon::Shoot(float dt)

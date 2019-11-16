@@ -51,7 +51,7 @@ bool j1Scene1::Start()
 
 		App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 
-		/*App->entity_manager->AddEnemy(50, 50, DEMON);*/
+		App->entity_manager->AddEnemy(50, 50, DEMON);
 
 		App->entity_manager->AddEnemy(0, 0, BAT_E);
 
