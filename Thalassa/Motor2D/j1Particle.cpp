@@ -12,6 +12,7 @@
 #include "j1Scene1.h"
 #include "j1Entity.h"
 #include "j1Audio.h"
+#include "j1Demon.h"
 
 
 j1Particle::j1Particle()
@@ -229,6 +230,7 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 		}
 
 	}
+
 }
 
 // -------------------------------------------------------------

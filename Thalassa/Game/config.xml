@@ -53,6 +53,7 @@
 	<jumpForce value="135.0f"/>
 	<jetForce value="70.0f"/>
 	<hitbox x="13" y="20"/>
+	<life value="90"/>
   </player>
   
   <entities>

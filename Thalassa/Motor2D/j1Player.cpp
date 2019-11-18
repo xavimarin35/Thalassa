@@ -12,6 +12,7 @@
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
+#include "j1Demon.h"
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
 {
@@ -60,6 +61,9 @@ bool j1Player::Update(float dt) {
 
 		else if (!isDead)
 		{
+			if(lifePoints <= 0)
+				isDead = true;
+
 			if (playerCanMove)
 			{
 				PlayerMovement(dt);
@@ -81,6 +85,8 @@ bool j1Player::Update(float dt) {
 					animation = &jump;
 				}
 			}
+
+			
 		}
 
 		// Dead
@@ -92,6 +98,7 @@ bool j1Player::Update(float dt) {
 				if (collider != nullptr)
 					collider->to_delete = true;
 				collider = nullptr;
+
 			}
 		}
 
@@ -238,6 +245,10 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 		if (c2->type == COLLIDER_OPENDOOR) {
 			doorOpened = true;
+		}
+
+		if (c2->type == COLLIDER_ENEMY_SHOT) {
+			isDead = true;
 		}
 	}
 }
@@ -446,6 +457,7 @@ void j1Player::LoadInfo()
 	jetForce_xml = nodePlayer.child("jetForce").attribute("value").as_float();
 	jumpForce_xml = nodePlayer.child("jumpForce").attribute("value").as_float();
 	hitbox = { nodePlayer.child("hitbox").attribute("x").as_int(), nodePlayer.child("hitbox").attribute("y").as_int() };
+	lifePoints = nodePlayer.child("life").attribute("value").as_int();
 
 	pugi::xml_node nodeParticles;
 	nodeParticles = config.child("particles");

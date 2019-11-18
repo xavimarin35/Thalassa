@@ -65,6 +65,7 @@ public:
 	int doubleJump = 2;
 	int lifes = 3;
 	float gravity;
+	int lifePoints;
 
 	bool playerCanMove = false;
 	bool openingChest = false;

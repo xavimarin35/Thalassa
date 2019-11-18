@@ -51,6 +51,8 @@ public:
 	bool jumping = false;
 	bool move_back = false;
 
+	int attackDamage = 100;
+
 private:
 
 	j1Timer timerShot;
