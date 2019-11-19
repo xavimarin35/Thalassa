@@ -43,12 +43,16 @@ bool j1Player::Start() {
 	return true;
 }
 
-bool j1Player::PreUpdate() {
+bool j1Player::PreUpdate() 
+{
+	BROFILER_CATEGORY("Player_PreUpdate", Profiler::Color::Salmon)
 
 	return true;
 }
 
-bool j1Player::Update(float dt) {
+bool j1Player::Update(float dt) 
+{
+	BROFILER_CATEGORY("Player_Update", Profiler::Color::Indigo)
 
 	if (playerCreated)
 	{
@@ -126,7 +130,9 @@ bool j1Player::Update(float dt) {
 	return true;
 }
 
-bool j1Player::PostUpdate() {
+bool j1Player::PostUpdate() 
+{
+	BROFILER_CATEGORY("Player_PostUpdate", Profiler::Color::Orange)
 
 	ColRight = ColLeft = ColDown = ColUp = onFloor = false;
 
@@ -166,6 +172,8 @@ bool j1Player::CleanUp() {
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
+	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::PaleVioletRed)
+
 	if (c1->type == COLLIDER_PLAYER)
 	{
 		if (c2->type == COLLIDER_WALL)
@@ -256,6 +264,8 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 void j1Player::PlayerMovement(float dt)
 {
+	BROFILER_CATEGORY("PlayerMovement", Profiler::Color::Lavender)
+
 	if (App->input->GetKey(SDL_SCANCODE_D) == j1KeyState::KEY_REPEAT) {
 		if (!ColRight)
 		{
@@ -350,6 +360,8 @@ void j1Player::Die() {
 
 void j1Player::Shooting(float x, float y, float dt)
 {
+	BROFILER_CATEGORY("PlayerShot", Profiler::Color::Purple)
+
 	fPoint margin;
 	margin = margin_particles;
 
@@ -416,6 +428,8 @@ void j1Player::GodMode(float dt)
 
 void j1Player::LoadInfo()
 {
+	BROFILER_CATEGORY("LoadPlayerInfo", Profiler::Color::DarkBlue)
+
 	pugi::xml_document config_file;
 	config_file.load_file("config.xml");
 

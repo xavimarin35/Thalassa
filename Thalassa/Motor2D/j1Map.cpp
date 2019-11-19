@@ -36,6 +36,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw(int camera_position)
 {
+	BROFILER_CATEGORY("MapDraw", Profiler::Color::Bisque)
+
 	if (map_loaded == false)
 		return;
 

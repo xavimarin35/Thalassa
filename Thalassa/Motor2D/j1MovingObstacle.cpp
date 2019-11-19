@@ -38,7 +38,9 @@ bool j1MovingObstacle::Start() {
 	return true;
 }
 
-bool j1MovingObstacle::Update(float dt) {
+bool j1MovingObstacle::Update(float dt) 
+{
+	BROFILER_CATEGORY("MovingObstacle_Update", Profiler::Color::Black)
 
 	if (position.y <= topHeight) 
 	{

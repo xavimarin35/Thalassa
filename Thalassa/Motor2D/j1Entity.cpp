@@ -45,6 +45,8 @@ bool j1Entity::Save(pugi::xml_node &)
 
 void j1Entity::BlitEntity(SDL_Rect r, bool flip, float x, float y)
 {
+	BROFILER_CATEGORY("BlitEntity", Profiler::Color::Thistle)
+
 	if (flip == false)
 		App->render->Blit(sprites, (int)position.x + x, (int)position.y + y, &r, SDL_FLIP_NONE);
 	else

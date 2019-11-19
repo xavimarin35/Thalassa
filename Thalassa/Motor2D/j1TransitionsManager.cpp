@@ -19,7 +19,9 @@ j1TransitionsManager::j1TransitionsManager()
 j1TransitionsManager::~j1TransitionsManager()
 {}
 
-bool j1TransitionsManager::PostUpdate() {
+bool j1TransitionsManager::PostUpdate() 
+{
+	BROFILER_CATEGORY("TransitionsManager_PostUpdate", Profiler::Color::Maroon)
 
 	// Calls PostUpdate (switch of states) of every transition in the list
 	for (std::list<j1Transitions*>::iterator item = transitions_list.begin(); item != transitions_list.end(); ++item) {

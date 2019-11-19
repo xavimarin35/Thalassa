@@ -129,6 +129,8 @@ j1Collisions::~j1Collisions() {}
 
 bool j1Collisions::PreUpdate()
 {
+	BROFILER_CATEGORY("Collisions_PreUpdate", Profiler::Color::Khaki)
+
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] != nullptr)
@@ -176,6 +178,7 @@ bool j1Collisions::PreUpdate()
 
 bool j1Collisions::Update(float dt)
 {
+	BROFILER_CATEGORY("Collisions_Update", Profiler::Color::HoneyDew)
 
 	DebugColliders();
 
@@ -277,7 +280,8 @@ Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module*
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	return (rect.x < r.x + r.w && rect.x + rect.w > r.x && rect.y < r.y + r.h && rect.h + rect.y > r.y);
+	BROFILER_CATEGORY("CheckCollision", Profiler::Color::Aquamarine)
 
+	return (rect.x < r.x + r.w && rect.x + rect.w > r.x && rect.y < r.y + r.h && rect.h + rect.y > r.y);
 }
 

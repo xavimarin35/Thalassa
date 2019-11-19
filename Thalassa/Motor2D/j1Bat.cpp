@@ -32,6 +32,8 @@ bool j1Bat::Start()
 
 bool j1Bat::Update(float dt)
 {
+	BROFILER_CATEGORY("Bat_Update", Profiler::Color::YellowGreen)
+
 	MoveHorizontal(App->entity_manager->player->position.x);
 	MoveVertical(App->entity_manager->player->position.y);
 
@@ -49,6 +51,8 @@ bool j1Bat::CleanUp()
 
 void j1Bat::MoveHorizontal(float x)
 {
+	BROFILER_CATEGORY("BatMoveHorizontal", Profiler::Color::LightPink)
+
 	// Bat position, behind the player
 	float horizontal_pos;
 	fPoint horizontal_limit;
@@ -105,6 +109,8 @@ void j1Bat::MoveHorizontal(float x)
 
 void j1Bat::MoveVertical(float y)
 {
+	BROFILER_CATEGORY("BatMoveVertical", Profiler::Color::AliceBlue)
+
 	float vertical_pos = y - 30;
 	fPoint idle_vertical;
 

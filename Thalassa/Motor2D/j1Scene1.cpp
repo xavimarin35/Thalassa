@@ -43,6 +43,8 @@ bool j1Scene1::Awake()
 // Called before the first frame
 bool j1Scene1::Start()
 {
+	BROFILER_CATEGORY("Scene_Start", Profiler::Color::PaleGoldenRod)
+
 	LoadSceneInfo();
 
 	// TUTORIAL
@@ -78,6 +80,8 @@ bool j1Scene1::PreUpdate()
 // Called each loop iteration
 bool j1Scene1::Update(float dt)
 {
+	BROFILER_CATEGORY("Scene_Update", Profiler::Color::Red)
+
 	//Save & Load
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{

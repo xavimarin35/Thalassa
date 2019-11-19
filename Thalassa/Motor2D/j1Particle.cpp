@@ -92,6 +92,8 @@ bool j1Particle::CleanUp()
 
 bool j1Particle::Update(float dt)
 {
+	BROFILER_CATEGORY("ParticlesUpdate", Profiler::Color::Green)
+
 		for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		{
 			Particle* p = active[i];

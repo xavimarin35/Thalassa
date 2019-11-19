@@ -40,6 +40,8 @@ float j1Transitions::Interpolation(float start, float end, float percentage) {
 
 void j1Transitions::PostUpdate()
 {
+	BROFILER_CATEGORY("Transitions_PostUpdate", Profiler::Color::BlanchedAlmond)
+
 	// Switching the state of the transition
 	switch (state)
 	{

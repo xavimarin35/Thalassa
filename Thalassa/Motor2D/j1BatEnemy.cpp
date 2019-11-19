@@ -40,6 +40,8 @@ bool j1BatEnemy::Start()
 
 bool j1BatEnemy::Update(float dt)
 {
+	BROFILER_CATEGORY("BatEnemy_Update", Profiler::Color::Beige)
+
 	if (collider != nullptr)
 		collider->SetPos(position.x + adjust, position.y);
 

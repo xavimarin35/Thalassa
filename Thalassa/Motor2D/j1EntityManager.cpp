@@ -26,6 +26,8 @@ bool j1EntityManager::Awake(pugi::xml_node &)
 
 bool j1EntityManager::Start()
 {
+	BROFILER_CATEGORY("EntityManager_Start", Profiler::Color::BurlyWood)
+
 	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
 	{
 		it->data->Start();
@@ -36,6 +38,8 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
+	BROFILER_CATEGORY("EntityManager_PreUpdate", Profiler::Color::Coral)
+
 	for (int i = 0; i < MAX_ENTITIES; ++i)
 	{
 		if (queue[i].type != ENTITY_TYPE::NONE) 
@@ -50,6 +54,8 @@ bool j1EntityManager::PreUpdate()
 
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("EntityManager_Update", Profiler::Color::Aqua)
+
 	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
 	{
 		it->data->Update(dt);
@@ -59,6 +65,8 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
+	BROFILER_CATEGORY("EntityManager_PostUpdate", Profiler::Color::Magenta)
+
 	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
 	{
 		it->data->PostUpdate();
@@ -69,6 +77,8 @@ bool j1EntityManager::PostUpdate()
 
 bool j1EntityManager::CleanUp()
 {
+	BROFILER_CATEGORY("EntityManager_CleanUp", Profiler::Color::DarkTurquoise)
+
 	bool ret = true;
 
 	for (p2List_item<j1Entity*>* it = entityList.end; it != NULL; it = it->prev)

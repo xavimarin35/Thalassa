@@ -31,7 +31,9 @@ bool j1Door::Start()
 	return true;
 }
 
-bool j1Door::Update(float dt) {
+bool j1Door::Update(float dt) 
+{
+	BROFILER_CATEGORY("Door_Update", Profiler::Color::Fuchsia)
 
 	if (App->entity_manager->player->doorOpened) {
 		

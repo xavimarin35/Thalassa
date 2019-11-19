@@ -212,6 +212,8 @@ int PathNode::CalculateF(const iPoint& destination)
 
 p2DynArray<iPoint>* j1Pathfinding::CreatePath(iPoint& origin, iPoint& destination)
 {
+	BROFILER_CATEGORY("PathfindingCreation", Profiler::Color::Yellow)
+
 	last_path.Clear();
 
 	// Making sure origin and destination are walkable

@@ -5,6 +5,8 @@
 #include <string>
 #define MAX_FRAMES 200
 
+#include "Brofiler/Brofiler.h"
+
 class Animation
 {
 public:
@@ -50,6 +52,8 @@ public:
 
 	void LoadAnimations(p2SString name)
 	{
+		BROFILER_CATEGORY("LoadAnimations", Profiler::Color::GoldenRod)
+
 		pugi::xml_parse_result result = anim_file.load_file("config_animations.xml");
 		if (result != NULL)
 		{
