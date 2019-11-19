@@ -43,19 +43,33 @@ struct Particle
 
 class j1Particle : public j1Module
 {
+
 public:
+
 	j1Particle();
+
 	virtual ~j1Particle();
+
 	bool Start();
+
 	bool Update(float dt);
+
 	bool CleanUp();
+
 	void OnCollision(Collider* c1, Collider* c2);
+
+	void LoadValues();
+
 	void AddParticle(const Particle& particle, int x, int y, float dt, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0, double rotation = 0, PARTICLE_TYPE ptype = BASIC_SHOOT);
 	Particle* active[MAX_ACTIVE_PARTICLES];
+
 private:
 
 	SDL_Texture* demonShot_tex = nullptr;
 	SDL_Texture* shots_tex = nullptr;
+
+	iPoint particle_life;
+	iPoint particle_hitbox;
 
 public:
 	uint width, height;

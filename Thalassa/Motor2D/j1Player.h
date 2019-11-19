@@ -61,6 +61,7 @@ public:
 	float jumpForce;
 	float jetForce;
 	float godSpeed;
+	float speed_y;
 
 	int doubleJump = 2;
 	int lifes = 3;

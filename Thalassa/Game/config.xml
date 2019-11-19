@@ -103,6 +103,17 @@
   <particles>
 	<margin1 x="8" y="8"/>
 	<p_speed1 x="5000" y="5000"/>
+	<life x="3000" y="200"/>
+	<hitboxShoots x="5" y="5"/>
   </particles>
+  
+  <batEnemy>
+	<hitbox x="10" y="11"/>
+	<speed x="35.0f" y="35.0f"/>
+	<gravity value="150.0f"/>
+	<adjust value="2"/>
+	<adjustPath x="7" y="6"/>
+	<adjustCollider value="20"/>
+  </batEnemy>
 
 </config>

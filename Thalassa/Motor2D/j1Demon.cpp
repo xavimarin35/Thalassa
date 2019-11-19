@@ -220,14 +220,7 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 		if (c2->type == COLLIDER_SHOT)
 		{
-			animation = &hurtAnim;
-
-			if (c2->rect.x > c1->rect.x)
-			{
-				position.x -= 3.0f * App->GetDT();
-			}
-			else
-				position.x += 3.0f * App->GetDT();
+			dead = true;
 		}
 
 		if (c2->type == COLLIDER_DEATH)

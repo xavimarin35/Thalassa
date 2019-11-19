@@ -41,6 +41,15 @@ public:
 	bool Load(pugi::xml_node& data);
 	bool Save(pugi::xml_node& data) const;
 
+	void LevelChangeLogic();
+
+	void LoadTutorial();
+	void LoadLevel1();
+	void LoadMidLevel();
+
+	void CameraMovement(float dt);
+	void BlitKeys();
+
 	void LoadNewLevel();
 
 	void LoadSceneInfo();

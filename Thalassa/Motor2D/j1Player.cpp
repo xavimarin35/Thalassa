@@ -50,8 +50,6 @@ bool j1Player::Update(float dt) {
 
 	if (playerCreated)
 	{
-		animation = &idle;
-
 		if (godMode) 
 		{
 			jetpackActive = false;
@@ -61,6 +59,8 @@ bool j1Player::Update(float dt) {
 
 		else if (!isDead)
 		{
+			animation = &idle;
+
 			if(lifePoints <= 0)
 				isDead = true;
 
@@ -84,14 +84,13 @@ bool j1Player::Update(float dt) {
 					speed.y += gravity * dt;
 					animation = &jump;
 				}
-			}
-
-			
+			}			
 		}
 
 		// Dead
 		else {
 			if (lifes > 0) {
+				animation = &deathAnim;
 				App->scene1->death = true;
 				isJumping = true;
 
@@ -221,12 +220,12 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		}
 
 		if (c2->type == COLLIDER_DEATH) {
+
 			if (!playedFx) {
 				App->audio->PlayFx(App->audio->deathFx);
 				playedFx = true;
 			}
 
-			animation = &deathAnim;
 			isDead = true;
 		}
 
@@ -297,7 +296,7 @@ void j1Player::PlayerMovement(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
 		jetpackActive = false;
 		jumpForce = 0.0f;
-		speed.y = 70.0f;
+		speed.y = speed_y;
 	}
 
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
@@ -451,6 +450,7 @@ void j1Player::LoadInfo()
 	godSpeed = nodePlayer.child("godSpeed").attribute("value").as_float();
 	speed.x = nodePlayer.child("speed").attribute("x").as_float();
 	speed.y = nodePlayer.child("speed").attribute("y").as_float();
+	speed_y = nodePlayer.child("speed").attribute("y").as_float();
 	gravity = nodePlayer.child("gravity").attribute("value").as_float();
 	flip = nodePlayer.child("flip").attribute("value").as_bool();
 	playerCreated = nodePlayer.child("created").attribute("value").as_bool();

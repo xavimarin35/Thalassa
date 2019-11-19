@@ -27,13 +27,15 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	void LoadProperties();
+
 	void OnCollision(Collider* c1, Collider* c2);
 
 	void Move(p2DynArray<iPoint>& path, float dt);
 
 public:
 
-	fPoint speed = { 35.0f,35.0f };
+	fPoint speed;
 
 	bool ColLeft = false;
 	bool ColRight = false;
@@ -58,7 +60,11 @@ private:
 
 	p2DynArray<iPoint>* path;
 
-	float gravity = 150.0f;
+	float gravity;
+
+	iPoint hitbox;
+	int adjustCollider, adjust;
+	iPoint adjustPath;
 };
 
 #endif

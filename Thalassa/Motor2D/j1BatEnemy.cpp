@@ -15,6 +15,8 @@ j1BatEnemy::j1BatEnemy(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_T
 {
 	animation = NULL;
 
+	LoadProperties();
+
 	idleAnim.LoadAnimations("enemyBatIdle");
 	pathAnim.LoadAnimations("enemyBatRun");
 	dyingAnim.LoadAnimations("enemyBatDie");
@@ -26,12 +28,10 @@ j1BatEnemy::~j1BatEnemy() {}
 bool j1BatEnemy::Start()
 {
 	sprites = App->tex->Load("textures/Enemies/Enemy_Bat.png");
-
-	position = { 250,170 };
-
+	
 	animation = &idleAnim;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 10, 11 }, COLLIDER_ENEMY, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_ENEMY, App->entity_manager);
 
 	return true;
 }
@@ -39,7 +39,7 @@ bool j1BatEnemy::Start()
 bool j1BatEnemy::Update(float dt)
 {
 	if (collider != nullptr)
-		collider->SetPos(position.x + 2, position.y);
+		collider->SetPos(position.x + adjust, position.y);
 
 	if (dead)
 	{
@@ -64,7 +64,7 @@ bool j1BatEnemy::Update(float dt)
 				&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
 				&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)
 			{
-				iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
+				iPoint origin = { App->map->WorldToMap((int)position.x + adjustPath.x, (int)position.y + adjustPath.y) };
 				iPoint destination;
 
 				if (position.x < App->entity_manager->player->position.x)
@@ -108,6 +108,25 @@ bool j1BatEnemy::CleanUp()
 	}
 
 	return true;
+}
+
+void j1BatEnemy::LoadProperties()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodeBat;
+	nodeBat = config.child("batEnemy");
+
+	hitbox = { nodeBat.child("hitbox").attribute("x").as_int(), nodeBat.child("hitbox").attribute("y").as_int() };
+	speed = { nodeBat.child("speed").attribute("x").as_float(), nodeBat.child("speed").attribute("y").as_float() };
+	gravity = nodeBat.child("gravity").attribute("value").as_float();
+	adjust = nodeBat.child("adjust").attribute("value").as_int();
+	adjustPath = { nodeBat.child("adjustPath").attribute("x").as_int(), nodeBat.child("adjustPath").attribute("y").as_int() };
+	adjustCollider = nodeBat.child("adjustCollider").attribute("value").as_int();
 }
 
 void j1BatEnemy::Move(p2DynArray<iPoint>& path, float dt)
@@ -198,7 +217,7 @@ void j1BatEnemy::OnCollision(Collider* c1, Collider* c2)
 						collider->to_delete = true;
 					collider = nullptr;
 
-					position.y = c2->rect.y + c2->rect.h - 13;
+					position.y = c2->rect.y + c2->rect.h - adjustCollider;
 
 					ColUp = false;
 					ColDown = true;

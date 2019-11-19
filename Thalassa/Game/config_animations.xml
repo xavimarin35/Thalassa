@@ -20,7 +20,7 @@
       <animation x="24" y="8" w="14" h="23"/>
 	</jetpack>
 	
-	<death loop="false" speed="7.5f">
+	<death loop="true" speed="8.0f">
       <animation x="2" y="327" w="13" h="20"/>
       <animation x="18" y="327" w="13" h="20"/>
       <animation x="34" y="327" w="13" h="20"/>
@@ -95,13 +95,15 @@
 	
 	<enemyBatDie loop="false" speed="10.0f">
 		<animation x="0" y="52" w="16" h="9"/>
-		<animation x="18" y="52" w="16" h="11"/>
-		<animation x="35" y="56" w="16" h="10"/>
-		<animation x="50" y="61" w="16" h="9"/>
+		<animation x="18" y="52" w="10" h="11"/>
+		<animation x="35" y="56" w="8" h="10"/>
+		<animation x="50" y="61" w="9" h="9"/>
 	</enemyBatDie>
 	
-	<enemyBatDead loop="false" speed="10.0f">
+	<enemyBatDead loop="false" speed="1.0f">
 		<animation x="64" y="66" w="15" h="5"/>
+		<animation x="80" y="66" w="15" h="5"/>
+		<animation x="0" y="0" w="0" h="0"/>
 	</enemyBatDead>
 	
 	<demonIdle loop="true" speed="10.0f">
@@ -167,4 +169,34 @@
 		<animation x="40" y="42" w="13" h="13"/>
 		<animation x="0" y="0" w="0" h="0"/>
 	</bubbleDestroy>
+	
+	<basicShoot loop="true" speed="15.0f">
+		<animation x="65" y="75" w="8" h="6"/>
+		<animation x="77" y="74" w="8" h="7"/>
+	</basicShoot>
+	
+	<shootDestroyed loop="false" speed="15.0f">
+		<animation x="88" y="73" w="9" h="9"/>
+		<animation x="100" y="73" w="12" h="9"/>
+		<animation x="113" y="73" w="12" h="11"/>
+		<animation x="129" y="71" w="14" h="12"/>
+	</shootDestroyed>
+	
+	<remoteShoot loop="true" speed="15.0f">
+		<animation x="52" y="25" w="11" h="6"/>
+		<animation x="70" y="24" w="9" h="7"/>
+	</remoteShoot>
+	
+	<demonShoot loop="true" speed="15.0f">
+		<animation x="117" y="184" w="9" h="3"/>
+		<animation x="153" y="184" w="5" h="3"/>
+	</demonShoot>
+	
+	<demonShootDestroyed loop="false" speed="10.0f">
+		<animation x="87" y="62" w="8" h="7"/>
+		<animation x="96" y="61" w="9" h="9"/>
+		<animation x="105" y="61" w="10" h="9"/>
+		<animation x="117" y="61" w="10" h="10"/>
+	</demonShootDestroyed>
+	
 </animations>

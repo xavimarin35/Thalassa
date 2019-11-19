@@ -20,44 +20,30 @@ j1Particle::j1Particle()
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 
+	LoadValues();
+
 	//basic
-	basicShoot.anim.PushBack({ 65,75,8,6 });
-	basicShoot.anim.PushBack({ 77,74,8,7 });
-	basicShoot.anim.speed = 15.0f;
-	basicShoot.life = 3000;
+	basicShoot.anim.LoadAnimations("basicShoot");
+	basicShoot.life = particle_life.x;
 	basicShoot.type = BASIC_SHOOT;
 
 	//explosion
-	ShootDestroyed.anim.PushBack({ 88,73,9,9 });
-	ShootDestroyed.anim.PushBack({ 100,73,12,9 });
-	ShootDestroyed.anim.PushBack({ 113,73,12,11 });
-	ShootDestroyed.anim.PushBack({ 129,71,14,12 });
-	ShootDestroyed.anim.speed = 15.0f;
-	ShootDestroyed.life = 200;
+	ShootDestroyed.anim.LoadAnimations("shootDestroyed");
+	ShootDestroyed.life = particle_life.y;
 
 	//remote
-	remoteShoot.anim.PushBack({ 52,25,11,6 });
-	remoteShoot.anim.PushBack({ 70,24,9,7 });
-	remoteShoot.anim.speed = 15.0f;
-	remoteShoot.life = 3000;
+	remoteShoot.anim.LoadAnimations("remoteShoot");
+	remoteShoot.life = particle_life.x;
 	remoteShoot.type = REMOTE_SHOOT;
 
 	//demon
-	demonShoot.anim.PushBack({ 117,184,9,3 });
-	demonShoot.anim.PushBack({ 153,184,5,3 });
-	demonShoot.anim.speed = 15.0f;
-	demonShoot.life = 4000;
+	demonShoot.anim.LoadAnimations("demonShoot");
+	demonShoot.life = particle_life.x;
 	demonShoot.type = DEMON_SHOOT;
 
 	// demon explosion
-	demonShootDestroyed.anim.PushBack({ 87,62,8,7 });
-	demonShootDestroyed.anim.PushBack({ 96,61,9,9 });
-	demonShootDestroyed.anim.PushBack({ 105,61,10,9 });
-	demonShootDestroyed.anim.PushBack({ 117,61,10,10 });
-	demonShootDestroyed.anim.speed = 10.0f;
-	demonShootDestroyed.life = 200;
-
-
+	demonShootDestroyed.anim.LoadAnimations("demonShootDestroyed");
+	demonShootDestroyed.life = particle_life.y;
 }
 
 j1Particle::~j1Particle()
@@ -150,10 +136,10 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 				switch (particle.type)
 				{
 				case PARTICLE_TYPE::BASIC_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, 5, 5 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, particle_hitbox.x, particle_hitbox.y }, collider_type, this);
 					break;
 				case PARTICLE_TYPE::REMOTE_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, 5, 5 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, particle_hitbox.x, particle_hitbox.y }, collider_type, this);
 					break;
 				}
 				
@@ -164,7 +150,7 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 				switch (particle.type)
 				{
 				case PARTICLE_TYPE::DEMON_SHOOT:
-					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, 5, 5 }, collider_type, this);
+					p->collider = App->collisions->AddCollider({ p->anim.GetCurrentFrame(dt).x, p->anim.GetCurrentFrame(dt).y, particle_hitbox.x, particle_hitbox.y }, collider_type, this);
 				}
 			}
 
@@ -233,8 +219,21 @@ void j1Particle::OnCollision(Collider* c1, Collider* c2)
 
 }
 
-// -------------------------------------------------------------
-// -------------------------------------------------------------
+void j1Particle::LoadValues()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodeParticles;
+	nodeParticles = config.child("particles");
+
+	particle_life = { nodeParticles.child("life").attribute("x").as_int(), nodeParticles.child("life").attribute("y").as_int() };
+	particle_hitbox = { nodeParticles.child("hitboxShoots").attribute("x").as_int(), nodeParticles.child("hitboxShoots").attribute("y").as_int() };
+}
+
 Particle::Particle()
 {
 	position.SetToZero();
