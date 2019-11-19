@@ -12,6 +12,8 @@
 #include "j1Map.h"
 #include "j1Scene1.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1LifeItem::j1LifeItem(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::LIFE_ITEM)
 {
 	idleAnim.LoadAnimations("bubbleIdle");

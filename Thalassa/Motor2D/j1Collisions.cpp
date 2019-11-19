@@ -10,6 +10,8 @@
 
 #include "SDL\include\SDL.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1Collisions::j1Collisions() : j1Module()
 {
 

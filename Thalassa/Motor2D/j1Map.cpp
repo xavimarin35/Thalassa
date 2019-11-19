@@ -10,6 +10,8 @@
 #include "j1Scene1.h"
 #include <math.h>
 
+#include "Brofiler/Brofiler.h"
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");

@@ -5,6 +5,8 @@
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
 
+#include "Brofiler/Brofiler.h"
+
 #define MAX_KEYS 300
 
 j1Input::j1Input() : j1Module()

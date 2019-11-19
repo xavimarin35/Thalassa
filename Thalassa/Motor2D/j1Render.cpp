@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Scene1.h"
 
+#include "Brofiler/Brofiler.h"
+
 #define VSYNC true
 
 j1Render::j1Render() : j1Module()

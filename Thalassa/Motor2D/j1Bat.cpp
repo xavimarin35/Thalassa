@@ -8,6 +8,8 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1Bat::j1Bat(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::BAT)
 {
 	bat_position = { (float)x, (float)y };

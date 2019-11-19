@@ -11,6 +11,8 @@
 #include "Squares.h"
 #include "j1Input.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1TransitionsManager::j1TransitionsManager()
 {}
 

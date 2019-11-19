@@ -2,6 +2,8 @@
 #include "j1Render.h"
 #include "j1App.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1Entity::j1Entity(int x, int y, ENTITY_TYPE type) : position(x,y), type(type)
 {
 }

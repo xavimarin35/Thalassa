@@ -11,6 +11,8 @@
 #include "j1Audio.h"
 #include "j1Map.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1BatEnemy::j1BatEnemy(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::BAT_E)
 {
 	animation = NULL;

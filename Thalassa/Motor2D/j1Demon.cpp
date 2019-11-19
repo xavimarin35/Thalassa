@@ -12,6 +12,8 @@
 #include "j1Map.h"
 #include "j1Scene1.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1Demon::j1Demon(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DEMON)
 {
 	animation = NULL;

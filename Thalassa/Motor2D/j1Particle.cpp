@@ -14,6 +14,7 @@
 #include "j1Audio.h"
 #include "j1Demon.h"
 
+#include "Brofiler/Brofiler.h"
 
 j1Particle::j1Particle()
 {

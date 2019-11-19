@@ -9,6 +9,8 @@
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
+#include "Brofiler/Brofiler.h"
+
 // This module controls each single transitions, with a start, 
 // a change of scenes, and the exit of the transition
 

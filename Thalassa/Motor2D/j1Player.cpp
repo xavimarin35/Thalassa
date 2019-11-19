@@ -14,6 +14,8 @@
 #include "p2Point.h"
 #include "j1Demon.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
 {
 	animation = NULL;

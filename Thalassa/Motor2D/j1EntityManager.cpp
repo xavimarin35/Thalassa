@@ -9,6 +9,8 @@
 #include "j1LifeItem.h"
 #include "j1JetpackItem.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1EntityManager::j1EntityManager()
 {
 }

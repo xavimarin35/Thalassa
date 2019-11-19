@@ -9,6 +9,8 @@
 #include "j1Audio.h"
 #include "j1EntityManager.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1MovingObstacle::j1MovingObstacle(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::OBSTACLE)
 {
 	animation = NULL;

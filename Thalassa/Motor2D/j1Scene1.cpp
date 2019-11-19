@@ -17,6 +17,8 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include <time.h>
 
+#include "Brofiler/Brofiler.h"
+
 #define SDL_TICKS_PASSED(A, B)  ((Sint32)((B) - (A)) <= 0)
 
 j1Scene1::j1Scene1() : j1Module()

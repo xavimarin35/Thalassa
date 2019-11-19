@@ -8,6 +8,8 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 
+#include "Brofiler/Brofiler.h"
+
 j1Door::j1Door(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::DOOR) 
 {
 	door_position = { (float)x,(float)y };
