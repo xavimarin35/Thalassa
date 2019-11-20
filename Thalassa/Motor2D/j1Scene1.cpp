@@ -244,7 +244,7 @@ void j1Scene1::CameraMovement(float dt)
 	{
 		if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2)
 		{
-			App->render->camera.x -= 95.0f * dt;
+			App->render->camera.x -= 120.0f * dt;
 			App->entity_manager->player->playerCanMove = false;
 		}
 		else
@@ -489,23 +489,28 @@ void j1Scene1::LoadSceneInfo()
 void j1Scene1::SpawnTutorialEntities()
 {
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
-
-	// App->entity_manager->AddEnemy(50, 50, DEMON);
-
-	App->entity_manager->AddEnemy(250, 170, BAT_E);
+	
 	App->entity_manager->AddEnemy(2100, 150, BAT_E);
-	App->entity_manager->AddEnemy(200, 170, DEMON);
 
 	App->entity_manager->CreateEntity(BAT);
 	App->entity_manager->CreateEntity(PLAYER);
-	App->entity_manager->CreateEntity(RandomItem(), 100, 150);
-	App->entity_manager->CreateEntity(RandomItem(), 40, 150);
 }
 
 void j1Scene1::SpawnLevel1Entities()
 {
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+	App->entity_manager->AddEnemy(675, 195, BAT_E);
+	App->entity_manager->AddEnemy(950, 195, BAT_E);
+	App->entity_manager->AddEnemy(1000, 100, BAT_E);
+
+	App->entity_manager->AddEnemy(1860, 50, DEMON);
+
+	App->entity_manager->AddEnemy(3600, 70, BAT_E);
+	App->entity_manager->AddEnemy(3590, 150, BAT_E);
+
+	App->entity_manager->AddEnemy(3600, 170, DEMON);
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 	App->entity_manager->CreateEntity(BAT);
@@ -516,6 +521,10 @@ void j1Scene1::SpawnMidLevelEntities()
 {
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+	App->entity_manager->AddEnemy(400, 195, BAT_E);
+	App->entity_manager->AddEnemy(550, 70, BAT_E);
+	App->entity_manager->AddEnemy(800, 100, BAT_E);
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 	App->entity_manager->CreateEntity(BAT);

@@ -31,8 +31,6 @@ bool j1Demon::Start()
 {
 	sprites = App->tex->Load("textures/Enemies/Demon_Spritesheet.png");
 
-	position = { 200, 150 };
-
 	animation = &idleAnim;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 10, 13 }, COLLIDER_ENEMY, App->entity_manager);
