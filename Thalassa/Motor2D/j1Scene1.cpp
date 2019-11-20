@@ -292,21 +292,7 @@ void j1Scene1::LoadTutorial()
 	keys = App->tex->Load("textures/keys.png");
 	mouse = App->tex->Load("textures/mouseThalassa.png");
 
-	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
-
-	// App->entity_manager->AddEnemy(50, 50, DEMON);
-
-	App->entity_manager->AddEnemy(250, 170, BAT_E);
-
-	App->entity_manager->AddEnemy(2100, 150, BAT_E);
-
-	App->entity_manager->CreateEntity(BAT);
-
-	App->entity_manager->CreateEntity(PLAYER);
-
-	App->entity_manager->CreateEntity(RandomItem(), 100, 150);
-
-	App->entity_manager->CreateEntity(RandomItem(), 40, 150);
+	SpawnTutorialEntities();
 
 	//App->audio->PlayMusic("audio/music/loading.ogg");
 }
@@ -325,15 +311,7 @@ void j1Scene1::LoadLevel1()
 		App->audio->PlayMusic("audio/music/Music_Level1.ogg");
 	}
 
-	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
-
-	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
-
-	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
-
-	App->entity_manager->CreateEntity(BAT);
-
-	App->entity_manager->CreateEntity(PLAYER);
+	SpawnLevel1Entities();
 }
 
 void j1Scene1::LoadMidLevel()
@@ -350,15 +328,7 @@ void j1Scene1::LoadMidLevel()
 		App->audio->PlayMusic("audio/music/Music_MidLevel.ogg");
 	}
 
-	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
-
-	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
-
-	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
-
-	App->entity_manager->CreateEntity(BAT);
-
-	App->entity_manager->CreateEntity(PLAYER);
+	SpawnMidLevelEntities();
 }
 
 void j1Scene1::LevelChangeLogic()
@@ -514,6 +484,42 @@ void j1Scene1::LoadSceneInfo()
 	posMIdle = { nodeKeys.child("posMIdle").attribute("x").as_int(), nodeKeys.child("posMIdle").attribute("y").as_int() };
 	posMLeft = { nodeKeys.child("posMLeft").attribute("x").as_int(), nodeKeys.child("posMLeft").attribute("y").as_int() };
 	/*posMRight = { nodeKeys.child("posMRight").attribute("x").as_int(), nodeKeys.child("posMRight").attribute("y").as_int() };*/
+}
+
+void j1Scene1::SpawnTutorialEntities()
+{
+	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+
+	// App->entity_manager->AddEnemy(50, 50, DEMON);
+
+	App->entity_manager->AddEnemy(250, 170, BAT_E);
+	App->entity_manager->AddEnemy(2100, 150, BAT_E);
+	App->entity_manager->AddEnemy(200, 170, DEMON);
+
+	App->entity_manager->CreateEntity(BAT);
+	App->entity_manager->CreateEntity(PLAYER);
+	App->entity_manager->CreateEntity(RandomItem(), 100, 150);
+	App->entity_manager->CreateEntity(RandomItem(), 40, 150);
+}
+
+void j1Scene1::SpawnLevel1Entities()
+{
+	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
+	App->entity_manager->CreateEntity(BAT);
+	App->entity_manager->CreateEntity(PLAYER);
+}
+
+void j1Scene1::SpawnMidLevelEntities()
+{
+	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
+	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
+	App->entity_manager->CreateEntity(BAT);
+	App->entity_manager->CreateEntity(PLAYER);
 }
 
 void j1Scene1::BlitKeys()

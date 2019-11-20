@@ -66,6 +66,7 @@ public:
 	void CreateEntity(ENTITY_TYPE type, float x = 0, float y = 0);
 	void AddEnemy(float x, float y, ENTITY_TYPE type);
 	void SpawnEnemy(const EntityInfo& info);
+	void DestroyAllEntities();
 
 	void OnCollision(Collider* c1, Collider* c2);
 

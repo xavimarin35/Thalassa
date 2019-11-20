@@ -54,6 +54,10 @@ public:
 
 	void LoadSceneInfo();
 
+	void SpawnTutorialEntities();
+	void SpawnLevel1Entities();
+	void SpawnMidLevelEntities();
+
 	ENTITY_TYPE RandomItem();
 
 public:

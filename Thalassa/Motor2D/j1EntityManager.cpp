@@ -185,6 +185,21 @@ void j1EntityManager::CreateEntity(ENTITY_TYPE type, float x, float y)
 	}
 }
 
+void j1EntityManager::DestroyAllEntities()
+{
+	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
+	{
+		// except player & bat
+		if (it->data != player || it->data != bat)
+		{
+			it->data->CleanUp();
+			entityList.del(it);
+			RELEASE(it->data);
+		}
+	}
+}
+
+
 void j1EntityManager::AddEnemy(float x, float y, ENTITY_TYPE type)
 {
 	for (int i = 0; i < MAX_ENTITIES; ++i)

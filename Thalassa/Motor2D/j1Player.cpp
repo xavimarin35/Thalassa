@@ -13,8 +13,12 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "j1Demon.h"
+#include "j1Transitions.h"
+#include "j1TransitionsManager.h"
 
 #include "Brofiler/Brofiler.h"
+
+#define SDL_TICKS_PASSED(A, B)  ((Sint32)((B) - (A)) <= 0)
 
 j1Player::j1Player(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::PLAYER) 
 {
@@ -94,17 +98,19 @@ bool j1Player::Update(float dt)
 		}
 
 		// Dead
-		else {
-			if (lifes > 0) {
-				animation = &deathAnim;
-				App->scene1->death = true;
-				isJumping = true;
+		if (isDead)
+		{
+			animation = &deathAnim;
 
-				if (collider != nullptr)
-					collider->to_delete = true;
-				collider = nullptr;
+			App->scene1->death = true;
+			isJumping = true;
+			
 
-			}
+
+
+			if (collider != nullptr)
+				collider->to_delete = true;
+			collider = nullptr;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -353,9 +359,10 @@ void j1Player::Die() {
 
 	position.y += speed.y * App->GetDT();
 	speed.y += gravity * App->GetDT();
-
+	
 	CleanUp();
 	Start();
+	
 }
 
 void j1Player::Shooting(float x, float y, float dt)
