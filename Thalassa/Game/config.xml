@@ -45,7 +45,7 @@
 	<posLvl1 x="74" y="205"/>
 	<posMidLvl x="25" y="125"/>
 	<posLvl2 x="2313" y="155"/>
-    <godSpeed value="95.0f"/>
+    <godSpeed value="120.0f"/>
     <speed x="80.0f" y="70.0f"/>
     <gravity value="350.0f"/>
     <flip value="true"/>
@@ -90,6 +90,10 @@
 	<DPressed x="80" y="147" w="16" h="13"/>
 	<SPACE x="96" y="81" w="64" h="15"/>
 	<SPACEPressed x="96" y="179" w="64" h="13"/>
+	<mouseIdle x="19" y="0" w="17" h="23"/>
+	<mouseLeft x="0" y="0" w="17" h="23"/>
+	<mouseRight x="0" y="25" w="17" h="23"/>
+	
 	<differenceY value="2"/>
 	<posA x="160" y="192"/>
 	<posD x="200" y = "192"/>
@@ -98,6 +102,8 @@
 	<posW3 x="830" y="130"/>
 	<posW4 x="1285" y="60"/>
 	<posSPACE x="1310" y="60"/>
+	<posMIdle x="1975" y="225"/>
+	<posMLeft x="1975" y="225"/>
   </keys>
   
   <particles>

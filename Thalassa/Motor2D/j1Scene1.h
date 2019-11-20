@@ -77,6 +77,7 @@ public:
 private:
 
 	SDL_Texture* keys;
+	SDL_Texture* mouse;
 
 	int cameraLimitX;
 	int cameraLimitY;
@@ -90,8 +91,8 @@ private:
 
 	int differenceY;
 
-	SDL_Rect W, WPressed, A, APressed, D, DPressed, SPACE, SPACEPressed;
-	iPoint posA, posD, posW1, posW2, posW3, posW4, posSPACE;
+	SDL_Rect W, WPressed, A, APressed, D, DPressed, SPACE, SPACEPressed, mouseLeft, mouseRight, mouseIdle;
+	iPoint posA, posD, posW1, posW2, posW3, posW4, posSPACE, posMLeft, posMRight, posMIdle;
 };
 
 #endif // __j1SCENE1_H__

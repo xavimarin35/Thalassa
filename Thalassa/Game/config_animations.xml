@@ -93,7 +93,7 @@
 		<animation x="64" y="4" w="16" h="6"/>
 	</enemyBatRun>
 	
-	<enemyBatDie loop="false" speed="10.0f">
+	<enemyBatDie loop="false" speed="3.0f">
 		<animation x="0" y="52" w="16" h="9"/>
 		<animation x="18" y="52" w="10" h="11"/>
 		<animation x="35" y="56" w="8" h="10"/>

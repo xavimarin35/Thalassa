@@ -290,12 +290,15 @@ void j1Scene1::LoadTutorial()
 	App->map->Load("Map1_Tutorial.tmx");
 
 	keys = App->tex->Load("textures/keys.png");
+	mouse = App->tex->Load("textures/mouseThalassa.png");
 
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 
 	// App->entity_manager->AddEnemy(50, 50, DEMON);
 
 	App->entity_manager->AddEnemy(250, 170, BAT_E);
+
+	App->entity_manager->AddEnemy(2100, 150, BAT_E);
 
 	App->entity_manager->CreateEntity(BAT);
 
@@ -496,6 +499,9 @@ void j1Scene1::LoadSceneInfo()
 	DPressed = { nodeKeys.child("DPressed").attribute("x").as_int(), nodeKeys.child("DPressed").attribute("y").as_int(), nodeKeys.child("DPressed").attribute("w").as_int(), nodeKeys.child("DPressed").attribute("h").as_int() };
 	SPACE = { nodeKeys.child("SPACE").attribute("x").as_int(), nodeKeys.child("SPACE").attribute("y").as_int(), nodeKeys.child("SPACE").attribute("w").as_int(), nodeKeys.child("SPACE").attribute("h").as_int() };
 	SPACEPressed = { nodeKeys.child("SPACEPressed").attribute("x").as_int(), nodeKeys.child("SPACEPressed").attribute("y").as_int(), nodeKeys.child("SPACEPressed").attribute("w").as_int(), nodeKeys.child("SPACEPressed").attribute("h").as_int() };
+	mouseIdle = { nodeKeys.child("mouseIdle").attribute("x").as_int(), nodeKeys.child("mouseIdle").attribute("y").as_int(), nodeKeys.child("mouseIdle").attribute("w").as_int(), nodeKeys.child("mouseIdle").attribute("h").as_int() };
+	mouseLeft = { nodeKeys.child("mouseLeft").attribute("x").as_int(), nodeKeys.child("mouseLeft").attribute("y").as_int(), nodeKeys.child("mouseLeft").attribute("w").as_int(), nodeKeys.child("mouseLeft").attribute("h").as_int() };
+	mouseRight = { nodeKeys.child("mouseRight").attribute("x").as_int(), nodeKeys.child("mouseRight").attribute("y").as_int(), nodeKeys.child("mouseRight").attribute("w").as_int(), nodeKeys.child("mouseRight").attribute("h").as_int() };
 
 	differenceY = nodeKeys.child("differenceY").attribute("value").as_int();
 	posA = { nodeKeys.child("posA").attribute("x").as_int(), nodeKeys.child("posA").attribute("y").as_int() };
@@ -505,6 +511,9 @@ void j1Scene1::LoadSceneInfo()
 	posW3 = { nodeKeys.child("posW3").attribute("x").as_int(), nodeKeys.child("posW3").attribute("y").as_int() };
 	posW4 = { nodeKeys.child("posW4").attribute("x").as_int(), nodeKeys.child("posW4").attribute("y").as_int() };
 	posSPACE = { nodeKeys.child("posSPACE").attribute("x").as_int(), nodeKeys.child("posSPACE").attribute("y").as_int() };
+	posMIdle = { nodeKeys.child("posMIdle").attribute("x").as_int(), nodeKeys.child("posMIdle").attribute("y").as_int() };
+	posMLeft = { nodeKeys.child("posMLeft").attribute("x").as_int(), nodeKeys.child("posMLeft").attribute("y").as_int() };
+	/*posMRight = { nodeKeys.child("posMRight").attribute("x").as_int(), nodeKeys.child("posMRight").attribute("y").as_int() };*/
 }
 
 void j1Scene1::BlitKeys()
@@ -554,6 +563,12 @@ void j1Scene1::BlitKeys()
 		App->render->Blit(keys, posSPACE.x, posSPACE.y, &SPACEPressed);
 	else
 		App->render->Blit(keys, posSPACE.x, posSPACE.y - differenceY, &SPACE);
+
+	// Mouse
+	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+		App->render->Blit(mouse, posMLeft.x, posMLeft.y, &mouseLeft);
+	else 
+		App->render->Blit(mouse, posMIdle.x, posMIdle.y, &mouseIdle);
 }
 
 ENTITY_TYPE j1Scene1::RandomItem()

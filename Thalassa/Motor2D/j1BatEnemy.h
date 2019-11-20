@@ -8,7 +8,7 @@
 #include "j1Particle.h"
 #include "j1Pathfinding.h"
 
-#define DETECTION_RANGE 150
+#define DETECTION_RANGE 120
 
 struct SDL_Texture;
 struct Collider;

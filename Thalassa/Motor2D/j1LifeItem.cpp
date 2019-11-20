@@ -28,8 +28,6 @@ bool j1LifeItem::Start()
 {
 	sprites = App->tex->Load("textures/Particles/bubble.png");
 
-	/*position = { 50,150 };*/
-
 	animation = &idleAnim;
 
 	collider = App->collisions->AddCollider({ (int)position.x + 2, (int)position.y + 2, 12, 12 }, COLLIDER_ITEM, App->entity_manager);
