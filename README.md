@@ -32,7 +32,7 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - Dynamic obstacles through the map that can kill you
 - Camera culling during whole level
 - Air and ground enemies pathfinding
-- Ground enemy shoots you
+- Ground enemy can shoot you
 - Bat partner who follows you
 
 ## Usage
@@ -56,10 +56,14 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Transitions and changes between scenes
 	- Camera movements between levels
 	- GodMode implementation
+	- Data from XML
 	- Save & Load
 	- Camera Culling
 	- Pathfinding
-
+	- Bat partner
+	- Demon enemy
+	- Bat enemy
+	
 ### Xavi Marín
 
 - Github: [XaviMarin35](https://github.com/xavimarin35)
@@ -70,11 +74,14 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Collision system
 	- Parallax
 	- Entity animations loaded from XML
-	- Data from xml
 	- Animated tiles from TMX
 	- Dynamic obstacles
+	- Keys & Mouse in the tutorial level
 	- Particles system
 	- Framerate cap
+	- Enemies creation logic
+	- Enemy shots
+	- Brofiler
 	
 ## Contact
 
