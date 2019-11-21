@@ -25,6 +25,7 @@ j1Scene1::j1Scene1() : j1Module()
 {
 	name.create("scene1");
 	srand(time(NULL));
+
 }
 
 // Destructor

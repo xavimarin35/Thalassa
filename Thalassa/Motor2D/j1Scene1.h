@@ -9,7 +9,7 @@
 #include "j1Timer.h"
 
 struct SDL_Texture;
-//class Animation;
+class Animation;
 
 class j1Scene1 : public j1Module
 {
@@ -79,6 +79,8 @@ public:
 	j1Timer scene_timer;
 
 private:
+	
+	Animation mouseBlinking;
 
 	SDL_Texture* keys;
 	SDL_Texture* mouse;
