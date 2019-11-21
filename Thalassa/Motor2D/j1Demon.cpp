@@ -71,12 +71,13 @@ bool j1Demon::Update(float dt)
 			move_back = true;
 
 			if (flip) back_pos = position.x + 10;
-			else back_pos = position.x - 10;
+			else if (!flip) back_pos = position.x - 20;
 		}
 
 		if (move_back)
 		{
 			ColLeft = ColRight = false;
+			speed.y = 0;
 			MoveBack(dt);
 		}
 
@@ -155,17 +156,6 @@ void j1Demon::Move(p2DynArray<iPoint>& path, float dt)
 			position.x += speed.x * dt;
 			flip = false;
 		}
-
-		/*if (direction == PATH_MOVEMENT::DOWN)
-		{
-			animation = &runAnim;
-			position.y += speed.y;
-		}
-		else if (direction == PATH_MOVEMENT::UP)
-		{
-			animation = &runAnim;
-			position.y -= speed.y;
-		}*/
 	}
 }
 
@@ -179,7 +169,7 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h + 5 >= c2->rect.y)
 			{
 				// Right
-				if (c1->rect.x + c1->rect.w + 10 >= c2->rect.x && c1->rect.x <= c2->rect.x)
+				if (c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x <= c2->rect.x)
 				{
 					ColRight = true;
 					ColLeft = false;
@@ -256,6 +246,7 @@ void j1Demon::MoveBack(float dt)
 	{
 		if (position.x < back_pos)
 		{
+			ColDown = true;
 			position.x += 40.0 * dt;
 		}
 		else if (position.x >= back_pos)
@@ -266,10 +257,11 @@ void j1Demon::MoveBack(float dt)
 		}
 	}
 
-	else if (!flip)
+	if (!flip)
 	{
 		if (position.x > back_pos)
 		{
+			ColDown = true;
 			position.x -= 40.0 * dt;
 		}
 		else if (position.x <= back_pos)
