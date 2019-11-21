@@ -102,6 +102,10 @@ bool j1Player::Update(float dt)
 		{
 			animation = &deathAnim;
 
+			if (!playedFx)
+				App->audio->PlayFx(App->audio->deathFx);
+			playedFx = true;
+
 			position.y += 17.0f * dt;
 
 			App->scene1->death = true;
@@ -234,13 +238,8 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			}
 		}
 
-		if (c2->type == COLLIDER_DEATH) {
-
-			if (!playedFx) {
-				App->audio->PlayFx(App->audio->deathFx);
-				playedFx = true;
-			}
-
+		if (c2->type == COLLIDER_DEATH) 
+		{
 			isDead = true;
 		}
 			   		
@@ -384,10 +383,12 @@ void j1Player::Shooting(float x, float y, float dt)
 	case PARTICLE_TYPE::BASIC_SHOOT:
 		App->particles->basicShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
 		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
+		App->audio->PlayFx(App->audio->shotFx);
 		break;
 	case PARTICLE_TYPE::REMOTE_SHOOT:
 		App->particles->remoteShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
 		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
+		App->audio->PlayFx(App->audio->shotFx);
 		break;
 	}
 

@@ -57,6 +57,10 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	openDoorFx = LoadFx("audio/fx/opendoor.wav");
 	transitionFx = LoadFx("audio/fx/transitionfx.wav");
 	deathFx = LoadFx("audio/fx/deathfx.wav");
+	batDieFx = LoadFx("audio/fx/batDie.wav");
+	demonJumpFx = LoadFx("audio/fx/demonJump.wav");
+	demonShotFx = LoadFx("audio/fx/demonShot.wav");
+	shotFx = LoadFx("audio/fx/shot1.wav");
 
 
 	return ret;

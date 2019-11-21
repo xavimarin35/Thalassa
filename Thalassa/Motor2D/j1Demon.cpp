@@ -251,6 +251,7 @@ void j1Demon::MoveBack(float dt)
 		}
 		else if (position.x >= back_pos)
 		{
+			App->audio->PlayFx(App->audio->demonJumpFx);
 			move_back = false;
 			ColDown = false;
 			jumping = true;
@@ -266,6 +267,7 @@ void j1Demon::MoveBack(float dt)
 		}
 		else if (position.x <= back_pos)
 		{
+			App->audio->PlayFx(App->audio->demonJumpFx);
 			move_back = false;
 			ColDown = false;
 			jumping = true;
@@ -314,6 +316,7 @@ void j1Demon::Shoot(float dt)
 
 	animation = &attackAnim;
 	App->particles->AddParticle(App->particles->demonShoot, position.x + margin.x, position.y + margin.y, 0, COLLIDER_ENEMY_SHOT, dt, angleInDeg, DEMON_SHOOT);
+	App->audio->PlayFx(App->audio->demonShotFx);
 
 	lastShot = timerShot.Read();
 }

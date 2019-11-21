@@ -257,7 +257,7 @@ void j1Scene1::CameraMovement(float dt)
 	{
 		if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2)
 		{
-			App->render->camera.x -= 120.0f * dt;
+			App->render->camera.x -= 140.0f * dt;
 			App->entity_manager->player->playerCanMove = false;
 		}
 		else

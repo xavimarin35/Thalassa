@@ -6,9 +6,9 @@
 	<audio />
 	<map />
 	<scene1>
-		<playerPos x="57" y="197" />
-		<tutorialActive active="true" />
-		<level1Active active="false" />
+		<playerPos x="1490.59814" y="197" />
+		<tutorialActive active="false" />
+		<level1Active active="true" />
 		<midLevelActive active="false" />
 		<midLevelCompleted active="false" />
 	</scene1>
@@ -18,6 +18,6 @@
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-184" />
+		<camera x="-3959" y="-207" />
 	</renderer>
 </game_state>

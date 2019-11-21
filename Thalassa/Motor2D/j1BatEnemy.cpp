@@ -53,6 +53,10 @@ bool j1BatEnemy::Update(float dt)
 
 	else if (fall)
 	{
+		if (!playedFx)
+			App->audio->PlayFx(App->audio->batDieFx);
+		playedFx = true;
+
 		animation = &dyingAnim;
 
 		if (!ColDown) {

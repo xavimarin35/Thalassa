@@ -40,6 +40,10 @@ public:
 	int footStepFx;
 	int transitionFx;
 	int deathFx;
+	int batDieFx;
+	int demonJumpFx;
+	int demonShotFx;
+	int shotFx;
 
 private:
 

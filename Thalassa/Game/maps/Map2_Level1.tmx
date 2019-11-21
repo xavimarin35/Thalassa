@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="486">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="486">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
   <tile id="1805">
@@ -216680,10 +216680,10 @@
   <object id="112" x="1192" y="232" width="16" height="16"/>
   <object id="113" x="1264" y="216" width="16" height="24"/>
   <object id="114" x="1336" y="224" width="24" height="16"/>
-  <object id="121" x="1464" y="216" width="576" height="32"/>
-  <object id="125" x="1656" y="248" width="56" height="8"/>
+  <object id="121" x="1728" y="216" width="168" height="32"/>
+  <object id="125" x="1464" y="216" width="248" height="40"/>
   <object id="127" x="1848" y="248" width="112" height="8"/>
-  <object id="130" x="2016" y="40" width="24" height="176"/>
+  <object id="130" x="2016" y="40" width="24" height="208"/>
   <object id="131" x="2008" y="8" width="8" height="72"/>
   <object id="132" x="2040" y="40" width="8" height="160"/>
   <object id="133" x="2048" y="144" width="8" height="32"/>
@@ -216695,7 +216695,7 @@
   <object id="150" x="1640" y="184" width="8" height="32"/>
   <object id="151" x="1648" y="200" width="24" height="16"/>
   <object id="152" x="1672" y="208" width="8" height="8"/>
-  <object id="153" x="1896" y="200" width="120" height="16"/>
+  <object id="153" x="1896" y="200" width="120" height="48"/>
   <object id="154" x="1928" y="192" width="88" height="8"/>
   <object id="155" x="1968" y="152" width="48" height="40"/>
   <object id="157" x="1936" y="168" width="32" height="24"/>
@@ -216906,7 +216906,7 @@
   <object id="462" x="3280" y="344" width="16" height="16"/>
   <object id="463" x="3400" y="408" width="16" height="16"/>
   <object id="479" x="3648" y="416" width="56" height="32"/>
-  <object id="480" x="1696" y="200" width="32" height="16"/>
+  <object id="480" x="1696" y="200" width="32" height="48"/>
   <object id="482" x="2512" y="232" width="88" height="40"/>
   <object id="485" x="2600" y="240" width="32" height="24"/>
  </objectgroup>

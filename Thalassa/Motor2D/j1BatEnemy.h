@@ -61,6 +61,7 @@ private:
 	p2DynArray<iPoint>* path;
 
 	float gravity;
+	bool playedFx = false;
 
 	iPoint hitbox;
 	int adjustCollider, adjust;
