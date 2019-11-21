@@ -147,7 +147,7 @@ bool j1Player::PostUpdate()
 bool j1Player::Load(pugi::xml_node& data) {
 
 	position.x = data.child("scene1").child("playerPos").attribute("x").as_float();
-	position.y = data.child("sceen1").child("playerPos").attribute("y").as_float();
+	position.y = data.child("scene1").child("playerPos").attribute("y").as_float();
 
 	return true;
 }
