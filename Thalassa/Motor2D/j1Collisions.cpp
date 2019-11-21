@@ -31,6 +31,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_PLAYER][COLLIDER_DOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_OPENDOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_SHOT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_BAT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;
 

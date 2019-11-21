@@ -262,7 +262,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			doorOpened = true;
 		}
 
-		if (c2->type == COLLIDER_ENEMY_SHOT) {
+		if (c2->type == COLLIDER_ENEMY_SHOT || c2->type == COLLIDER_ENEMY) {
 			isDead = true;
 		}
 	}
