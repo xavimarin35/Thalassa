@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "j1Entity.h"
 #include "j1Particle.h"
+#include "j1Timer.h"
 
 struct Collider;
 struct SDL_Texture;
@@ -69,8 +70,6 @@ public:
 	int lifePoints;
 
 	bool playerCanMove = false;
-	bool openingChest = false;
-	bool itemPicked = false;
 	bool doorOpened = false;
 	bool godMode = false;
 	bool isDead = false;

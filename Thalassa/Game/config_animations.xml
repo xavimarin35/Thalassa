@@ -21,7 +21,7 @@
       <animation x="24" y="8" w="14" h="23"/>
 	</jetpack>
 	
-	<death loop="true" speed="8.0f">
+	<death loop="true" speed="5.3f">
       <animation x="2" y="327" w="13" h="20"/>
       <animation x="18" y="327" w="13" h="20"/>
       <animation x="34" y="327" w="13" h="20"/>
@@ -38,22 +38,6 @@
 	<chestIdle loop="false">
 		<animation x="0" y="0" w="15" h="35"/>
 	</chestIdle>
-	
-	<chestOpening loop="false" speed="6.0f">
-		<animation x="0" y="0" w="15" h="35"/>
-		<animation x="16" y="0" w="15" h="35"/>
-		<animation x="32" y="0" w="15" h="35"/>
-		<animation x="48" y="0" w="15" h="35"/>
-		<animation x="64" y="0" w="15" h="35"/>
-		<animation x="80" y="0" w="15" h="35"/>
-		<animation x="96" y="0" w="15" h="35"/>
-		<animation x="112" y="0" w="15" h="35"/>
-		<animation x="128" y="0" w="15" h="35"/>
-	</chestOpening>
-	
-	<chestOpened>
-		<animation x="144" y="0" w="15" h="35"/>
-	</chestOpened>
 	
 	<doorIdle loop="false">
 		<animation x="80" y="0" w="16" h="30"/>

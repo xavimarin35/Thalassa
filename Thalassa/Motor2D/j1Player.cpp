@@ -102,11 +102,10 @@ bool j1Player::Update(float dt)
 		{
 			animation = &deathAnim;
 
+			position.y += 17.0f * dt;
+
 			App->scene1->death = true;
 			isJumping = true;
-			
-
-
 
 			if (collider != nullptr)
 				collider->to_delete = true;
@@ -244,14 +243,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 			isDead = true;
 		}
-
-		if (c2->type == COLLIDER_OPENCHEST)
-			openingChest = true;
-
-		if (c2->type == COLLIDER_CHEST)
-			itemPicked = true;
-
-		
+			   		
 		if (c2->type == COLLIDER_WIN) {
 			touchingWin = true;
 			playerCanMove = false;
@@ -349,8 +341,9 @@ void j1Player::JetPack() {
 	}
 }
 
-void j1Player::Die() {
-
+void j1Player::Die() 
+{
+	App->scene1->done_anim = false;
 	playedFx = false;
 	isDead = false;
 	playerCanMove = false;

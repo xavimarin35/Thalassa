@@ -69,7 +69,7 @@ bool j1Scene1::Start()
 	{
 		LoadMidLevel();
 	}
-	
+
 	cameraLimitX = cameraLimit.x;
 	cameraLimitY = cameraLimit.y;
 		
@@ -105,8 +105,16 @@ bool j1Scene1::Update(float dt)
 		else cullingView = true;
 	}
 
-	if (death) {
-		App->transitions->FadingToColor(Black, 0.5f);
+	if (death)
+	{
+		if (!done_anim)
+		{
+			deathTimer.Start();
+			done_anim = true;
+		}
+
+		if (deathTimer.Read() > 500)
+			App->transitions->FadingToColor(Black, 0.5f);
 	}
 
 	// If player arrives to the end of a level

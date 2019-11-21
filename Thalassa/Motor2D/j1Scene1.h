@@ -78,8 +78,12 @@ public:
 
 	j1Timer scene_timer;
 
+	bool done_anim = false;
+
 private:
 	
+	j1Timer deathTimer;
+
 	bool clicked = false;
 	Animation* mouseBlinking;
 	Animation blinkAnim;

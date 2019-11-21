@@ -26,8 +26,6 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_WIN] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_CHEST] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_OPENCHEST] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_OPENDOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_SHOT] = true;
@@ -59,40 +57,16 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_GOD][COLLIDER_WIN] = true;
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 
-	matrix[COLLIDER_CHEST][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_CHEST][COLLIDER_WALL] = false;
-	matrix[COLLIDER_CHEST][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_CHEST][COLLIDER_WIN] = false;
-	matrix[COLLIDER_CHEST][COLLIDER_GOD] = false;
-	matrix[COLLIDER_CHEST][COLLIDER_CHEST] = false;
-
-	matrix[COLLIDER_OPENCHEST][COLLIDER_WALL] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_WIN] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_GOD] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_CHEST] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_OPENCHEST] = false;
-
 	matrix[COLLIDER_DOOR][COLLIDER_DOOR] = false;
 	matrix[COLLIDER_DOOR][COLLIDER_WALL] = false;
 	matrix[COLLIDER_DOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DOOR][COLLIDER_WIN] = false;
 	matrix[COLLIDER_DOOR][COLLIDER_GOD] = false;
-	matrix[COLLIDER_DOOR][COLLIDER_CHEST] = false;
-
-	matrix[COLLIDER_OPENCHEST][COLLIDER_WALL] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_WIN] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_GOD] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_CHEST] = false;
-	matrix[COLLIDER_OPENCHEST][COLLIDER_OPENCHEST] = false;
 
 	matrix[COLLIDER_OPENDOOR][COLLIDER_WALL] = false;
 	matrix[COLLIDER_OPENDOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_OPENDOOR][COLLIDER_WIN] = false;
 	matrix[COLLIDER_OPENDOOR][COLLIDER_GOD] = false;
-	matrix[COLLIDER_OPENDOOR][COLLIDER_CHEST] = false;
-	matrix[COLLIDER_OPENDOOR][COLLIDER_OPENCHEST] = false;
 	matrix[COLLIDER_OPENDOOR][COLLIDER_OPENDOOR] = false;
 
 	matrix[COLLIDER_SHOT][COLLIDER_PLAYER] = true;
@@ -233,12 +207,6 @@ void j1Collisions::DebugColliders()
 			break;
 		case COLLIDER_GOD:
 			App->render->DrawQuad(colliders[i]->rect, 125, 125, 0, alpha);
-			break;
-		case COLLIDER_CHEST:
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
-			break;
-		case COLLIDER_OPENCHEST:
-			App->render->DrawQuad(colliders[i]->rect, 100, 100, 100, alpha);
 			break;
 		case COLLIDER_DOOR:
 			App->render->DrawQuad(colliders[i]->rect, 200, 255, 20, alpha);
