@@ -80,7 +80,9 @@ public:
 
 private:
 	
-	Animation mouseBlinking;
+	bool clicked = false;
+	Animation* mouseBlinking;
+	Animation blinkAnim;
 
 	SDL_Texture* keys;
 	SDL_Texture* mouse;

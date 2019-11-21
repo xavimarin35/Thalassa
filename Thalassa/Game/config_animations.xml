@@ -1,4 +1,5 @@
 <animations>
+
     <idle loop="true" speed="0.65f">
       <animation x="4" y="37" w="13" h="20"/>
       <animation x="24" y="37" w="13" h="20"/>
@@ -198,5 +199,10 @@
 		<animation x="105" y="61" w="10" h="9"/>
 		<animation x="117" y="61" w="10" h="10"/>
 	</demonShootDestroyed>
+	
+	<blinkAnim loop ="true" speed="2.0f">
+		<animation x="19" y="0" w="17" h="23"/>
+		<animation x="19" y="25" w="17" h="23"/>
+	</blinkAnim>
 	
 </animations>

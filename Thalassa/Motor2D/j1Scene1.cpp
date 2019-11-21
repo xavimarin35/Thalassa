@@ -26,6 +26,10 @@ j1Scene1::j1Scene1() : j1Module()
 	name.create("scene1");
 	srand(time(NULL));
 
+	mouseBlinking = nullptr;
+
+	blinkAnim.LoadAnimations("blinkAnim");
+
 }
 
 // Destructor
@@ -582,10 +586,22 @@ void j1Scene1::BlitKeys()
 		App->render->Blit(keys, posSPACE.x, posSPACE.y - differenceY, &SPACE);
 
 	// Mouse
+	mouseBlinking = &blinkAnim;
+	SDL_Rect blinkRect = mouseBlinking->GetCurrentFrame(App->GetDT());
+	
 	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+	{
+		clicked = true;
 		App->render->Blit(mouse, posMLeft.x, posMLeft.y, &mouseLeft);
-	else 
-		App->render->Blit(mouse, posMIdle.x, posMIdle.y, &mouseIdle);
+	}
+	else
+	{
+		if(!clicked)
+			App->render->Blit(mouse, posMIdle.x, posMIdle.y, &blinkRect);
+		else
+
+			App->render->Blit(mouse, posMIdle.x, posMIdle.y, &mouseIdle);
+	}
 }
 
 ENTITY_TYPE j1Scene1::RandomItem()
