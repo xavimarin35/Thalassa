@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="486">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="487">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
   <tile id="1805">
@@ -197801,8 +197801,8 @@
    <tile gid="11831"/>
    <tile gid="1504"/>
    <tile gid="1505"/>
-   <tile gid="1506"/>
-   <tile gid="1507"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -216906,9 +216906,10 @@
   <object id="462" x="3280" y="344" width="16" height="16"/>
   <object id="463" x="3400" y="408" width="16" height="16"/>
   <object id="479" x="3648" y="416" width="56" height="32"/>
-  <object id="480" x="1696" y="200" width="32" height="48"/>
+  <object id="480" x="1712" y="208" width="16" height="40"/>
   <object id="482" x="2512" y="232" width="88" height="40"/>
   <object id="485" x="2600" y="240" width="32" height="24"/>
+  <object id="486" x="1696" y="200" width="16" height="16"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="10" name="opendoor_collider">
   <object id="453" x="1960" y="104" width="8" height="64"/>
@@ -216956,7 +216957,7 @@
   <object id="119" x="1288.38" y="483.25" width="16" height="11.375"/>
   <object id="120" x="1258.88" y="479.875" width="12.125" height="16.125"/>
   <object id="158" x="1586.18" y="200.727" width="12.7273" height="15.2727"/>
-  <object id="160" x="1683.27" y="205.5" width="11.6364" height="9.7727"/>
+  <object id="160" x="1680.36" y="205.864" width="11.6364" height="9.7727"/>
   <object id="167" x="739" y="225.5" width="10.5" height="12"/>
   <object id="168" x="771.5" y="225" width="11" height="13.5"/>
   <object id="169" x="786.5" y="225.5" width="12" height="12"/>
