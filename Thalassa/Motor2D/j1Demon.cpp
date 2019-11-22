@@ -105,6 +105,9 @@ bool j1Demon::Update(float dt)
 			else
 				collider->SetPos(position.x + 3, position.y);
 		}
+
+		if (path_created && App->collisions->debug)
+			App->scene1->DrawPath(path);
 	}
 
 	else if (dead)

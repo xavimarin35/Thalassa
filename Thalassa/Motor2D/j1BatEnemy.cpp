@@ -9,6 +9,7 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Audio.h"
+#include "j1Scene1.h"
 #include "j1Map.h"
 
 #include "Brofiler/Brofiler.h"
@@ -83,6 +84,9 @@ bool j1BatEnemy::Update(float dt)
 				path = App->pathfinding->CreatePath(origin, destination);
 				Move(*path, dt);
 				path_created = true;
+
+				if (path_created && App->collisions->debug)
+					App->scene1->DrawPath(path);
 			}
 
 			else if (path_created)

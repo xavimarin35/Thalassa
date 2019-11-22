@@ -7,6 +7,7 @@
 #include "j1Entity.h"
 #include "j1EntityManager.h"
 #include "j1Timer.h"
+#include "p2DynArray.h"
 
 struct SDL_Texture;
 class Animation;
@@ -57,6 +58,8 @@ public:
 	void SpawnTutorialEntities();
 	void SpawnLevel1Entities();
 	void SpawnMidLevelEntities();
+	
+	void DrawPath(p2DynArray<iPoint>* path);
 
 	ENTITY_TYPE RandomItem();
 
