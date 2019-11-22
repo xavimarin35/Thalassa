@@ -16,8 +16,8 @@
 
 j1JetpackItem::j1JetpackItem(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::JETPACK_ITEM)
 {
-	idleAnim.LoadAnimations("bubbleDestroy");
-	destroyAnim.LoadAnimations("bubbleIdle");
+	idleAnim.LoadAnimations("bubbleIdle");
+	destroyAnim.LoadAnimations("bubbleDestroy");
 }
 
 j1JetpackItem::~j1JetpackItem()
@@ -58,8 +58,10 @@ void j1JetpackItem::OnCollision(Collider * c1, Collider * c2)
 	if (c1->type == COLLIDER_PLAYER) {
 		if (c2->type == COLLIDER_ITEM)
 		{
+			App->entity_manager->player->jetPackLife += 35.0f;
 			animation = &destroyAnim;
 			c2->to_delete = true;
+			c2 = nullptr;
 		}
 	}
 }

@@ -238,7 +238,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			}
 		}
 
-		if (c2->type == COLLIDER_DEATH) 
+		if (c2->type == COLLIDER_DEATH || c2->type == COLLIDER_ENEMY_SHOT || c2->type == COLLIDER_ENEMY)
 		{
 			isDead = true;
 		}
@@ -251,10 +251,6 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 		if (c2->type == COLLIDER_OPENDOOR) {
 			doorOpened = true;
-		}
-
-		if (c2->type == COLLIDER_ENEMY_SHOT || c2->type == COLLIDER_ENEMY) {
-			isDead = true;
 		}
 	}
 }
@@ -323,7 +319,7 @@ void j1Player::PlayerMovement(float dt)
 	}
 
 	if (jetPackLife < 196)
-		jetPackLife += 0.25;
+		jetPackLife += 0.0;
 	else if (jetPackLife >= 196)
 		jetPackLife = 196;
 

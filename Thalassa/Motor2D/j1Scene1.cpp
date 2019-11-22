@@ -543,6 +543,12 @@ void j1Scene1::SpawnTutorialEntities()
 	
 	App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
 
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 927, 23);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 1642, 199);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 1817, 205);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 1849, 63);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 1719, 100);
+
 	App->entity_manager->CreateEntity(BAT);
 	App->entity_manager->CreateEntity(PLAYER);
 }
