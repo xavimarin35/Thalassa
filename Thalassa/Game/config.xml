@@ -64,6 +64,22 @@
 	<obstacleAdjust value="7"/>
   </entities>
   
+  <enemiesPosition>
+	<bat1 x="2100" y="150"/>
+	<bat2 x="675" y="195"/>
+	<bat3 x="950" y="195"/>
+	<bat4 x="1000" y="100"/>
+	<bat5 x="3600" y="70"/>
+	<bat6 x="3590" y="150"/>
+	<bat7 x="400" y="195"/>
+	<bat8 x="550" y="70"/>
+	<bat9 x="800" y="100"/>
+	
+	<demon1 x="1860" y="50"/>
+	<demon2 x="3600" y="170"/>
+	<demon3 x="2720" y="210"/>
+  </enemiesPosition>
+  
   <scene>
 	<cameraPositionMoving x="-5400"/>
 	<cameraLimit1 x="-6290" y="-360"/>

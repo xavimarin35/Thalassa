@@ -98,6 +98,9 @@ private:
 	iPoint doorPosition;
 	iPoint cameraLimit;
 
+	iPoint batPos1, batPos2, batPos3;
+	iPoint demonPos1, demonPos2;
+
 	iPoint obstacle1;
 	iPoint obstacle2;
 

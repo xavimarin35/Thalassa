@@ -426,6 +426,9 @@ void j1Scene1::LoadSceneInfo()
 	pugi::xml_node nodeScene;
 	nodeScene = config.child("scene");
 
+	pugi::xml_node nodePositions;
+	nodePositions = config.child("enemiesPosition");
+
 	cameraPositionMoving = nodeScene.child("cameraPositionMoving").attribute("x").as_int();
 
 	if (tutorial_active) 
@@ -434,6 +437,8 @@ void j1Scene1::LoadSceneInfo()
 		cameraLimit.y = nodeScene.child("cameraLimit1").attribute("y").as_int();
 
 		obstacle1 = { nodeScene.child("obstacle1").attribute("x").as_int() , nodeScene.child("obstacle1").attribute("y").as_int() };
+
+		batPos1 = { nodePositions.child("bat1").attribute("x").as_int(), nodePositions.child("bat1").attribute("y").as_int() };
 	}
 
 	else if (level1_active) 
@@ -448,6 +453,12 @@ void j1Scene1::LoadSceneInfo()
 
 			cameraLimit.x = nodeScene.child("cameraLimit2").attribute("x").as_int();
 			cameraLimit.y = nodeScene.child("cameraLimit2").attribute("y").as_int();
+
+			batPos1 = { nodePositions.child("bat2").attribute("x").as_int(), nodePositions.child("bat2").attribute("y").as_int() };
+			batPos2 = { nodePositions.child("bat3").attribute("x").as_int(), nodePositions.child("bat3").attribute("y").as_int() };
+			batPos3 = { nodePositions.child("bat4").attribute("x").as_int(), nodePositions.child("bat4").attribute("y").as_int() };
+
+			demonPos1 = { nodePositions.child("demon1").attribute("x").as_int(), nodePositions.child("demon1").attribute("y").as_int() };
 		}
 		else 
 		{
@@ -456,6 +467,12 @@ void j1Scene1::LoadSceneInfo()
 
 			cameraLimit.x = nodeScene.child("cameraLimit3").attribute("x").as_int();
 			cameraLimit.y = nodeScene.child("cameraLimit3").attribute("y").as_int();
+
+			batPos1 = { nodePositions.child("bat5").attribute("x").as_int(), nodePositions.child("bat5").attribute("y").as_int() };
+			batPos2 = { nodePositions.child("bat6").attribute("x").as_int(), nodePositions.child("bat6").attribute("y").as_int() };
+
+			demonPos1 = { nodePositions.child("demon2").attribute("x").as_int(), nodePositions.child("demon2").attribute("y").as_int() };
+			demonPos2 = { nodePositions.child("demon3").attribute("x").as_int(), nodePositions.child("demon3").attribute("y").as_int() };
 		}
 	}
 
@@ -469,6 +486,10 @@ void j1Scene1::LoadSceneInfo()
 
 		cameraLimit.x = nodeScene.child("cameraLimit4").attribute("x").as_int();
 		cameraLimit.y = nodeScene.child("cameraLimit4").attribute("y").as_int();
+
+		batPos1 = { nodePositions.child("bat7").attribute("x").as_int(), nodePositions.child("bat7").attribute("y").as_int() };
+		batPos2 = { nodePositions.child("bat8").attribute("x").as_int(), nodePositions.child("bat8").attribute("y").as_int() };
+		batPos3 = { nodePositions.child("bat9").attribute("x").as_int(), nodePositions.child("bat9").attribute("y").as_int() };
 	}
 
 	pugi::xml_node nodeKeys;
@@ -503,7 +524,7 @@ void j1Scene1::SpawnTutorialEntities()
 {
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	
-	App->entity_manager->AddEnemy(2100, 150, BAT_E);
+	App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
 
 	App->entity_manager->CreateEntity(BAT);
 	App->entity_manager->CreateEntity(PLAYER);
@@ -514,17 +535,23 @@ void j1Scene1::SpawnLevel1Entities()
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
-	App->entity_manager->AddEnemy(675, 195, BAT_E);
-	App->entity_manager->AddEnemy(950, 195, BAT_E);
-	App->entity_manager->AddEnemy(1000, 100, BAT_E);
+	if (!midlevel_completed)
+	{
+		App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
+		App->entity_manager->AddEnemy(batPos2.x, batPos2.y, BAT_E);
+		App->entity_manager->AddEnemy(batPos3.x, batPos3.y, BAT_E);
 
-	App->entity_manager->AddEnemy(1860, 50, DEMON);
+		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
+	}
 
-	App->entity_manager->AddEnemy(3600, 70, BAT_E);
-	App->entity_manager->AddEnemy(3590, 150, BAT_E);
+	else
+	{
+		App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
+		App->entity_manager->AddEnemy(batPos2.x, batPos2.y, BAT_E);
 
-	App->entity_manager->AddEnemy(3600, 170, DEMON);
-	App->entity_manager->AddEnemy(2720, 210, DEMON);
+		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
+		App->entity_manager->AddEnemy(demonPos2.x, demonPos2.y, DEMON);
+	}
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 	App->entity_manager->CreateEntity(BAT);
@@ -536,9 +563,9 @@ void j1Scene1::SpawnMidLevelEntities()
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
-	App->entity_manager->AddEnemy(400, 195, BAT_E);
-	App->entity_manager->AddEnemy(550, 70, BAT_E);
-	App->entity_manager->AddEnemy(800, 100, BAT_E);
+	App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
+	App->entity_manager->AddEnemy(batPos2.x, batPos2.y, BAT_E);
+	App->entity_manager->AddEnemy(batPos3.x, batPos3.y, BAT_E);
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 	App->entity_manager->CreateEntity(BAT);
