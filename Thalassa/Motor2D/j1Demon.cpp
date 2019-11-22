@@ -119,7 +119,8 @@ bool j1Demon::Update(float dt)
 		collider = nullptr;
 	}
 
-	BlitEntity(animation->GetCurrentFrame(dt), flip);
+	if (App->render->EntitiesCulling(position, -App->render->camera.x, 30))
+		BlitEntity(animation->GetCurrentFrame(dt), flip);
 
 	return true;
 }

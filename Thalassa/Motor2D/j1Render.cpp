@@ -211,7 +211,7 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	return ret;
 }
 
-bool j1Render::CameraCulling(int x, int y, int w, int h, int camera_position)
+bool j1Render::CameraCulling(int x, int y, int w, int h, int camera_position, int width, int scale, float speed)
 {
 	bool ret = false;
 
@@ -222,13 +222,27 @@ bool j1Render::CameraCulling(int x, int y, int w, int h, int camera_position)
 	else
 		variation = { App->map->culling_view };
 
-	int camera_width = App->win->width;
-	int scale = App->win->scale;
-	float speed = App->map->parallax_speed;
-
 	SDL_Rect tile_to_print = { App->map->MapToWorld(x,y).x, App->map->MapToWorld(x,y).y, w, h };
 
-	if ((camera_position * speed - variation.x) / scale <= tile_to_print.x && (camera_position * speed - variation.y) / scale + camera_width >= tile_to_print.x)
+	if ((camera_position * speed - variation.x) / scale <= tile_to_print.x && (camera_position * speed - variation.y) / scale + width >= tile_to_print.x)
+		ret = true;
+
+	else ret = false;
+
+	return ret;
+}
+
+bool j1Render::EntitiesCulling(fPoint pos, int camera_position, int hide, int width, int scale, float speed)
+{
+	bool ret = false;
+
+	iPoint variation;
+
+	if (!App->scene1->cullingView)
+		variation = { App->map->culling_variation };
+	else variation = { App->map->culling_view };
+
+	if ((camera_position * speed - variation.x) / scale - hide <= pos.x && (camera_position * speed - variation.y) / scale + width + hide >= pos.x)
 		ret = true;
 
 	else ret = false;

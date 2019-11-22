@@ -98,7 +98,8 @@ bool j1BatEnemy::Update(float dt)
 		}
 	}
 
-	BlitEntity(animation->GetCurrentFrame(dt), flip);
+	if (App->render->EntitiesCulling(position, -App->render->camera.x, 30))
+		BlitEntity(animation->GetCurrentFrame(dt), flip);
 
 	return true;
 }
