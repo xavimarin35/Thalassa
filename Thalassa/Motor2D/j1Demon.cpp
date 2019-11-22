@@ -23,6 +23,8 @@ j1Demon::j1Demon(int x, int y, ENTITY_TYPE type) : j1Entity(x, y, ENTITY_TYPE::D
 	attackAnim.LoadAnimations("demonAttack");
 	hurtAnim.LoadAnimations("demonHurt");
 	deathAnim.LoadAnimations("demonDie");
+
+	LoadProperties();
 }
 
 j1Demon::~j1Demon() {}
@@ -33,7 +35,7 @@ bool j1Demon::Start()
 
 	animation = &idleAnim;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 10, 13 }, COLLIDER_ENEMY, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_ENEMY, App->entity_manager);
 
 	timerShot.Start();
 
@@ -70,8 +72,8 @@ bool j1Demon::Update(float dt)
 		{
 			move_back = true;
 
-			if (flip) back_pos = position.x + 5;
-			else if (!flip) back_pos = position.x - 5;
+			if (flip) back_pos = position.x + back_pos_xml.x;
+			else if (!flip) back_pos = position.x - back_pos_xml.y;
 		}
 
 		if (move_back)
@@ -222,7 +224,7 @@ void j1Demon::OnCollision(Collider* c1, Collider* c2)
 
 void j1Demon::PathFind(float dt)
 {
-	iPoint origin = { App->map->WorldToMap((int)position.x + 7, (int)position.y + 6) };
+	iPoint origin = { App->map->WorldToMap((int)position.x + adjustPath.x, (int)position.y + adjustPath.y) };
 	iPoint destination;
 
 	if (position.x < App->entity_manager->player->position.x)
@@ -240,14 +242,14 @@ void j1Demon::PathFind(float dt)
 
 void j1Demon::MoveBack(float dt)
 {
-	jump_force = 70.0f;
+	jump_force = jumpforce_xml;
 
 	if (flip)
 	{
 		if (position.x < back_pos)
 		{
 			ColDown = true;
-			position.x += 40.0 * dt;
+			position.x += speed.x * dt;
 		}
 		else if (position.x >= back_pos)
 		{
@@ -263,7 +265,7 @@ void j1Demon::MoveBack(float dt)
 		if (position.x > back_pos)
 		{
 			ColDown = true;
-			position.x -= 40.0 * dt;
+			position.x -= speed.x * dt;
 		}
 		else if (position.x <= back_pos)
 		{
@@ -296,8 +298,7 @@ void j1Demon::Shoot(float dt)
 	runAnim.Finished();
 
 	fPoint margin;
-	margin.x = 8;
-	margin.y = 8;
+	margin = margin_particles;
 
 	fPoint edge;
 	edge.x = App->entity_manager->player->position.x - position.x;
@@ -306,7 +307,7 @@ void j1Demon::Shoot(float dt)
 	double angle = -(atan2(edge.y, edge.x));
 
 	fPoint speed_particle;
-	fPoint p_speed = { 4000, 4000 };
+	fPoint p_speed = speed_particles;
 
 	speed_particle.x = p_speed.x * cos(angle);
 	speed_particle.y = p_speed.y * sin(angle);
@@ -319,4 +320,31 @@ void j1Demon::Shoot(float dt)
 	App->audio->PlayFx(App->audio->demonShotFx);
 
 	lastShot = timerShot.Read();
+}
+
+void j1Demon::LoadProperties()
+{
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
+
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodeDemon;
+	nodeDemon = config.child("demon");
+
+	gravity = nodeDemon.child("gravity").attribute("value").as_float();
+	cooldownShot = nodeDemon.child("cooldown").attribute("value").as_uint();
+	jump_force = jumpforce_xml = nodeDemon.child("jumpForce").attribute("value").as_float();
+	attackDamage = nodeDemon.child("damage").attribute("value").as_int();
+	adjustPath = { nodeDemon.child("adjustPath").attribute("x").as_int(), nodeDemon.child("adjustPath").attribute("y").as_int() };
+	hitbox = { nodeDemon.child("hitbox").attribute("x").as_int(),nodeDemon.child("hitbox").attribute("y").as_int() };
+	speed = { nodeDemon.child("speed").attribute("x").as_float(),nodeDemon.child("speed").attribute("y").as_float() };
+	back_pos_xml = { nodeDemon.child("back_pos").attribute("x").as_float(),nodeDemon.child("back_pos").attribute("y").as_float() };
+
+	pugi::xml_node nodeParticles;
+	nodeParticles = config.child("particles");
+
+	margin_particles = { nodeParticles.child("margin1").attribute("x").as_float(),nodeParticles.child("margin1").attribute("y").as_float() };
+	speed_particles = { nodeParticles.child("p_speed2").attribute("x").as_float(),nodeParticles.child("p_speed2").attribute("y").as_float() };
 }

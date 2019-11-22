@@ -125,6 +125,7 @@
   <particles>
 	<margin1 x="8" y="8"/>
 	<p_speed1 x="5000" y="5000"/>
+	<p_speed2 x="4000" y="4000"/>
 	<life x="3000" y="200"/>
 	<hitboxShoots x="5" y="5"/>
   </particles>
@@ -137,5 +138,16 @@
 	<adjustPath x="7" y="6"/>
 	<adjustCollider value="20"/>
   </batEnemy>
+  
+  <demon>
+	<hitbox x="10" y="13"/>
+	<back_pos x="5" y="5"/>
+	<adjustPath x="7" y="6"/>
+	<jumpForce value="70.0f"/>
+	<speed x="30.0f" y="30.0f"/>
+	<damage value="100"/>
+	<cooldown value="3000"/>
+	<gravity value="150.0f"/>
+  </demon>
 
 </config>
