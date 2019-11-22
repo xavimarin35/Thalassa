@@ -524,7 +524,7 @@ void j1Scene1::SpawnLevel1Entities()
 	App->entity_manager->AddEnemy(3590, 150, BAT_E);
 
 	App->entity_manager->AddEnemy(3600, 170, DEMON);
-	App->entity_manager->AddEnemy(2720, 10, DEMON);
+	App->entity_manager->AddEnemy(2720, 210, DEMON);
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 	App->entity_manager->CreateEntity(BAT);

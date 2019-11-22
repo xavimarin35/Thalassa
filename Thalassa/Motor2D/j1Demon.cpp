@@ -70,8 +70,8 @@ bool j1Demon::Update(float dt)
 		{
 			move_back = true;
 
-			if (flip) back_pos = position.x + 10;
-			else if (!flip) back_pos = position.x - 20;
+			if (flip) back_pos = position.x + 5;
+			else if (!flip) back_pos = position.x - 5;
 		}
 
 		if (move_back)
@@ -89,7 +89,7 @@ bool j1Demon::Update(float dt)
 		if (ColDown)
 			speed.y = 0;
 
-		else if (!ColDown && !jumping && App->scene1->scene_timer.Read() > 1000)
+		else if (!ColDown && !jumping && App->scene1->scene_timer.Read() > 3000)
 		{
 			position.y += speed.y * dt;
 			speed.y += gravity * dt;
