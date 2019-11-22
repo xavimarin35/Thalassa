@@ -68,6 +68,7 @@ public:
 	int lifes = 3;
 	float gravity;
 	int lifePoints;
+	float jetPackLife = 196;
 
 	bool playerCanMove = false;
 	bool doorOpened = false;

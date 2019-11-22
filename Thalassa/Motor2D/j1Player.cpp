@@ -291,7 +291,8 @@ void j1Player::PlayerMovement(float dt)
 		App->audio->PlayFx(App->audio->jumpFx);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_DOWN) 
+	{
 		jetpackActive = true;
 		playedFx2 = false;
 		onFloor = false;
@@ -302,7 +303,8 @@ void j1Player::PlayerMovement(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == j1KeyState::KEY_UP) 
+	{
 		jetpackActive = false;
 		jumpForce = 0.0f;
 		speed.y = speed_y;
@@ -319,6 +321,14 @@ void j1Player::PlayerMovement(float dt)
 		App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
 		Shooting(mouse_pos.x, mouse_pos.y, dt);
 	}
+
+	if (jetPackLife < 196)
+		jetPackLife += 0.25;
+	else if (jetPackLife >= 196)
+		jetPackLife = 196;
+
+	if (jetPackLife < 0)
+		jetpackActive = false;
 }
 
 void j1Player::Jumping() {
@@ -334,6 +344,8 @@ void j1Player::Jumping() {
 void j1Player::JetPack() {
 
 	animation = &jetpack;
+
+	jetPackLife -= 3;
 
 	if (!onFloor) {
 		position.y -= jetForce * App->GetDT();

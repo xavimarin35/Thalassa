@@ -54,6 +54,7 @@ bool j1Scene1::Start()
 	LoadSceneInfo();
 
 	debugPath = App->tex->Load("maps/Quad_Ortho.png");
+	jetPack_tex = App->tex->Load("textures/jetPack_bar.png");
 
 	// TUTORIAL
 	if (tutorial_active) 
@@ -76,6 +77,8 @@ bool j1Scene1::Start()
 	cameraLimitX = cameraLimit.x;
 	cameraLimitY = cameraLimit.y;
 		
+	jetPackBar = { 0,0,200,15 };
+
 	return true;
 }
 
@@ -186,6 +189,17 @@ bool j1Scene1::Update(float dt)
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
+
+	jetPackLife = { 0, 16, (int)App->entity_manager->player->jetPackLife, 11 };
+
+	float cam_pos = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + 72;
+	float cam_pos_y = -App->render->camera.y / App->win->scale + 226;
+
+	float cam_pos2 = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + 74;
+	float cam_pos2_y = -App->render->camera.y / App->win->scale + 228;
+
+	App->render->Blit(jetPack_tex, cam_pos, cam_pos_y, &jetPackBar);
+	App->render->Blit(jetPack_tex, cam_pos2, cam_pos2_y, &jetPackLife);
 
 	// App->win->SetTitle("Thalassa");
 	return true;

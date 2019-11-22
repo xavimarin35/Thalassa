@@ -94,6 +94,7 @@ private:
 	SDL_Texture* keys;
 	SDL_Texture* mouse;
 	SDL_Texture* debugPath;
+	SDL_Texture* jetPack_tex;
 
 	int cameraLimitX;
 	int cameraLimitY;
@@ -109,6 +110,8 @@ private:
 	iPoint obstacle2;
 
 	int differenceY;
+
+	SDL_Rect jetPackBar, jetPackLife;
 
 	SDL_Rect W, WPressed, A, APressed, D, DPressed, SPACE, SPACEPressed, mouseLeft, mouseRight, mouseIdle;
 	iPoint posA, posD, posW1, posW2, posW3, posW4, posSPACE, posMLeft, posMRight, posMIdle;
