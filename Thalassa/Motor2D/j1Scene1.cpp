@@ -16,6 +16,8 @@
 #include "p2Animation.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 #include <time.h>
+#include "p2DynArray.h"
+#include "j1Pathfinding.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -51,6 +53,8 @@ bool j1Scene1::Start()
 	BROFILER_CATEGORY("Scene_Start", Profiler::Color::PaleGoldenRod)
 
 	LoadSceneInfo();
+
+	debugPath = App->tex->Load("maps/Quad_Ortho.png");
 
 	// TUTORIAL
 	if (tutorial_active) 
@@ -179,6 +183,17 @@ bool j1Scene1::Update(float dt)
 	if (tutorial_active)
 	{
 		BlitKeys();
+	}
+
+	if (App->collisions->debug)
+	{
+		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+		for (int i = 0; i < path->Count(); i++)
+		{
+			iPoint tile = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(debugPath, tile.x, tile.y);
+		}
 	}
 
 	int x, y;

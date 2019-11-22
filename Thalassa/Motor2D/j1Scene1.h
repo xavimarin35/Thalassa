@@ -90,6 +90,7 @@ private:
 
 	SDL_Texture* keys;
 	SDL_Texture* mouse;
+	SDL_Texture* debugPath;
 
 	int cameraLimitX;
 	int cameraLimitY;
