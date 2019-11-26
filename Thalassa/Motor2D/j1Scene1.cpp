@@ -198,8 +198,8 @@ bool j1Scene1::Update(float dt)
 	float cam_pos2 = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + 74;
 	float cam_pos2_y = -App->render->camera.y / App->win->scale + 228;
 
-	App->render->Blit(jetPack_tex, cam_pos, cam_pos_y, &jetPackBar);
-	App->render->Blit(jetPack_tex, cam_pos2, cam_pos2_y, &jetPackLife);
+	App->render->Blit(jetPack_tex, 2, 2, &jetPackBar, SDL_FLIP_NONE, 1.0F, (0,0), false);
+	App->render->Blit(jetPack_tex, 8, 8, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
 
 	// App->win->SetTitle("Thalassa");
 	return true;
