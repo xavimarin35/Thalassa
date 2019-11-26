@@ -44,6 +44,7 @@ public:
 	int demonJumpFx;
 	int demonShotFx;
 	int shotFx;
+	int jetPick;
 
 private:
 

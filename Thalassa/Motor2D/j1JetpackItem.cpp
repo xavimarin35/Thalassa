@@ -65,6 +65,7 @@ void j1JetpackItem::OnCollision(Collider * c1, Collider * c2)
 	{
 		if (c2->type == COLLIDER_ITEM)
 		{
+			App->audio->PlayFx(App->audio->jetPick);
 			dead = true;
 			App->entity_manager->player->jetPackLife += 35.0f;
 			animation = &destroyAnim;
