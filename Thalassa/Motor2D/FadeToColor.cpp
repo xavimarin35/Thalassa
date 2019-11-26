@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "FadeToColor.h"
 #include "j1App.h"
+#include "j1JetpackItem.h"
 #include "j1Window.h"
 #include "p2Log.h"
 
@@ -38,7 +39,8 @@ void FadeToColor::Change() {
 
 	// FillScreen(255.0f);
 
-	if (App->scene1->death) {
+	if (App->scene1->death) 
+	{
 		App->entity_manager->player->Die();
 		App->entity_manager->player->jetPackLife = 196;
 	}

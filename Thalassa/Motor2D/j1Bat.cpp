@@ -34,6 +34,8 @@ bool j1Bat::Update(float dt)
 {
 	BROFILER_CATEGORY("Bat_Update", Profiler::Color::YellowGreen)
 
+	animation = &idle;
+
 	MoveHorizontal(App->entity_manager->player->position.x);
 	MoveVertical(App->entity_manager->player->position.y);
 

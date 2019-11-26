@@ -58,6 +58,8 @@ public:
 	void SpawnTutorialEntities();
 	void SpawnLevel1Entities();
 	void SpawnMidLevelEntities();
+
+	void ReSpawnEntities();
 	
 	void DrawPath(p2DynArray<iPoint>* path);
 

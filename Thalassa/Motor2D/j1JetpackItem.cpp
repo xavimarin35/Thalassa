@@ -28,6 +28,8 @@ bool j1JetpackItem::Start()
 {
 	sprites = App->tex->Load("textures/Particles/bubble.png");
 
+	dead = false;
+
 	animation = &idleAnim;
 
 	collider = App->collisions->AddCollider({ (int)position.x + 2, (int)position.y + 2, 12, 12 }, COLLIDER_ITEM, App->entity_manager);
@@ -37,6 +39,10 @@ bool j1JetpackItem::Start()
 
 bool j1JetpackItem::Update(float dt)
 {
+	if (!dead)
+		animation = &idleAnim;
+
+	else animation = &destroyAnim;
 
 	BlitEntity(animation->GetCurrentFrame(dt), false);
 
@@ -55,13 +61,14 @@ bool j1JetpackItem::CleanUp()
 
 void j1JetpackItem::OnCollision(Collider * c1, Collider * c2)
 {
-	if (c1->type == COLLIDER_PLAYER) {
+	if (c1->type == COLLIDER_PLAYER) 
+	{
 		if (c2->type == COLLIDER_ITEM)
 		{
+			dead = true;
 			App->entity_manager->player->jetPackLife += 35.0f;
 			animation = &destroyAnim;
 			c2->to_delete = true;
-			c2 = nullptr;
 		}
 	}
 }

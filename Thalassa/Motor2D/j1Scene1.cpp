@@ -558,6 +558,13 @@ void j1Scene1::SpawnLevel1Entities()
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 758, 93);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 581, 381);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 723, 349);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 1264, 188);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 927, 23);
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 874, 299);
+
 	if (!midlevel_completed)
 	{
 		App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
@@ -687,4 +694,16 @@ void j1Scene1::DrawPath(p2DynArray<iPoint>* path)
 		iPoint tile = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(debugPath, tile.x, tile.y);
 	}
+}
+
+void j1Scene1::ReSpawnEntities()
+{
+	if (tutorial_active)
+		SpawnTutorialEntities();
+
+	else if (midlevel_active)
+		SpawnMidLevelEntities();
+
+	else if (level1_active)
+		SpawnLevel1Entities();
 }

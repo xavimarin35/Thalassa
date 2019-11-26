@@ -171,7 +171,8 @@ bool j1Player::CleanUp() {
 
 	App->tex->UnLoad(sprites);
 
-	if (collider != nullptr) {
+	if (collider != nullptr) 
+	{
 		collider->to_delete = true;
 		collider = nullptr;
 	}
@@ -356,6 +357,8 @@ void j1Player::Die()
 	playerCanMove = false;
 	jetpackActive = false;
 	App->scene1->death = false;
+	// App->entity_manager->DestroyAllEntities();
+	App->scene1->ReSpawnEntities();
 
 	position.y += speed.y * App->GetDT();
 	speed.y += gravity * App->GetDT();
