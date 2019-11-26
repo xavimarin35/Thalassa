@@ -324,7 +324,7 @@ void j1Scene1::LoadTutorial()
 
 	SpawnTutorialEntities();
 
-	//App->audio->PlayMusic("audio/music/loading.ogg");
+	App->audio->PlayMusic("audio/music/loading.ogg");
 }
 
 void j1Scene1::LoadLevel1()
@@ -558,13 +558,6 @@ void j1Scene1::SpawnLevel1Entities()
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
 
-	App->entity_manager->CreateEntity(JETPACK_ITEM, 758, 93);
-	App->entity_manager->CreateEntity(JETPACK_ITEM, 581, 381);
-	App->entity_manager->CreateEntity(JETPACK_ITEM, 723, 349);
-	App->entity_manager->CreateEntity(JETPACK_ITEM, 1264, 188);
-	App->entity_manager->CreateEntity(JETPACK_ITEM, 927, 23);
-	App->entity_manager->CreateEntity(JETPACK_ITEM, 874, 299);
-
 	if (!midlevel_completed)
 	{
 		App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
@@ -572,6 +565,13 @@ void j1Scene1::SpawnLevel1Entities()
 		App->entity_manager->AddEnemy(batPos3.x, batPos3.y, BAT_E);
 
 		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
+
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 758, 93);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 581, 381);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 723, 349);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 1264, 188);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 927, 23);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 874, 299);
 	}
 
 	else
@@ -581,6 +581,13 @@ void j1Scene1::SpawnLevel1Entities()
 
 		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
 		App->entity_manager->AddEnemy(demonPos2.x, demonPos2.y, DEMON);
+
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 3086, 258);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 3284, 282);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 3463, 464);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 3649, 355);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 3544, 233);
+		App->entity_manager->CreateEntity(JETPACK_ITEM, 3536, 111);
 	}
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
@@ -596,6 +603,8 @@ void j1Scene1::SpawnMidLevelEntities()
 	App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
 	App->entity_manager->AddEnemy(batPos2.x, batPos2.y, BAT_E);
 	App->entity_manager->AddEnemy(batPos3.x, batPos3.y, BAT_E);
+
+	App->entity_manager->CreateEntity(JETPACK_ITEM, 438, 125);
 
 	App->entity_manager->CreateEntity(DOOR, doorPosition.x, doorPosition.y);
 	App->entity_manager->CreateEntity(BAT);

@@ -64,6 +64,18 @@ void j1Bat::MoveHorizontal(float x)
 		// Bat at the left of the character
 		horizontal_pos = x - 30;
 		horizontal_limit = { horizontal_pos + 60, horizontal_pos - 10 };
+		
+		if (bat_position.x < horizontal_pos - 150)
+			inertia += 300.0f * App->GetDT();
+
+		else if (bat_position.x < horizontal_pos - 100)
+			inertia += 160.0f * App->GetDT();
+
+		else if (bat_position.x < horizontal_pos - 50)
+			inertia += 75.0f * App->GetDT();
+
+		else if (bat_position.x < horizontal_pos)
+			inertia += 25.0f * App->GetDT();
 
 		// If the bat is too far away from the character, he returns to his initial position
 		if (redirect_horizontal) 
@@ -84,7 +96,7 @@ void j1Bat::MoveHorizontal(float x)
 	}
 	
 	// We do the same as before but if the player is flipped and looking to the left
-	if(!App->entity_manager->player->flip)
+	if (!App->entity_manager->player->flip)
 	{
 		horizontal_pos = x + 30;
 		horizontal_limit = { horizontal_pos - 60, horizontal_pos + 10 };

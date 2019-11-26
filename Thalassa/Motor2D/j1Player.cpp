@@ -320,7 +320,7 @@ void j1Player::PlayerMovement(float dt)
 	}
 
 	if (jetPackLife < 196)
-		jetPackLife += 0.0;
+		jetPackLife += 0.025;
 	else if (jetPackLife >= 196)
 		jetPackLife = 196;
 
