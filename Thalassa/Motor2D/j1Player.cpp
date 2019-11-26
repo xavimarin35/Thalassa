@@ -357,13 +357,13 @@ void j1Player::Die()
 	playerCanMove = false;
 	jetpackActive = false;
 	App->scene1->death = false;
-	// App->entity_manager->DestroyAllEntities();
+	App->entity_manager->DestroyAllEntities();
 	App->scene1->ReSpawnEntities();
 
 	position.y += speed.y * App->GetDT();
 	speed.y += gravity * App->GetDT();
 	
-	CleanUp();
+	/*CleanUp();*/
 	Start();
 	
 }
