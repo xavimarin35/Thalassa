@@ -101,12 +101,16 @@ private:
 	int cameraLimitX;
 	int cameraLimitY;
 	int cameraPositionMoving;
+	int timer;
 
 	iPoint doorPosition;
 	iPoint cameraLimit;
+	iPoint camera_speed;
 
 	iPoint batPos1, batPos2, batPos3;
 	iPoint demonPos1, demonPos2;
+
+	iPoint item1, item2, item3, item4, item5, item6, item7, item8;
 
 	iPoint obstacle1;
 	iPoint obstacle2;
@@ -114,6 +118,7 @@ private:
 	int differenceY;
 
 	SDL_Rect jetPackBar, jetPackLife;
+	iPoint pos_bar, pos_bar2;
 
 	SDL_Rect W, WPressed, A, APressed, D, DPressed, SPACE, SPACEPressed, mouseLeft, mouseRight, mouseIdle;
 	iPoint posA, posD, posW1, posW2, posW3, posW4, posSPACE, posMLeft, posMRight, posMIdle;

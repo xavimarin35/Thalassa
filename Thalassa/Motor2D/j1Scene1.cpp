@@ -76,8 +76,6 @@ bool j1Scene1::Start()
 
 	cameraLimitX = cameraLimit.x;
 	cameraLimitY = cameraLimit.y;
-		
-	jetPackBar = { 0,0,200,15 };
 
 	return true;
 }
@@ -119,7 +117,7 @@ bool j1Scene1::Update(float dt)
 			done_anim = true;
 		}
 
-		if (deathTimer.Read() > 500)
+		if (deathTimer.Read() > timer)
 			App->transitions->FadingToColor(Black, 0.5f);
 	}
 
@@ -190,16 +188,10 @@ bool j1Scene1::Update(float dt)
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	jetPackLife = { 0, 16, (int)App->entity_manager->player->jetPackLife, 11 };
+	jetPackLife = { 0, pos_bar.x, (int)App->entity_manager->player->jetPackLife, pos_bar.y };
 
-	float cam_pos = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + 72;
-	float cam_pos_y = -App->render->camera.y / App->win->scale + 226;
-
-	float cam_pos2 = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + 74;
-	float cam_pos2_y = -App->render->camera.y / App->win->scale + 228;
-
-	App->render->Blit(jetPack_tex, 2, 2, &jetPackBar, SDL_FLIP_NONE, 1.0F, (0,0), false);
-	App->render->Blit(jetPack_tex, 8, 8, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
+	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.x, &jetPackBar, SDL_FLIP_NONE, 1.0F, (0,0), false);
+	App->render->Blit(jetPack_tex, pos_bar2.y, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
 
 	// App->win->SetTitle("Thalassa");
 	return true;
@@ -274,7 +266,7 @@ void j1Scene1::CameraMovement(float dt)
 	{
 		if (App->render->camera.x >= -App->entity_manager->player->position.x * App->win->GetScale() + App->win->width / 2)
 		{
-			App->render->camera.x -= 140.0f * dt;
+			App->render->camera.x -= camera_speed.x * dt;
 			App->entity_manager->player->playerCanMove = false;
 		}
 		else
@@ -296,7 +288,7 @@ void j1Scene1::CameraMovement(float dt)
 	{
 		if (App->render->camera.y >= -App->entity_manager->player->position.y * App->win->GetScale() + App->win->height / 2)
 		{
-			App->render->camera.y -= 95.0f * dt;
+			App->render->camera.y -= camera_speed.y * dt;
 			App->entity_manager->player->playerCanMove = false;
 		}
 		else
@@ -446,7 +438,15 @@ void j1Scene1::LoadSceneInfo()
 	pugi::xml_node nodePositions;
 	nodePositions = config.child("enemiesPosition");
 
+	pugi::xml_node itemPositions;
+	itemPositions = config.child("itemPosition");
+
 	cameraPositionMoving = nodeScene.child("cameraPositionMoving").attribute("x").as_int();
+	camera_speed = { nodeScene.child("cameraSpeed").attribute("x").as_int(), nodeScene.child("cameraSpeed").attribute("y").as_int() };
+	jetPackBar = { nodeScene.child("jetPackBar").attribute("x").as_int(), nodeScene.child("jetPackBar").attribute("y").as_int(), nodeScene.child("jetPackBar").attribute("w").as_int(), nodeScene.child("jetPackBar").attribute("h").as_int() };
+	timer = nodeScene.child("deathTimer").attribute("value").as_int();
+	pos_bar = { nodeScene.child("jetPackLife").attribute("x").as_int(), nodeScene.child("jetPackLife").attribute("y").as_int() };
+	pos_bar2 = { nodeScene.child("BlitJet").attribute("x").as_int(), nodeScene.child("BlitJet").attribute("y").as_int() };
 
 	if (tutorial_active) 
 	{
@@ -456,6 +456,12 @@ void j1Scene1::LoadSceneInfo()
 		obstacle1 = { nodeScene.child("obstacle1").attribute("x").as_int() , nodeScene.child("obstacle1").attribute("y").as_int() };
 
 		batPos1 = { nodePositions.child("bat1").attribute("x").as_int(), nodePositions.child("bat1").attribute("y").as_int() };
+
+		item1 = { itemPositions.child("i11").attribute("x").as_int(), itemPositions.child("i11").attribute("y").as_int() };
+		item2 = { itemPositions.child("i12").attribute("x").as_int(), itemPositions.child("i12").attribute("y").as_int() };
+		item3 = { itemPositions.child("i13").attribute("x").as_int(), itemPositions.child("i13").attribute("y").as_int() };
+		item4 = { itemPositions.child("i14").attribute("x").as_int(), itemPositions.child("i14").attribute("y").as_int() };
+		item5 = { itemPositions.child("i15").attribute("x").as_int(), itemPositions.child("i15").attribute("y").as_int() };
 	}
 
 	else if (level1_active) 
@@ -476,6 +482,13 @@ void j1Scene1::LoadSceneInfo()
 			batPos3 = { nodePositions.child("bat4").attribute("x").as_int(), nodePositions.child("bat4").attribute("y").as_int() };
 
 			demonPos1 = { nodePositions.child("demon1").attribute("x").as_int(), nodePositions.child("demon1").attribute("y").as_int() };
+
+			item1 = { itemPositions.child("i21").attribute("x").as_int(), itemPositions.child("i21").attribute("y").as_int() };
+			item2 = { itemPositions.child("i22").attribute("x").as_int(), itemPositions.child("i22").attribute("y").as_int() };
+			item3 = { itemPositions.child("i23").attribute("x").as_int(), itemPositions.child("i23").attribute("y").as_int() };
+			item4 = { itemPositions.child("i24").attribute("x").as_int(), itemPositions.child("i24").attribute("y").as_int() };
+			item5 = { itemPositions.child("i25").attribute("x").as_int(), itemPositions.child("i25").attribute("y").as_int() };
+			item6 = { itemPositions.child("i26").attribute("x").as_int(), itemPositions.child("i26").attribute("y").as_int() };
 		}
 		else 
 		{
@@ -490,6 +503,15 @@ void j1Scene1::LoadSceneInfo()
 
 			demonPos1 = { nodePositions.child("demon2").attribute("x").as_int(), nodePositions.child("demon2").attribute("y").as_int() };
 			demonPos2 = { nodePositions.child("demon3").attribute("x").as_int(), nodePositions.child("demon3").attribute("y").as_int() };
+
+			item1 = { itemPositions.child("i27").attribute("x").as_int(), itemPositions.child("i27").attribute("y").as_int() };
+			item2 = { itemPositions.child("i28").attribute("x").as_int(), itemPositions.child("i28").attribute("y").as_int() };
+			item3 = { itemPositions.child("i29").attribute("x").as_int(), itemPositions.child("i29").attribute("y").as_int() };
+			item4 = { itemPositions.child("i210").attribute("x").as_int(), itemPositions.child("i210").attribute("y").as_int() };
+			item5 = { itemPositions.child("i211").attribute("x").as_int(), itemPositions.child("i211").attribute("y").as_int() };
+			item6 = { itemPositions.child("i212").attribute("x").as_int(), itemPositions.child("i212").attribute("y").as_int() };
+			item7 = { itemPositions.child("i213").attribute("x").as_int(), itemPositions.child("i213").attribute("y").as_int() };
+			item8 = { itemPositions.child("i214").attribute("x").as_int(), itemPositions.child("i214").attribute("y").as_int() };
 		}
 	}
 
@@ -507,6 +529,8 @@ void j1Scene1::LoadSceneInfo()
 		batPos1 = { nodePositions.child("bat7").attribute("x").as_int(), nodePositions.child("bat7").attribute("y").as_int() };
 		batPos2 = { nodePositions.child("bat8").attribute("x").as_int(), nodePositions.child("bat8").attribute("y").as_int() };
 		batPos3 = { nodePositions.child("bat9").attribute("x").as_int(), nodePositions.child("bat9").attribute("y").as_int() };
+
+		item1 = { itemPositions.child("i31").attribute("x").as_int(), itemPositions.child("i31").attribute("y").as_int() };
 	}
 
 	pugi::xml_node nodeKeys;
@@ -543,11 +567,11 @@ void j1Scene1::SpawnTutorialEntities()
 	
 	App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
 	
-	App->entity_manager->AddEntity(927, 23, JETPACK_ITEM);
-	App->entity_manager->AddEntity(1642, 199, JETPACK_ITEM);
-	App->entity_manager->AddEntity(1817, 205, JETPACK_ITEM);
-	App->entity_manager->AddEntity(1849, 63, JETPACK_ITEM);
-	App->entity_manager->AddEntity(1719, 100, JETPACK_ITEM);
+	App->entity_manager->AddEntity(item1.x, item1.y, JETPACK_ITEM);
+	App->entity_manager->AddEntity(item2.x, item2.y, JETPACK_ITEM);
+	App->entity_manager->AddEntity(item3.x, item3.y, JETPACK_ITEM);
+	App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
+	App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
 
 	App->entity_manager->CreateEntity(BAT);
 	App->entity_manager->CreateEntity(PLAYER);
@@ -566,12 +590,12 @@ void j1Scene1::SpawnLevel1Entities()
 
 		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
 
-		App->entity_manager->AddEntity(758, 93, JETPACK_ITEM);
-		App->entity_manager->AddEntity(581, 381, JETPACK_ITEM);
-		App->entity_manager->AddEntity(723, 349, JETPACK_ITEM);
-		App->entity_manager->AddEntity(1264, 188, JETPACK_ITEM);
-		App->entity_manager->AddEntity(927, 23, JETPACK_ITEM);
-		App->entity_manager->AddEntity(874, 299, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item1.x, item1.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item2.x, item2.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item3.x, item3.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item6.x, item6.y, JETPACK_ITEM);
 	}
 
 	else
@@ -582,14 +606,14 @@ void j1Scene1::SpawnLevel1Entities()
 		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
 		App->entity_manager->AddEnemy(demonPos2.x, demonPos2.y, DEMON);
 
-		App->entity_manager->AddEntity(3086, 258, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3284, 282, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3463, 464, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3649, 355, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3544, 233, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3536, 111, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3608, 270, JETPACK_ITEM);
-		App->entity_manager->AddEntity(3632, 140, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item1.x, item1.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item2.x, item2.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item3.x, item3.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item6.x, item6.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item7.x, item7.y, JETPACK_ITEM);
+		App->entity_manager->AddEntity(item8.x, item8.y, JETPACK_ITEM);
 	}
 
 	App->entity_manager->AddEntity(doorPosition.x, doorPosition.y, DOOR);
@@ -606,7 +630,7 @@ void j1Scene1::SpawnMidLevelEntities()
 	App->entity_manager->AddEnemy(batPos2.x, batPos2.y, BAT_E);
 	App->entity_manager->AddEnemy(batPos3.x, batPos3.y, BAT_E);
 
-	App->entity_manager->AddEntity(438, 125, JETPACK_ITEM);
+	App->entity_manager->AddEntity(item1.x, item1.y, JETPACK_ITEM);
 
 	App->entity_manager->AddEntity(doorPosition.x, doorPosition.y, DOOR);
 	App->entity_manager->CreateEntity(BAT);
