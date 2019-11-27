@@ -371,6 +371,8 @@ bool j1App::LoadGameApp()
 
 	load_game.create("save_game.xml");
 
+	scene1->scene_timer.Start();
+
 	pugi::xml_document data;
 	pugi::xml_node root;
 
