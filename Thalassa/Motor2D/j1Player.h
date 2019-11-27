@@ -68,7 +68,7 @@ public:
 	int lifes = 3;
 	float gravity;
 	int lifePoints;
-	float jetPackLife = 196;
+	float jetPackLife;
 
 	bool playerCanMove = false;
 	bool doorOpened = false;
@@ -98,6 +98,13 @@ private:
 
 	float jumpForce_xml;
 	float jetForce_xml;
+
+	float death_fall;
+	int timer_app;
+
+	float jetCharge;
+	int jetSpend;
+	int jetMax;
 };
 
 #endif // __j1PLAYER_H__

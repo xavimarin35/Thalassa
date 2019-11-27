@@ -89,7 +89,7 @@ bool j1Player::Update(float dt)
 			// Falling
 			if (!isJumping && !godMode && !ColDown)
 			{
-				if (!onFloor && App->scene1->scene_timer.Read() > 2500) {
+				if (!onFloor && App->scene1->scene_timer.Read() > timer_app) {
 					position.y += speed.y * dt;
 					speed.y += gravity * dt;
 					animation = &jump;
@@ -106,7 +106,7 @@ bool j1Player::Update(float dt)
 				App->audio->PlayFx(App->audio->deathFx);
 			playedFx = true;
 
-			position.y += 17.0f * dt;
+			position.y += death_fall * dt;
 
 			App->scene1->death = true;
 			isJumping = true;
@@ -319,10 +319,10 @@ void j1Player::PlayerMovement(float dt)
 		Shooting(mouse_pos.x, mouse_pos.y, dt);
 	}
 
-	if (jetPackLife < 196)
-		jetPackLife += 0.025;
-	else if (jetPackLife >= 196)
-		jetPackLife = 196;
+	if (jetPackLife < jetMax)
+		jetPackLife += jetCharge;
+	else if (jetPackLife >= jetMax)
+		jetPackLife = jetMax;
 
 	if (jetPackLife < 0)
 		jetpackActive = false;
@@ -342,7 +342,7 @@ void j1Player::JetPack() {
 
 	animation = &jetpack;
 
-	jetPackLife -= 3;
+	jetPackLife -= jetSpend;
 
 	if (!onFloor) {
 		position.y -= jetForce * App->GetDT();
@@ -486,6 +486,11 @@ void j1Player::LoadInfo()
 	jumpForce_xml = nodePlayer.child("jumpForce").attribute("value").as_float();
 	hitbox = { nodePlayer.child("hitbox").attribute("x").as_int(), nodePlayer.child("hitbox").attribute("y").as_int() };
 	lifePoints = nodePlayer.child("life").attribute("value").as_int();
+	death_fall = nodePlayer.child("deathFall").attribute("value").as_float();
+	timer_app = nodePlayer.child("timer").attribute("value").as_int();
+	jetPackLife = jetMax = nodePlayer.child("jetLife").attribute("value").as_int();
+	jetCharge = nodePlayer.child("jetCharge").attribute("value").as_float();
+	jetSpend = nodePlayer.child("jetSpend").attribute("value").as_int();
 
 	pugi::xml_node nodeParticles;
 	nodeParticles = config.child("particles");

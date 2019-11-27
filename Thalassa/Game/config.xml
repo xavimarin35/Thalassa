@@ -54,6 +54,11 @@
 	<jetForce value="70.0f"/>
 	<hitbox x="13" y="20"/>
 	<life value="90"/>
+	<deathFall value="17.0f"/>
+	<timer value="2500"/>
+	<jetLife value="196"/>
+	<jetCharge value="0.025"/>
+	<jetSpend value="3"/>
   </player>
   
   <entities>
@@ -112,6 +117,7 @@
 	<cameraLimit2 x="-5135" y="-790"/>
 	<cameraLimit3 x="-10400" y="-790"/>
 	<cameraLimit4 x="-2200" y="-400"/>
+	<cameraSpeed x="140" y="95"/>
 	<doorPosition1 x="996" y="61"/>
 	<doorPosition2 x="494" y="85"/>
 	<obstacle1 x="1803" y="144"/>
