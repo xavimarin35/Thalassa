@@ -166,6 +166,24 @@
 	<hitboxShoots x="5" y="5"/>
   </particles>
   
+  <bat>
+	<pos_to_player x="30" y="30"/>
+	<limit x="60" y="10"/>
+	<redirectInertia value="25.0f"/>
+	<inertia value="100.0f"/>
+	<distances x="200" y="100"/>
+	<speed1 value="100.0f"/>
+	<speed2 value="50.0f"/>
+	<speed3 value="30.0f"/>
+	<minDistance value="5"/>
+	<farDistance x="150" y="100"/>
+	<farSpeed1 value="300.0f"/>
+	<farSpeed2 value="160.0f"/>
+	<farSpeed3 value="75.0f"/>
+	<closeSpeed value="25.0f"/>
+	<minDistanceFinal value="50"/>
+  </bat>
+  
   <batEnemy>
 	<hitbox x="10" y="11"/>
 	<speed x="35.0f" y="35.0f"/>

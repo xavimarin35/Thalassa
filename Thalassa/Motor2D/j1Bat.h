@@ -19,6 +19,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	
+	void LoadProperties();
+
 	void ArriveToPlayer(float pos_to_be, bool flip);
 
 	void MoveHorizontal(float x);
@@ -39,6 +41,21 @@ private:
 	bool movement = false;
 
 	Animation idle;
+
+	//XML Variables
+	iPoint pos_to_player;
+	iPoint limit_pos;
+
+	float redirectInertia;
+	float inertia_speed;
+
+	iPoint distance;
+	int minDistance, minDistanceFinal;
+	iPoint farDistance;
+
+	float farSpeed1, farSpeed2, farSpeed3;
+	float speed1, speed2, speed3, closeSpeed;
+
 };
 
 #endif
