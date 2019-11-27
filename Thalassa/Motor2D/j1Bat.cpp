@@ -25,6 +25,8 @@ bool j1Bat::Start()
 {
 	sprites = App->tex->Load("textures/bat.png");
 
+	bat_position = { App->entity_manager->player->position.x - 30, App->entity_manager->player->position.y - 30 };
+
 	animation = &idle;
 
 	return true;
@@ -59,23 +61,15 @@ void j1Bat::MoveHorizontal(float x)
 	float horizontal_pos;
 	fPoint horizontal_limit;
 
+	animation = &idle;
+
 	if (App->entity_manager->player->flip)
 	{
 		// Bat at the left of the character
 		horizontal_pos = x - 30;
 		horizontal_limit = { horizontal_pos + 60, horizontal_pos - 10 };
 		
-		if (bat_position.x < horizontal_pos - 150)
-			inertia += 300.0f * App->GetDT();
-
-		else if (bat_position.x < horizontal_pos - 100)
-			inertia += 160.0f * App->GetDT();
-
-		else if (bat_position.x < horizontal_pos - 50)
-			inertia += 75.0f * App->GetDT();
-
-		else if (bat_position.x < horizontal_pos)
-			inertia += 25.0f * App->GetDT();
+		if (bat_position.x < horizontal_pos) ArriveToPlayer(horizontal_pos, true);
 
 		// If the bat is too far away from the character, he returns to his initial position
 		if (redirect_horizontal) 
@@ -100,6 +94,8 @@ void j1Bat::MoveHorizontal(float x)
 	{
 		horizontal_pos = x + 30;
 		horizontal_limit = { horizontal_pos - 60, horizontal_pos + 10 };
+
+		if (bat_position.x > horizontal_pos) ArriveToPlayer(horizontal_pos, false);
 
 		if (redirect_horizontal)
 		{
@@ -126,20 +122,61 @@ void j1Bat::MoveVertical(float y)
 	BROFILER_CATEGORY("BatMoveVertical", Profiler::Color::AliceBlue)
 
 	float vertical_pos = y - 30;
-	fPoint idle_vertical;
 
-	if (bat_position.y < vertical_pos - 50)
-		vertical_speed += 75.0f * App->GetDT();
+	animation = &idle;
 
-	else if (bat_position.y < vertical_pos - 30)
+	if (bat_position.y > vertical_pos + 200)
+		vertical_speed -= 100.0f * App->GetDT();
+
+	else if (bat_position.y > vertical_pos + 100)
+		vertical_speed -= 50.0f * App->GetDT();
+
+	else if(bat_position.y > vertical_pos)
+		vertical_speed -= 30.0f * App->GetDT();
+
+
+	if (bat_position.y < vertical_pos - 200)
+		vertical_speed += 100.0f * App->GetDT();
+
+	else if (bat_position.y < vertical_pos - 100)
 		vertical_speed += 50.0f * App->GetDT();
 
-	else if (bat_position.y < vertical_pos - 10)
-		vertical_speed += 25.0f * App->GetDT();
-
-	else if (bat_position.y > vertical_pos)
-		vertical_speed -= 50.0f * App->GetDT();
+	else if (bat_position.y < vertical_pos - 5)
+		vertical_speed += 30.0f * App->GetDT();
 
 	bat_position.y = vertical_speed;
 
+}
+
+void j1Bat::ArriveToPlayer(float pos_to_be, bool flip)
+{
+	if (flip)
+	{
+		if (bat_position.x < pos_to_be - 150)
+			inertia += 300.0f * App->GetDT();
+
+		else if (bat_position.x < pos_to_be - 100)
+			inertia += 160.0f * App->GetDT();
+
+		else if (bat_position.x < pos_to_be - 50)
+			inertia += 75.0f * App->GetDT();
+
+		else if (bat_position.x < pos_to_be)
+			inertia += 25.0f * App->GetDT();
+	}
+
+	else
+	{
+		if (bat_position.x > pos_to_be + 150)
+			inertia -= 300.0f * App->GetDT();
+
+		else if (bat_position.x > pos_to_be + 100)
+			inertia -= 160.0f * App->GetDT();
+
+		else if (bat_position.x > pos_to_be + 50)
+			inertia -= 75.0f * App->GetDT();
+
+		else if (bat_position.x > pos_to_be)
+			inertia -= 25.0f * App->GetDT();
+	}
 }

@@ -152,7 +152,7 @@ void j1EntityManager::DestroyAllEntities()
 	for (p2List_item<j1Entity*>* it = entityList.start; it != nullptr; it = it->next)
 	{
 		// except player & bat
-		if (it->data != player || it->data != bat)
+		if (it->data != bat)
 		{
 			it->data->CleanUp();
 			entityList.del(it);

@@ -588,6 +588,8 @@ void j1Scene1::SpawnLevel1Entities()
 		App->entity_manager->AddEntity(3649, 355, JETPACK_ITEM);
 		App->entity_manager->AddEntity(3544, 233, JETPACK_ITEM);
 		App->entity_manager->AddEntity(3536, 111, JETPACK_ITEM);
+		App->entity_manager->AddEntity(3608, 270, JETPACK_ITEM);
+		App->entity_manager->AddEntity(3632, 140, JETPACK_ITEM);
 	}
 
 	App->entity_manager->AddEntity(doorPosition.x, doorPosition.y, DOOR);

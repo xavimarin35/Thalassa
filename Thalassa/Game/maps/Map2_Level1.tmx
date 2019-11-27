@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="487">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="476" height="65" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="489">
  <tileset firstgid="1" name="s4m_ur4i_huge-assetpack-tilemap" tilewidth="8" tileheight="8" tilecount="9102" columns="82">
   <image source="s4m_ur4i_huge-assetpack-tilemap.png" width="658" height="892"/>
   <tile id="1805">
@@ -12739,8 +12739,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1001"/>
-   <tile gid="1002"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -13215,8 +13215,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1083"/>
-   <tile gid="1084"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -13691,8 +13691,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1165"/>
-   <tile gid="1166"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -14165,10 +14165,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1163"/>
-   <tile gid="1164"/>
-   <tile gid="1247"/>
-   <tile gid="1248"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -14641,10 +14641,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1245"/>
-   <tile gid="1246"/>
-   <tile gid="1329"/>
-   <tile gid="1330"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -200304,9 +200304,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="2244"/>
+   <tile gid="1834"/>
+   <tile gid="1835"/>
    <tile/>
    <tile/>
    <tile/>
@@ -216745,7 +216745,7 @@
   <object id="219" x="2256" y="464" width="40" height="16"/>
   <object id="220" x="2256" y="480" width="32" height="40"/>
   <object id="221" x="2288" y="512" width="8" height="8"/>
-  <object id="222" x="2632" y="248" width="120" height="16"/>
+  <object id="222" x="2720" y="248" width="32" height="16"/>
   <object id="223" x="2592" y="264" width="136" height="8"/>
   <object id="224" x="2712" y="272" width="16" height="8"/>
   <object id="225" x="2600" y="272" width="48" height="8"/>
@@ -216910,6 +216910,8 @@
   <object id="482" x="2512" y="232" width="88" height="40"/>
   <object id="485" x="2600" y="240" width="32" height="24"/>
   <object id="486" x="1696" y="200" width="16" height="16"/>
+  <object id="487" x="2696" y="240" width="24" height="24"/>
+  <object id="488" x="2632" y="248" width="64" height="16"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="10" name="opendoor_collider">
   <object id="453" x="1960" y="104" width="8" height="64"/>

@@ -18,6 +18,8 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
+	
+	void ArriveToPlayer(float pos_to_be, bool flip);
 
 	void MoveHorizontal(float x);
 	void MoveVertical(float y);
