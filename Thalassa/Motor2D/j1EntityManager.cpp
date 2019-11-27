@@ -43,7 +43,12 @@ bool j1EntityManager::PreUpdate()
 	{
 		if (queue[i].type != ENTITY_TYPE::NONE) 
 		{
-			SpawnEnemy(queue[i]);
+			if (queue[i].type == ENTITY_TYPE::BAT_E || queue[i].type == ENTITY_TYPE::OBSTACLE || queue[i].type == ENTITY_TYPE::DEMON)
+				SpawnEnemy(queue[i]);
+
+			else
+				SpawnEntity(queue[i]);
+
 			queue[i].type = ENTITY_TYPE::NONE;
 		}
 	}
@@ -117,27 +122,8 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, float x, float y)
 			entityList.add(ret);
 		break;
 
-	case ENTITY_TYPE::DOOR:
-		ret = new j1Door(x, y, type);
-
-		if (ret != nullptr)
-			entityList.add(ret);
-		break;
-
 	case ENTITY_TYPE::BAT:
 		ret = new j1Bat(x, y, type);
-
-		if (ret != nullptr)
-			entityList.add(ret);
-		break;
-	case ENTITY_TYPE::LIFE_ITEM:
-		ret = new j1LifeItem(x, y, type);
-
-		if (ret != nullptr)
-			entityList.add(ret);
-		break;
-	case ENTITY_TYPE::JETPACK_ITEM:
-		ret = new j1JetpackItem(x, y, type);
 
 		if (ret != nullptr)
 			entityList.add(ret);
@@ -149,27 +135,15 @@ j1Entity* j1EntityManager::EntityFactory(ENTITY_TYPE type, float x, float y)
 
 void j1EntityManager::CreateEntity(ENTITY_TYPE type, float x, float y)
 {
-	switch (type) {
+	switch (type) 
+	{
 		case ENTITY_TYPE::PLAYER:
 			player = (j1Player*)EntityFactory(ENTITY_TYPE::PLAYER, x, y);
-			break;
-
-		case ENTITY_TYPE::DOOR:
-			door = (j1Door*)EntityFactory(ENTITY_TYPE::DOOR, x, y);
 			break;
 
 		case ENTITY_TYPE::BAT:
 			bat = (j1Bat*)EntityFactory(ENTITY_TYPE::BAT, x, y);
 			break;
-		
-		case ENTITY_TYPE::LIFE_ITEM:
-			lifeItem = (j1LifeItem*)EntityFactory(ENTITY_TYPE::LIFE_ITEM, x, y);
-			break;
-
-		case ENTITY_TYPE::JETPACK_ITEM:
-			jetpackItem = (j1JetpackItem*)EntityFactory(ENTITY_TYPE::JETPACK_ITEM, x, y);
-			break;
-
 	}
 }
 
@@ -189,6 +163,20 @@ void j1EntityManager::DestroyAllEntities()
 
 
 void j1EntityManager::AddEnemy(float x, float y, ENTITY_TYPE type)
+{
+	for (int i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type == ENTITY_TYPE::NONE)
+		{
+			queue[i].type = type;
+			queue[i].position.x = x;
+			queue[i].position.y = y;
+			break;
+		}
+	}
+}
+
+void j1EntityManager::AddEntity(float x, float y, ENTITY_TYPE type)
 {
 	for (int i = 0; i < MAX_ENTITIES; ++i)
 	{
@@ -227,6 +215,44 @@ void j1EntityManager::SpawnEnemy(const EntityInfo & info)
 
 			case ENTITY_TYPE::BAT_E:
 				ret = new j1BatEnemy(info.position.x, info.position.y, info.type);
+
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+			}
+
+			ret->Start();
+
+			break;
+		}
+	}
+}
+
+void j1EntityManager::SpawnEntity(const EntityInfo & info)
+{
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type != ENTITY_TYPE::NONE)
+		{
+			j1Entity* ret = nullptr;
+
+			switch (info.type) {
+			case ENTITY_TYPE::DOOR:
+				ret = new j1Door(info.position.x, info.position.y, info.type);
+
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+
+			case ENTITY_TYPE::JETPACK_ITEM:
+				ret = new j1JetpackItem(info.position.x, info.position.y, info.type);
+
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+
+			case ENTITY_TYPE::LIFE_ITEM:
+				ret = new j1LifeItem(info.position.x, info.position.y, info.type);
 
 				if (ret != nullptr)
 					entityList.add(ret);

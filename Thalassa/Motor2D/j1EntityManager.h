@@ -63,7 +63,9 @@ public:
 	j1Entity* EntityFactory(ENTITY_TYPE type, float x = 0, float y = 0);
 	void CreateEntity(ENTITY_TYPE type, float x = 0, float y = 0);
 	void AddEnemy(float x, float y, ENTITY_TYPE type);
+	void AddEntity(float x, float y, ENTITY_TYPE type);
 	void SpawnEnemy(const EntityInfo& info);
+	void SpawnEntity(const EntityInfo& info);
 	void DestroyAllEntities();
 
 	void OnCollision(Collider* c1, Collider* c2);
