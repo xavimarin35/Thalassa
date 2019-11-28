@@ -57,8 +57,8 @@
 	<deathFall value="17.0f"/>
 	<timer value="2500"/>
 	<jetLife value="196"/>
-	<jetCharge value="0.025"/>
-	<jetSpend value="3"/>
+	<jetCharge value="0.08"/>
+	<jetSpend value="2"/>
   </player>
   
   <entities>
@@ -202,6 +202,7 @@
 	<damage value="100"/>
 	<cooldown value="3000"/>
 	<gravity value="150.0f"/>
+	<speedDeath value="5.0f"/>
   </demon>
 
 </config>

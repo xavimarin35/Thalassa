@@ -8,6 +8,7 @@
 #include "j1EntityManager.h"
 #include "j1Timer.h"
 #include "p2DynArray.h"
+#include "SDL/include/SDL_mouse.h"
 
 struct SDL_Texture;
 class Animation;
@@ -60,6 +61,8 @@ public:
 	void SpawnMidLevelEntities();
 
 	void ReSpawnEntities();
+
+	void ShowCursor(bool hide);
 	
 	void DrawPath(p2DynArray<iPoint>* path);
 
@@ -97,11 +100,14 @@ private:
 	SDL_Texture* mouse;
 	SDL_Texture* debugPath;
 	SDL_Texture* jetPack_tex;
+	SDL_Texture* cursor_tex;
 
 	int cameraLimitX;
 	int cameraLimitY;
 	int cameraPositionMoving;
 	int timer;
+
+	bool hide_cursor = true;
 
 	iPoint doorPosition;
 	iPoint cameraLimit;
@@ -111,6 +117,9 @@ private:
 	iPoint demonPos1, demonPos2;
 
 	iPoint item1, item2, item3, item4, item5, item6, item7, item8;
+
+	SDL_Rect cursor;
+	fPoint mouse_position;
 
 	iPoint obstacle1;
 	iPoint obstacle2;

@@ -212,30 +212,32 @@ void j1BatEnemy::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_ENEMY) {
 
-		if (c2->type == COLLIDER_SHOT) 
+		if (c2->type == COLLIDER_SHOT)
 		{
 			fall = true;
+			c1->type = COLLIDER_BATFALL;
 		}
+	}
 
-		else if (c2->type == COLLIDER_WALL) 
+	if (c1->type == COLLIDER_BATFALL && c2->type == COLLIDER_WALL)
+	{
+		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y)
 		{
-			if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y < c2->rect.y)
+			if (fall)
 			{
-				if (fall) 
-				{
-					fall = false;
-					dead = true;
+				fall = false;
+				dead = true;
 
-					if (collider != nullptr)
-						collider->to_delete = true;
-					collider = nullptr;
+				if (collider != nullptr)
+					collider->to_delete = true;
+				collider = nullptr;
 
-					position.y = c2->rect.y + c2->rect.h - adjustCollider;
+				position.y = c2->rect.y + c2->rect.h - adjustCollider;
 
-					ColUp = false;
-					ColDown = true;
-				}
+				ColUp = false;
+				ColDown = true;
 			}
 		}
 	}
+	
 }

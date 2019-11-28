@@ -112,6 +112,7 @@ bool j1Demon::Update(float dt)
 
 	else if (dead)
 	{
+		position.y += speedDeath * dt;
 		animation = &deathAnim;
 
 		if (collider != nullptr)
@@ -345,6 +346,7 @@ void j1Demon::LoadProperties()
 	hitbox = { nodeDemon.child("hitbox").attribute("x").as_int(),nodeDemon.child("hitbox").attribute("y").as_int() };
 	speed = { nodeDemon.child("speed").attribute("x").as_float(),nodeDemon.child("speed").attribute("y").as_float() };
 	back_pos_xml = { nodeDemon.child("back_pos").attribute("x").as_float(),nodeDemon.child("back_pos").attribute("y").as_float() };
+	speedDeath = nodeDemon.child("speedDeath").attribute("value").as_float();
 
 	pugi::xml_node nodeParticles;
 	nodeParticles = config.child("particles");

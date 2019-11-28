@@ -17,6 +17,7 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include <time.h>
 #include "j1Pathfinding.h"
+#include "SDL/include/SDL_mouse.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -55,6 +56,9 @@ bool j1Scene1::Start()
 
 	debugPath = App->tex->Load("maps/Quad_Ortho.png");
 	jetPack_tex = App->tex->Load("textures/jetPack_bar.png");
+	cursor_tex = App->tex->Load("textures/cursor.png");
+
+	cursor = { 0,0,13,13 };
 
 	// TUTORIAL
 	if (tutorial_active) 
@@ -90,6 +94,8 @@ bool j1Scene1::PreUpdate()
 bool j1Scene1::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene_Update", Profiler::Color::Red)
+
+	ShowCursor(hide_cursor);
 
 	//Save & Load
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -192,6 +198,10 @@ bool j1Scene1::Update(float dt)
 
 	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.x, &jetPackBar, SDL_FLIP_NONE, 1.0F, (0,0), false);
 	App->render->Blit(jetPack_tex, pos_bar2.y, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
+
+	mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x + 6;
+	mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
+	App->render->Blit(cursor_tex, mouse_position.x, mouse_position.y, &cursor);
 
 	// App->win->SetTitle("Thalassa");
 	return true;
@@ -741,4 +751,11 @@ void j1Scene1::ReSpawnEntities()
 
 	else if (level1_active)
 		SpawnLevel1Entities();
+}
+
+void j1Scene1::ShowCursor(bool hide)
+{
+	if (hide)
+		SDL_ShowCursor(SDL_DISABLE);
+	else SDL_ShowCursor(SDL_ENABLE);
 }

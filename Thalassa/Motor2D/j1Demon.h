@@ -61,6 +61,8 @@ private:
 	uint lastShot = 0;
 	uint cooldownShot;
 
+	float speedDeath;
+
 	iPoint hitbox;
 	float back_pos;
 
