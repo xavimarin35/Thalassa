@@ -7,6 +7,7 @@
 #include "j1BatEnemy.h"
 #include "j1LifeItem.h"
 #include "j1JetpackItem.h"
+#include "j1Platform.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -41,7 +42,18 @@ bool j1EntityManager::PreUpdate()
 
 	for (int i = 0; i < MAX_ENTITIES; ++i)
 	{
-		if (queue[i].type != ENTITY_TYPE::NONE) 
+
+		if (platform_queue[i].type != ENTITY_TYPE::NONE)
+		{
+			SpawnPlatform(platform_queue[i]);
+
+			platform_queue[i].type = ENTITY_TYPE::NONE;
+		}
+	}
+
+	for (int i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (queue[i].type != ENTITY_TYPE::NONE)
 		{
 			if (queue[i].type == ENTITY_TYPE::BAT_E || queue[i].type == ENTITY_TYPE::OBSTACLE || queue[i].type == ENTITY_TYPE::DEMON)
 				SpawnEnemy(queue[i]);
@@ -190,6 +202,24 @@ void j1EntityManager::AddEntity(float x, float y, ENTITY_TYPE type)
 	}
 }
 
+void j1EntityManager::AddPlatform(float x, float y, ENTITY_TYPE type, iPoint limit, int type_plat, bool vertical)
+{
+	for (int i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (platform_queue[i].type == ENTITY_TYPE::NONE)
+		{
+			platform_queue[i].type = ENTITY_TYPE::PLATFORM;
+			platform_queue[i].position.x = x;
+			platform_queue[i].position.y = y;
+			platform_queue[i].limit = limit;
+			platform_queue[i].type_platform = type_plat;
+			platform_queue[i].vertical = vertical;
+
+			break;
+		}
+	}
+}
+
 void j1EntityManager::SpawnEnemy(const EntityInfo & info)
 {
 	for (uint i = 0; i < MAX_ENTITIES; ++i)
@@ -253,6 +283,32 @@ void j1EntityManager::SpawnEntity(const EntityInfo & info)
 
 			case ENTITY_TYPE::LIFE_ITEM:
 				ret = new j1LifeItem(info.position.x, info.position.y, info.type);
+
+				if (ret != nullptr)
+					entityList.add(ret);
+				break;
+			}
+
+			ret->Start();
+
+			break;
+		}
+	}
+}
+
+void j1EntityManager::SpawnPlatform(const PlatformInfo& info)
+{
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (platform_queue[i].type != ENTITY_TYPE::NONE)
+		{
+			j1Entity* ret = nullptr;
+
+			switch(info.type)
+			{
+			case ENTITY_TYPE::PLATFORM:
+
+				ret = new j1Platform(info.position.x, info.position.y, info.type, info.limit, info.type_platform, info.vertical);
 
 				if (ret != nullptr)
 					entityList.add(ret);

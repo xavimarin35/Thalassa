@@ -97,6 +97,9 @@
     <ClCompile Include="j1JetpackItem.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
     </ClCompile>
+    <ClCompile Include="j1Platform.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -215,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="j1JetpackItem.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Platform.h">
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

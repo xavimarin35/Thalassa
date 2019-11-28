@@ -11,6 +11,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Bat.h"
+#include "j1Platform.h"
 #include "j1TransitionsManager.h"
 #include "j1Collisions.h"
 #include "p2Animation.h"
@@ -326,7 +327,7 @@ void j1Scene1::LoadTutorial()
 
 	SpawnTutorialEntities();
 
-	App->audio->PlayMusic("audio/music/loading.ogg");
+	//App->audio->PlayMusic("audio/music/loading.ogg");
 }
 
 void j1Scene1::LoadLevel1()
@@ -582,6 +583,8 @@ void j1Scene1::SpawnTutorialEntities()
 	App->entity_manager->AddEntity(item3.x, item3.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
+
+//	App->entity_manager->AddPlatform(100, 100, PLATFORM, { 40,40 });
 
 	App->entity_manager->CreateEntity(BAT);
 	App->entity_manager->CreateEntity(PLAYER);
