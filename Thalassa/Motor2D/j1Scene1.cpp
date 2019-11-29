@@ -200,7 +200,7 @@ bool j1Scene1::Update(float dt)
 	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.x, &jetPackBar, SDL_FLIP_NONE, 1.0F, (0,0), false);
 	App->render->Blit(jetPack_tex, pos_bar2.y, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
 
-	mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x + 6;
+	mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
 	mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
 	App->render->Blit(cursor_tex, mouse_position.x, mouse_position.y, &cursor);
 
