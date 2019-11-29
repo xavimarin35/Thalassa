@@ -491,6 +491,7 @@ void j1Scene1::LoadSceneInfo()
 			batPos1 = { nodePositions.child("bat2").attribute("x").as_int(), nodePositions.child("bat2").attribute("y").as_int() };
 			batPos2 = { nodePositions.child("bat3").attribute("x").as_int(), nodePositions.child("bat3").attribute("y").as_int() };
 			batPos3 = { nodePositions.child("bat4").attribute("x").as_int(), nodePositions.child("bat4").attribute("y").as_int() };
+			batPos4 = { nodePositions.child("bat10").attribute("x").as_int(), nodePositions.child("bat10").attribute("y").as_int() };
 
 			demonPos1 = { nodePositions.child("demon1").attribute("x").as_int(), nodePositions.child("demon1").attribute("y").as_int() };
 
@@ -600,6 +601,7 @@ void j1Scene1::SpawnLevel1Entities()
 		App->entity_manager->AddEnemy(batPos1.x, batPos1.y, BAT_E);
 		App->entity_manager->AddEnemy(batPos2.x, batPos2.y, BAT_E);
 		App->entity_manager->AddEnemy(batPos3.x, batPos3.y, BAT_E);
+		App->entity_manager->AddEnemy(batPos4.x, batPos4.y, BAT_E);
 
 		App->entity_manager->AddEnemy(demonPos1.x, demonPos1.y, DEMON);
 
@@ -610,8 +612,11 @@ void j1Scene1::SpawnLevel1Entities()
 		App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
 		App->entity_manager->AddEntity(item6.x, item6.y, JETPACK_ITEM);
 
+		App->entity_manager->AddPlatform(1683, 477, PLATFORM, { 360,350 }, 3);
 		App->entity_manager->AddPlatform(1468, 205, PLATFORM, { 80,20 });
+		App->entity_manager->AddPlatform(2246, 231, PLATFORM, { 60,60 });
 		App->entity_manager->AddPlatform(1590, 147, PLATFORM, { 60,60 }, 2, true);
+		App->entity_manager->AddPlatform(2044, 210, PLATFORM, { 60,145 }, 1, true);
 		App->entity_manager->AddPlatform(1730, 147, PLATFORM, { 80,60 });
 	}
 

@@ -110,7 +110,6 @@ bool j1Player::Update(float dt)
 			position.y += death_fall * dt;
 
 			App->scene1->death = true;
-			isJumping = true;
 
 			if (collider != nullptr)
 				collider->to_delete = true;

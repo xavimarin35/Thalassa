@@ -32,7 +32,7 @@
 	<parallax2 value="0.5f"/>
 	<parallax3 value="0.7f"/>
 	<parallax4 value="0.3f"/>
-	<parallaxBg value="0.055f"/>
+	<parallaxBg value="0.045f"/>
 	<cullingVariation x="30" y="2050"/>
 	<cullingDebug x="-50" y="2137"/>
 	<convertor value="0.02f"/>
@@ -79,6 +79,7 @@
 	<bat7 x="400" y="195"/>
 	<bat8 x="550" y="70"/>
 	<bat9 x="800" y="100"/>
+	<bat10 x="1905" y="40"/>
 	
 	<demon1 x="2840" y="180"/>
 	<demon2 x="3722" y="217"/>

@@ -113,7 +113,7 @@ private:
 	iPoint cameraLimit;
 	iPoint camera_speed;
 
-	iPoint batPos1, batPos2, batPos3;
+	iPoint batPos1, batPos2, batPos3, batPos4;
 	iPoint demonPos1, demonPos2;
 
 	iPoint item1, item2, item3, item4, item5, item6, item7, item8;
