@@ -13,11 +13,11 @@ class j1Entity;
 class j1Bat;
 class j1Demon;
 class j1BatEnemy;
-class j1Platform;
 class j1Player;
 class j1MovingObstacle;
 class j1Door;
 class j1LifeItem;
+class j1Platform;
 class j1JetpackItem;
 
 struct SDL_Texture;

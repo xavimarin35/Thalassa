@@ -32,6 +32,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_BAT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = true;
 
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
@@ -51,11 +52,19 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_WALL][COLLIDER_WIN] = false;
 	matrix[COLLIDER_WALL][COLLIDER_GOD] = false;
 
+	matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_PLATFORM][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_PLATFORM][COLLIDER_WALL] = false;
+	matrix[COLLIDER_PLATFORM][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_PLATFORM][COLLIDER_WIN] = false;
+	matrix[COLLIDER_PLATFORM][COLLIDER_GOD] = false;
+
 	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_GOD][COLLIDER_WALL] = false;
 	matrix[COLLIDER_GOD][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_GOD][COLLIDER_WIN] = true;
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
+	matrix[COLLIDER_GOD][COLLIDER_PLATFORM] = false;
 
 	matrix[COLLIDER_DOOR][COLLIDER_DOOR] = false;
 	matrix[COLLIDER_DOOR][COLLIDER_WALL] = false;
@@ -81,6 +90,7 @@ j1Collisions::j1Collisions() : j1Module()
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WIN] = false;
@@ -93,10 +103,12 @@ j1Collisions::j1Collisions() : j1Module()
 
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY] = false;
 
 	matrix[COLLIDER_BATFALL][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_BATFALL][COLLIDER_WALL] = true;
+	matrix[COLLIDER_BATFALL][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_BATFALL][COLLIDER_ENEMY] = false;
 
 	matrix[COLLIDER_ITEM][COLLIDER_PLAYER] = true;
@@ -130,7 +142,7 @@ bool j1Collisions::PreUpdate()
 		if (colliders[i] == nullptr) 
 			continue;
 
-		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMY || colliders[i]->type == COLLIDER_SHOT || colliders[i]->type == COLLIDER_ENEMY_SHOT || colliders[i]->type == COLLIDER_BATFALL)
+		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMY || colliders[i]->type == COLLIDER_SHOT || colliders[i]->type == COLLIDER_ENEMY_SHOT || colliders[i]->type == COLLIDER_BATFALL || colliders[i]->type == COLLIDER_PLATFORM)
 		{
 			collider1 = colliders[i];
 
@@ -198,6 +210,9 @@ void j1Collisions::DebugColliders()
 		switch (colliders[i]->type)
 		{
 		case COLLIDER_WALL:	//blue															
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case COLLIDER_PLATFORM:	//blue															
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		case COLLIDER_WIN:	//green															

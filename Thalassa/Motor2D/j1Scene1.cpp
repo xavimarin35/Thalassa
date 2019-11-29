@@ -584,9 +584,6 @@ void j1Scene1::SpawnTutorialEntities()
 	App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
 
-	App->entity_manager->AddPlatform(100, 100, PLATFORM, { 10,40 });
-	App->entity_manager->AddPlatform(200, 200, PLATFORM, { 40,20 }, 2);
-	App->entity_manager->AddPlatform(150, 140, PLATFORM, { 50,40 }, 3);
 	App->entity_manager->AddPlatform(2050, 214, PLATFORM, { 40,40 }, 1, true);
 
 	App->entity_manager->CreateEntity(BAT);
@@ -612,6 +609,10 @@ void j1Scene1::SpawnLevel1Entities()
 		App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
 		App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
 		App->entity_manager->AddEntity(item6.x, item6.y, JETPACK_ITEM);
+
+		App->entity_manager->AddPlatform(1468, 205, PLATFORM, { 80,20 });
+		App->entity_manager->AddPlatform(1590, 147, PLATFORM, { 60,60 }, 2, true);
+		App->entity_manager->AddPlatform(1730, 147, PLATFORM, { 80,60 });
 	}
 
 	else

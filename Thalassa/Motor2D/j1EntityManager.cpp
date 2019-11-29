@@ -40,19 +40,16 @@ bool j1EntityManager::PreUpdate()
 {
 	BROFILER_CATEGORY("EntityManager_PreUpdate", Profiler::Color::Coral)
 
+
 	for (int i = 0; i < MAX_ENTITIES; ++i)
 	{
-
 		if (platform_queue[i].type != ENTITY_TYPE::NONE)
 		{
 			SpawnPlatform(platform_queue[i]);
 
 			platform_queue[i].type = ENTITY_TYPE::NONE;
 		}
-	}
 
-	for (int i = 0; i < MAX_ENTITIES; ++i)
-	{
 		if (queue[i].type != ENTITY_TYPE::NONE)
 		{
 			if (queue[i].type == ENTITY_TYPE::BAT_E || queue[i].type == ENTITY_TYPE::OBSTACLE || queue[i].type == ENTITY_TYPE::DEMON)

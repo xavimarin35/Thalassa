@@ -40,7 +40,7 @@ bool j1Platform::Start()
 
 	animation = &idle;
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_WALL, App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_PLATFORM, App->entity_manager);
 
 	if (!isVertical)
 	{

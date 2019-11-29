@@ -15,6 +15,7 @@
 #include "j1Demon.h"
 #include "j1Transitions.h"
 #include "j1TransitionsManager.h"
+#include "j1Platform.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -186,7 +187,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 	if (c1->type == COLLIDER_PLAYER)
 	{
-		if (c2->type == COLLIDER_WALL)
+		if (c2->type == COLLIDER_WALL || c2->type == COLLIDER_PLATFORM)
 		{
 			// Right & Left Collisions
 			if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.y + c1->rect.h - 5 >= c2->rect.y)
@@ -215,7 +216,12 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 					isJumping = false;
 					jetpackActive = false;
 
-					position.y = c2->rect.y - c1->rect.h + 1;
+					if (c2->type == COLLIDER_WALL)
+						position.y = c2->rect.y - c1->rect.h + 1;
+
+					else if (c2->type == COLLIDER_PLATFORM)
+						position.y = c2->rect.y - c1->rect.h + 2;
+
 
 					speed.y = 0;
 					doubleJump = 2;
