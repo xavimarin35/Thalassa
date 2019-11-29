@@ -44,8 +44,8 @@
     <posTuto x="57" y="200"/>
 	<posLvl1 x="74" y="205"/>
 	<posMidLvl x="25" y="125"/>
-	<posLvl2 x="2313" y="155"/>
-    <godSpeed value="120.0f"/>
+	<posLvl2 x="3305" y="180"/>
+    <godSpeed value="300.0f"/>
     <speed x="80.0f" y="70.0f"/>
     <gravity value="350.0f"/>
     <flip value="true"/>
@@ -74,15 +74,15 @@
 	<bat2 x="675" y="195"/>
 	<bat3 x="950" y="195"/>
 	<bat4 x="1000" y="100"/>
-	<bat5 x="3600" y="70"/>
-	<bat6 x="3590" y="150"/>
+	<bat5 x="4700" y="70"/>
+	<bat6 x="3782" y="150"/>
 	<bat7 x="400" y="195"/>
 	<bat8 x="550" y="70"/>
 	<bat9 x="800" y="100"/>
 	
-	<demon1 x="1860" y="50"/>
-	<demon2 x="3600" y="170"/>
-	<demon3 x="2720" y="210"/>
+	<demon1 x="2840" y="180"/>
+	<demon2 x="3722" y="217"/>
+	<demon3 x="4567" y="400"/>
   </enemiesPosition>
   
   <itemPosition>
@@ -99,33 +99,33 @@
 	<i25 x="927" y="100"/>
 	<i26 x="874" y="299"/>
 	
-	<i27 x="3086" y="258"/>
-	<i28 x="3284" y="282"/>
-	<i29 x="3463" y="464"/>
-	<i210 x="3649" y="355"/>
-	<i211 x="3544" y="233"/>
-	<i212 x="3536" y="111"/>
-	<i213 x="3608" y="270"/>
-	<i214 x="3632" y="140"/>
+	<i27 x="4081" y="258"/>
+	<i28 x="4279" y="282"/>
+	<i29 x="4458" y="464"/>
+	<i210 x="4644" y="355"/>
+	<i211 x="4539" y="233"/>
+	<i212 x="4531" y="111"/>
+	<i213 x="4603" y="270"/>
+	<i214 x="4627" y="140"/>
 	
 	<i31 x="438" y="125"/>
   </itemPosition>
   
   <scene>
-	<cameraPositionMoving x="-5400"/>
+	<cameraPositionMoving x="-8415"/>
 	<cameraLimit1 x="-6290" y="-360"/>
-	<cameraLimit2 x="-5135" y="-790"/>
-	<cameraLimit3 x="-10400" y="-790"/>
+	<cameraLimit2 x="-8150" y="-790"/>
+	<cameraLimit3 x="-13350" y="-790"/>
 	<cameraLimit4 x="-2200" y="-400"/>
 	<cameraSpeed x="140" y="95"/>
-	<doorPosition1 x="996" y="61"/>
+	<doorPosition1 x="1490" y="61"/>
 	<doorPosition2 x="494" y="85"/>
 	<obstacle1 x="1803" y="144"/>
 	<obstacle2 x="700" y="120"/>
 	<obstacle3 x="795" y="120"/>
 	<obstacle4 x="513" y="120"/>
 	<obstacle5 x="755" y="180"/>
-	<obstacle6 x="3500" y="400"/>
+	<obstacle6 x="4500" y="400"/>
 	<obstacle7 x="3650" y="65"/>
 	<jetPackBar x="0" y="0" w="200" h="15"/>
 	<jetPackLife x="16" y="11"/>

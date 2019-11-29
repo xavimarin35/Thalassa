@@ -41,8 +41,11 @@ void FadeToColor::Change() {
 
 	if (App->scene1->death) 
 	{
-		App->entity_manager->player->Die();
-		App->entity_manager->player->jetPackLife = 196;
+		if (App->entity_manager->player != nullptr)
+		{
+			App->entity_manager->player->Die();
+			App->entity_manager->player->jetPackLife = 196;
+		}
 	}
 
 	j1Transitions::Change();
