@@ -16,6 +16,7 @@ j1Platform::j1Platform(int x, int y, ENTITY_TYPE type, iPoint limit, int typePla
 
 	isVertical = vertical;
 	limits = limit;
+	type_platform = typePlatform;
 
 	if (vertical)
 		initial_position = (float)y;
@@ -27,6 +28,8 @@ j1Platform::j1Platform(int x, int y, ENTITY_TYPE type, iPoint limit, int typePla
 		idle.LoadAnimations("platformIdle2");
 	else
 		idle.LoadAnimations("platformIdle3");
+
+	Properties();
 }
 
 j1Platform::~j1Platform() {}
@@ -37,9 +40,19 @@ bool j1Platform::Start()
 
 	animation = &idle;
 
-	speed = { 30.0f, 30.0f };
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_WALL, App->entity_manager);
 
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 80, 8 }, COLLIDER_WALL, App->entity_manager);
+	if (!isVertical)
+	{
+		limit_left = initial_position - limits.x;
+		limit_right = initial_position + limits.y;
+	}
+
+	else
+	{
+		limit_up = initial_position - limits.x;
+		limit_down = initial_position + limits.y;
+	}
 
 	return true;
 }
@@ -51,7 +64,11 @@ bool j1Platform::Update(float dt)
 
 	animation = &idle;
 	
-	Move(limits, dt);
+	if (!isVertical)
+		Move(dt);
+
+	else
+		MoveVertical(dt);
 
 	if (collider != nullptr)
 			collider->SetPos(position.x, position.y);
@@ -74,11 +91,8 @@ bool j1Platform::CleanUp()
 	return true;
 }
 
-void j1Platform::Move(iPoint limit, float dt)
+void j1Platform::Move(float dt)
 {
-	float limit_left = initial_position - (float)limit.x;
-	float limit_right = initial_position + (float)limit.y;
-
 	if (!arrived_limitX)
 	{
 		if (position.x > limit_left)
@@ -104,10 +118,59 @@ void j1Platform::Move(iPoint limit, float dt)
 			arrived_limitX = false;
 		}
 	}
+}
 
+void j1Platform::MoveVertical(float dt)
+{
+	if (!arrived_limitX)
+	{
+		if (position.y > limit_up)
+		{
+			position.y -= speed.y * dt;
+		}
+		else if (position.y <= limit_up)
+		{
+			arrived_limitX = true;
+			arrived_limitY = false;
+		}
+	}
+
+	else if (!arrived_limitY)
+	{
+		if (position.y < limit_down)
+		{
+			position.y += speed.y * dt;
+		}
+		else if (position.y >= limit_down)
+		{
+			arrived_limitY = true;
+			arrived_limitX = false;
+		}
+	}
 }
 
 void j1Platform::Properties()
 {
+	pugi::xml_document config_file;
+	config_file.load_file("config.xml");
 
+	pugi::xml_node config;
+	config = config_file.child("config");
+
+	pugi::xml_node nodePlatform;
+	nodePlatform = config.child("platform");
+	
+	if (type_platform == 1)
+		hitbox.x = nodePlatform.child("hitbox1").attribute("value").as_int();
+
+	else if (type_platform == 2)
+		hitbox.x = nodePlatform.child("hitbox2").attribute("value").as_int();
+
+	else if (type_platform == 3)
+		hitbox.x = nodePlatform.child("hitbox3").attribute("value").as_int();
+
+	hitbox.y = nodePlatform.child("hitbox").attribute("value").as_int();
+
+	speed.x = nodePlatform.child("speed").attribute("x").as_float();
+	speed.y = nodePlatform.child("speed").attribute("y").as_float();
 }

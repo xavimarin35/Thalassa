@@ -20,7 +20,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	void Move(iPoint limit, float dt);
+	void Move(float dt);
+	void MoveVertical(float dt);
 
 	void Properties();
 
@@ -38,8 +39,11 @@ private:
 	fPoint speed;
 
 	float initial_position;
+	int type_platform;
 
-	iPoint hitbox = {80,8};
+	float limit_left, limit_right, limit_up, limit_down;
+
+	iPoint hitbox;
 };
 
 #endif

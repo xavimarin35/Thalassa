@@ -16144,15 +16144,15 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1576"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="1576"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -16437,15 +16437,15 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1576"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="1576"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -16965,15 +16965,15 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1576"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="825"/>
-   <tile gid="1576"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -20350,9 +20350,6 @@
   <object id="71" x="256" y="312" width="16" height="16"/>
   <object id="72" x="272" y="320" width="16" height="8"/>
   <object id="73" x="280" y="312" width="16" height="8"/>
-  <object id="75" x="408" y="152" width="72" height="16"/>
-  <object id="76" x="496" y="200" width="72" height="16"/>
-  <object id="77" x="592" y="168" width="72" height="16"/>
   <object id="78" x="688" y="208" width="32" height="16"/>
   <object id="80" x="696" y="224" width="16" height="16"/>
   <object id="81" x="704" y="240" width="16" height="16"/>
