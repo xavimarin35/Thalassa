@@ -9,6 +9,9 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - **A & D:** 	Running left and right
 - **W & W x2:** 	Jump and double jump
 - **SPACE:** 	Maintain to use jetpack
+- **MOVE MOUSE:** Point where you want to shoot
+- **LEFT MOUSE CLICK:**   Shoot
+- **RIGHT MOUSE CLICK:** Change shot type
 
 ### Debug functions
 
@@ -24,6 +27,7 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 
 ### Innovations
 
+### v0.3
 - Player can use a jet-pack
 - Implemented different transitions (not only fading)
 - Applied camera movements in the begginning of each level
@@ -31,9 +35,14 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - Animation of some tiles from loaded from Tiled
 - Dynamic obstacles through the map that can kill you
 - Camera culling during whole level
-- Air and ground enemies pathfinding
-- Ground enemy can shoot you
+
+### v0.6
+- Player is able to shoot
+- Player can change the shooting mode
+- Ground enemy can shoot at you and jump
 - Bat partner who follows you
+- Moving platforms
+- Simple UI for jetpack fuel
 
 ## Usage
 
@@ -63,6 +72,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Bat partner
 	- Demon enemy
 	- Bat enemy
+	- Moving platforms
 	
 ### Xavi Marín
 
@@ -77,7 +87,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Animated tiles from TMX
 	- Dynamic obstacles
 	- Keys & Mouse in the tutorial level
-	- Particles system
+	- Particle system
 	- Framerate cap
 	- Enemies creation logic
 	- Enemy shots
