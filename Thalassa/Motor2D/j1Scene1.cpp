@@ -327,7 +327,7 @@ void j1Scene1::LoadTutorial()
 
 	SpawnTutorialEntities();
 
-	//App->audio->PlayMusic("audio/music/loading.ogg");
+	App->audio->PlayMusic("audio/music/loading.ogg");
 }
 
 void j1Scene1::LoadLevel1()
