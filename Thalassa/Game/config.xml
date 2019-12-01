@@ -127,7 +127,7 @@
 	<obstacle4 x="513" y="120"/>
 	<obstacle5 x="755" y="180"/>
 	<obstacle6 x="4500" y="400"/>
-	<obstacle7 x="3650" y="65"/>
+	<obstacle7 x="4650" y="65"/>
 	<jetPackBar x="0" y="0" w="200" h="15"/>
 	<jetPackLife x="16" y="11"/>
 	<BlitJet x="2" y="8"/>

@@ -82,6 +82,7 @@ j1Collisions::j1Collisions() : j1Module()
 
 	matrix[COLLIDER_SHOT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_BATFALL] = true;
 	matrix[COLLIDER_SHOT][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_SHOT][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_SHOT][COLLIDER_DEATH] = false;
@@ -112,6 +113,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_BATFALL][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_BATFALL][COLLIDER_WALL] = true;
 	matrix[COLLIDER_BATFALL][COLLIDER_PLATFORM] = true;
+	matrix[COLLIDER_BATFALL][COLLIDER_SHOT] = true;
 	matrix[COLLIDER_BATFALL][COLLIDER_ENEMY] = false;
 
 	matrix[COLLIDER_ITEM][COLLIDER_PLAYER] = true;

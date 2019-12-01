@@ -167,7 +167,7 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, float dt, C
 void j1Particle::OnCollision(Collider* c1, Collider* c2)
 {
 	bool particleDestroyed = false;
-		if (c1->type == COLLIDER_SHOT && (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL || c2->type == COLLIDER_PLATFORM))
+		if (c1->type == COLLIDER_SHOT && (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_BATFALL || c2->type == COLLIDER_WALL || c2->type == COLLIDER_PLATFORM))
 		{
 			int ret = true;
 			for (uint i = 0; i < MAX_ACTIVE_PARTICLES && ret; ++i)

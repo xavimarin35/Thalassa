@@ -76,6 +76,7 @@ void j1Transitions::Start() {
 	// If we have passed the total time needed, the scene changes
 	if (current_time->ReadSec() >= time) {
 		state = Transition_Step::CHANGE;
+		current_time->Stop();
 	}
 }
 
