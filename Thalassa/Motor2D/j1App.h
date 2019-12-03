@@ -20,6 +20,7 @@ class j1EntityManager;
 class j1TransitionsManager;
 class j1Particle;
 class j1Pathfinding;
+class j1Gui;
 
 class j1App
 {
@@ -96,6 +97,7 @@ public:
 	j1TransitionsManager* transitions;
 	j1Particle*			particles;
 	j1Pathfinding*		pathfinding;
+	j1Gui*				gui;
 
 private:
 
