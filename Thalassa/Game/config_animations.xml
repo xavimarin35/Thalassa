@@ -212,4 +212,8 @@
 		<animation x="77" y="0" w="11" h="16"/>
 	</coinIdle>
 	
+	<coinPick loop="false" speed="10.0f">
+		<animation x="0" y="0" w="0" h="0"/>
+	</coinPick>
+	
 </animations>

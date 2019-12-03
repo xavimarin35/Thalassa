@@ -18,6 +18,7 @@
 #include "j1Pathfinding.h"
 #include "j1Particle.h"
 #include "j1Player.h"
+#include "j1Fonts.h"
 #include "j1Gui.h"
 
 #include "Brofiler/Brofiler.h"
@@ -40,6 +41,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entity_manager = new j1EntityManager();
 	transitions = new j1TransitionsManager();
 	particles = new j1Particle();
+	font = new j1Fonts();
 	gui = new j1Gui();
 
 	// Ordered for awake / Start / Update
@@ -55,6 +57,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entity_manager);
 	AddModule(transitions);
 	AddModule(particles);
+	AddModule(font);
 	AddModule(gui);
 
 	// render last to swap buffer

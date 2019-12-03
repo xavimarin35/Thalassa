@@ -45,7 +45,7 @@
 	<posLvl1 x="74" y="205"/>
 	<posMidLvl x="25" y="125"/>
 	<posLvl2 x="3305" y="180"/>
-    <godSpeed value="300.0f"/>
+    <godSpeed value="200.0f"/>
     <speed x="80.0f" y="70.0f"/>
     <gravity value="350.0f"/>
     <flip value="true"/>

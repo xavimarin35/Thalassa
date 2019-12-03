@@ -3,6 +3,8 @@
 
 #include "SDL/include/SDL_rect.h"
 #include <string>
+#include "p2SString.h"
+
 #define MAX_FRAMES 200
 
 #include "Brofiler/Brofiler.h"

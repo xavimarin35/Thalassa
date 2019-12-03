@@ -106,6 +106,12 @@
     <ClCompile Include="j1Gui.cpp">
       <Filter>Desenvolupament  ========\Modules\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Hud.cpp">
+      <Filter>Desenvolupament  ========\Modules\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -232,6 +238,12 @@
       <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
     </ClInclude>
     <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Hud.h">
       <Filter>Desenvolupament  ========\Modules\GUI</Filter>
     </ClInclude>
   </ItemGroup>

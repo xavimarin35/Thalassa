@@ -12,6 +12,7 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
+struct _TTF_Font;
 struct SDL_Color;
 
 enum UI_ELEMENTS

@@ -40,6 +40,7 @@ public:
 	bool EntitiesCulling(fPoint pos, int camera_position, int hide = 0, int camera_width = App->win->width, int scale = App->win->scale, float speed = App->map->parallax_speed);
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
+	bool BlitHUD(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE, bool use_camera = true, float speed = 1.0f, float blitScale = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f, double angle = 0, bool useCamera = true, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
