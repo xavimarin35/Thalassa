@@ -201,4 +201,15 @@
 		<animation x="0" y="16" w="56" h="8"/>
 	</platformIdle3>
 	
+	<coinIdle loop="true" speed="7.0f">
+		<animation x="0" y="0" w="11" h="20"/>
+		<animation x="11" y="0" w="11" h="20"/>
+		<animation x="22" y="0" w="11" h="20"/>
+		<animation x="33" y="0" w="11" h="20"/>
+		<animation x="44" y="0" w="11" h="20"/>
+		<animation x="55" y="0" w="11" h="20"/>
+		<animation x="66" y="0" w="11" h="20"/>
+		<animation x="77" y="0" w="11" h="20"/>
+	</coinIdle>
+	
 </animations>
