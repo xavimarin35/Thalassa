@@ -7,6 +7,7 @@
 #include "j1Entity.h"
 #include "j1Particle.h"
 #include "j1Timer.h"
+#include "j1Hud.h"
 
 struct Collider;
 struct SDL_Texture;
@@ -35,7 +36,8 @@ public:
 	void JetPack();
 	void Die();
 	void LoadInfo();
-	void Shooting(float x, float y, float dt);
+	void BasicShooting(float x, float y, float dt);
+	void RemoteShooting(float x, float y, float dt);
 	void ChangeWeapon();
 	void GodMode(float dt);
 
@@ -51,6 +53,8 @@ public:
 	Animation jump;
 	Animation godAnim;
 	Animation deathAnim;
+
+	j1Hud* hud = nullptr;
 
 
 public:

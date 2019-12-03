@@ -45,6 +45,9 @@ bool j1Player::Start() {
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, hitbox.x, hitbox.y }, COLLIDER_PLAYER, App->entity_manager);
 
+	hud = new j1Hud();
+	hud->Start();
+
 	return true;
 }
 
@@ -145,6 +148,8 @@ bool j1Player::PostUpdate()
 
 	ColRight = ColLeft = ColDown = ColUp = onFloor = false;
 
+	hud->Update(0);
+
 	return true;
 }
 
@@ -176,6 +181,11 @@ bool j1Player::CleanUp() {
 		collider->to_delete = true;
 		collider = nullptr;
 	}
+
+	if (hud)
+		hud->CleanUp();
+
+	RELEASE(hud);
 
 	return true;
 }
@@ -320,8 +330,19 @@ void j1Player::PlayerMovement(float dt)
 	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		iPoint mouse_pos;
-		App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
-		Shooting(mouse_pos.x, mouse_pos.y, dt);
+
+		switch (currentType)
+		{
+			case PARTICLE_TYPE::BASIC_SHOOT:
+				App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+				BasicShooting(mouse_pos.x, mouse_pos.y, dt);
+				break;
+
+			case PARTICLE_TYPE::REMOTE_SHOOT:
+				App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+				RemoteShooting(mouse_pos.x, mouse_pos.y, dt);
+				break;
+		}
 	}
 
 	if (jetPackLife < jetMax)
@@ -373,9 +394,9 @@ void j1Player::Die()
 	
 }
 
-void j1Player::Shooting(float x, float y, float dt)
+void j1Player::BasicShooting(float x, float y, float dt)
 {
-	BROFILER_CATEGORY("PlayerShot", Profiler::Color::Purple)
+	BROFILER_CATEGORY("PlayerBasicShot", Profiler::Color::Purple)
 
 	fPoint margin;
 	margin = margin_particles;
@@ -394,20 +415,39 @@ void j1Player::Shooting(float x, float y, float dt)
 
 	double angleInDeg = angle * 180 / PI;
 
-	switch (currentType) 
-	{
-	case PARTICLE_TYPE::BASIC_SHOOT:
-		App->particles->basicShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
-		App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
-		App->audio->PlayFx(App->audio->shotFx);
-		break;
-	case PARTICLE_TYPE::REMOTE_SHOOT:
-		App->particles->remoteShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
-		App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
-		App->audio->PlayFx(App->audio->shotFx);
-		break;
-	}
+	App->particles->basicShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
+	App->particles->AddParticle(App->particles->basicShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
+	App->audio->PlayFx(App->audio->shotFx);
 
+}
+
+void j1Player::RemoteShooting(float x, float y, float dt)
+{
+	BROFILER_CATEGORY("PlayerRemoteShot", Profiler::Color::Purple)
+
+	fPoint margin;
+	margin = margin_particles;
+
+	fPoint edge;
+	edge.x = x - (position.x + margin.x) - (App->render->camera.x / (int)App->win->scale);
+	edge.y = (position.y + margin.y) - y + (App->render->camera.y / (int)App->win->scale);
+
+	double angle = -(atan2(edge.y, edge.x));
+
+	fPoint speed_particle;
+	fPoint p_speed = speed_particles;
+
+	iPoint mousePos;
+	App->input->GetMousePosition(mousePos.x, mousePos.y);
+
+	speed_particle.x = mousePos.x * cos(angle);
+	speed_particle.y = mousePos.y * sin(angle);
+
+	double angleInDeg = angle * 180 / PI;
+
+	App->particles->remoteShoot.speed = { speed_particle.x * App->GetDT(), speed_particle.y * App->GetDT() };
+	App->particles->AddParticle(App->particles->remoteShoot, position.x + margin.x, position.y + margin.y, dt, COLLIDER_SHOT, 0, angleInDeg);
+	App->audio->PlayFx(App->audio->shotFx);
 }
 
 void j1Player::ChangeWeapon()
