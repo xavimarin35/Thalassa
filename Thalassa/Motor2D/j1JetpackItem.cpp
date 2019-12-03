@@ -44,18 +44,21 @@ bool j1JetpackItem::Update(float dt)
 
 	else animation = &destroyAnim;
 
-	BlitEntity(animation->GetCurrentFrame(dt), false);
+	BlitEntity(animation->GetCurrentFrame(dt));
 
-	return true;
-}
-
-bool j1JetpackItem::PostUpdate()
-{
 	return true;
 }
 
 bool j1JetpackItem::CleanUp()
 {
+	App->tex->UnLoad(sprites);
+
+	if (collider != nullptr)
+	{
+		collider->to_delete = true;
+		collider = nullptr;
+	}
+
 	return true;
 }
 

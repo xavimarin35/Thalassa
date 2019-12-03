@@ -100,6 +100,12 @@
     <ClCompile Include="j1Platform.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Coin.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\Modules\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -222,6 +228,12 @@
     <ClInclude Include="j1Platform.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Coin.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -259,6 +271,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Entities\Items">
       <UniqueIdentifier>{02a5d932-724d-4a1a-8961-55b0d8e8c678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\GUI">
+      <UniqueIdentifier>{b634f39b-81e4-4e1d-84ea-8e930ae0e3a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

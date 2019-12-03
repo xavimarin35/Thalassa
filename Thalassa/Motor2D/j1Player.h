@@ -70,6 +70,8 @@ public:
 	int lifePoints;
 	float jetPackLife;
 
+	int score;
+
 	bool playerCanMove = false;
 	bool doorOpened = false;
 	bool godMode = false;

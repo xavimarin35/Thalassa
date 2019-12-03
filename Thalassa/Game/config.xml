@@ -59,6 +59,8 @@
 	<jetLife value="196"/>
 	<jetCharge value="0.06"/>
 	<jetSpend value="2"/>
+	<coin_points value="100"/>
+	<big_coin_points value="500"/>
   </player>
   
   <entities>

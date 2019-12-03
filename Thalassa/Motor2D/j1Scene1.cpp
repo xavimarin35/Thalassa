@@ -584,6 +584,7 @@ void j1Scene1::SpawnTutorialEntities()
 	App->entity_manager->AddEntity(item3.x, item3.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
+	App->entity_manager->AddEntity(100, 100, COIN);
 
 	App->entity_manager->AddPlatform(2050, 214, PLATFORM, { 40,40 }, 1, true);
 
