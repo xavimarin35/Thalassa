@@ -127,6 +127,10 @@ private:
 
 	float				dt = 0.0f;
 	bool				capFPS = true;
+
+public:
+
+	bool pause = false;
 };
 
 extern j1App* App;

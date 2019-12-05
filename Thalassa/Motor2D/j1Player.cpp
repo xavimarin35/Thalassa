@@ -78,7 +78,7 @@ bool j1Player::Update(float dt)
 			if(lifePoints <= 0)
 				isDead = true;
 
-			if (playerCanMove)
+			if (playerCanMove && !App->pause)
 			{
 				PlayerMovement(dt);
 			}

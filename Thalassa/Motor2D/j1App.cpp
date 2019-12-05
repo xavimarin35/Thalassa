@@ -279,6 +279,9 @@ bool j1App::DoUpdate()
 			continue;
 		}
 
+		if (pause)
+			dt = 0.0f;
+
 		ret = item->data->Update(dt);
 	}
 

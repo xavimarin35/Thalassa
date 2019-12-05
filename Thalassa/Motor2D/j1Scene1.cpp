@@ -116,6 +116,11 @@ bool j1Scene1::Update(float dt)
 		else cullingView = true;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		App->pause = !App->pause;
+	}
+
 	if (death)
 	{
 		if (!done_anim)
@@ -666,68 +671,71 @@ void j1Scene1::SpawnMidLevelEntities()
 
 void j1Scene1::BlitKeys()
 {
-	// a
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->render->Blit(keys, posA.x, posA.y, &APressed);
-	else
-		App->render->Blit(keys, posA.x, posA.y - differenceY, &A);
-
-	// d
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->render->Blit(keys, posD.x, posD.y, &DPressed);
-	else
-		App->render->Blit(keys, posD.x, posD.y - differenceY, &D);
-
-	// normal jump
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->render->Blit(keys, posW1.x, posW1.y, &WPressed);
-	else
-		App->render->Blit(keys, posW1.x, posW1.y - differenceY, &W);
-
-	// doble jump
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->entity_manager->player->doubleJump == 1)
+	if (!App->pause)
 	{
-		App->render->Blit(keys, posW2.x, posW2.y, &WPressed);
-		App->render->Blit(keys, posW3.x, posW3.y - differenceY, &W);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->entity_manager->player->doubleJump == 0)
-	{
-		App->render->Blit(keys, posW3.x, posW3.y, &WPressed);
-		App->render->Blit(keys, posW2.x, posW2.y - differenceY, &W);
-	}
-	else
-	{
-		App->render->Blit(keys, posW2.x, posW2.y - differenceY, &W);
-		App->render->Blit(keys, posW3.x, posW3.y - differenceY, &W);
-	}
-
-	// w and SPACE
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->render->Blit(keys, posW4.x, posW4.y, &WPressed);
-	else
-		App->render->Blit(keys, posW4.x, posW4.y - differenceY, &W);
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
-		App->render->Blit(keys, posSPACE.x, posSPACE.y, &SPACEPressed);
-	else
-		App->render->Blit(keys, posSPACE.x, posSPACE.y - differenceY, &SPACE);
-
-	// Mouse
-	mouseBlinking = &blinkAnim;
-	SDL_Rect blinkRect = mouseBlinking->GetCurrentFrame(App->GetDT());
-	
-	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
-	{
-		clicked = true;
-		App->render->Blit(mouse, posMLeft.x, posMLeft.y, &mouseLeft);
-	}
-	else
-	{
-		if(!clicked)
-			App->render->Blit(mouse, posMIdle.x, posMIdle.y, &blinkRect);
+		// a
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			App->render->Blit(keys, posA.x, posA.y, &APressed);
 		else
+			App->render->Blit(keys, posA.x, posA.y - differenceY, &A);
 
-			App->render->Blit(mouse, posMIdle.x, posMIdle.y, &mouseIdle);
+		// d
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			App->render->Blit(keys, posD.x, posD.y, &DPressed);
+		else
+			App->render->Blit(keys, posD.x, posD.y - differenceY, &D);
+
+		// normal jump
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			App->render->Blit(keys, posW1.x, posW1.y, &WPressed);
+		else
+			App->render->Blit(keys, posW1.x, posW1.y - differenceY, &W);
+
+		// doble jump
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->entity_manager->player->doubleJump == 1)
+		{
+			App->render->Blit(keys, posW2.x, posW2.y, &WPressed);
+			App->render->Blit(keys, posW3.x, posW3.y - differenceY, &W);
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->entity_manager->player->doubleJump == 0)
+		{
+			App->render->Blit(keys, posW3.x, posW3.y, &WPressed);
+			App->render->Blit(keys, posW2.x, posW2.y - differenceY, &W);
+		}
+		else
+		{
+			App->render->Blit(keys, posW2.x, posW2.y - differenceY, &W);
+			App->render->Blit(keys, posW3.x, posW3.y - differenceY, &W);
+		}
+
+		// w and SPACE
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			App->render->Blit(keys, posW4.x, posW4.y, &WPressed);
+		else
+			App->render->Blit(keys, posW4.x, posW4.y - differenceY, &W);
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			App->render->Blit(keys, posSPACE.x, posSPACE.y, &SPACEPressed);
+		else
+			App->render->Blit(keys, posSPACE.x, posSPACE.y - differenceY, &SPACE);
+
+		// Mouse
+		mouseBlinking = &blinkAnim;
+		SDL_Rect blinkRect = mouseBlinking->GetCurrentFrame(App->GetDT());
+	
+		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+		{
+			clicked = true;
+			App->render->Blit(mouse, posMLeft.x, posMLeft.y, &mouseLeft);
+		}
+		else
+		{
+			if(!clicked)
+				App->render->Blit(mouse, posMIdle.x, posMIdle.y, &blinkRect);
+			else
+
+				App->render->Blit(mouse, posMIdle.x, posMIdle.y, &mouseIdle);
+		}
 	}
 }
 
