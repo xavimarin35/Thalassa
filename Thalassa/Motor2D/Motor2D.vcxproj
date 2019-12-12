@@ -82,6 +82,7 @@
     <ClCompile Include="j1Coin.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1Color.cpp" />
+    <ClCompile Include="j1Console.cpp" />
     <ClCompile Include="j1Demon.cpp" />
     <ClCompile Include="j1Door.cpp" />
     <ClCompile Include="j1Entity.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="j1Coin.h" />
     <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1Color.h" />
+    <ClInclude Include="j1Console.h" />
     <ClInclude Include="j1Demon.h" />
     <ClInclude Include="j1Door.h" />
     <ClInclude Include="j1Entity.h" />
@@ -141,6 +143,7 @@
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Transitions.h" />
     <ClInclude Include="j1TransitionsManager.h" />
+    <ClInclude Include="j1UIElement.h" />
     <ClInclude Include="Lines.h" />
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="p2DynArray.h" />

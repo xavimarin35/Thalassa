@@ -20,6 +20,7 @@
 #include "j1Player.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
+#include "j1Console.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -43,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	particles = new j1Particle();
 	font = new j1Fonts();
 	gui = new j1Gui();
+	console = new j1Console();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -59,6 +61,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(particles);
 	AddModule(font);
 	AddModule(gui);
+	AddModule(console);
 
 	// render last to swap buffer
 	AddModule(render);
