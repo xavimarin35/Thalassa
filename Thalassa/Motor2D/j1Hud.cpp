@@ -14,13 +14,16 @@ j1Hud::~j1Hud() {}
 
 bool j1Hud::Start()
 {
-	hud_text = App->tex->Load("");
+	hud_text = App->tex->Load("gui/gui.png");
 
 	return true;
 }
 
 bool j1Hud::Update(float dt)
 {
+	SDL_Rect hud_rect = { 0,0,342,256 };
+
+	//App->render->Blit(hud_text, 0, 0, &hud_rect);
 	App->render->BlitHUD(hud_text, 0, 0, &hud_rect, SDL_FLIP_NONE, false);
 
 	return true;

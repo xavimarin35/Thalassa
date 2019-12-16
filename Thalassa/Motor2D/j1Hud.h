@@ -34,7 +34,6 @@ private:
 	std::list<j1Label*> labels_list;
 	std::list<j1Button*> hud_buttons;
 
-	SDL_Rect hud_rect;
 };
 
 #endif // __j1HUD_H__
