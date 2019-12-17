@@ -36,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
+	mainmenu = new j1MainMenu();
 	scene1 = new j1Scene1();
 	map = new j1Map();
 	collisions = new j1Collisions();
@@ -46,8 +47,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	font = new j1Fonts();
 	gui = new j1Gui();
 	console = new j1Console();
-	mainmenu = new j1MainMenu();
-
+	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -55,6 +55,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(mainmenu);
 	AddModule(scene1);
 	AddModule(collisions);
 	AddModule(pathfinding);
@@ -64,8 +65,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font);
 	AddModule(gui);
 	AddModule(console);
-	AddModule(mainmenu);
-
+	
 	// render last to swap buffer
 	AddModule(render);
 }
