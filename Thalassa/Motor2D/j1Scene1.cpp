@@ -18,6 +18,7 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include <time.h>
 #include "j1Pathfinding.h"
+#include "j1MainMenu.h"
 #include "SDL/include/SDL_mouse.h"
 
 #include "Brofiler/Brofiler.h"
@@ -42,10 +43,12 @@ j1Scene1::~j1Scene1()
 // Called before render is available
 bool j1Scene1::Awake()
 {
-	LOG("Loading Scene1");
-	bool ret = true;
+	if (active)
+		App->mainmenu->active = false;
+	else
+		App->mainmenu->active = true;
 
-	return ret;
+	return active;
 }
 
 // Called before the first frame

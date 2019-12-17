@@ -15,6 +15,7 @@ public:
 	j1MainMenu();
 	~j1MainMenu();
 
+	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
 	bool PostUpdate();

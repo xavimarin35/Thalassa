@@ -29,6 +29,16 @@ j1MainMenu::j1MainMenu()
 
 j1MainMenu::~j1MainMenu() {}
 
+bool j1MainMenu::Awake(pugi::xml_node &)
+{
+	if (active)
+		App->scene1->active = false;
+	else
+		App->scene1->active = true;
+
+	return active;
+}
+
 bool j1MainMenu::Start()
 {
 	texture = App->tex->Load("gui/BG_MAINMENU.png");
@@ -42,6 +52,12 @@ bool j1MainMenu::Update(float dt)
 {
 	SDL_Rect bg_rect = { 0,0,1280,640 };
 	App->render->Blit(texture, 0, 0, &bg_rect);
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		active = false;
+		App->scene1->active = true;
+	}
 
 	return true;
 }
