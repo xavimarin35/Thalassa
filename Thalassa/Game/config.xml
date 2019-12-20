@@ -56,7 +56,7 @@
 	<life value="90"/>
 	<deathFall value="17.0f"/>
 	<timer value="2500"/>
-	<jetLife value="196"/>
+	<jetLife value="171"/>
 	<jetCharge value="0.06"/>
 	<jetSpend value="2"/>
 	<coin_points value="100"/>
@@ -131,8 +131,8 @@
 	<obstacle6 x="4500" y="400"/>
 	<obstacle7 x="4650" y="65"/>
 	<jetPackBar x="0" y="0" w="200" h="15"/>
-	<jetPackLife x="16" y="11"/>
-	<BlitJet x="2" y="8"/>
+	<jetPackLife x="0" y="12"/>
+	<BlitJet x="36" y="24"/>
 	<deathTimer value="500"/>
   </scene>
   

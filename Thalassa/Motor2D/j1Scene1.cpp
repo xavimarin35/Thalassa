@@ -203,11 +203,6 @@ bool j1Scene1::Update(float dt)
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	jetPackLife = { 0, pos_bar.x, (int)App->entity_manager->player->jetPackLife, pos_bar.y };
-
-	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.x, &jetPackBar, SDL_FLIP_NONE, 1.0F, (0,0), false);
-	App->render->Blit(jetPack_tex, pos_bar2.y, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
-
 	mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
 	mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
 	App->render->Blit(cursor_tex, mouse_position.x, mouse_position.y, &cursor);
@@ -462,7 +457,6 @@ void j1Scene1::LoadSceneInfo()
 
 	cameraPositionMoving = nodeScene.child("cameraPositionMoving").attribute("x").as_int();
 	camera_speed = { nodeScene.child("cameraSpeed").attribute("x").as_int(), nodeScene.child("cameraSpeed").attribute("y").as_int() };
-	jetPackBar = { nodeScene.child("jetPackBar").attribute("x").as_int(), nodeScene.child("jetPackBar").attribute("y").as_int(), nodeScene.child("jetPackBar").attribute("w").as_int(), nodeScene.child("jetPackBar").attribute("h").as_int() };
 	timer = nodeScene.child("deathTimer").attribute("value").as_int();
 	pos_bar = { nodeScene.child("jetPackLife").attribute("x").as_int(), nodeScene.child("jetPackLife").attribute("y").as_int() };
 	pos_bar2 = { nodeScene.child("BlitJet").attribute("x").as_int(), nodeScene.child("BlitJet").attribute("y").as_int() };
@@ -786,4 +780,11 @@ void j1Scene1::ShowCursor(bool hide)
 	if (hide)
 		SDL_ShowCursor(SDL_DISABLE);
 	else SDL_ShowCursor(SDL_ENABLE);
+}
+
+void j1Scene1::DrawJetLife()
+{
+	jetPackLife = { 0, pos_bar.x, (int)App->entity_manager->player->jetPackLife, pos_bar.y };
+
+	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
 }

@@ -26,6 +26,8 @@ bool j1Hud::Update(float dt)
 	//App->render->Blit(hud_text, 0, 0, &hud_rect);
 	App->render->BlitHUD(hud_text, 0, 0, &hud_rect, SDL_FLIP_NONE, false);
 
+	App->scene1->DrawJetLife();
+
 	return true;
 }
 

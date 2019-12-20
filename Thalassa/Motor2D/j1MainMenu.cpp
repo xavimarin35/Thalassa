@@ -43,14 +43,12 @@ bool j1MainMenu::Start()
 {
 	texture = App->tex->Load("gui/BG_MAINMENU.png");
 
-	
-
 	return true;
 }
 
 bool j1MainMenu::Update(float dt)
 {
-	SDL_Rect bg_rect = { 0,0,1280,640 };
+	SDL_Rect bg_rect = { 0,0,342,256 };
 	App->render->Blit(texture, 0, 0, &bg_rect);
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)

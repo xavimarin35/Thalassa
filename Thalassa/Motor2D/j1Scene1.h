@@ -61,6 +61,7 @@ public:
 	void SpawnMidLevelEntities();
 
 	void ReSpawnEntities();
+	void DrawJetLife();
 
 	void ShowCursor(bool hide);
 	
