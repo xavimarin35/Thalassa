@@ -8,6 +8,13 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum SCENE_TYPE
+{
+	MENU = 0, 
+	SCENE, 
+	CREDITS
+};
+
 class j1MainMenu : public j1Module
 {
 public:
@@ -19,6 +26,13 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool PostUpdate();
+	bool CleanUp();
+
+	void ChangeScene(SCENE_TYPE next);
+
+	bool startScene1 = false;
+	bool startGame = false;
+	bool startCredits = false;
 
 private:
 

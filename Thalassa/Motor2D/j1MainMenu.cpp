@@ -41,7 +41,9 @@ bool j1MainMenu::Awake(pugi::xml_node &)
 
 bool j1MainMenu::Start()
 {
-	App->map->Load("MainMenu.tmx");
+	/*App->map->Load("MainMenu.tmx");*/
+
+	startScene1 = false;
 
 	return true;
 }
@@ -51,8 +53,9 @@ bool j1MainMenu::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
-		active = false;
+		this->active = false;
 		App->scene1->active = true;
+		/*ChangeScene(SCENE_TYPE::SCENE);*/
 	}
 
 	return true;
@@ -61,4 +64,39 @@ bool j1MainMenu::Update(float dt)
 bool j1MainMenu::PostUpdate()
 {
 	return true;
+}
+
+bool j1MainMenu::CleanUp()
+{
+	App->map->CleanUp();
+
+	return true;
+}
+
+void j1MainMenu::ChangeScene(SCENE_TYPE next)
+{
+	if (!startScene1)
+	{
+		this->active = false;
+		startGame = false;
+		startCredits = false;
+
+		CleanUp();
+		if (next == SCENE_TYPE::CREDITS)
+		{
+			/*App->credits->active = true;
+			App->credits->Start();*/
+		}
+		else {
+			if (next == SCENE_TYPE::SCENE)
+			{
+				App->scene1->active = true;
+				App->scene1->Start();
+			}
+
+			App->entity_manager->active = true;
+		}
+	}
+	
+	
 }
