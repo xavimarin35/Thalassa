@@ -49,7 +49,18 @@ public:
 
 public:
 
+	// Pixeled.ttf font
+	_TTF_Font* font1 = nullptr;
+	_TTF_Font* font2 = nullptr;
+	_TTF_Font* font3 = nullptr;
+
 	bool debug = false;
+
+	// Colors
+	SDL_Color beige;
+	SDL_Color brown;
+	SDL_Color grey;
+	SDL_Color white;
 
 private:
 

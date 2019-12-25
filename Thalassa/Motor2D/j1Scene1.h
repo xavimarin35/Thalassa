@@ -108,6 +108,9 @@ private:
 	int cameraPositionMoving;
 	int timer;
 
+	std::string current_points;
+	int score_player = 0;
+
 	bool hide_cursor = true;
 
 	iPoint doorPosition;

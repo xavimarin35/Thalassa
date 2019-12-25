@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "j1Scene1.h"
+#include "j1Fonts.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -27,6 +28,8 @@ bool j1Gui::Awake(pugi::xml_node& config)
 bool j1Gui::Start()
 {
 	gui_texture = App->tex->Load(gui_texture_name.data());
+
+	font1 = App->font->Load("fonts/Pixeled.ttf", 5);
 
 	return true;
 }

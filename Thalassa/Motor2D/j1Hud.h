@@ -6,6 +6,7 @@
 #include <list>
 #include "PugiXml/src/pugixml.hpp"
 #include "p2Animation.h"
+#include "j1Color.h"
 
 class j1Button;
 class j1Label;
@@ -30,9 +31,12 @@ public:
 
 private:
 	SDL_Texture* hud_text = nullptr;
+	SDL_Texture* score = nullptr;
 
 	std::list<j1Label*> labels_list;
 	std::list<j1Button*> hud_buttons;
+
+	SDL_Color color;
 
 };
 

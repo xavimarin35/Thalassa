@@ -101,6 +101,9 @@ bool j1Scene1::Update(float dt)
 
 	ShowCursor(hide_cursor);
 
+	score_player = App->entity_manager->player->score;
+	current_points = std::to_string(score_player);
+
 	//Save & Load
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{

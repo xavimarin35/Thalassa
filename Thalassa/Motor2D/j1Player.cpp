@@ -64,6 +64,8 @@ bool j1Player::Update(float dt)
 
 	if (playerCreated)
 	{
+		current_points = std::to_string(score);
+
 		if (godMode) 
 		{
 			jetpackActive = false;

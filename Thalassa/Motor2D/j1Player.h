@@ -74,7 +74,8 @@ public:
 	int lifePoints;
 	float jetPackLife;
 
-	int score;
+	std::string current_points;
+	uint score;
 
 	bool playerCanMove = false;
 	bool doorOpened = false;
