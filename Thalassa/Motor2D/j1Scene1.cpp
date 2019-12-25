@@ -589,7 +589,8 @@ void j1Scene1::SpawnTutorialEntities()
 	App->entity_manager->AddEntity(item3.x, item3.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item4.x, item4.y, JETPACK_ITEM);
 	App->entity_manager->AddEntity(item5.x, item5.y, JETPACK_ITEM);
-	App->entity_manager->AddEntity(100, 100, COIN);
+
+	SpawnTutorialCoins();
 
 	App->entity_manager->AddPlatform(2050, 214, PLATFORM, { 40,40 }, 1, true);
 
@@ -790,4 +791,30 @@ void j1Scene1::DrawJetLife()
 	jetPackLife = { 0, pos_bar.x, (int)App->entity_manager->player->jetPackLife, pos_bar.y };
 
 	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
+}
+
+void j1Scene1::SpawnTutorialCoins()
+{
+	App->entity_manager->AddEntity(553, 175, COIN);
+	App->entity_manager->AddEntity(939, 162, COIN);
+	App->entity_manager->AddEntity(969, 162, COIN);
+	App->entity_manager->AddEntity(999, 162, COIN);
+	App->entity_manager->AddEntity(1091, 57, COIN);
+	App->entity_manager->AddEntity(1115, 57, COIN);
+	App->entity_manager->AddEntity(1067, 57, COIN);
+	App->entity_manager->AddEntity(1572, 32, COIN);
+	App->entity_manager->AddEntity(1606, 52, COIN);
+	App->entity_manager->AddEntity(1637, 57, COIN);
+	App->entity_manager->AddEntity(1517, 255, COIN);
+	App->entity_manager->AddEntity(1549, 345, COIN);
+	App->entity_manager->AddEntity(1573, 345, COIN);
+	App->entity_manager->AddEntity(1597, 345, COIN);
+	App->entity_manager->AddEntity(1621, 345, COIN);
+	App->entity_manager->AddEntity(1815, 287, COIN);
+	App->entity_manager->AddEntity(1909, 167, COIN);
+	App->entity_manager->AddEntity(2075, 132, COIN);
+	App->entity_manager->AddEntity(2075, 162, COIN);
+	App->entity_manager->AddEntity(2075, 192, COIN);
+	App->entity_manager->AddEntity(2075, 222, COIN);
+	App->entity_manager->AddEntity(2362, 159, COIN);
 }

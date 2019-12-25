@@ -31,10 +31,13 @@ public:
 
 private:
 	SDL_Texture* hud_text = nullptr;
+	SDL_Texture* lifes_text = nullptr;
 	SDL_Texture* score = nullptr;
 
 	std::list<j1Label*> labels_list;
 	std::list<j1Button*> hud_buttons;
+
+	int player_lifes;
 
 	SDL_Color color;
 

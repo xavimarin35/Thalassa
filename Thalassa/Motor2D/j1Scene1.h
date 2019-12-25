@@ -60,6 +60,10 @@ public:
 	void SpawnLevel1Entities();
 	void SpawnMidLevelEntities();
 
+	void SpawnTutorialCoins();
+	void SpawnLevel1Coins();
+	void SpawnMidLevelCoins();
+
 	void ReSpawnEntities();
 	void DrawJetLife();
 

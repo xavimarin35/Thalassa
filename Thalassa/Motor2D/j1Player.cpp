@@ -388,6 +388,8 @@ void j1Player::Die()
 	App->entity_manager->DestroyAllEntities();
 	App->scene1->ReSpawnEntities();
 
+	lifes -= 1;
+
 	position.y += speed.y * App->GetDT();
 	speed.y += gravity * App->GetDT();
 	
