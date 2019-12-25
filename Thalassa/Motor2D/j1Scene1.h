@@ -93,6 +93,8 @@ public:
 
 	bool done_anim = false;
 
+	int player_lifes = 3;
+
 private:
 	
 	j1Timer deathTimer;

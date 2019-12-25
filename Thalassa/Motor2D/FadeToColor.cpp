@@ -45,6 +45,7 @@ void FadeToColor::Change() {
 		{
 			App->entity_manager->player->Die();
 			App->entity_manager->player->jetPackLife = 196;
+			App->scene1->player_lifes -= 1;
 		}
 	}
 

@@ -69,7 +69,6 @@ public:
 	float speed_y;
 
 	int doubleJump = 2;
-	int lifes = 3;
 	float gravity;
 	int lifePoints;
 	float jetPackLife;

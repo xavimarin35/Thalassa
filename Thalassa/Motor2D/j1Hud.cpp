@@ -41,7 +41,7 @@ bool j1Hud::Update(float dt)
 	App->render->BlitHUD(score, 900, 18, &temp, SDL_FLIP_NONE, false);
 
 	// Player Lifes
-	player_lifes = App->entity_manager->player->lifes;
+	player_lifes = App->scene1->player_lifes;
 	SDL_Rect life = { 0,0,10,13 };
 
 	if (player_lifes == 3)
