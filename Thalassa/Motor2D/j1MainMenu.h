@@ -19,6 +19,11 @@ enum SCENE_TYPE
 	CREDITS
 };
 
+struct Button_rects
+{
+	int x, y, w, h;
+};
+
 class j1MainMenu : public j1Module
 {
 public:
@@ -42,6 +47,8 @@ public:
 	p2List<j1Label*> labels_menu;
 	p2List<j1Box*> boxes_menu;
 
+	void LoadConfig();
+
 public:
 
 	j1Box* settings_window = nullptr;
@@ -50,6 +57,10 @@ private:
 
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* gui_texture = nullptr;
+
+	Button_rects button1_idle, button1_hover, button1_click;
+	Button_rects button2_idle, button2_hover, button2_click;
+	Button_rects button3_idle, button3_hover, button3_click;
 
 };
 

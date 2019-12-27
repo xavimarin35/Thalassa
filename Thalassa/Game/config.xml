@@ -216,5 +216,17 @@
 	<hitbox3 value="56"/>
 	<hitbox value="8"/>
   </platform>
+  
+  <buttons>
+	<button1_idle x="0" y="0" w="117" h="32"/>
+	<button2_idle x="117" y="0" w="120" h="33"/>
+	<button3_idle x="237" y="0" w="118" h="38"/>
+	<button1_hover x="0" y="32" w="117" h="32"/>
+	<button2_hover x="117" y="33" w="120" h="33"/>
+	<button3_hover x="237" y="38" w="118" h="38"/>
+	<button1_click x="0" y="64" w="117" h="33"/>
+	<button2_click x="117" y="66" w="120" h="34"/>
+	<button3_click x="237" y="76" w="118" h="39"/>
+  </buttons>
 
 </config>

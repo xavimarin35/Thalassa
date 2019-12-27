@@ -118,23 +118,24 @@ void j1Gui::UpdateButtonState(p2List<j1Button*>* buttons)
 
 		if (button->data->visible == false || button->data->bfunction == NO_FUNCTION) continue;
 
-		if (x - (App->render->camera.x / (int)App->win->GetScale()) <= button->data->position.x + button->data->situation.w * App->gui->buttonsScale
-			&& x - (App->render->camera.x / (int)App->win->GetScale()) >= button->data->position.x
-			&& y <= button->data->position.y + button->data->situation.h * App->gui->buttonsScale && y >= button->data->position.y) {
+		if ((x - (App->render->camera.x / (int)App->win->scale)) <= button->data->position.x + button->data->situation.w
+			&& ((x - (App->render->camera.x / (int)App->win->scale)) >= button->data->position.x)
+			&& ((y - (App->render->camera.y / (int)App->win->scale)) <= button->data->position.y + button->data->situation.h)
+			&& ((y - (App->render->camera.y / (int)App->win->scale)) >= button->data->position.y)) {
 
-			if (/*App->credits->active == false && */App->mainmenu->settings_window != nullptr && App->mainmenu->settings_window->visible
-				&& button->data->bfunction != CLOSE_SETTINGS) continue;
+			//if (/*App->credits->active == false && */App->mainmenu->settings_window != nullptr && App->mainmenu->settings_window->visible
+			//	&& button->data->bfunction != CLOSE_SETTINGS) continue;
 
 			button->data->state = STATE::HOVERED;
 			if (!button->data->hoverPlayed) {
-				/*App->audio->PlayFx(hoverSound);*/
+				App->audio->PlayFx(App->audio->hoverSound);
 				button->data->hoverPlayed = true;
 			}
 
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 				button->data->state = STATE::CLICKED;
 				if (!button->data->clickPlayed) {
-					/*App->audio->PlayFx(clickSound);*/
+					App->audio->PlayFx(App->audio->clickSound);
 					button->data->clickPlayed = true;
 				}
 			}
