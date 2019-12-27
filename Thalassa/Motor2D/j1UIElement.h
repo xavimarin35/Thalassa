@@ -1,5 +1,5 @@
-#ifndef __UIEELEMENT_H__
-#define __UIELEMENT_H__
+#ifndef __USERINTERFACEELEMENT_H__
+#define __USERINTERFACEELEMENT_H__
 
 #include "j1Gui.h"
 #include "p2Point.h"

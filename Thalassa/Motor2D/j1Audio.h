@@ -45,6 +45,8 @@ public:
 	int demonShotFx;
 	int shotFx;
 	int jetPick;
+	int hoverSound;
+	int clickSound;
 
 private:
 

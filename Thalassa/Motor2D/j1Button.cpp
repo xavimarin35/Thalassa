@@ -2,6 +2,7 @@
 #include "j1Textures.h"
 #include "j1App.h"
 #include "p2Log.h"
+#include "j1Input.h"
 #include "j1Render.h"
 
 j1Button::j1Button(UI_ELEMENTS type, int x, int y, SDL_Rect idle, SDL_Rect hovered, SDL_Rect clicked, SDL_Texture* text, BUTTON_FUNCTION function, j1UIElement* parent) :

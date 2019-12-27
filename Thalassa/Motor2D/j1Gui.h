@@ -2,7 +2,7 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
-#include <list>
+#include "p2List.h"
 #include <string>
 #include "p2Point.h"
 #include "p2Defs.h"
@@ -14,6 +14,10 @@ struct SDL_Texture;
 struct SDL_Rect;
 struct _TTF_Font;
 struct SDL_Color;
+class j1Button;
+class j1Box;
+class j1Label;
+class j1UIElement;
 
 enum UI_ELEMENTS
 {
@@ -44,6 +48,9 @@ public:
 	bool PreUpdate();
 	bool PostUpdate();
 	bool CleanUp();
+
+	j1Button* CreateButton(p2List<j1Button*>* buttons, UI_ELEMENTS type, int x, int y, SDL_Rect idle, SDL_Rect hovered, SDL_Rect clicked, SDL_Texture* text = nullptr, BUTTON_FUNCTION function = NO_FUNCTION, j1UIElement* parent = nullptr);
+	void UpdateButtonState(p2List<j1Button*>* buttons, float scale = 1);
 
 	const SDL_Texture* GetSprites() const;
 

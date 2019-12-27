@@ -17,7 +17,7 @@ public:
 	bool CleanUp();
 
 	// Blits the element on the screen
-	void Draw(float scale = 1.0f, int x = 0, int y = 0, bool use_camera = true) override;
+	void Draw(float scale = 1.0f, int x = 0, int y = 0, bool use_camera = true);
 
 public:
 	_TTF_Font* font = nullptr;

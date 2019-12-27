@@ -99,10 +99,11 @@ bool j1Scene1::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene_Update", Profiler::Color::Red)
 
-	ShowCursor(hide_cursor);
 
 	if (scene1_active)
 	{
+		ShowCursor(hide_cursor);
+
 		score_player = App->entity_manager->player->score;
 		current_points = std::to_string(score_player);
 

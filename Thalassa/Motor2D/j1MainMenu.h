@@ -4,9 +4,13 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "p2Defs.h"
+#include "p2List.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
+class j1Button;
+class j1Label;
+class j1Box;
 
 enum SCENE_TYPE
 {
@@ -34,9 +38,14 @@ public:
 	bool startGame = false;
 	bool startCredits = false;
 
+	p2List<j1Button*>* buttons_list;
+	p2List<j1Label*>* labels_list;
+	p2List<j1Box*>* boxes_list;
+
 private:
 
 	SDL_Texture* texture = nullptr;
+	SDL_Texture* gui_texture = nullptr;
 
 };
 

@@ -19,6 +19,11 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "j1Pathfinding.h"
 #include "SDL/include/SDL_mouse.h"
+#include "j1Button.h"
+#include "j1UIElement.h"
+#include "j1Label.h"
+#include "j1Box.h"
+#include "j1Gui.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -36,7 +41,13 @@ bool j1MainMenu::Awake(pugi::xml_node &)
 
 bool j1MainMenu::Start()
 {
+	gui_texture = App->tex->Load("gui/buttons.png");
+
 	App->map->Load("MainMenu.tmx");
+
+	SDL_Rect idle = { 0,0,117,32 };
+
+	App->gui->CreateButton(buttons_list, BUTTON, 100, 100, idle, idle, idle, gui_texture, PLAY);
 
 	return true;
 }

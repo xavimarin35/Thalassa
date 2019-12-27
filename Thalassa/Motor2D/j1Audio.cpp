@@ -62,6 +62,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	demonShotFx = LoadFx("audio/fx/demonShot.wav");
 	shotFx = LoadFx("audio/fx/shot1.wav");
 	jetPick = LoadFx("audio/fx/item_pick.wav");
+	hoverSound = LoadFx("audio/fx/hoverSound.wav");
+	clickSound = LoadFx("audio/fx/clickSound.wav");
 
 
 	return ret;
