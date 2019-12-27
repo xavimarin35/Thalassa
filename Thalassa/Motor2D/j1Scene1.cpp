@@ -101,115 +101,117 @@ bool j1Scene1::Update(float dt)
 
 	ShowCursor(hide_cursor);
 
-	score_player = App->entity_manager->player->score;
-	current_points = std::to_string(score_player);
-
-	//Save & Load
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (scene1_active)
 	{
-		App->SaveGame("save_game.xml");
-	}
+		score_player = App->entity_manager->player->score;
+		current_points = std::to_string(score_player);
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-	{
-		App->LoadGame();
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) 
-	{
-		if (cullingView)
-			cullingView = false;
-		else cullingView = true;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		App->pause = !App->pause;
-	}
-
-	if (death)
-	{
-		if (!done_anim)
+		//Save & Load
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		{
-			deathTimer.Start();
-			done_anim = true;
+			App->SaveGame("save_game.xml");
 		}
 
-		if (deathTimer.Read() > timer)
-			App->transitions->FadingToColor(Black, 0.5f);
+		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		{
+			App->LoadGame();
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		{
+			if (cullingView)
+				cullingView = false;
+			else cullingView = true;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		{
+			App->pause = !App->pause;
+		}
+
+		if (death)
+		{
+			if (!done_anim)
+			{
+				deathTimer.Start();
+				done_anim = true;
+			}
+
+			if (deathTimer.Read() > timer)
+				App->transitions->FadingToColor(Black, 0.5f);
+		}
+
+		// If player arrives to the end of a level
+		if (App->entity_manager->player->touchingWin)
+		{
+			LevelChangeLogic();
+		}
+
+		// Loads tutorial
+		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		{
+			tutorial_active = true;
+			level1_active = false;
+			midlevel_active = false;
+
+			App->transitions->LinesAppearing();
+		}
+
+		// Loads level 1
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		{
+			midlevel_completed = false;
+
+			tutorial_active = false;
+			level1_active = true;
+			midlevel_active = false;
+
+			App->transitions->LinesAppearing();
+		}
+
+		// Loads mid-level
+		if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		{
+			tutorial_active = false;
+			level1_active = false;
+			midlevel_active = true;
+
+			App->transitions->LinesAppearing();
+		}
+
+		// Loads level 1 (second part)
+		if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+		{
+			midlevel_completed = true;
+
+			tutorial_active = false;
+			level1_active = true;
+			midlevel_active = false;
+
+			App->transitions->LinesAppearing();
+		}
+
+		// CAMERA FOLLOWING PLAYER
+		if (App->entity_manager->player != nullptr)
+		{
+			CameraMovement(dt);
+		}
+
+		App->map->Draw(-App->render->camera.x);
+
+		//keys animations manager
+		if (tutorial_active)
+		{
+			BlitKeys();
+		}
+
+		int x, y;
+		App->input->GetMousePosition(x, y);
+
+		mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
+		mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
+		App->render->Blit(cursor_tex, mouse_position.x, mouse_position.y, &cursor);
 	}
-
-	// If player arrives to the end of a level
-	if (App->entity_manager->player->touchingWin) 
-	{
-		LevelChangeLogic();
-	}
-
-	// Loads tutorial
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		tutorial_active = true;
-		level1_active = false;
-		midlevel_active = false;
-
-		App->transitions->LinesAppearing();
-	}
-
-	// Loads level 1
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		midlevel_completed = false;
-
-		tutorial_active = false;
-		level1_active = true;
-		midlevel_active = false;
-		
-		App->transitions->LinesAppearing();
-	}
-
-	// Loads mid-level
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
-		tutorial_active = false;
-		level1_active = false;
-		midlevel_active = true;
-		
-		App->transitions->LinesAppearing();
-	}
-
-	// Loads level 1 (second part)
-	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-	{
-		midlevel_completed = true;
-
-		tutorial_active = false;
-		level1_active = true;
-		midlevel_active = false;
-
-		App->transitions->LinesAppearing();
-	}
-
-	// CAMERA FOLLOWING PLAYER
-	if (App->entity_manager->player != nullptr) 
-	{
-		CameraMovement(dt);
-	}
-
-	App->map->Draw(-App->render->camera.x);
-
-	//keys animations manager
-	if (tutorial_active)
-	{
-		BlitKeys();
-	}
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
-	mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
-	mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
-	App->render->Blit(cursor_tex, mouse_position.x, mouse_position.y, &cursor);
-
 	// App->win->SetTitle("Thalassa");
 	return true;
 }

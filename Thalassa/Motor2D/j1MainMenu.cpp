@@ -31,12 +31,7 @@ j1MainMenu::~j1MainMenu() {}
 
 bool j1MainMenu::Awake(pugi::xml_node &)
 {
-	if (active)
-		App->scene1->active = false;
-	else
-		App->scene1->active = true;
-
-	return active;
+	return true;
 }
 
 bool j1MainMenu::Start()
@@ -53,9 +48,11 @@ bool j1MainMenu::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
-		this->active = false;
-		App->scene1->active = true;
-		/*ChangeScene(SCENE_TYPE::SCENE);*/
+		App->scene1->scene1_active = true;
+		App->scene1->tutorial_active = true;
+		App->scene1->Start();
+		App->entity_manager->player->Start();
+		App->entity_manager->bat->Start();
 	}
 
 	return true;

@@ -78,7 +78,9 @@ public:
 	bool death = false;
 	bool win1 = false;
 
-	bool tutorial_active = true;
+	bool scene1_active = false;
+
+	bool tutorial_active = false;
 	bool level1_active = false;
 	bool midlevel_active = false;
 

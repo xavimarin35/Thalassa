@@ -62,7 +62,7 @@ bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Indigo)
 
-	if (playerCreated)
+	if (playerCreated && App->scene1->scene1_active)
 	{
 		current_points = std::to_string(score);
 
