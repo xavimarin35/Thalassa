@@ -11,13 +11,14 @@
 #define CURSOR_WIDTH 2
 
 struct SDL_Texture;
-struct SDL_Rect;
 struct _TTF_Font;
+struct SDL_Rect;
 struct SDL_Color;
+class j1UIElement;
 class j1Button;
 class j1Box;
 class j1Label;
-class j1UIElement;
+
 
 enum UI_ELEMENTS
 {
@@ -33,6 +34,13 @@ enum BUTTON_FUNCTION
 {
 	NO_FUNCTION = 0,
 	PLAY,
+	GO_TO_MENU,
+	OPEN_CREDITS,
+	SAVE_GAME,
+	LOAD_GAME,
+	SETTINGS,
+	CLOSE_SETTINGS,
+	LINK,
 	EXIT
 };
 
@@ -50,7 +58,7 @@ public:
 	bool CleanUp();
 
 	j1Button* CreateButton(p2List<j1Button*>* buttons, UI_ELEMENTS type, int x, int y, SDL_Rect idle, SDL_Rect hovered, SDL_Rect clicked, SDL_Texture* text = nullptr, BUTTON_FUNCTION function = NO_FUNCTION, j1UIElement* parent = nullptr);
-	void UpdateButtonState(p2List<j1Button*>* buttons, float scale = 1);
+	void UpdateButtonState(p2List<j1Button*>* buttons);
 
 	const SDL_Texture* GetSprites() const;
 
@@ -68,6 +76,12 @@ public:
 	SDL_Color brown;
 	SDL_Color grey;
 	SDL_Color white;
+
+	float buttonsScale;
+	float settingsWindowScale;
+	float logoScale;
+
+	iPoint settingsPosition;
 
 private:
 

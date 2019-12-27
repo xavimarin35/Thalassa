@@ -47,13 +47,81 @@ bool j1MainMenu::Start()
 
 	SDL_Rect idle = { 0,0,117,32 };
 
-	App->gui->CreateButton(buttons_list, BUTTON, 100, 100, idle, idle, idle, gui_texture, PLAY);
+	App->gui->CreateButton(&buttons_menu, BUTTON, 100, 100, idle, idle, idle, gui_texture, PLAY);
 
 	return true;
 }
 
 bool j1MainMenu::Update(float dt)
 {
+
+	App->gui->UpdateButtonState(&buttons_menu);
+
+	for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
+		if (item->data->visible) {
+			switch (item->data->state)
+			{
+			case IDLE:
+				item->data->situation = item->data->idle;
+				break;
+
+			case HOVERED:
+				item->data->situation = item->data->hovered;
+				break;
+
+			case RELEASED:
+				item->data->situation = item->data->idle;
+				if (item->data->bfunction == PLAY) {
+					/*function button*/
+				}
+				else if (item->data->bfunction == LOAD_GAME) {
+					/*function button*/
+				}
+				else if (item->data->bfunction == EXIT) {
+					/*function button*/
+				}
+				else
+					if ((item->data->bfunction == SETTINGS && !settings_window->visible)
+						|| (item->data->bfunction == CLOSE_SETTINGS && settings_window->visible)) {
+						settings_window->visible = !settings_window->visible;
+						settings_window->position = App->gui->settingsPosition;
+
+						for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
+							if (item->data->parent == settings_window) {
+								item->data->visible = !item->data->visible;
+								item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+								item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+							}
+						}
+						for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) {
+							if (item->data->parent == settings_window) {
+								item->data->visible = !item->data->visible;
+								item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+								item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+							}
+						}
+						for (p2List_item<j1Box*>* item = boxes_menu.start; item != nullptr; item = item->next) {
+							if (item->data->parent == settings_window) {
+								item->data->visible = !item->data->visible;
+								item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+								item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+
+								item->data->minimum = item->data->originalMinimum + settings_window->position.x;
+								item->data->maximum = item->data->originalMaximum + settings_window->position.x;
+							}
+						}
+					}
+					else if (item->data->bfunction == OPEN_CREDITS) {
+						/*function button*/
+					}
+				break;
+
+			case CLICKED:
+				item->data->situation = item->data->clicked;
+				break;
+			}
+		}
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
@@ -67,6 +135,20 @@ bool j1MainMenu::Update(float dt)
 
 	App->map->Draw(0);
 
+	// ------------------------ Always blit GUI after the "App->map->Draw"
+	// Blitting buttons and labels
+
+	for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
+		if (item->data->parent != nullptr) continue;
+		item->data->Draw(App->gui->buttonsScale);
+	}
+	for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) {
+		if (item->data->parent != nullptr) continue;
+		if (item->data->visible) item->data->Draw();
+	}
+
+
+
 	return true;
 }
 
@@ -77,7 +159,25 @@ bool j1MainMenu::PostUpdate()
 
 bool j1MainMenu::CleanUp()
 {
+	App->tex->UnLoad(gui_texture);
 	App->map->CleanUp();
+	App->tex->CleanUp();
+
+	for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
+		item->data->CleanUp();
+		buttons_menu.del(item);
+	}
+
+	for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) {
+		item->data->CleanUp();
+		labels_menu.del(item);
+	}
+
+	for (p2List_item<j1Box*>* item = boxes_menu.start; item != nullptr; item = item->next) {
+		item->data->CleanUp();
+		boxes_menu.del(item);
+	}
+
 
 	return true;
 }

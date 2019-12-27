@@ -38,9 +38,13 @@ public:
 	bool startGame = false;
 	bool startCredits = false;
 
-	p2List<j1Button*>* buttons_list;
-	p2List<j1Label*>* labels_list;
-	p2List<j1Box*>* boxes_list;
+	p2List<j1Button*> buttons_menu;
+	p2List<j1Label*> labels_menu;
+	p2List<j1Box*> boxes_menu;
+
+public:
+
+	j1Box* settings_window = nullptr;
 
 private:
 

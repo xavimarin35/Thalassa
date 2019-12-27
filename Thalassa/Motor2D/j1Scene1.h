@@ -9,8 +9,11 @@
 #include "j1Timer.h"
 #include "p2DynArray.h"
 #include "SDL/include/SDL_mouse.h"
+#include "j1Button.h"
 
 struct SDL_Texture;
+struct _TTF_Font;
+class j1Box;
 class Animation;
 
 class j1Scene1 : public j1Module
@@ -97,8 +100,14 @@ public:
 
 	int player_lifes = 3;
 
+	j1Box* settings_window = nullptr;
+
+	p2List<j1Button*> scene1Buttons;
+	p2List<j1Label*> scene1Labels;
+	p2List<j1Box*> scene1Boxes;
+
 private:
-	
+
 	j1Timer deathTimer;
 
 	bool clicked = false;

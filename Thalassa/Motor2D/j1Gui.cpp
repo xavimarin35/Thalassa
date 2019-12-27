@@ -11,6 +11,7 @@
 #include "j1Button.h"
 #include "j1Label.h"
 #include "j1Box.h"
+#include "j1MainMenu.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -47,6 +48,39 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::PostUpdate()
 {
+	if (App->scene1->settings_window != nullptr && App->scene1->settings_window->visible == true)
+		App->scene1->settings_window->Draw(App->gui->settingsWindowScale);
+
+
+	for (p2List_item<j1Button*>* item = App->scene1->scene1Buttons.start; item != nullptr; item = item->next) {
+		if (item->data->parent == nullptr) continue;
+
+		if (item->data->parent->visible == false)
+			item->data->visible = false;
+		else
+			item->data->Draw(App->gui->buttonsScale);
+	}
+	for (p2List_item<j1Label*>* item = App->scene1->scene1Labels.start; item != nullptr; item = item->next) {
+		if (item->data->parent == nullptr) continue;
+
+		if (item->data->parent->visible == false)
+			item->data->visible = false;
+		else {
+			if (item->data->text != "Settings" && item->data->text != "Save"  && item->data->text != "Quit")
+				item->data->Draw(App->gui->buttonsScale);
+			else
+				item->data->Draw();
+		}
+	}
+	for (p2List_item<j1Box*>* item = App->scene1->scene1Boxes.start; item != nullptr; item = item->next) {
+		if (item->data->parent == nullptr) continue;
+
+		if (item->data->parent->visible == false)
+			item->data->visible = false;
+		else
+			item->data->Draw(App->gui->buttonsScale);
+	}
+
 	return true;
 }
 
@@ -70,49 +104,48 @@ j1Button* j1Gui::CreateButton(p2List<j1Button*>* buttons, UI_ELEMENTS type, int 
 
 	if (ret != nullptr)
 	{
-		//buttons->add(ret);
+		buttons->add(ret);
 	}
 
 	return ret;
 }
 
-void j1Gui::UpdateButtonState(p2List<j1Button*>* buttons, float scale)
+void j1Gui::UpdateButtonState(p2List<j1Button*>* buttons)
 {
 	int x, y; App->input->GetMousePosition(x, y);
 
-	for (p2List_item<j1Button*>* item = buttons->start; item != buttons->end; ++item)
-	{
-		if ((*item).data->visible == false || (*item).data->bfunction == NO_FUNCTION) continue;
+	for (p2List_item<j1Button*>* button = buttons->start; button != nullptr; button = button->next) {
 
-		if (x - (App->render->camera.x / (int)(App->win->GetScale())) <= (*item).data->position.x + (*item).data->situation.w * scale
-			&& x - (App->render->camera.x / (int)(App->win->GetScale())) >= (*item).data->position.x
-			&& y - (App->render->camera.y / (int)(App->win->GetScale())) <= (*item).data->position.y + (*item).data->situation.h * scale
-			&& y - (App->render->camera.y / (int)(App->win->GetScale())) >= (*item).data->position.y)
-		{
-			(*item).data->state = STATE::HOVERED;
+		if (button->data->visible == false || button->data->bfunction == NO_FUNCTION) continue;
 
-			if (!(*item).data->hoverPlayed)
-			{
-				App->audio->PlayFx(App->audio->hoverSound);
-				(*item).data->hoverPlayed = true;
+		if (x - (App->render->camera.x / (int)App->win->GetScale()) <= button->data->position.x + button->data->situation.w * App->gui->buttonsScale
+			&& x - (App->render->camera.x / (int)App->win->GetScale()) >= button->data->position.x
+			&& y <= button->data->position.y + button->data->situation.h * App->gui->buttonsScale && y >= button->data->position.y) {
+
+			if (/*App->credits->active == false && */App->mainmenu->settings_window != nullptr && App->mainmenu->settings_window->visible
+				&& button->data->bfunction != CLOSE_SETTINGS) continue;
+
+			button->data->state = STATE::HOVERED;
+			if (!button->data->hoverPlayed) {
+				/*App->audio->PlayFx(hoverSound);*/
+				button->data->hoverPlayed = true;
 			}
 
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-				(*item).data->state = STATE::CLICKED;
-				if (!(*item).data->clickPlayed) {
-					App->audio->PlayFx(App->audio->clickSound);
-					(*item).data->clickPlayed = true;
+				button->data->state = STATE::CLICKED;
+				if (!button->data->clickPlayed) {
+					/*App->audio->PlayFx(clickSound);*/
+					button->data->clickPlayed = true;
 				}
 			}
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
-				(*item).data->state = STATE::RELEASED;
-				(*item).data->clickPlayed = false;
+				button->data->state = STATE::RELEASED;
+				button->data->clickPlayed = false;
 			}
 		}
-
 		else {
-			(*item).data->state = STATE::IDLE;
-			(*item).data->hoverPlayed = false;
+			button->data->state = STATE::IDLE;
+			button->data->hoverPlayed = false;
 		}
 	}
 }
