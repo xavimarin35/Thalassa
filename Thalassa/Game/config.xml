@@ -38,6 +38,7 @@
 	<convertor value="0.02f"/>
 	<convertor2 value="0.02f"/>
 	<convertor3 value="0.02f"/>
+	<convertor4 value="0.1f"/>
   </mapInfo>
 
   <player>

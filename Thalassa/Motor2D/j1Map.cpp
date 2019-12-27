@@ -447,6 +447,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 			convertor = convertor2;
 		else if (App->scene1->midlevel_active)
 			convertor = convertor3;
+		else convertor = convertor4;
 
 
 		for (tileAnim = tileset_node.child("tile").child("animation").child("frame"); tileAnim; tileAnim = tileAnim.next_sibling()) 
@@ -595,4 +596,5 @@ void j1Map::LoadInfo()
 	convertor1 = nodeMap.child("convertor").attribute("value").as_float();
 	convertor2 = nodeMap.child("convertor2").attribute("value").as_float();
 	convertor3 = nodeMap.child("convertor3").attribute("value").as_float();
+	convertor4 = nodeMap.child("convertor4").attribute("value").as_float();
 }

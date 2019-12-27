@@ -36,9 +36,7 @@ bool j1MainMenu::Awake(pugi::xml_node &)
 
 bool j1MainMenu::Start()
 {
-	/*App->map->Load("MainMenu.tmx");*/
-
-	startScene1 = false;
+	App->map->Load("MainMenu.tmx");
 
 	return true;
 }
@@ -48,12 +46,15 @@ bool j1MainMenu::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
+		CleanUp();
 		App->scene1->scene1_active = true;
 		App->scene1->tutorial_active = true;
 		App->scene1->Start();
 		App->entity_manager->player->Start();
 		App->entity_manager->bat->Start();
 	}
+
+	App->map->Draw(0);
 
 	return true;
 }
