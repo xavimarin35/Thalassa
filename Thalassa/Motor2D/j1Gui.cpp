@@ -110,6 +110,20 @@ j1Button* j1Gui::CreateButton(p2List<j1Button*>* buttons, UI_ELEMENTS type, int 
 	return ret;
 }
 
+j1Box* j1Gui::CreateBox(p2List<j1Box*>* boxes, UI_ELEMENTS type, int x, int y, SDL_Rect section, SDL_Texture* texture, j1UIElement* parent, uint minimum, uint maximum)
+{
+	j1Box* ret = nullptr;
+
+	ret = new j1Box(type, x, y, section, texture, parent, minimum, maximum);
+
+	if (ret != nullptr)
+	{
+		boxes->add(ret);
+	}
+
+	return ret;
+}
+
 void j1Gui::UpdateButtonState(p2List<j1Button*>* buttons)
 {
 	int x, y; App->input->GetMousePosition(x, y);
@@ -148,5 +162,68 @@ void j1Gui::UpdateButtonState(p2List<j1Button*>* buttons)
 			button->data->state = STATE::IDLE;
 			button->data->hoverPlayed = false;
 		}
+	}
+}
+
+void j1Gui::UpdateWindow(j1Box* window, p2List<j1Button*>* buttons, p2List<j1Label*>* labels, p2List<j1Box*>* boxes)
+{
+	int x, y; App->input->GetMousePosition(x, y);
+
+	if ((window != nullptr && window->visible == true)
+		&& (x - (App->render->camera.x / (int)(App->win->scale)) <= window->position.x + window->section.w)
+		&& (x - (App->render->camera.x / (int)(App->win->scale)) >= window->position.x)
+		&& (y - (App->render->camera.y / (int)(App->win->scale)) <= window->position.y + window->section.h)
+		&& (y - (App->render->camera.y / (int)(App->win->scale)) >= window->position.y))
+	{
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			window->clicked = true;
+
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+			window->clicked = false;
+	}
+
+	if (window != nullptr)
+	{
+		if (buttons != nullptr)
+		{
+			for (p2List_item<j1Button*>* item = buttons->start; item != nullptr; item->next)
+			{
+				if (item->data->state == CLICKED && item->data->parent == window)
+					window->clicked = false;
+			}
+		}		
+
+		if (window->clicked)
+		{
+			int x, y; App->input->GetMousePosition(x, y);
+
+			if (window->distanceCalculated == false) {
+				window->mouseDistance = { x - window->position.x, y - window->position.y };
+				window->distanceCalculated = true;
+			}
+
+			// Updating the positions of the window and its elements
+			window->position = { x - window->mouseDistance.x, y - window->mouseDistance.y };
+
+			if (buttons != nullptr) {
+				for (p2List_item<j1Button*>* item = buttons->start; item != nullptr; ++item) {
+					if (item->data->parent == window) {
+						item->data->position.x = window->position.x + item->data->initialPosition.x;
+						item->data->position.y = window->position.y + item->data->initialPosition.y;
+					}
+				}
+			}
+
+			if (labels != nullptr) {
+				for (p2List_item<j1Label*>* item = labels->start; item != nullptr; ++item) {
+					if (item->data->parent == window) {
+						item->data->position.x = window->position.x + item->data->initialPosition.x;
+						item->data->position.y = window->position.y + item->data->initialPosition.y;
+					}
+				}
+			}
+		}
+		else
+			window->distanceCalculated = false;
 	}
 }

@@ -66,6 +66,9 @@ bool j1Scene1::Start()
 
 	cursor = { 0,0,13,13 };
 
+	SDL_Rect section_settings = { 0,0,187,148 };
+	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, 0, 0, section_settings, settings_window_text);
+
 	// TUTORIAL
 	if (tutorial_active) 
 	{
@@ -105,6 +108,8 @@ bool j1Scene1::Update(float dt)
 	if (scene1_active)
 	{
 		ShowCursor(hide_cursor);
+
+		App->gui->UpdateWindow(settings_window, &scene1Buttons, &scene1Labels, &scene1Boxes);
 
 		score_player = App->entity_manager->player->score;
 		current_points = std::to_string(score_player);

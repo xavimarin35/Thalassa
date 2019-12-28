@@ -61,6 +61,9 @@ public:
 	j1Button* CreateButton(p2List<j1Button*>* buttons, UI_ELEMENTS type, int x, int y, SDL_Rect idle, SDL_Rect hovered, SDL_Rect clicked, SDL_Texture* text = nullptr, BUTTON_FUNCTION function = NO_FUNCTION, j1UIElement* parent = nullptr);
 	void UpdateButtonState(p2List<j1Button*>* buttons);
 
+	j1Box* CreateBox(p2List<j1Box*>* boxes, UI_ELEMENTS type, int x, int y, SDL_Rect section, SDL_Texture* text = nullptr, j1UIElement* parent = nullptr, uint minimum = 0, uint maximum = 0);
+	void UpdateWindow(j1Box* window, p2List<j1Button*>* buttons = nullptr, p2List<j1Label*>* labels = nullptr, p2List<j1Box*>* boxes = nullptr);
+
 	const SDL_Texture* GetSprites() const;
 
 public:
