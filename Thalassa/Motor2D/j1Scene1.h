@@ -126,6 +126,8 @@ private:
 	int cameraPositionMoving;
 	int timer;
 
+	fPoint window_pos;
+
 	std::string current_points;
 	int score_player = 0;
 

@@ -62,12 +62,15 @@ bool j1Scene1::Start()
 	debugPath = App->tex->Load("maps/Quad_Ortho.png");
 	jetPack_tex = App->tex->Load("textures/jetPack_bar.png");
 	cursor_tex = App->tex->Load("textures/cursor.png");
-	settings_window_text = App->tex->Load("gui/settings_window.png");
+	settings_window_text = App->tex->Load("gui/set_window.png");
 
 	cursor = { 0,0,13,13 };
 
-	SDL_Rect section_settings = { 0,0,187,148 };
-	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, 0, 0, section_settings, settings_window_text);
+	window_pos = { (float)App->render->camera.x / App->win->scale, (float)-App->render->camera.y / App->win->scale };
+
+	SDL_Rect section_settings = { 0,0,191,165 };
+	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, (int)window_pos.x, (int)window_pos.y, section_settings, settings_window_text);
+	settings_window->visible = false;
 
 	// TUTORIAL
 	if (tutorial_active) 
@@ -107,8 +110,11 @@ bool j1Scene1::Update(float dt)
 
 	if (scene1_active)
 	{
-		ShowCursor(hide_cursor);
+		if (!settings_window->visible)
+			ShowCursor(hide_cursor);
 
+		window_pos = { (float)App->render->camera.x / App->win->scale, (float)-App->render->camera.y / App->win->scale };
+		settings_window->position = { (int)window_pos.x, (int)window_pos.y };
 		App->gui->UpdateWindow(settings_window, &scene1Buttons, &scene1Labels, &scene1Boxes);
 
 		score_player = App->entity_manager->player->score;
@@ -230,8 +236,10 @@ bool j1Scene1::PostUpdate()
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		//settings_window->visible = !settings_window->visible;
-		ret = false;
+	{
+		App->pause = !App->pause;
+		settings_window->visible = !settings_window->visible;
+	}
 
 	return ret;
 }
