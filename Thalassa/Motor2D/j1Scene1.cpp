@@ -20,6 +20,7 @@
 #include "j1Pathfinding.h"
 #include "j1MainMenu.h"
 #include "SDL/include/SDL_mouse.h"
+#include "j1Box.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -61,6 +62,7 @@ bool j1Scene1::Start()
 	debugPath = App->tex->Load("maps/Quad_Ortho.png");
 	jetPack_tex = App->tex->Load("textures/jetPack_bar.png");
 	cursor_tex = App->tex->Load("textures/cursor.png");
+	settings_window_text = App->tex->Load("gui/settings_window.png");
 
 	cursor = { 0,0,13,13 };
 
@@ -222,7 +224,8 @@ bool j1Scene1::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		//settings_window->visible = !settings_window->visible;
 		ret = false;
 
 	return ret;

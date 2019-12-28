@@ -119,6 +119,7 @@ private:
 	SDL_Texture* debugPath;
 	SDL_Texture* jetPack_tex;
 	SDL_Texture* cursor_tex;
+	SDL_Texture* settings_window_text;
 
 	int cameraLimitX;
 	int cameraLimitY;

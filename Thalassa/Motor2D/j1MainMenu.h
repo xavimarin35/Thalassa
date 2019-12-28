@@ -48,6 +48,7 @@ public:
 	p2List<j1Box*> boxes_menu;
 
 	void LoadConfig();
+	void LoadScene1();
 
 public:
 

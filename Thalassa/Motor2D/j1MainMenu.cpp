@@ -68,7 +68,6 @@ bool j1MainMenu::Start()
 
 bool j1MainMenu::Update(float dt)
 {
-
 	App->gui->UpdateButtonState(&buttons_menu);
 
 	for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
@@ -139,29 +138,25 @@ bool j1MainMenu::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
-		CleanUp();
-		App->scene1->scene1_active = true;
-		App->scene1->tutorial_active = true;
-		App->scene1->Start();
-		App->entity_manager->player->Start();
-		App->entity_manager->bat->Start();
+		LoadScene1();
 	}
 
 	App->map->Draw(0);
 
-	// ------------------------ Always blit GUI after the "App->map->Draw"
+	// Always blit GUI after the "App->map->Draw"
 	// Blitting buttons and labels
 
-	for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
+	for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) 
+	{
 		if (item->data->parent != nullptr) continue;
 		item->data->Draw(App->gui->buttonsScale);
 	}
-	for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) {
+
+	for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) 
+	{
 		if (item->data->parent != nullptr) continue;
 		if (item->data->visible) item->data->Draw();
 	}
-
-
 
 	return true;
 }
@@ -244,4 +239,16 @@ void j1MainMenu::LoadConfig()
 	button3_idle = { nodeButtons.child("button3_idle").attribute("x").as_int(),nodeButtons.child("button3_idle").attribute("y").as_int(), nodeButtons.child("button3_idle").attribute("w").as_int(), nodeButtons.child("button3_idle").attribute("h").as_int() };
 	button3_hover = { nodeButtons.child("button3_hover").attribute("x").as_int(),nodeButtons.child("button3_hover").attribute("y").as_int(), nodeButtons.child("button3_hover").attribute("w").as_int(), nodeButtons.child("button3_hover").attribute("h").as_int() };
 	button3_click = { nodeButtons.child("button3_click").attribute("x").as_int(),nodeButtons.child("button3_click").attribute("y").as_int(), nodeButtons.child("button3_click").attribute("w").as_int(), nodeButtons.child("button3_click").attribute("h").as_int() };
+}
+
+void j1MainMenu::LoadScene1()
+{
+	CleanUp();
+	App->scene1->scene1_active = true;
+	App->scene1->tutorial_active = true;
+	App->scene1->Start();
+	App->particles->Start();
+	App->entity_manager->Start();
+	App->entity_manager->player->Start();
+	App->entity_manager->bat->Start();
 }
