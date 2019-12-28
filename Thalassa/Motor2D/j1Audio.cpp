@@ -9,6 +9,8 @@
 
 #include "Brofiler/Brofiler.h"
 
+#define DEFAULT_VOLUME MIX_MAX_VOLUME/2
+
 j1Audio::j1Audio() : j1Module()
 {
 	music = NULL;
@@ -51,6 +53,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
+
+	MusicVolume(DEFAULT_VOLUME);
+	FxVolume(DEFAULT_VOLUME);
 
 	jumpFx = LoadFx("audio/fx/jump.wav");
 	jetpackFx = LoadFx("audio/fx/jet.ogg");
@@ -187,4 +192,38 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+void j1Audio::MusicVolume(float vol)
+{
+	if (vol > MIX_MAX_VOLUME)
+		vol = MIX_MAX_VOLUME;
+
+	else if (vol < -MIX_MAX_VOLUME)
+		vol = -MIX_MAX_VOLUME;
+
+	Mix_VolumeMusic(vol);
+	currentmusicvolume = vol;
+}
+
+void j1Audio::FxVolume(float vol)
+{
+	if (vol > MIX_MAX_VOLUME)
+		vol = MIX_MAX_VOLUME;
+
+	for (p2List_item<Mix_Chunk*>* item = fx.start; item != fx.end; ++item)
+	{
+		Mix_VolumeChunk(item->data, vol);
+	}
+	currentfxvolume = vol;
+}
+
+float j1Audio::GetFxVolume()
+{
+	return currentfxvolume;
+}
+
+float j1Audio::GetMusicVolume()
+{
+	return currentmusicvolume;
 }

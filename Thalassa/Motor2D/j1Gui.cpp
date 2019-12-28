@@ -124,6 +124,20 @@ j1Box* j1Gui::CreateBox(p2List<j1Box*>* boxes, UI_ELEMENTS type, int x, int y, S
 	return ret;
 }
 
+j1Label* j1Gui::CreateLabel(p2List<j1Label*>* labels, UI_ELEMENTS type, int x, int y, _TTF_Font* font, const char* text, SDL_Color color, j1UIElement* parent)
+{
+	j1Label* ret = nullptr;
+
+	ret = new j1Label(type, x, y, font, text, color, parent);
+
+	if (ret != nullptr)
+	{
+		labels->add(ret);
+	}
+
+	return ret;
+}
+
 void j1Gui::UpdateButtonState(p2List<j1Button*>* buttons)
 {
 	int x, y; App->input->GetMousePosition(x, y);
@@ -225,5 +239,72 @@ void j1Gui::UpdateWindow(j1Box* window, p2List<j1Button*>* buttons, p2List<j1Lab
 		}
 		else
 			window->distanceCalculated = false;
+	}
+}
+
+void j1Gui::UpdateSliders(p2List<j1Box*>* sliders)
+{
+	int x, y; App->input->GetMousePosition(x, y);
+
+	for (p2List_item<j1Box*>* item = sliders->start; item != nullptr; item->next)
+	{
+		if ((x - (App->render->camera.x / (int)(App->win->scale)) <= item->data->position.x + item->data->section.w)
+			&& (x - (App->render->camera.x / (int)(App->win->scale)) >= item->data->position.x)
+			&& (y - (App->render->camera.y / (int)(App->win->scale)) <= item->data->position.y + item->data->section.h)
+			&& (y - (App->render->camera.y / (int)(App->win->scale)) >= item->data->position.y))
+		{
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+				item->data->clicked = true;
+			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+				item->data->clicked = false;
+				item->data->initialPosition.x = item->data->position.x - item->data->parent->position.x;
+			}
+		}
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) 
+		{
+			item->data->clicked = false;
+			item->data->initialPosition.x = item->data->position.x - item->data->parent->position.x;
+		}
+	}
+
+	for (p2List_item<j1Box*>* item = sliders->start; item != nullptr; item->next)
+	{
+		if (item->data->clicked && item->data->parent != nullptr)
+		{
+			int x, y; App->input->GetMousePosition(x, y);
+
+			uint lastPos = item->data->position.x;
+
+			if (item->data->distanceCalculated == false)
+			{
+				item->data->mouseDistance.x = x - item->data->position.x;
+				item->data->distanceCalculated = true;
+			}
+
+			item->data->position.x = x - item->data->mouseDistance.x;
+
+			if (item->data->minimum != 0 && item->data->position.x <= item->data->minimum)
+				item->data->position.x = item->data->minimum;
+			if (item->data->maximum != 0 && item->data->position.x >= item->data->maximum)
+				item->data->position.x = item->data->maximum;
+
+			// After that we change the volume
+			if (item->data->position.y < item->data->parent->position.y + 60) {
+				if (item->data->position.x > lastPos)
+					App->audio->FxVolume(App->audio->GetFxVolume() + (item->data->position.x - lastPos) * 2);
+				else
+					App->audio->FxVolume(App->audio->GetFxVolume() - (lastPos - item->data->position.x) * 2);
+
+				lastSlider1X = item->data->position.x - item->data->parent->position.x;
+			}
+			else {
+				if (item->data->position.x > lastPos)
+					App->audio->MusicVolume(App->audio->GetMusicVolume() + (item->data->position.x - lastPos) * 2);
+				else
+					App->audio->MusicVolume(App->audio->GetMusicVolume() - (lastPos - item->data->position.x) * 2);
+
+				lastSlider2X = item->data->position.x - item->data->parent->position.x;
+			}
+		}
 	}
 }

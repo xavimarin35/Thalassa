@@ -24,12 +24,15 @@
 #include "j1Label.h"
 #include "j1Box.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
 
 #include "Brofiler/Brofiler.h"
 
 j1MainMenu::j1MainMenu() 
 {
 	name.create("mainMenu");
+
+	logo_anim.LoadAnimations("logo");
 }
 
 j1MainMenu::~j1MainMenu() {}
@@ -50,7 +53,9 @@ bool j1MainMenu::Start()
 
 	LoadConfig();
 
+	font = App->font->Load("fonts/Pixeled.ttf", 10);
 	gui_texture = App->tex->Load("gui/buttons.png");
+	logo_text = App->tex->Load("textures/Logo_Thalassa.png");
 
 	App->map->Load("MainMenu.tmx");
 
@@ -66,9 +71,17 @@ bool j1MainMenu::Start()
 	SDL_Rect hover3 = { button3_hover.x, button3_hover.y, button3_hover.w, button3_hover.h };
 	SDL_Rect click3 = { button3_click.x, button3_click.y, button3_click.w, button3_click.h };
 
-	App->gui->CreateButton(&buttons_menu, BUTTON, 40, 83, idle1, hover1, click1, gui_texture, PLAY);
-	App->gui->CreateButton(&buttons_menu, BUTTON, 70, 130, idle2, hover2, click2, gui_texture, CONTINUE_LOADED);
-	App->gui->CreateButton(&buttons_menu, BUTTON, 30, 180, idle3, hover3, click3, gui_texture, EXIT);
+	play_button = { 40,102 };
+	continue_button = { 70,140 };
+	exit_button = { 30,180 };
+
+	App->gui->CreateButton(&buttons_menu, BUTTON, play_button.x, play_button.y, idle1, hover1, click1, gui_texture, PLAY);
+	App->gui->CreateButton(&buttons_menu, BUTTON, continue_button.x, continue_button.y, idle2, hover2, click2, gui_texture, CONTINUE_LOADED);
+	App->gui->CreateButton(&buttons_menu, BUTTON, exit_button.x, exit_button.y, idle3, hover3, click3, gui_texture, EXIT);
+
+	App->gui->CreateLabel(&labels_menu, LABEL, play_button.x + 38,  play_button.y - 3, font, "PLAY");
+	App->gui->CreateLabel(&labels_menu, LABEL, continue_button.x + 20, continue_button.y + 1, font, "CONTINUE");
+	App->gui->CreateLabel(&labels_menu, LABEL, exit_button.x + 40, exit_button.y + 2, font, "EXIT");
 
 	return true;
 }
@@ -149,6 +162,8 @@ bool j1MainMenu::Update(float dt)
 	}
 
 	App->map->Draw(0);
+
+	App->render->BlitHUD(logo_text, 30, -100, &logo_anim.GetCurrentFrame(dt), SDL_FLIP_NONE, false);
 
 	// Always blit GUI after the "App->map->Draw"
 	// Blitting buttons and labels

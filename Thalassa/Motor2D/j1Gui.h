@@ -64,6 +64,9 @@ public:
 	j1Box* CreateBox(p2List<j1Box*>* boxes, UI_ELEMENTS type, int x, int y, SDL_Rect section, SDL_Texture* text = nullptr, j1UIElement* parent = nullptr, uint minimum = 0, uint maximum = 0);
 	void UpdateWindow(j1Box* window, p2List<j1Button*>* buttons = nullptr, p2List<j1Label*>* labels = nullptr, p2List<j1Box*>* boxes = nullptr);
 
+	j1Label* CreateLabel(p2List<j1Label*>* labels, UI_ELEMENTS type, int x, int y, _TTF_Font* font, const char* text, SDL_Color color = { 255, 255, 255, 255 }, j1UIElement* parent = nullptr);
+	void UpdateSliders(p2List<j1Box*>* sliders);
+
 	const SDL_Texture* GetSprites() const;
 
 public:
@@ -86,6 +89,11 @@ public:
 	float logoScale;
 
 	iPoint settingsPosition;
+
+	uint lastSlider1X;
+	uint lastSlider2X;
+	uint slider1Y;
+	uint slider2Y;
 
 private:
 

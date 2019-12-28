@@ -5,12 +5,14 @@
 #include "p2Point.h"
 #include "p2Defs.h"
 #include "p2List.h"
+#include "p2Animation.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
 class j1Button;
 class j1Label;
 class j1Box;
+struct _TTF_Font;
 
 enum SCENE_TYPE
 {
@@ -54,14 +56,21 @@ public:
 
 	j1Box* settings_window = nullptr;
 
+	Animation logo_anim;
+
 private:
 
 	SDL_Texture* texture = nullptr;
+	SDL_Texture* logo_text = nullptr;
 	SDL_Texture* gui_texture = nullptr;
 
 	Button_rects button1_idle, button1_hover, button1_click;
 	Button_rects button2_idle, button2_hover, button2_click;
 	Button_rects button3_idle, button3_hover, button3_click;
+
+	_TTF_Font* font = nullptr;
+
+	iPoint play_button, continue_button, exit_button;
 
 };
 
