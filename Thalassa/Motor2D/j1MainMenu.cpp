@@ -41,6 +41,13 @@ bool j1MainMenu::Awake(pugi::xml_node &)
 
 bool j1MainMenu::Start()
 {
+	Mix_FadeOutMusic(2000);
+
+	uint32 timeout = SDL_GetTicks() + 2000;
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
+		App->audio->PlayMusic("audio/music/MainMenu.ogg");
+	}
+
 	LoadConfig();
 
 	gui_texture = App->tex->Load("gui/buttons.png");

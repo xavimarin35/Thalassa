@@ -213,6 +213,9 @@
 	</coinIdle>
 	
 	<coinPick loop="false" speed="10.0f">
+		<animation x="0" y="16" w="11" h="16"/>
+		<animation x="11" y="16" w="11" h="16"/>
+		<animation x="22" y="16" w="11" h="16"/>
 		<animation x="0" y="0" w="0" h="0"/>
 	</coinPick>
 	

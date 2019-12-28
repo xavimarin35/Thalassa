@@ -47,6 +47,7 @@ public:
 	int jetPick;
 	int hoverSound;
 	int clickSound;
+	int coinPick;
 
 private:
 

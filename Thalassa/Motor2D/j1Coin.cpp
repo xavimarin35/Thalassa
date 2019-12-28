@@ -66,6 +66,7 @@ void j1Coin::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ITEM)
 	{
+		App->audio->PlayFx(App->audio->coinPick);
 		picked = true;
 		c2->to_delete = true;
 		animation = &pickAnim;
