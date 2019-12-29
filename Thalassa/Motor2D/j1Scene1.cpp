@@ -139,6 +139,9 @@ bool j1Scene1::Update(float dt)
 			App->pause = !App->pause;
 			settings_window->visible = !settings_window->visible;
 
+			settings_window->position.x = (float)(App->render->camera.x * App->map->parallax_speed / App->win->scale + 85);
+			settings_window->position.y = (float)(-App->render->camera.y * App->map->parallax_speed / App->win->scale + 20);
+
 			for (p2List_item<j1Button*>* item = scene1Buttons.start; item != nullptr; item = item->next)
 			{
 				if (item->data->parent == settings_window)
@@ -312,8 +315,6 @@ bool j1Scene1::Update(float dt)
 		int x, y;
 		App->input->GetMousePosition(x, y);
 
-		settings_window->position.x = (float)(App->render->camera.x * App->map->parallax_speed / App->win->scale + 85);
-		settings_window->position.y = (float)(-App->render->camera.y * App->map->parallax_speed / App->win->scale + 20);
 
 		mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
 		mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
