@@ -111,6 +111,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 
  Don't hesitate to visit:
  - Our repository: https://github.com/xavimarin35/Thalassa 
+ - Our Website : https://xavimarin35.github.io/Thalassa/
  
  Or contact us:
  - Pol Casau: pccpolcasau@gmail.com
