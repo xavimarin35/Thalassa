@@ -242,6 +242,9 @@ bool j1Scene1::Update(float dt)
 		mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
 		mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
 		App->render->Blit(cursor_tex, mouse_position.x, mouse_position.y, &cursor);
+
+		if (player_lifes < 0)
+			EndRun();
 	}
 	// App->win->SetTitle("Thalassa");
 	return true;
@@ -301,6 +304,14 @@ bool j1Scene1::CleanUp()
 	if (App->entity_manager->player != nullptr)
 		App->entity_manager->player->CleanUp();
 	App->entity_manager->CleanUp();
+
+	App->tex->UnLoad(keys);
+	App->tex->UnLoad(mouse);
+	App->tex->UnLoad(debugPath);
+	App->tex->UnLoad(jetPack_tex);
+	App->tex->UnLoad(cursor_tex);
+	App->tex->UnLoad(settings_window_text);
+	App->tex->UnLoad(buttons_text);
 
 	return true;
 }
@@ -699,6 +710,8 @@ void j1Scene1::SpawnMidLevelEntities()
 
 	App->entity_manager->AddEntity(item1.x, item1.y, JETPACK_ITEM);
 
+	SpawnMidLevelCoins();
+
 	App->entity_manager->AddPlatform(409, 145, PLATFORM, { 70,50 }, 3, true);
 	App->entity_manager->AddPlatform(503, 214, PLATFORM, { 70,30 }, 3, true);
 	App->entity_manager->AddPlatform(580, 153, PLATFORM, { 20,40 }, 3, true);
@@ -909,4 +922,16 @@ void j1Scene1::SpawnLevel1Coins()
 	App->entity_manager->AddEntity(3540, 212, COIN);
 	App->entity_manager->AddEntity(3575, 212, COIN);
 	App->entity_manager->AddEntity(4479, 70, COIN);
+}
+
+void j1Scene1::SpawnMidLevelCoins()
+{
+	App->entity_manager->AddEntity(52, 213, COIN);
+	App->entity_manager->AddEntity(30, 213, COIN);
+	App->entity_manager->AddEntity(74, 213, COIN);
+	App->entity_manager->AddEntity(268, 277, COIN);
+	App->entity_manager->AddEntity(290, 277, COIN);
+	App->entity_manager->AddEntity(874, 333, COIN);
+	App->entity_manager->AddEntity(896, 333, COIN);
+	App->entity_manager->AddEntity(918, 333, COIN);
 }

@@ -44,6 +44,9 @@ bool j1MainMenu::Awake(pugi::xml_node &)
 
 bool j1MainMenu::Start()
 {
+	App->scene1->ShowCursor(false);
+	App->render->camera = { 0,0 };
+
 	this->active = true;
 
 	Mix_FadeOutMusic(2000);
@@ -195,6 +198,8 @@ bool j1MainMenu::PostUpdate()
 bool j1MainMenu::CleanUp()
 {
 	App->tex->UnLoad(gui_texture);
+	App->tex->UnLoad(logo_text);
+	App->tex->UnLoad(texture);
 	App->map->CleanUp();
 	App->tex->CleanUp();
 
@@ -279,7 +284,7 @@ void j1MainMenu::LoadScene1(bool save_game)
 		App->LoadGame();
 
 	App->particles->Start();
-	App->entity_manager->Start();
 	App->entity_manager->player->Start();
 	App->entity_manager->bat->Start();
+	App->entity_manager->Start();
 }
