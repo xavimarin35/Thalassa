@@ -23,6 +23,7 @@
 #include "j1Box.h"
 #include "j1Button.h"
 #include "j1Label.h"
+#include "j1Fonts.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -66,12 +67,26 @@ bool j1Scene1::Start()
 	cursor_tex = App->tex->Load("textures/cursor.png");
 	settings_window_text = App->tex->Load("gui/set_window.png");
 	buttons_text = App->tex->Load("gui/settings_buttons.png");
+	fontscene = App->font->Load("fonts/Pixeled.ttf", 10);
 
 	cursor = { 0,0,13,13 };
 
 	score_player = score;
 
-	PrintSettingsWindow();
+	//UI
+
+	SDL_Rect r = { 0,0,191,165 };
+	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, App->gui->settingsPosition.x, App->gui->settingsPosition.y, r, settings_window_text);
+	settings_window->visible = false;
+
+	App->gui->CreateLabel(&scene1Labels, LABEL, 50, 0, fontscene, "SETTINGS", App->gui->white, (j1UIElement*)settings_window);
+
+	
+	App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 70, continue_idle, continue_hover, continue_click, buttons_text, CLOSE_SETTINGS, (j1UIElement*)settings_window);
+	App->gui->CreateButton(&scene1Buttons, BUTTON, 10, 100, return_idle, return_hover, return_click, buttons_text, GO_TO_MENU, (j1UIElement*)settings_window);
+	App->gui->CreateButton(&scene1Buttons, BUTTON, 90, 100, save_idle, save_hover, save_click, buttons_text, SAVE_GAME, (j1UIElement*)settings_window);
+
+	// ------------------------
 
 	// TUTORIAL
 	if (tutorial_active) 
@@ -117,27 +132,85 @@ bool j1Scene1::Update(float dt)
 		App->gui->UpdateButtonState(&scene1Buttons);
 		App->gui->UpdateWindow(settings_window, &scene1Buttons, &scene1Labels, &scene1Boxes);
 
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || closeSettings)
 		{
 			App->pause = !App->pause;
 			settings_window->visible = !settings_window->visible;
 
-			settings_window->position.x = App->gui->settingsPosition.x - App->render->camera.x / (int)App->win->scale;
-			settings_window->position.y = App->gui->settingsPosition.y - App->render->camera.y / (int)App->win->scale;
+			//must change these values
+			settings_window->position.x = (float)App->render->camera.x / App->win->scale;
+			settings_window->position.y = (float)-App->render->camera.y / App->win->scale;
 
-			for (p2List_item<j1Button*>* item = scene1Buttons.start; item != nullptr; item->next)
+			for (p2List_item<j1Button*>* item = scene1Buttons.start; item != nullptr; item = item->next)
 			{
 				if (item->data->parent == settings_window)
 				{
-					item->data->visible = settings_window->visible;
+					item->data->visible = !item->data->visible;
 					item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
 					item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
 				}
 			}
+			for (p2List_item<j1Label*>* item = scene1Labels.start; item != nullptr; item = item->next) {
+				if (item->data->parent == settings_window) {
+					item->data->visible = !item->data->visible;
+					item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+					item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+				}
+			}
+			for (p2List_item<j1Box*>* item = scene1Boxes.start; item != nullptr; item = item->next) {
+				if (item->data->parent == settings_window) {
+					item->data->visible = !item->data->visible;
+					item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+					item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+
+					item->data->minimum = item->data->originalMinimum + settings_window->position.x;
+					item->data->maximum = item->data->originalMaximum + settings_window->position.x;
+
+					item->data->distanceCalculated = false;
+				}
+			}
+
+			if (!settings_window->visible) closeSettings = false;
 		}
 
+		/*App->gui->UpdateSliders(&scene1Boxes);*/
 		score_player = App->entity_manager->player->score;
 		current_points = std::to_string(score_player);
+
+		for (p2List_item<j1Button*>* item = scene1Buttons.start; item != nullptr; item = item->next) {
+			switch (item->data->state)
+			{
+			case IDLE:
+				item->data->situation = item->data->idle;
+				break;
+
+			case HOVERED:
+				item->data->situation = item->data->hovered;
+				break;
+
+			case RELEASED:
+				item->data->situation = item->data->idle;
+				if (item->data->bfunction == GO_TO_MENU) {
+					/*backToMenu = true;*/
+					App->pause = false;
+					settings_window->visible = false;
+				}
+				else if (item->data->bfunction == CLOSE_SETTINGS) {
+					closeSettings = true;
+				}
+				else if (item->data->bfunction == SAVE_GAME) {
+					App->SaveGame("save_game.xml");
+				}
+				else if (item->data->bfunction == EXIT) {
+					continueGame = false;
+				}
+				break;
+
+			case CLICKED:
+				item->data->situation = item->data->clicked;
+				break;
+			}
+		}
 
 		//Save & Load
 		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -255,7 +328,7 @@ bool j1Scene1::Update(float dt)
 // Called each loop iteration
 bool j1Scene1::PostUpdate()
 {
-	return true;
+	return continueGame;
 }
 
 // Load Game State

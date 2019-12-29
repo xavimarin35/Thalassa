@@ -116,6 +116,12 @@ public:
 	SDL_Rect save_idle, save_hover, save_click;
 	SDL_Rect return_idle, return_hover, return_click;
 
+	_TTF_Font* fontscene = nullptr;
+	_TTF_Font* fontsceneTitle = nullptr;
+
+	bool closeSettings = false;
+	bool continueGame = true;
+
 private:
 
 	j1Timer deathTimer;

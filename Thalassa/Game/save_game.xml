@@ -5,8 +5,9 @@
 	<textures />
 	<audio />
 	<map />
+	<mainMenu />
 	<scene1>
-		<playerPos x="917.319458" y="136.3349" />
+		<playerPos x="57" y="197" />
 		<tutorialActive active="true" />
 		<level1Active active="false" />
 		<midLevelActive active="false" />
@@ -17,7 +18,10 @@
 	<:anonymous />
 	<:anonymous />
 	<:anonymous />
+	<fonts />
+	<gui />
+	<:anonymous />
 	<renderer>
-		<camera x="-2239" y="-27" />
+		<camera x="0" y="-207" />
 	</renderer>
 </game_state>

@@ -102,7 +102,9 @@ bool j1MainMenu::Update(float dt)
 		App->gui->UpdateButtonState(&buttons_menu);
 
 		for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
-			item->data->visible = true;
+			if (item->data != nullptr) {
+
+			
 			if (item->data->visible) {
 				switch (item->data->state)
 				{
@@ -168,6 +170,7 @@ bool j1MainMenu::Update(float dt)
 					item->data->situation = item->data->clicked;
 					break;
 				}
+			}
 			}
 		}
 
