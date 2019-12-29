@@ -627,6 +627,21 @@ void j1Scene1::LoadSceneInfo()
 	posMIdle = { nodeKeys.child("posMIdle").attribute("x").as_int(), nodeKeys.child("posMIdle").attribute("y").as_int() };
 	posMLeft = { nodeKeys.child("posMLeft").attribute("x").as_int(), nodeKeys.child("posMLeft").attribute("y").as_int() };
 	/*posMRight = { nodeKeys.child("posMRight").attribute("x").as_int(), nodeKeys.child("posMRight").attribute("y").as_int() };*/
+
+	pugi::xml_node nodeButtons;
+	nodeButtons = config.child("buttons");
+
+	continue_idle = { nodeButtons.child("continue_idle").attribute("x").as_int(),nodeButtons.child("continue_idle").attribute("y").as_int(), nodeButtons.child("continue_idle").attribute("w").as_int(), nodeButtons.child("continue_idle").attribute("h").as_int() };
+	continue_hover = { nodeButtons.child("continue_hover").attribute("x").as_int(),nodeButtons.child("continue_hover").attribute("y").as_int(), nodeButtons.child("continue_hover").attribute("w").as_int(), nodeButtons.child("continue_hover").attribute("h").as_int() };
+	continue_click = { nodeButtons.child("continue_click").attribute("x").as_int(),nodeButtons.child("continue_click").attribute("y").as_int(), nodeButtons.child("continue_click").attribute("w").as_int(), nodeButtons.child("continue_click").attribute("h").as_int() };
+
+	save_idle = { nodeButtons.child("save_idle").attribute("x").as_int(),nodeButtons.child("save_idle").attribute("y").as_int(), nodeButtons.child("save_idle").attribute("w").as_int(), nodeButtons.child("save_idle").attribute("h").as_int() };
+	save_hover = { nodeButtons.child("save_hover").attribute("x").as_int(),nodeButtons.child("save_hover").attribute("y").as_int(), nodeButtons.child("save_hover").attribute("w").as_int(), nodeButtons.child("save_hover").attribute("h").as_int() };
+	save_click = { nodeButtons.child("save_click").attribute("x").as_int(),nodeButtons.child("save_click").attribute("y").as_int(), nodeButtons.child("save_click").attribute("w").as_int(), nodeButtons.child("save_click").attribute("h").as_int() };
+
+	return_idle = { nodeButtons.child("return_idle").attribute("x").as_int(),nodeButtons.child("return_idle").attribute("y").as_int(), nodeButtons.child("return_idle").attribute("w").as_int(), nodeButtons.child("return_idle").attribute("h").as_int() };
+	return_hover = { nodeButtons.child("return_hover").attribute("x").as_int(),nodeButtons.child("return_hover").attribute("y").as_int(), nodeButtons.child("return_hover").attribute("w").as_int(), nodeButtons.child("return_hover").attribute("h").as_int() };
+	return_click = { nodeButtons.child("return_click").attribute("x").as_int(),nodeButtons.child("return_click").attribute("y").as_int(), nodeButtons.child("return_click").attribute("w").as_int(), nodeButtons.child("return_click").attribute("h").as_int() };
 }
 
 void j1Scene1::SpawnTutorialEntities()
@@ -856,11 +871,9 @@ void j1Scene1::PrintSettingsWindow()
 	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, (int)window_pos.x, (int)window_pos.y, section_settings, settings_window_text);
 	settings_window->visible = false;
 
-	SDL_Rect continue_button = { 0,0,104,29 };
-	SDL_Rect save_button = { 0,29,73,28 };
-	SDL_Rect return_button = { 0,57,73,28 };
+	
 
-	//App->gui->CreateButton(&scene1Buttons, BUTTON, 20, 50, continue_button, continue_button, continue_button, buttons_text, PLAY, settings_window);
+	//App->gui->CreateButton(&scene1Buttons, BUTTON, 20, 50, continue_idle, continue_hover, continue_click, buttons_text, PLAY, settings_window);
 	//App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 20, save_button, save_button, save_button, buttons_text, SAVE_GAME, settings_window);
 	//App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 70, return_button, return_button, return_button, buttons_text, GO_TO_MENU, settings_window);
 }

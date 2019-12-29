@@ -65,6 +65,7 @@ private:
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* logo_text = nullptr;
 	SDL_Texture* gui_texture = nullptr;
+	SDL_Texture* set_win_mainmenu = nullptr;
 
 	Button_rects button1_idle, button1_hover, button1_click;
 	Button_rects button2_idle, button2_hover, button2_click;

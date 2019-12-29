@@ -16,6 +16,7 @@ class Animation;
 class j1Button;
 class j1Label;
 
+
 class j1Scene1 : public j1Module
 {
 public:
@@ -110,6 +111,10 @@ public:
 	p2List<j1Box*> scene1Boxes;
 
 	std::string current_points;
+
+	SDL_Rect continue_idle, continue_hover, continue_click;
+	SDL_Rect save_idle, save_hover, save_click;
+	SDL_Rect return_idle, return_hover, return_click;
 
 private:
 

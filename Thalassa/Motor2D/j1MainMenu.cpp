@@ -61,6 +61,7 @@ bool j1MainMenu::Start()
 	font = App->font->Load("fonts/Pixeled.ttf", 10);
 	gui_texture = App->tex->Load("gui/buttons.png");
 	logo_text = App->tex->Load("textures/Logo_Thalassa.png");
+	set_win_mainmenu = App->tex->Load("gui/set_wind_sliders.png");
 
 	App->map->Load("MainMenu.tmx");
 
@@ -87,6 +88,9 @@ bool j1MainMenu::Start()
 	App->gui->CreateLabel(&labels_menu, LABEL, play_button.x + 38,  play_button.y - 3, font, "PLAY");
 	App->gui->CreateLabel(&labels_menu, LABEL, continue_button.x + 20, continue_button.y + 1, font, "CONTINUE");
 	App->gui->CreateLabel(&labels_menu, LABEL, exit_button.x + 40, exit_button.y + 2, font, "EXIT");
+
+	settings_window = App->gui->CreateBox(&boxes_menu, BOX, App->gui->settingsPosition.x, App->gui->settingsPosition.y, { 0,0,191,165 }, set_win_mainmenu);
+	settings_window->visible = false;
 
 	return true;
 }

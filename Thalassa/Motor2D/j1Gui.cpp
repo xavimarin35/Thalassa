@@ -199,12 +199,17 @@ void j1Gui::UpdateWindow(j1Box* window, p2List<j1Button*>* buttons, p2List<j1Lab
 	{
 		if (buttons != nullptr)
 		{
-			for (p2List_item<j1Button*>* item = buttons->start; item != nullptr; item->next)
+			for (p2List_item<j1Button*>* item = buttons->start; item != nullptr; item = item->next)
 			{
 				if (item->data->state == CLICKED && item->data->parent == window)
 					window->clicked = false;
 			}
-		}		
+		}	
+
+		if (boxes != nullptr) {
+			for (p2List_item<j1Box*>* item = boxes->start; item != nullptr; item = item->next)
+				if (item->data->clicked && item->data->parent == window) window->clicked = false;
+		}
 
 		if (window->clicked)
 		{
@@ -219,7 +224,7 @@ void j1Gui::UpdateWindow(j1Box* window, p2List<j1Button*>* buttons, p2List<j1Lab
 			window->position = { x - window->mouseDistance.x, y - window->mouseDistance.y };
 
 			if (buttons != nullptr) {
-				for (p2List_item<j1Button*>* item = buttons->start; item != nullptr; ++item) {
+				for (p2List_item<j1Button*>* item = buttons->start; item != nullptr; item = item->next) {
 					if (item->data->parent == window) {
 						item->data->position.x = window->position.x + item->data->initialPosition.x;
 						item->data->position.y = window->position.y + item->data->initialPosition.y;
@@ -228,7 +233,7 @@ void j1Gui::UpdateWindow(j1Box* window, p2List<j1Button*>* buttons, p2List<j1Lab
 			}
 
 			if (labels != nullptr) {
-				for (p2List_item<j1Label*>* item = labels->start; item != nullptr; ++item) {
+				for (p2List_item<j1Label*>* item = labels->start; item != nullptr; item = item->next) {
 					if (item->data->parent == window) {
 						item->data->position.x = window->position.x + item->data->initialPosition.x;
 						item->data->position.y = window->position.y + item->data->initialPosition.y;
