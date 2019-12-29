@@ -50,7 +50,9 @@ public:
 	p2List<j1Box*> boxes_menu;
 
 	void LoadConfig();
-	void LoadScene1();
+	void LoadScene1(bool save_game = false);
+
+	bool run_game = true;
 
 public:
 

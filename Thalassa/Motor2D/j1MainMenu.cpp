@@ -104,14 +104,17 @@ bool j1MainMenu::Update(float dt)
 
 			case RELEASED:
 				item->data->situation = item->data->idle;
-				if (item->data->bfunction == PLAY) {
-					/*function button*/
+				if (item->data->bfunction == PLAY) 
+				{
+					LoadScene1();
 				}
-				else if (item->data->bfunction == LOAD_GAME) {
-					/*function button*/
+				else if (item->data->bfunction == LOAD_GAME) 
+				{
+					LoadScene1(true);
 				}
-				else if (item->data->bfunction == EXIT) {
-					/*function button*/
+				else if (item->data->bfunction == EXIT) 
+				{
+					run_game = false;
 				}
 				else
 					if ((item->data->bfunction == SETTINGS && !settings_window->visible)
@@ -156,11 +159,6 @@ bool j1MainMenu::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-	{
-		LoadScene1();
-	}
-
 	App->map->Draw(0);
 
 	App->render->BlitHUD(logo_text, 30, -100, &logo_anim.GetCurrentFrame(dt), SDL_FLIP_NONE, false);
@@ -185,7 +183,7 @@ bool j1MainMenu::Update(float dt)
 
 bool j1MainMenu::PostUpdate()
 {
-	return true;
+	return run_game;
 }
 
 bool j1MainMenu::CleanUp()
@@ -263,12 +261,16 @@ void j1MainMenu::LoadConfig()
 	button3_click = { nodeButtons.child("button3_click").attribute("x").as_int(),nodeButtons.child("button3_click").attribute("y").as_int(), nodeButtons.child("button3_click").attribute("w").as_int(), nodeButtons.child("button3_click").attribute("h").as_int() };
 }
 
-void j1MainMenu::LoadScene1()
+void j1MainMenu::LoadScene1(bool save_game)
 {
 	CleanUp();
 	App->scene1->scene1_active = true;
 	App->scene1->tutorial_active = true;
 	App->scene1->Start();
+
+	if (save_game)
+		App->LoadGame();
+
 	App->particles->Start();
 	App->entity_manager->Start();
 	App->entity_manager->player->Start();
