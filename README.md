@@ -44,6 +44,11 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - Moving platforms
 - Simple UI for jetpack fuel
 
+### v0.9
+- Own UI Design
+- Animated logo
+- Animated Main Menu Background
+
 ## Usage
 
 ### Installation
@@ -73,6 +78,10 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Demon enemy
 	- Bat enemy
 	- Moving platforms
+	- GUI logic
+	- Buttons, labels and boxes implementation
+	- Player score
+	- HUD Design
 	
 ### Xavi Marín
 
@@ -92,6 +101,9 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Enemies creation logic
 	- Enemy shots
 	- Brofiler
+	- All UI design (buttons, windows, sliders)
+	- Buttons functions
+	- Game pause
 	
 ## Contact
 
