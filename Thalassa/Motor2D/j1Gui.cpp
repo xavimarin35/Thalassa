@@ -51,7 +51,6 @@ bool j1Gui::PostUpdate()
 	if (App->scene1->settings_window != nullptr && App->scene1->settings_window->visible == true)
 		App->scene1->settings_window->Draw(App->gui->settingsWindowScale);
 
-
 	for (p2List_item<j1Button*>* item = App->scene1->scene1Buttons.start; item != nullptr; item = item->next) {
 		if (item->data->parent == nullptr) continue;
 

@@ -8,13 +8,13 @@
 #include "j1EntityManager.h"
 #include "j1Timer.h"
 #include "p2DynArray.h"
-#include "SDL/include/SDL_mouse.h"
-#include "j1Button.h"
 
 struct SDL_Texture;
 struct _TTF_Font;
 class j1Box;
 class Animation;
+class j1Button;
+class j1Label;
 
 class j1Scene1 : public j1Module
 {
@@ -58,6 +58,8 @@ public:
 	void LoadNewLevel();
 
 	void LoadSceneInfo();
+
+	void PrintSettingsWindow();
 
 	void SpawnTutorialEntities();
 	void SpawnLevel1Entities();
@@ -120,6 +122,7 @@ private:
 	SDL_Texture* jetPack_tex;
 	SDL_Texture* cursor_tex;
 	SDL_Texture* settings_window_text;
+	SDL_Texture* buttons_text;
 
 	int cameraLimitX;
 	int cameraLimitY;

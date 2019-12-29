@@ -21,6 +21,8 @@
 #include "j1MainMenu.h"
 #include "SDL/include/SDL_mouse.h"
 #include "j1Box.h"
+#include "j1Button.h"
+#include "j1Label.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -63,14 +65,11 @@ bool j1Scene1::Start()
 	jetPack_tex = App->tex->Load("textures/jetPack_bar.png");
 	cursor_tex = App->tex->Load("textures/cursor.png");
 	settings_window_text = App->tex->Load("gui/set_window.png");
+	buttons_text = App->tex->Load("gui/settings_buttons.png");
 
 	cursor = { 0,0,13,13 };
 
-	window_pos = { (float)App->render->camera.x / App->win->scale, (float)-App->render->camera.y / App->win->scale };
-
-	SDL_Rect section_settings = { 0,0,191,165 };
-	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, (int)window_pos.x, (int)window_pos.y, section_settings, settings_window_text);
-	settings_window->visible = false;
+	PrintSettingsWindow();
 
 	// TUTORIAL
 	if (tutorial_active) 
@@ -113,9 +112,27 @@ bool j1Scene1::Update(float dt)
 		if (!settings_window->visible)
 			ShowCursor(hide_cursor);
 
-		window_pos = { (float)App->render->camera.x / App->win->scale, (float)-App->render->camera.y / App->win->scale };
-		settings_window->position = { (int)window_pos.x, (int)window_pos.y };
+		App->gui->UpdateButtonState(&scene1Buttons);
 		App->gui->UpdateWindow(settings_window, &scene1Buttons, &scene1Labels, &scene1Boxes);
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			App->pause = !App->pause;
+			settings_window->visible = !settings_window->visible;
+
+			settings_window->position.x = App->gui->settingsPosition.x - App->render->camera.x / (int)App->win->scale;
+			settings_window->position.y = App->gui->settingsPosition.y - App->render->camera.y / (int)App->win->scale;
+
+			for (p2List_item<j1Button*>* item = scene1Buttons.start; item != nullptr; item->next)
+			{
+				if (item->data->parent == settings_window)
+				{
+					item->data->visible = settings_window->visible;
+					item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+					item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+				}
+			}
+		}
 
 		score_player = App->entity_manager->player->score;
 		current_points = std::to_string(score_player);
@@ -233,15 +250,7 @@ bool j1Scene1::Update(float dt)
 // Called each loop iteration
 bool j1Scene1::PostUpdate()
 {
-	bool ret = true;
-
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		App->pause = !App->pause;
-		settings_window->visible = !settings_window->visible;
-	}
-
-	return ret;
+	return true;
 }
 
 // Load Game State
@@ -810,6 +819,23 @@ void j1Scene1::DrawJetLife()
 	jetPackLife = { 0, pos_bar.x, (int)App->entity_manager->player->jetPackLife, pos_bar.y };
 
 	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
+}
+
+void j1Scene1::PrintSettingsWindow()
+{
+	window_pos = { (float)App->render->camera.x / App->win->scale, (float)-App->render->camera.y / App->win->scale };
+
+	SDL_Rect section_settings = { 0,0,191,165 };
+	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, (int)window_pos.x, (int)window_pos.y, section_settings, settings_window_text);
+	settings_window->visible = false;
+
+	SDL_Rect continue_button = { 0,0,104,29 };
+	SDL_Rect save_button = { 0,29,73,28 };
+	SDL_Rect return_button = { 0,57,73,28 };
+
+	//App->gui->CreateButton(&scene1Buttons, BUTTON, 20, 50, continue_button, continue_button, continue_button, buttons_text, PLAY, settings_window);
+	//App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 20, save_button, save_button, save_button, buttons_text, SAVE_GAME, settings_window);
+	//App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 70, return_button, return_button, return_button, buttons_text, GO_TO_MENU, settings_window);
 }
 
 void j1Scene1::SpawnTutorialCoins()
