@@ -82,6 +82,7 @@ IMPORTANT: *Do not modify, change or add any folder or file (unless specified) a
 	- Buttons, labels and boxes implementation
 	- Player score
 	- HUD Design
+	- UI UML
 	
 ### Xavi Marín
 
