@@ -22,6 +22,7 @@
 #include "j1Gui.h"
 #include "j1Console.h"
 #include "j1MainMenu.h"
+#include "j1Player.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -234,8 +235,15 @@ void j1App::FinishUpdate()
 	else
 		vsync = "OFF";
 
-	sprintf_s(title, 256, "Thalassa || FPS: %02u / Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: %s / dt: %f",
-		frames_on_last_update, avg_fps, last_frame_ms, cap, vsync, dt);
+	fPoint pos = { 0,0 };
+
+	if (App->entity_manager->player != nullptr)
+	{
+		pos = App->entity_manager->player->position;
+	}
+
+	sprintf_s(title, 256, "Thalassa || FPS: %02u / Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: %s / dt: %f / pos: %f, %f",
+		frames_on_last_update, avg_fps, last_frame_ms, cap, vsync, dt, pos.x, pos.y);
 	App->win->SetTitle(title);
 
 	if ((last_frame_ms < (1000 / framerate_cap)) && capFPS) {

@@ -56,6 +56,7 @@ public:
 	void BlitKeys();
 
 	void LoadNewLevel();
+	void EndRun();
 
 	void LoadSceneInfo();
 

@@ -469,6 +469,14 @@ void j1Scene1::LoadNewLevel()
 	}
 }
 
+void j1Scene1::EndRun()
+{
+	CleanUp();
+	scene1_active = false;
+	App->mainmenu->Start();
+	App->map->Start();
+}
+
 void j1Scene1::LoadSceneInfo()
 {
 	pugi::xml_document config_file;
@@ -630,6 +638,8 @@ void j1Scene1::SpawnLevel1Entities()
 {
 	App->entity_manager->AddEnemy(obstacle1.x, obstacle1.y, OBSTACLE);
 	App->entity_manager->AddEnemy(obstacle2.x, obstacle2.y, OBSTACLE);
+
+	SpawnLevel1Coins();
 
 	if (!midlevel_completed)
 	{
@@ -862,4 +872,41 @@ void j1Scene1::SpawnTutorialCoins()
 	App->entity_manager->AddEntity(2075, 192, COIN);
 	App->entity_manager->AddEntity(2075, 222, COIN);
 	App->entity_manager->AddEntity(2362, 159, COIN);
+}
+
+void j1Scene1::SpawnLevel1Coins()
+{
+	App->entity_manager->AddEntity(15, 475, COIN);
+	App->entity_manager->AddEntity(40, 475, COIN);
+	App->entity_manager->AddEntity(65, 475, COIN);
+	App->entity_manager->AddEntity(80, 475, COIN);
+	App->entity_manager->AddEntity(95, 475, COIN);
+	App->entity_manager->AddEntity(648, 322, COIN);
+	App->entity_manager->AddEntity(810, 302, COIN);
+	App->entity_manager->AddEntity(659, 219, COIN);
+	App->entity_manager->AddEntity(848, 219, COIN);
+	App->entity_manager->AddEntity(1100, 219, COIN);
+	App->entity_manager->AddEntity(1195, 208, COIN);
+	App->entity_manager->AddEntity(1343, 200, COIN);
+	App->entity_manager->AddEntity(1470, 186, COIN);
+	App->entity_manager->AddEntity(1490, 186, COIN);
+	App->entity_manager->AddEntity(1510, 186, COIN);
+	App->entity_manager->AddEntity(1530, 186, COIN);
+	App->entity_manager->AddEntity(1862, 201, COIN);
+	App->entity_manager->AddEntity(1795, 180, COIN);
+	App->entity_manager->AddEntity(2057, 326, COIN);
+	App->entity_manager->AddEntity(1168, 432, COIN);
+	App->entity_manager->AddEntity(1180, 400, COIN);
+	App->entity_manager->AddEntity(1215, 450, COIN);
+	App->entity_manager->AddEntity(1129, 466, COIN);
+	App->entity_manager->AddEntity(1255, 435, COIN);
+	App->entity_manager->AddEntity(1270, 446, COIN);
+	App->entity_manager->AddEntity(1290, 496, COIN);
+	App->entity_manager->AddEntity(2500, 196, COIN);
+	App->entity_manager->AddEntity(2515, 196, COIN);
+	App->entity_manager->AddEntity(2530, 196, COIN);
+	App->entity_manager->AddEntity(3515, 212, COIN);
+	App->entity_manager->AddEntity(3540, 212, COIN);
+	App->entity_manager->AddEntity(3575, 212, COIN);
+	App->entity_manager->AddEntity(4479, 70, COIN);
 }

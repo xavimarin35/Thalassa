@@ -59,7 +59,7 @@ void Squares::Start() {
 void Squares::Change() {
 
 	App->audio->PlayFx(App->audio->transitionFx);
-	App->scene1->LoadNewLevel();
+	App->scene1->EndRun();
 
 	j1Transitions::Change();
 
