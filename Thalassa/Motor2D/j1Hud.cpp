@@ -30,7 +30,7 @@ bool j1Hud::Update(float dt)
 	App->render->BlitHUD(hud_text, 0, 0, &hud_rect, SDL_FLIP_NONE, false);
 
 	// Score
-	current_points = App->entity_manager->player->current_points.c_str();
+	current_points = App->scene1->current_points.c_str();
 
 	SDL_Rect temp;
 	temp.x = temp.y = 0;

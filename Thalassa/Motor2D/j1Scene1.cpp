@@ -69,6 +69,8 @@ bool j1Scene1::Start()
 
 	cursor = { 0,0,13,13 };
 
+	score_player = score;
+
 	PrintSettingsWindow();
 
 	// TUTORIAL
@@ -461,6 +463,8 @@ void j1Scene1::LevelChangeLogic()
 void j1Scene1::LoadNewLevel() 
 {
 	CleanUp();
+
+	score = score_player;
 
 	scene_timer.Start();
 

@@ -109,6 +109,8 @@ public:
 	p2List<j1Label*> scene1Labels;
 	p2List<j1Box*> scene1Boxes;
 
+	std::string current_points;
+
 private:
 
 	j1Timer deathTimer;
@@ -132,8 +134,10 @@ private:
 
 	fPoint window_pos;
 
-	std::string current_points;
 	int score_player = 0;
+	int score;
+
+	bool saved_score = false;
 
 	bool hide_cursor = true;
 
