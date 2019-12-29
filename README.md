@@ -48,6 +48,7 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - Own UI Design
 - Animated logo
 - Animated Main Menu Background
+- Draggable window
 
 ## Usage
 
