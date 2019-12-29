@@ -74,17 +74,19 @@ bool j1Scene1::Start()
 	score_player = score;
 
 	//UI
-
 	SDL_Rect r = { 0,0,191,165 };
 	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, App->gui->settingsPosition.x, App->gui->settingsPosition.y, r, settings_window_text);
 	settings_window->visible = false;
 
-	App->gui->CreateLabel(&scene1Labels, LABEL, 50, 0, fontscene, "SETTINGS", App->gui->white, (j1UIElement*)settings_window);
+	App->gui->CreateLabel(&scene1Labels, LABEL, 57, 0, fontscene, "SETTINGS", { 0,102,153,255 }, (j1UIElement*)settings_window);
 
-	
-	App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 70, continue_idle, continue_hover, continue_click, buttons_text, CLOSE_SETTINGS, (j1UIElement*)settings_window);
-	App->gui->CreateButton(&scene1Buttons, BUTTON, 10, 100, return_idle, return_hover, return_click, buttons_text, GO_TO_MENU, (j1UIElement*)settings_window);
-	App->gui->CreateButton(&scene1Buttons, BUTTON, 90, 100, save_idle, save_hover, save_click, buttons_text, SAVE_GAME, (j1UIElement*)settings_window);
+	App->gui->CreateButton(&scene1Buttons, BUTTON, 45, 70, continue_idle, continue_hover, continue_click, buttons_text, CLOSE_SETTINGS, (j1UIElement*)settings_window);
+	App->gui->CreateButton(&scene1Buttons, BUTTON, 20, 100, return_idle, return_hover, return_click, buttons_text, SAVE_GAME, (j1UIElement*)settings_window);
+	App->gui->CreateButton(&scene1Buttons, BUTTON, 100, 100, save_idle, save_hover, save_click, buttons_text, GO_TO_MENU, (j1UIElement*)settings_window);
+
+	App->gui->CreateLabel(&scene1Labels, LABEL, 60, 68, fontscene, "CONTINUE", { 0,102,153,255 }, (j1UIElement*)settings_window);
+	App->gui->CreateLabel(&scene1Labels, LABEL, 35, 99, fontscene, "SAVE", { 0,102,153,255 }, (j1UIElement*)settings_window);
+	App->gui->CreateLabel(&scene1Labels, LABEL, 115, 99, fontscene, "BACK", { 0,102,153,255 }, (j1UIElement*)settings_window);
 
 	// ------------------------
 
@@ -137,10 +139,6 @@ bool j1Scene1::Update(float dt)
 			App->pause = !App->pause;
 			settings_window->visible = !settings_window->visible;
 
-			//must change these values
-			settings_window->position.x = (float)App->render->camera.x / App->win->scale;
-			settings_window->position.y = (float)-App->render->camera.y / App->win->scale;
-
 			for (p2List_item<j1Button*>* item = scene1Buttons.start; item != nullptr; item = item->next)
 			{
 				if (item->data->parent == settings_window)
@@ -191,7 +189,7 @@ bool j1Scene1::Update(float dt)
 			case RELEASED:
 				item->data->situation = item->data->idle;
 				if (item->data->bfunction == GO_TO_MENU) {
-					/*backToMenu = true;*/
+					EndRun();
 					App->pause = false;
 					settings_window->visible = false;
 				}
@@ -248,7 +246,7 @@ bool j1Scene1::Update(float dt)
 		}
 
 		// If player arrives to the end of a level
-		if (App->entity_manager->player->touchingWin)
+		if (App->entity_manager->player != nullptr && App->entity_manager->player->touchingWin)
 		{
 			LevelChangeLogic();
 		}
@@ -313,6 +311,9 @@ bool j1Scene1::Update(float dt)
 
 		int x, y;
 		App->input->GetMousePosition(x, y);
+
+		settings_window->position.x = (float)(App->render->camera.x * App->map->parallax_speed / App->win->scale + 85);
+		settings_window->position.y = (float)(-App->render->camera.y * App->map->parallax_speed / App->win->scale + 20);
 
 		mouse_position.x = (-App->render->camera.x * App->map->parallax_speed / App->win->scale) + x - 6;
 		mouse_position.y = (-App->render->camera.y * App->map->parallax_speed / App->win->scale) + y - 6;
@@ -934,21 +935,6 @@ void j1Scene1::DrawJetLife()
 	jetPackLife = { 0, pos_bar.x, (int)App->entity_manager->player->jetPackLife, pos_bar.y };
 
 	App->render->Blit(jetPack_tex, pos_bar2.x, pos_bar2.y, &jetPackLife, SDL_FLIP_NONE, 1.0F, (0, 0), false);
-}
-
-void j1Scene1::PrintSettingsWindow()
-{
-	window_pos = { (float)App->render->camera.x / App->win->scale, (float)-App->render->camera.y / App->win->scale };
-
-	SDL_Rect section_settings = { 0,0,191,165 };
-	settings_window = App->gui->CreateBox(&scene1Boxes, BOX, (int)window_pos.x, (int)window_pos.y, section_settings, settings_window_text);
-	settings_window->visible = false;
-
-	
-
-	//App->gui->CreateButton(&scene1Buttons, BUTTON, 20, 50, continue_idle, continue_hover, continue_click, buttons_text, PLAY, settings_window);
-	//App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 20, save_button, save_button, save_button, buttons_text, SAVE_GAME, settings_window);
-	//App->gui->CreateButton(&scene1Buttons, BUTTON, 50, 70, return_button, return_button, return_button, buttons_text, GO_TO_MENU, settings_window);
 }
 
 void j1Scene1::SpawnTutorialCoins()

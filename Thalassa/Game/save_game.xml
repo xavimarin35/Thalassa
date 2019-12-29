@@ -7,7 +7,7 @@
 	<map />
 	<mainMenu />
 	<scene1>
-		<playerPos x="57" y="197" />
+		<playerPos x="105.320007" y="197" />
 		<tutorialActive active="true" />
 		<level1Active active="false" />
 		<midLevelActive active="false" />

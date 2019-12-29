@@ -102,75 +102,74 @@ bool j1MainMenu::Update(float dt)
 		App->gui->UpdateButtonState(&buttons_menu);
 
 		for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
-			if (item->data != nullptr) {
-
-			
-			if (item->data->visible) {
-				switch (item->data->state)
-				{
-				case IDLE:
-					item->data->situation = item->data->idle;
-					break;
-
-				case HOVERED:
-					item->data->situation = item->data->hovered;
-					break;
-
-				case RELEASED:
-					item->data->situation = item->data->idle;
-					if (item->data->bfunction == PLAY)
+			if (item->data != nullptr)
+			{
+				if (item->data->visible) {
+					switch (item->data->state)
 					{
-						LoadScene1();
-					}
-					else if (item->data->bfunction == LOAD_GAME)
-					{
-						LoadScene1(true);
-					}
-					else if (item->data->bfunction == EXIT)
-					{
-						run_game = false;
-					}
-					else
-						if ((item->data->bfunction == SETTINGS && !settings_window->visible)
-							|| (item->data->bfunction == CLOSE_SETTINGS && settings_window->visible)) {
-							settings_window->visible = !settings_window->visible;
-							settings_window->position = App->gui->settingsPosition;
+					case IDLE:
+						item->data->situation = item->data->idle;
+						break;
 
-							for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
-								if (item->data->parent == settings_window) {
-									item->data->visible = !item->data->visible;
-									item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
-									item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
-								}
-							}
-							for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) {
-								if (item->data->parent == settings_window) {
-									item->data->visible = !item->data->visible;
-									item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
-									item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
-								}
-							}
-							for (p2List_item<j1Box*>* item = boxes_menu.start; item != nullptr; item = item->next) {
-								if (item->data->parent == settings_window) {
-									item->data->visible = !item->data->visible;
-									item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
-									item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+					case HOVERED:
+						item->data->situation = item->data->hovered;
+						break;
 
-									item->data->minimum = item->data->originalMinimum + settings_window->position.x;
-									item->data->maximum = item->data->originalMaximum + settings_window->position.x;
-								}
-							}
+					case RELEASED:
+						item->data->situation = item->data->idle;
+						if (item->data->bfunction == PLAY)
+						{
+							LoadScene1();
 						}
-						else if (item->data->bfunction == OPEN_CREDITS) {
-							/*function button*/
+						else if (item->data->bfunction == LOAD_GAME)
+						{
+							LoadScene1(true);
 						}
-					break;
+						else if (item->data->bfunction == EXIT)
+						{
+							run_game = false;
+						}
+						else
+							if ((item->data->bfunction == SETTINGS && !settings_window->visible)
+								|| (item->data->bfunction == CLOSE_SETTINGS && settings_window->visible)) {
+								settings_window->visible = !settings_window->visible;
+								settings_window->position = App->gui->settingsPosition;
 
-				case CLICKED:
-					item->data->situation = item->data->clicked;
-					break;
+								for (p2List_item<j1Button*>* item = buttons_menu.start; item != nullptr; item = item->next) {
+									if (item->data->parent == settings_window) {
+										item->data->visible = !item->data->visible;
+										item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+										item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+									}
+								}
+								for (p2List_item<j1Label*>* item = labels_menu.start; item != nullptr; item = item->next) {
+									if (item->data->parent == settings_window) {
+										item->data->visible = !item->data->visible;
+										item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+										item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+									}
+								}
+								for (p2List_item<j1Box*>* item = boxes_menu.start; item != nullptr; item = item->next) {
+									if (item->data->parent == settings_window) {
+										item->data->visible = !item->data->visible;
+										item->data->position.x = settings_window->position.x + item->data->initialPosition.x;
+										item->data->position.y = settings_window->position.y + item->data->initialPosition.y;
+
+										item->data->minimum = item->data->originalMinimum + settings_window->position.x;
+										item->data->maximum = item->data->originalMaximum + settings_window->position.x;
+									}
+								}
+							}
+							else if (item->data->bfunction == OPEN_CREDITS) {
+								/*function button*/
+							}
+						break;
+
+					case CLICKED:
+						item->data->situation = item->data->clicked;
+						break;
+					}
 				}
-			}
 			}
 		}
 

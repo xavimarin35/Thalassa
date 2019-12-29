@@ -68,7 +68,7 @@ bool j1BatEnemy::Update(float dt)
 
 	else if (!dead && !fall)
 	{
-		if (App->entity_manager->player->collider != nullptr) {
+		if (App->entity_manager->player != nullptr && App->entity_manager->player->collider != nullptr) {
 			if ((App->entity_manager->player->position.x - position.x) <= DETECTION_RANGE
 				&& (App->entity_manager->player->position.x - position.x) >= -DETECTION_RANGE
 				&& App->entity_manager->player->collider->type == COLLIDER_PLAYER)

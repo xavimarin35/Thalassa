@@ -219,7 +219,7 @@
 		<animation x="0" y="0" w="0" h="0"/>
 	</coinPick>
 	
-	<logo loop="true" speed="8.0f">
+	<logo loop="true" speed="6.0f">
 		<animation x="0" y="0" w="180" h="180"/>
 		<animation x="0" y="180" w="180" h="180"/>
 		<animation x="0" y="360" w="180" h="180"/>

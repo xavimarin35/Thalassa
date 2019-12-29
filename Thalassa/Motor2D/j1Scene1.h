@@ -61,8 +61,6 @@ public:
 
 	void LoadSceneInfo();
 
-	void PrintSettingsWindow();
-
 	void SpawnTutorialEntities();
 	void SpawnLevel1Entities();
 	void SpawnMidLevelEntities();
