@@ -32,7 +32,7 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - Implemented different transitions (not only fading)
 - Applied camera movements in the begginning of each level
 - Animations loaded from xml
-- Animation of some tiles from loaded from Tiled
+- Animation of some tiles loaded from Tiled
 - Dynamic obstacles through the map that can kill you
 - Camera culling during whole level
 
