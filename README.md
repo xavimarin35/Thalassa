@@ -1,7 +1,37 @@
 # Thalassa
 
 ## About the game
-This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC (Tech Talent Center) in Barcelona, in which we make our own platformer game in C & C++.
+
+Thalassa is a 2D platformer game developed in C and C++ from scratch by [Pol Casaú](https://github.com/Bullseye14) and [Xavi Marín](https://github.com/xavimarin35), students of [CITM](https://www.citm.upc.edu/) in Barcelona.
+
+Try to get to the end of each level while jumping through the platforms and using the jetpack. Avoid touching the spikes or falling into the void and remember that you can shoot to kill the enemies you find. 
+
+Good luck in the outer space!
+
+## How to play
+### Controls
+
+- **A & D:** 	Running left and right
+- **W & W x2:** 	Jump and double jump
+- **SPACE:** 	Maintain to use jetpack
+- **MOVE MOUSE:** Point where you want to shoot
+- **LEFT MOUSE CLICK:**   Shoot
+- **RIGHT MOUSE CLICK:** Change shot type
+
+### Debug functions
+
+- **F1:** Play the tutorial
+- **F2:** Play the level 1
+- **F3:** Play the mid-level
+- **F5:** Save the current state
+- **F6:** Load the saved state
+- **F8:** View camera culling feature
+- **F9:** View colliders 
+- **F10:** Activate / Deactivate GodMode
+- **F11:** Enable / Disable FPS cap to 30 
+
+## Gameplay
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KfyRtUm8lHU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Team members
 ### Pol Casaú 
@@ -78,30 +108,8 @@ This is a project made by [CITM](https://www.citm.upc.edu/) students of the TTC 
 - Draggable window
 
 ## Links
-- Our Github repository: 
-- Our last release:
-
-## How to play
-### Controls
-
-- **A & D:** 	Running left and right
-- **W & W x2:** 	Jump and double jump
-- **SPACE:** 	Maintain to use jetpack
-- **MOVE MOUSE:** Point where you want to shoot
-- **LEFT MOUSE CLICK:**   Shoot
-- **RIGHT MOUSE CLICK:** Change shot type
-
-### Debug functions
-
-- **F1:** Play the tutorial
-- **F2:** Play the level 1
-- **F3:** Play the mid-level
-- **F5:** Save the current state
-- **F6:** Load the saved state
-- **F8:** View camera culling feature
-- **F9:** View colliders 
-- **F10:** Activate / Deactivate GodMode
-- **F11:** Enable / Disable FPS cap to 30 
+- Our Github repository: [link](https://github.com/xavimarin35/Thalassa)
+- Our last release: [link](https://github.com/xavimarin35/Thalassa/releases)
 
 ## License
 Licensed under the [MIT License](https://github.com/xavimarin35/Thalassa/blob/master/LICENSE)
