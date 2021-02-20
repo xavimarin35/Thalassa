@@ -1,7 +1,5 @@
 # Thalassa
 
-## About the game
-
 Thalassa is a 2D platformer game developed in C and C++ from scratch by [Pol Casaú](https://github.com/Bullseye14) and [Xavi Marín](https://github.com/xavimarin35), students of [CITM](https://www.citm.upc.edu/) in Barcelona.
 
 Try to get to the end of each level while jumping through the platforms and using the jetpack. Avoid touching the spikes or falling into the void and remember that you can shoot to kill the enemies you find. 
